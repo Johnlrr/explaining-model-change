@@ -1,6 +1,7 @@
 # Decisions
 
-Record decisions that affect comparability, scope, evaluation, infrastructure, or budget.
+Record decisions that affect comparability, scope, evaluation, infrastructure, or
+budget. Do not record routine implementation details here.
 
 ## YYYY-MM-DD — Decision title
 
@@ -8,4 +9,3 @@ Record decisions that affect comparability, scope, evaluation, infrastructure, o
 - Decision:
 - Alternatives considered:
 - Consequences:
-

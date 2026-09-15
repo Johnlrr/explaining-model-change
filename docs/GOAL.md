@@ -1,20 +1,23 @@
 # Project goal
 
-Before running research, replace this template with the concrete project definition.
+Complete this document on each research branch before running substantive experiments.
 
 ## Primary objective
 
-State the research question and desired outcome.
+- Research question:
+- Desired outcome:
 
 ## Success criteria
 
-Define a measurable threshold and the evidence required to claim success.
+- Primary success threshold:
+- Required evidence:
 
 ## Baseline
 
-Record the reproducible baseline run ID, configuration, and metric values.
+- Run ID:
+- Configuration:
+- Metric values:
 
 ## Constraints
 
-Link to project-specific limits in `CONSTRAINTS.md`.
-
+See `CONSTRAINTS.md` and record any goal-specific restrictions here.

@@ -1,13 +1,27 @@
 # Evaluation contract
 
-Define these fields before substantive experiments:
+Define these fields before substantive experiments.
 
-- Primary metric, optimization direction, and exact computation.
-- Secondary metrics and their purpose.
-- Baseline and current-best run IDs.
-- Dataset, split, preprocessing, seeds, and aggregation rules.
-- Required outputs and validity criteria.
-- Minimum meaningful improvement or uncertainty treatment.
+## Metrics
 
-Do not change evaluation data, metrics, or validity rules silently. Record an intentional change in `research/DECISIONS.md` and establish a new comparable baseline.
+- Primary metric:
+- Optimization direction:
+- Exact computation:
+- Secondary metrics:
 
+## Data and reproducibility
+
+- Dataset and version:
+- Split and preprocessing:
+- Seeds and aggregation rules:
+- Baseline run ID:
+- Current-best run ID:
+
+## Validity
+
+- Required outputs:
+- Invalid-result conditions:
+- Minimum meaningful improvement or uncertainty treatment:
+
+Do not change evaluation data, metrics, or validity rules silently. Record an
+intentional change in `research/DECISIONS.md` and establish a new comparable baseline.
