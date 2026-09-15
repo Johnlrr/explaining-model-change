@@ -16,12 +16,12 @@ The real end-to-end path completed successfully:
 
 ```text
 self-contained package
-→ submit private kernel
-→ capture numeric kernel version
-→ poll queued/running/complete status
-→ fetch output and logs
-→ validate required JSON, workload, CUDA, and finite values
-→ persist final local metadata, metrics, logs, and source identity
+-> submit private kernel
+-> capture numeric kernel version
+-> poll queued/running/complete status
+-> fetch output and logs
+-> validate required JSON, workload, CUDA, and finite values
+-> persist final local metadata, metrics, logs, and source identity
 ```
 
 The acceptance run also confirmed parsing of the Kaggle CLI 2.2 worker-status

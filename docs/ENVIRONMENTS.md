@@ -10,9 +10,9 @@ Treat Kaggle as a batch executor: stage a self-contained job, push a kernel vers
 
 ## Kaggle offline competition GPU
 
-Keep Internet disabled. Prepare dependencies or artifacts separately, publish them as a Kaggle Dataset from the local authenticated CLI, and attach that dataset as an input. Never put Kaggle credentials in a kernel.
-
-## Future executors
-
-Local and SSH executors may implement the same conceptual `submit`, `status`, `wait`, and `fetch` contract without changing the research loop.
-
+Keep Internet disabled. Run a preparation kernel with Internet enabled, write the
+required dependencies or assets as kernel output, then attach that preparation
+kernel to the offline job through `kernel_sources`. Run the offline job at smoke
+scale before a full run. Existing Kaggle datasets may still be attached through
+`dataset_sources`, but the harness does not automate Dataset upload or promotion.
+Never put Kaggle credentials in a kernel.
