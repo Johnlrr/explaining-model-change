@@ -8,6 +8,11 @@ Use local execution for static checks, unit tests, mocked integration tests, and
 
 Treat Kaggle as a batch executor: stage a self-contained job, push a kernel version, poll its status, and fetch output and logs. Internet may be enabled only when the project rules allow it.
 
+`--command-timeout` bounds one local Kaggle CLI subprocess. It does not cancel a
+remote kernel; after a local timeout, check the remote status. The configured kernel
+timeout is the separate remote lifetime limit. Per-slug locks protect only harness
+processes using the same local checkout and machine, not independent machines.
+
 ## Kaggle offline competition GPU
 
 Keep Internet disabled. Run a preparation kernel with Internet enabled, write the
