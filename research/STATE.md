@@ -64,6 +64,7 @@ Comparison vs baseline:
 Validity: valid | provisional | invalid
 Commit:
 Run evidence:
+Remote kernel / artifact manifest: <optional, for a persistent-artifact candidate>
 ```
 
 Use:

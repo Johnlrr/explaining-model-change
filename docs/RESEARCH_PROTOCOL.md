@@ -35,6 +35,8 @@ Understand the project
 → Smoke run
 → Commit experiment state
 → Full experiment
+→ Save validation-selected artifact remotely when applicable
+→ Write artifact manifest
 → Fetch and validate results
 → Analyze
 → Record evidence
@@ -303,6 +305,47 @@ record the source path and commit that produced them.
 
 ---
 
+### Remote artifact lifecycle
+
+For persistent trained models, distinguish lightweight local evidence from heavy
+remote artifacts:
+
+```text
+full train -> validation-only checkpoint selection -> save selected checkpoint remotely
+-> write artifact_manifest.json -> selectively fetch result/manifest -> analyze
+-> later evaluation loads and hash-verifies the same remote checkpoint
+```
+
+The default retention policy is: smoke checkpoints are optional; full,
+verification, and final-candidate runs retain validation-selected checkpoints
+remotely; failed/debug retention is optional. Do not retain every epoch by
+default. A later evaluation must not retrain unless `docs/EVALUATION.md`
+predefined a retraining protocol before test access.
+
+`artifact_manifest.json` is a lightweight JSON contract. Version 1 contains
+`schema_version: 1` and an `artifacts` list; every artifact has `name`, `kind`,
+remote-relative `path`, and remote-computed `sha256`. Optional fields include
+`seed`, `selection`, `size_bytes`, `framework`, and `format`. Evaluation code
+must read the manifest, locate the declared file, recompute SHA256, compare it,
+then load and evaluate the exact artifact.
+
+For Kaggle, use a unique kernel slug per important producing experiment (for
+example `<project>-exp-0007-train`) and attach it later through `kernel_sources`.
+Kernel-source metadata does not provide a harness-guaranteed immutable version
+pin, so do not reuse that producing slug for unrelated work. `.work/` is local
+staging, never remote artifact storage.
+
+Use `immutable_kernel: true` for important artifact producers. The harness checks
+remote slug existence before push and refuses reuse; a retry that produces a new
+artifact needs a new slug. A consumer declares the producer slug, recorded
+version, manifest path, and manifest SHA256 in `kernel_source_expectations`.
+Before consumer submission the harness queries the current producer version and
+refuses a mismatch. Inside the remote evaluation runner, verify the mounted
+manifest SHA256, then each declared checkpoint SHA256, before loading. Never
+silently use a changed source or retrain a missing artifact.
+
+---
+
 ## 9. Offline Kaggle dependency workflow
 
 When a Kaggle job may use Internet:
@@ -467,6 +510,10 @@ For remote Kaggle kernels, prefer names that expose purpose and avoid collisions
 <project>-h001
 <project>-prep-runtime
 ```
+
+For an important artifact-producing run, include the unique experiment identity,
+such as `<project>-exp-0007-train`; preserve its remote output rather than
+reusing the slug for later unrelated training.
 
 Concurrent jobs must use different kernel slugs.
 

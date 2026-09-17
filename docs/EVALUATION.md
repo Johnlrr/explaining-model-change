@@ -347,6 +347,30 @@ Early-stopping rule:
 
 Never select a checkpoint based on final test-set performance.
 
+### Persistent artifact and final-evaluation policy
+
+<REQUIRED when persistent trained artifacts exist. Otherwise mark not applicable.>
+
+Specify:
+
+```text
+Checkpoint retention location:
+Selection rule:
+Final evaluation: reuse selected checkpoint | predefined retraining protocol
+Permitted data during any retraining:
+When final test access occurs:
+```
+
+Default: reuse the validation-selected checkpoint. If retraining is intended,
+define the train/validation data and complete protocol before final test access.
+Later evaluation must identify the selected remote artifact through its manifest
+and verify its SHA256 before loading it.
+
+For an important remote producer, also record its unique kernel slug, pushed
+version, manifest SHA256, and artifact checkpoint SHA256 values. Define the
+consumer's required preflight version check and mounted manifest/checkpoint hash
+verification; any mismatch invalidates evaluation rather than permitting retrain.
+
 ---
 
 ## 13. Comparison rules
@@ -568,6 +592,7 @@ Before autonomous research begins, confirm:
 - [ ] Statistical testing is explicitly required or not required.
 - [ ] Uncertainty reporting is defined where applicable.
 - [ ] Checkpoint/model selection rules are fixed.
+- [ ] Persistent-artifact retention and final-evaluation checkpoint/retraining policy are fixed when applicable.
 - [ ] Fair-comparison controls are defined.
 - [ ] Exact acceptance criteria are written before research begins.
 - [ ] Validity and invalidation conditions are explicit.
