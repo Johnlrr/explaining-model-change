@@ -143,6 +143,7 @@ Each hypothesis should be recorded in `research/HYPOTHESES.md`.
 A hypothesis should contain:
 
 - unique ID;
+- type (`contribution`, `mechanistic`, `tuning`, `ablation`, `reproduction`, or `other`);
 - status;
 - motivating observation;
 - hypothesis statement;
@@ -171,6 +172,38 @@ If sample-level diagnostics motivate the hypothesis, its origin must identify th
 Prefer one coherent change at a time.
 
 If several changes are inseparable as one method, explain why they must be tested together.
+
+### Contribution-quality gate
+
+When the project goal requires a methodological, algorithmic, mechanistic, or
+academic contribution, a candidate should follow this chain:
+
+```text
+observation
+→ mechanism hypothesis
+→ prior-work relation
+→ proposed contribution or intervention
+→ controlled experiment and ablation
+→ independent confirmation
+```
+
+Before treating the candidate as a contribution, answer:
+
+- What recurring problem was observed?
+- What mechanism is proposed to explain it?
+- What intervention follows from that mechanism?
+- Why is the intervention more than a routine parameter or recipe adjustment?
+- What prior work is closest, and how does this differ?
+- What result would support, weaken, or falsify the claim?
+- Which control or ablation isolates the claimed mechanism?
+
+Tuning remains useful for establishing a fair baseline, testing sensitivity, or
+supporting a method. A better numeric setting alone is not a methodological
+contribution unless `docs/GOAL.md` explicitly defines optimization/tuning as the
+target. A validated empirical finding or failure analysis may be a contribution
+when the goal permits that contribution type and the claimed insight is tested.
+Broad sweeps are low-value unless the specification defines a search objective
+and evaluation procedure in advance.
 
 ---
 

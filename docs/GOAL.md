@@ -79,6 +79,10 @@ Possible contribution types include:
 
 Write the intended contribution without assuming that novelty has already been established.
 
+If the project seeks a methodological or academic contribution, state that
+explicitly. Ordinary hyperparameter or training-recipe tuning does not satisfy
+that goal unless optimization/tuning is itself the declared contribution type.
+
 Example:
 
 ```text

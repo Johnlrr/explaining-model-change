@@ -12,9 +12,26 @@
 
 Keep this table current.
 
-| ID | Short name | Status | Priority | Parent | Main experiment | Novelty status |
-|---|---|---|---|---|---|---|
-| H-001 | <short name> | proposed | high | — | — | candidate |
+| ID | Short name | Type | Status | Priority | Parent | Main experiment | Novelty status |
+|---|---|---|---|---|---|---|---|
+| H-001 | <short name> | contribution | proposed | high | — | — | candidate |
+
+Allowed type values:
+
+```text
+contribution
+mechanistic
+tuning
+ablation
+reproduction
+other
+```
+
+Classify ordinary hyperparameter, regularization, scaling, or training-recipe
+changes as `tuning` unless they test a clearly stated mechanism and intervention.
+Tuning can support the research, but it does not satisfy a methodological or
+academic contribution goal unless `docs/GOAL.md` explicitly makes optimization
+or tuning the intended contribution.
 
 Allowed status values:
 
@@ -133,6 +150,7 @@ Copy the following section for each new hypothesis.
 
 ```text
 Status: proposed | queued | testing | supported | rejected | inconclusive | abandoned
+Type: contribution | mechanistic | tuning | ablation | reproduction | other
 Priority: high | medium | low
 Created:
 Last updated:
@@ -174,6 +192,25 @@ This suggests the restoration mechanism may be over-editing already-correct regi
 Diagnostic source, if any: exp_0004 validation diagnostics
 Observed failure pattern: failures concentrate among samples with large restoration areas
 ```
+
+---
+
+### Contribution quality
+
+<REQUIRED for `contribution` and `mechanistic`; otherwise write `not_applicable`.>
+
+```text
+Observed problem:
+Proposed mechanism:
+Proposed contribution or intervention:
+Why this is more than routine tuning:
+Ablation or control that isolates the mechanism:
+```
+
+Known techniques and adaptations must be labeled accurately. Do not promote a
+routine tweak by description alone; require the predefined prediction,
+falsification signal, control/ablation, prior-work relation, and confirmation
+evidence.
 
 ---
 
@@ -631,6 +668,7 @@ If two entries are merged, preserve references from the old IDs to the surviving
 For every hypothesis that enters `testing`, confirm:
 
 - [ ] Unique hypothesis ID exists.
+- [ ] Type is assigned accurately.
 - [ ] Status is current.
 - [ ] Priority is assigned.
 - [ ] Origin is documented.
@@ -644,6 +682,7 @@ For every hypothesis that enters `testing`, confirm:
 - [ ] Confirmation procedure and promotion criterion are identified.
 - [ ] Parent/dependencies are recorded when relevant.
 - [ ] Prior-work relation is recorded when relevant.
+- [ ] Contribution/mechanistic entries pass the contribution-quality gate.
 - [ ] Planned experiment is identifiable.
 - [ ] Test-set information-flow rules are respected.
 
