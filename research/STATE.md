@@ -163,6 +163,9 @@ here does not mean the agent should stop normally. Under normal operation, block
 the executor wait when no independent work remains, then remove or update the entry
 after reconciling the terminal result.
 
+Do not repeatedly poll or rewrite an in-flight entry while its remote status is
+unchanged. An unchanged status is not new research evidence.
+
 If none exist:
 
 ```text
@@ -193,8 +196,8 @@ For every in-flight job:
 check remote status
 → if complete: fetch and validate outputs
 → if failed: classify failure
-→ if still running: avoid duplicate submission
-→ update STATE.md
+→ if still running: avoid duplicate submission and continue one blocking wait
+→ update STATE.md only when state meaningfully changes
 ```
 
 Do not submit a replacement job merely because the previous local session ended.

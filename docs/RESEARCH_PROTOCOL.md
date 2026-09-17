@@ -670,18 +670,28 @@ submit remote job
 → persist in-flight state
 → perform useful independent work if available
 → otherwise block once on the executor wait command
-→ terminal state
-→ fetch
-→ validate
+→ terminal state, wait timeout, or status-query failure
+→ on success: fetch and validate
+→ otherwise: classify or preserve in-flight state
 → analyze
 → clear or update in-flight state
 ```
 
-The executor should poll internally with sleep intervals; the language model should
-not issue repeated status calls. In-flight state exists for crash or session
-recovery and is not, by itself, a reason to stop and transfer monitoring to the
-human. A harness wait timeout does not imply remote cancellation; preserve the last
-known remote state and reconcile it when execution can resume.
+The executor should poll internally with sleep intervals; normal behavior is one
+blocking wait, not repeated language-model-driven status calls. Intermediate
+unchanged states are not research evidence and should not generate hypotheses,
+decisions, progress reports, or repeated `research/STATE.md` updates. Waiting
+itself is not a research step. Do not manufacture work merely to avoid blocking;
+perform independent work only when it is genuinely useful and does not depend on
+the pending result.
+
+In-flight state exists for crash or session recovery and is not, by itself, a
+reason to stop and transfer monitoring to the human. Resume when the wait returns
+remote success, terminal remote failure, wait timeout, status-query/CLI failure,
+or another meaningful state change. A harness wait timeout is distinct from the
+remote execution timeout and local command timeout, and does not imply remote
+cancellation; preserve the last known remote state and reconcile it when execution
+can resume.
 
 ---
 
