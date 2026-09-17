@@ -156,7 +156,11 @@ The next action should be concrete enough to execute without rediscovering proje
 
 ## 9. In-flight remote jobs
 
-Track all currently active remote jobs.
+Track all currently active remote jobs before and while waiting. These records are
+recovery checkpoints for interruption or local execution limits; a job appearing
+here does not mean the agent should stop normally. Under normal operation, block on
+the executor wait when no independent work remains, then remove or update the entry
+after reconciling the terminal result.
 
 If none exist:
 
@@ -193,6 +197,12 @@ check remote status
 ```
 
 Do not submit a replacement job merely because the previous local session ended.
+
+When resuming after interruption, reconcile every in-flight job first: fetch and
+validate completed work, classify terminal failures, and continue blocking wait for
+queued or running work unless an external interruption, local execution limit,
+human-intervention requirement, or explicit stop condition prevents it. Do not hand
+monitoring to the human merely because a recovered job remains active.
 
 ---
 

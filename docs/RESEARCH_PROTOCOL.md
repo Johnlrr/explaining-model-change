@@ -287,6 +287,22 @@ A smoke failure must be debugged before the full experiment starts.
 
 ---
 
+### Authoritative source and generated staging
+
+```text
+scientific/research implementation  -> src/
+experiment/executor configuration   -> configs/
+generated remote staging             -> .work/
+experiment evidence                  -> runs/
+```
+
+Smoke and full runs must derive from authoritative code under `src/`.
+Generated Kaggle wrappers under `.work/` are disposable; a fresh clone must not
+need `.work/` to reconstruct research implementation. Important full runs should
+record the source path and commit that produced them.
+
+---
+
 ## 9. Offline Kaggle dependency workflow
 
 When a Kaggle job may use Internet:
@@ -557,6 +573,27 @@ Do not remove hard timeouts entirely.
 A local CLI timeout does not mean the remote job was cancelled.
 
 If a local command times out, query remote state before deciding what happened.
+
+Remote waiting is execution orchestration, not a scientific experiment step. Use
+the following lifecycle for remote work:
+
+```text
+submit remote job
+→ persist in-flight state
+→ perform useful independent work if available
+→ otherwise block once on the executor wait command
+→ terminal state
+→ fetch
+→ validate
+→ analyze
+→ clear or update in-flight state
+```
+
+The executor should poll internally with sleep intervals; the language model should
+not issue repeated status calls. In-flight state exists for crash or session
+recovery and is not, by itself, a reason to stop and transfer monitoring to the
+human. A harness wait timeout does not imply remote cancellation; preserve the last
+known remote state and reconcile it when execution can resume.
 
 ---
 
