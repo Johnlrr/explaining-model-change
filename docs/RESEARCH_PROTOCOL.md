@@ -38,7 +38,12 @@ Understand the project
 → Save validation-selected artifact remotely when applicable
 → Write artifact manifest
 → Fetch and validate results
-→ Analyze
+→ Aggregate evaluation
+→ Diagnostic analysis when allowed
+→ Identify recurring failure patterns
+→ Formulate or refine hypothesis
+→ Confirmation evaluation
+→ Promote, reject, or revise
 → Record evidence
 → Commit result
 → Update research state
@@ -141,7 +146,8 @@ A hypothesis should contain:
 - status;
 - motivating observation;
 - hypothesis statement;
-- measurable prediction;
+- diagnostic and confirmation predictions when diagnostics are involved;
+- measurable prediction for the applicable evaluation procedure;
 - intended experiment;
 - controlled variables;
 - result;
@@ -159,6 +165,8 @@ inconclusive
 ```
 
 A hypothesis should be narrow enough that its experiment provides interpretable evidence.
+
+If sample-level diagnostics motivate the hypothesis, its origin must identify the diagnostic source and recurring failure pattern, and its predefined confirmation outcome must determine whether the candidate may be promoted.
 
 Prefer one coherent change at a time.
 
@@ -760,6 +768,24 @@ After a valid full experiment, answer:
 7. What is the highest-value next experiment?
 
 Do not automatically generate another experiment without analyzing the current evidence first.
+
+### Diagnostic analysis and confirmation
+
+Diagnostic analysis is a hypothesis-generation tool. Sample-level development inspection is allowed only at the access level defined in `docs/EVALUATION.md`. Look for recurring patterns rather than optimizing for individual sample IDs.
+
+Illustrative patterns include one category pair being confused disproportionately often, failures concentrating under a condition, a subset showing systematically low confidence, or a change fixing one failure mode while creating another. These examples are not requirements and projects should use task-appropriate diagnostics.
+
+Diagnostic observations may motivate or refine a hypothesis, but they do not prove general improvement. A diagnostic-derived hypothesis must state its confirmation prediction in advance, and confirmation evidence is required before promoting the candidate.
+
+```text
+Diagnostic evidence answers:
+Where might the method be failing?
+
+Confirmation evidence answers:
+Does the proposed fix hold beyond the examples that inspired it?
+```
+
+The confirmation procedure and its permitted access are defined by `docs/EVALUATION.md`; it need not use a separate split. The final test set must never be used as a diagnostic source during development.
 
 ---
 

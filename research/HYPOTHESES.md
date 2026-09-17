@@ -156,12 +156,23 @@ Possible sources:
 
 Reference relevant experiment IDs, literature entries, or decisions when possible.
 
+If sample-level diagnostics inspired the hypothesis, record the observed pattern and diagnostic source. The inspected examples themselves must not be treated as confirmation evidence. If diagnostics were not used, write `N/A` for the diagnostic-specific fields.
+
+```text
+Origin:
+Diagnostic source, if any:
+Observed failure pattern:
+```
+
 Example:
 
 ```text
 Origin:
 exp_0004 showed that robustness improved only on samples where restoration area was small.
 This suggests the restoration mechanism may be over-editing already-correct regions.
+
+Diagnostic source, if any: exp_0004 validation diagnostics
+Observed failure pattern: failures concentrate among samples with large restoration areas
 ```
 
 ---
@@ -192,18 +203,21 @@ Keep this focused on mechanism or causal reasoning rather than repeating the hyp
 
 ---
 
-### Measurable prediction
+### Predictions
 
 <REQUIRED — Write this before running the experiment.>
 
-State what should happen if the hypothesis is correct.
+State in advance what diagnostic and confirmation outcomes would support the hypothesis. The confirmation prediction must describe evidence beyond the examples that inspired the change.
 
 Example:
 
 ```text
-Compared with the reproduced baseline:
+Diagnostic prediction:
+- the recurring failure pattern should change in the predicted direction;
 
-- primary robust-accuracy metric should increase;
+Confirmation prediction:
+- compared with the reproduced baseline, the primary robust-accuracy metric should increase;
+- the improvement should satisfy the predefined confirmation criterion;
 - clean-accuracy drop should remain within the allowed threshold;
 - restoration area should decrease.
 ```
@@ -212,14 +226,20 @@ Do not rewrite the prediction after seeing the result.
 
 ---
 
-### Falsification signal
+### Falsification signals
 
 <REQUIRED — Define what evidence would count against the hypothesis.>
+
+State what diagnostic and confirmation outcomes would weaken or falsify the hypothesis.
 
 Example:
 
 ```text
-The hypothesis is weakened or rejected if reduced restoration area does not improve robust accuracy, or if any gain comes only with an unacceptable clean-accuracy drop.
+Diagnostic falsification signal:
+The predicted failure pattern does not change on permitted diagnostic data.
+
+Confirmation falsification signal:
+The independent confirmation criterion is not met, or any gain comes only with an unacceptable clean-accuracy drop.
 ```
 
 This should be defined before the full experiment.
@@ -260,6 +280,20 @@ Secondary checks:
 ```
 
 Prefer minimal targeted experiments over broad uncontrolled changes.
+
+### Confirmation procedure
+
+<REQUIRED — Reference the predefined procedure in `docs/EVALUATION.md` and state how this hypothesis will use it.>
+
+```text
+Confirmation data/procedure:
+Permitted access level:
+Aggregate metric(s):
+Seeds/repeats, when applicable:
+Support criterion:
+Outcome that weakens the hypothesis:
+Outcome that falsifies the hypothesis:
+```
 
 ---
 
@@ -338,16 +372,19 @@ For each relevant experiment, reference run evidence when available.
 
 ---
 
-### Result
+### Results
 
 <Fill after valid experiment evidence exists.>
 
 Record:
 
 ```text
+Diagnostic result:
+Confirmation result:
 Observed primary result:
 Observed secondary results:
-Comparison with prediction:
+Comparison with diagnostic prediction:
+Comparison with confirmation prediction:
 Validity:
 Relevant run evidence:
 ```
@@ -404,6 +441,7 @@ observation
 → queued
 → testing
 → valid evidence
+→ predefined confirmation when required
 → supported / rejected / inconclusive
 → follow-up or closure
 ```
@@ -446,10 +484,11 @@ Before a full experiment begins, the hypothesis entry should already contain:
 
 - hypothesis statement;
 - rationale;
-- measurable prediction;
-- falsification signal;
+- diagnostic and confirmation predictions;
+- diagnostic and confirmation falsification signals;
 - controlled variables;
 - minimal experiment;
+- confirmation procedure;
 - planned experiment ID/config when available.
 
 This prevents post-hoc rewriting of the hypothesis to match observed results.
@@ -597,10 +636,12 @@ For every hypothesis that enters `testing`, confirm:
 - [ ] Origin is documented.
 - [ ] Hypothesis is falsifiable.
 - [ ] Rationale is explicit.
-- [ ] Measurable prediction was written before the result.
-- [ ] Falsification signal was written before the result.
+- [ ] Diagnostic source and observed pattern are recorded, or marked `N/A`.
+- [ ] Diagnostic and confirmation predictions were written before the result.
+- [ ] Diagnostic and confirmation falsification signals were written before the result.
 - [ ] Controlled variables are defined.
 - [ ] Minimal experiment is defined.
+- [ ] Confirmation procedure and promotion criterion are identified.
 - [ ] Parent/dependencies are recorded when relevant.
 - [ ] Prior-work relation is recorded when relevant.
 - [ ] Planned experiment is identifiable.

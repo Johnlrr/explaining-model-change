@@ -373,7 +373,53 @@ verification; any mismatch invalidates evaluation rather than permitting retrain
 
 ---
 
-## 13. Comparison rules
+## 13. Diagnostic and confirmation evaluation
+
+<REQUIRED when adaptive diagnostic analysis is used. Otherwise write `Diagnostic analysis: not applicable` and explain why.>
+
+Diagnostics generate hypotheses; confirmation supports or rejects them. A project may permit detailed inspection of development failures, but improvement on previously inspected diagnostic examples alone is not sufficient evidence that the method improved.
+
+### Diagnostic evaluation
+
+Define before diagnostic analysis begins:
+
+```text
+Diagnostic data or split:
+Sample-level inspection allowed: yes | no | limited
+Permitted information:
+Purpose:
+```
+
+Permitted information may include sample IDs, labels or targets, predictions, confidence or scores, per-sample loss, confusion patterns, raw examples or visualizations, and other task-appropriate diagnostics. These are examples, not mandatory fields for every task.
+
+Use diagnostics to identify recurring failure patterns, understand failure modes, and generate or refine hypotheses. Do not optimize for individual sample IDs or treat improvement on the inspected examples as proof of general improvement.
+
+### Confirmation evaluation
+
+Define before adaptive diagnostic-driven iteration begins:
+
+```text
+Confirmation data, split, or procedure:
+Sample-level access allowed: none | limited | full
+Permitted information:
+Aggregate metric(s):
+Seeds/repeats, when applicable:
+Candidate-promotion criterion:
+```
+
+Confirmation does not universally require a separate split. Depending on the project and claim, valid procedures may include a separate validation split, repeated or alternative splits, cross-validation, another dataset, an out-of-distribution or stress-test set, or another predefined independent evaluation procedure. Multiple seeds alone are not automatically sufficient confirmation; their adequacy depends on the claim and this evaluation contract.
+
+The confirmation procedure and access level must be appropriate to the scope of the claim. Broad claims about generalization, robustness, or performance across distributions require correspondingly broad confirmation evidence.
+
+### Candidate promotion
+
+A candidate must not be promoted solely because previously inspected diagnostic examples improved. Promotion requires satisfying the predefined confirmation criterion.
+
+If diagnostic results improve but confirmation does not support the change, reject the hypothesis or mark it inconclusive according to the project protocol.
+
+---
+
+## 14. Comparison rules
 
 <REQUIRED — Define what must remain controlled for a fair comparison.>
 
@@ -401,7 +447,7 @@ If a difference is intentional, document why the comparison remains scientifical
 
 ---
 
-## 14. Exact acceptance criteria
+## 15. Exact acceptance criteria
 
 <REQUIRED — Define the exact rule for project success before autonomous research begins.>
 
@@ -453,7 +499,7 @@ A single favorable run is not sufficient unless this file explicitly defines one
 
 ---
 
-## 15. Validity requirements
+## 16. Validity requirements
 
 A result is scientifically valid only if all applicable requirements hold.
 
@@ -478,7 +524,7 @@ A completed remote job is not automatically a valid research result.
 
 ---
 
-## 16. Invalid experiment conditions
+## 17. Invalid experiment conditions
 
 <REQUIRED — Add project-specific invalidation conditions.>
 
@@ -499,7 +545,7 @@ Invalid experiments may be useful for debugging but must not be used to support 
 
 ---
 
-## 17. Reporting requirements
+## 18. Reporting requirements
 
 <REQUIRED — Define what every valid full experiment must report.>
 
@@ -528,7 +574,7 @@ Store evidence according to `docs/RESEARCH_PROTOCOL.md`.
 
 ---
 
-## 18. Final test procedure
+## 19. Final test procedure
 
 <REQUIRED — Define when and how the final test set may be evaluated.>
 
@@ -540,6 +586,8 @@ Before final test evaluation:
 - evaluation code must be fixed;
 - required validation checks must pass;
 - the exact candidate commit/config must be recorded.
+
+Sample-level test-set results must not feed back into model development, diagnostics, or hypothesis generation before the final method is locked. The test set must never serve as a development diagnostic source.
 
 Then:
 
@@ -554,7 +602,7 @@ Do not modify the candidate in response to final test information and then treat
 
 ---
 
-## 19. Final verification
+## 20. Final verification
 
 Crossing the acceptance threshold once does not automatically complete the project.
 
@@ -576,7 +624,7 @@ Any stricter verification rule defined here overrides the generic procedure in `
 
 ---
 
-## 20. Completion checklist
+## 21. Completion checklist
 
 Before autonomous research begins, confirm:
 
@@ -586,6 +634,9 @@ Before autonomous research begins, confirm:
 - [ ] Train/validation/test usage is explicit.
 - [ ] Test-set blindness is defined by information flow.
 - [ ] Rules for reuse of a previously evaluated test set are explicit.
+- [ ] Diagnostic access policy is defined or explicitly not applicable.
+- [ ] If diagnostics may influence experiments, confirmation procedure, access level, metrics, and promotion criterion were predefined.
+- [ ] Test data is excluded from development diagnostics.
 - [ ] Baseline reproduction/evaluation procedure is defined.
 - [ ] Seeds/repetitions are defined or explicitly not applicable.
 - [ ] Aggregation rules are fixed.
