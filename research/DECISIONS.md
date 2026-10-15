@@ -35,6 +35,7 @@
 | D-023 | Amendment v1.5 after exp_0006: SLSQP from z0 and every restart end; κ+1e-4 target, float32 confirmation; H4 on two seed sets; E4 replaced (deadline 17/10); F5 completeness check at pilot | active | 2026-10-15 | — | exp_0006, exp_0007 |
 | D-024 | Pre-pilot declarations (G1): parallel phase 2, wall+CPU time, r calibration over found CEs, float64 model check, pilot readings | active | 2026-10-15 | — | exp_0008, exp_0009 |
 | D-025 | Tier 1 data preparation: morphology ladder with measured thickness, clean splits and factors (prep kernel, CPU) | active | 2026-10-15 | — | smoke_0008, exp_0010 |
+| D-026 | Kaggle packaging: generated single-file bundles of src/dce, checked against src by a unit test | active | 2026-10-15 | — | smoke_0009 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -754,6 +755,22 @@ active (Research Lead, 2026-10-15; started during the G1 pilot as the author sug
 
 ### Consequences
 The thickness distribution is discrete per image (one value per ladder level); the measured value, not the target, is the factor. Whether this suffices for the G2 oracle criterion (Spearman ≥ 0.8 for thick) is checked at G2, not assumed.
+
+## D-026 — Kaggle packaging of the `dce` package: generated single-file bundles
+
+### Status
+active (the user's choice, 2026-10-15, option 3). Options rejected: installing from GitHub (the repository is private; making it public or adding a token to Kaggle Secrets was not wanted).
+
+### Context
+The Kaggle harness stages exactly one tracked code file under `src/`. Tier 1 GPU jobs need the whole package (CNN, VAE, oracle, drift, solver, baselines), and the solver must be the same code as on Tier 0 (fairness, v1.4 E2).
+
+### Decision
+- `python -m dce.remote.bundle <name> <entry.module>` writes `src/dce/remote/bundles/<name>.py`: every `src/dce/**/*.py` (except the bundles) in a deterministic base64 zip, plus a loader that extracts it, checks the tree hash, puts it first on `sys.path`, and runs the entry module as `__main__`. The tree hash is exported as `DCE_BUNDLE_TREE_HASH` and must be written into each run's result.
+- Bundles are generated **and committed**. `tests/unit/test_bundle.py` fails when a committed bundle differs from what `src/` would produce, so any change under `src/dce` requires rebuilding the bundles in the same commit. The entry modules (authoritative code) stay under `src/dce/remote/`.
+- The same test runs a bundle in isolated mode outside the repository and checks that `dce` is imported from the extracted copy, not the editable install.
+
+### Consequences
+Bundles are ≈ 60 kB of base64 in Git per job; the source of truth remains `src/dce`. A Tier 1 run is identified by its git commit and its bundle tree hash.
 
 ---
 

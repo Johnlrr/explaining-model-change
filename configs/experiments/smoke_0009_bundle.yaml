@@ -1,0 +1,32 @@
+# smoke_0009 — D-026 bundle mechanism on Kaggle: offline CPU kernel runs the generated single-file
+# bundle of src/dce (tree-hash checked) and a tiny solver check. Infrastructure only.
+kernel:
+  id: boinhbo/dce-bundle-smoke
+  title: dce bundle smoke
+  code_file: src/dce/remote/bundles/bundle_smoke.py
+  kernel_type: script
+  language: python
+  is_private: true
+  enable_gpu: false
+  enable_internet: false
+  dataset_sources: []
+  competition_sources: []
+  kernel_sources: []
+  model_sources: []
+  immutable_kernel: false
+  timeout_seconds: 900
+  wait_timeout_seconds: 1500
+  poll_interval_seconds: 30
+  parameters: {}
+  required_outputs:
+    - result.json
+    - artifact_manifest.json
+  metrics_file: result.json
+  fetch_files:
+    - result.json
+    - artifact_manifest.json
+  kernel_source_expectations: []
+  json_checks:
+    - path: found
+      op: gte
+      value: 8
