@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "mnist_4_9",
+      "kind": "dataset",
+      "path": "mnist_4_9.npz",
+      "sha256": "70a53bb7941eec54f68bac71dc796a6ac9012bab6a2ef15ea22fb0860c247d5f"
+    }
+  ]
+}

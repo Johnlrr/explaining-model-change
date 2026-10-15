@@ -85,7 +85,7 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 ## 8. Next action
 
 1. **G-lit: done 2026-10-15, passed provisionally** (`research/LITERATURE.md` §2). Close the remaining reads when texts are available; decision to continue is Route A planning.
-2. **Kaggle smoke** (kaggle-gpu and kaggle-prep): record observed hardware; accounts and quota already verified.
+2. **Kaggle smoke: done** (smoke_0001 prep, smoke_0002 T4 GPU). Nothing further before G2.
 3. **G0 (by 20/10):** build Tier 0 renderer, drift data, classifiers (`src/dce/`), and the Flip_k / accuracy check on 2 000 clean test points as the spec says (aggregate statistics only, EVALUATION §6). CPU only.
 4. Then G1 (H4 + pilot), G2 (Tier 1 on Kaggle), G3.
 
@@ -117,7 +117,7 @@ Status rule: a test split becomes `evaluated` only in the final procedure (EVALU
 
 ```text
 GPU budget (HARD, 10 GPU-hours): used 0.0 / 10
-Kaggle accounts: 3 connected; quota query OK (86.4 GPU-hours remaining in total on 2026-10-15); hardware not yet observed (kaggle-gpu: unverified)
+Kaggle accounts: 3 connected (86.4 GPU-hours remaining in total before the smokes). kaggle-gpu verified: 2 × Tesla T4, offline, kernel_sources OK. Project GPU use so far: ≈ 0.01 h (smoke_0002, 14 s of compute plus startup)
 Local compute: 16 CPU cores, no GPU; Tier 0 and Tier L run on CPU
 Tier 1 Kaggle jobs used: 0 / 4
 ```
@@ -126,7 +126,7 @@ Tier 1 Kaggle jobs used: 0 / 4
 
 ## 12. Current blockers
 
-1. Kaggle smoke with observed hardware has not been run yet (accounts and quota are verified).
+1. None.
 2. Residual G-lit risk: journal text of Artelt NPL 2022, Hammer & Hüllermeier 2021 and Muschalik 2022 not read (`research/LITERATURE.md` §12).
 
 ---
@@ -137,13 +137,13 @@ Tier 1 Kaggle jobs used: 0 / 4
 - [ ] `src/dce/` package skeleton; add it to `pyproject.toml` packages when code starts
 - [ ] Tier L test `tests/unit/test_linear_theory.py` (H-004)
 - [ ] Tier 0 renderer, drift builder, classifier (G0)
-- [ ] Kaggle smoke for kaggle-gpu and kaggle-prep (before G2)
+- [x] Kaggle smoke for kaggle-gpu and kaggle-prep (smoke_0001, smoke_0002)
 
 ---
 
 ## 14. Current research phase summary
 
-Phase: W0 (15–17/10): kick-off and G-lit done (provisional pass); Kaggle smoke next; no code or experiments yet.
+Phase: W0 (15–17/10): kick-off, G-lit (provisional pass) and Kaggle verification done; no scientific code or experiments yet. Next: spec freeze 17/10, then G0.
 
 ---
 

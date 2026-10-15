@@ -19,6 +19,7 @@
 | D-007 | Baselines are re-implemented, no external code | active | 2026-10-15 | H-001, H-002 | — |
 | D-008 | Research branch and kick-off commit | active | 2026-10-15 | — | — |
 | D-009 | Gates follow the spec (test split used for gate statistics, with restrictions) | active | 2026-10-15 | H-001–H-003 | G0, G1, G2 |
+| D-010 | Tier 1 runs on Kaggle T4; RTX not used | active | 2026-10-15 | H-001–H-003 | smoke_0001, smoke_0002 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -340,6 +341,37 @@ None before the final test.
 
 ### Supersedes / superseded by
 Supersedes D-002.
+
+---
+
+## D-010 — Tier 1 runs on Kaggle T4; RTX not used
+
+### Status
+active
+
+### Context
+The repository's RTX PRO 6000 example attaches the competition `arc-prize-2026-arc-agi-3`, and its comments allow it only when the account and project are permitted to use that context. This project has no such permission. Smoke runs on account `boinhbo` (smoke_0001 prep, smoke_0002 GPU) succeeded: offline kernel, `kernel_sources` hash verified, two Tesla T4 devices observed.
+
+### Decision
+All Tier 1 Kaggle jobs use `machine_shape: NvidiaTeslaT4`. Every run records requested and observed hardware. One device class (T4) is used for all methods.
+
+### Rationale
+The T4 is sufficient for a ≈ 60k-parameter model, and a single device class keeps runtime comparisons valid (EVALUATION §14).
+
+### Evidence
+`runs/smoke/smoke_0001/`, `runs/smoke/smoke_0002/`; `configs/experiments/smoke_000{1,2}_*.yaml`.
+
+### Alternatives considered
+RTX PRO 6000 with the ARC competition source: not permitted for this project.
+
+### Consequences
+Runtime figures are T4 figures. The kernel runtime is Python 3.13 with torch 2.11, so local PyTorch versions should be recorded when results from both are compared.
+
+### Revisit condition
+A permitted RTX context becomes available.
+
+### Supersedes / superseded by
+None.
 
 ---
 

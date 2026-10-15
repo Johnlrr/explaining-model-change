@@ -18,16 +18,16 @@ Primary purpose: development, Tier L and Tier 0 experiments (CPU), unit tests, a
 
 Environment ID: kaggle-gpu
 Type: Kaggle kernel (batch), through the repository harness (tools/kaggle)
-Status: unverified
-Primary purpose: Tier 1 smoke and full runs (GPU). Verified first by a smoke run that records observed hardware.
+Status: verified 2026-10-15 (smoke_0002: observed 2 × Tesla T4, offline, kernel_sources hash verified)
+Primary purpose: Tier 1 smoke and full runs (GPU).
 
 Environment ID: kaggle-prep
 Type: Kaggle kernel with Internet ON
-Status: unverified
+Status: verified 2026-10-15 (smoke_0001: MNIST 4/9 downloaded, 11 791 train / 1 991 test)
 Primary purpose: download MNIST 4/9 and write it to kernel output for the offline Tier 1 kernels (kernel_sources).
 ```
 
-Kaggle status is `unverified` until a smoke run on the connected account succeeds. Do not rely on either Kaggle environment before that.
+Both Kaggle environments were verified by smoke runs on account `boinhbo`. Runtime seen: Python 3.13, torch 2.11 (cu128 on GPU), torchvision 0.26, numpy 2.1, scipy 1.16, scikit-image 0.25; no extra dependency bundle is needed.
 
 ---
 
@@ -84,7 +84,7 @@ Kaggle account context: one or more Kaggle accounts connected through `python -m
 Python/runtime assumptions: Python 3.10+; PyTorch and torchvision available in the Kaggle image; scikit-image and scipy
                         installed from the staged dependency bundle if missing (see §8).
 Internet capability: kaggle-prep ON; kaggle-gpu OFF (offline experiments).
-Available accelerator classes: RTX-class preferred (see §5); T4 as fallback. Observed hardware is verified in the smoke run.
+Available accelerator classes: T4 (observed: two Tesla T4 devices). RTX PRO 6000 is not used: the repository's acceptance-tested RTX context needs a competition source this project cannot attach.
 Competition sources: none.
 Dataset sources: none. MNIST is obtained by kaggle-prep and passed through kernel_sources.
 Kernel sources: kaggle-prep output (MNIST 4/9 raw files, skimage/scipy wheels if needed).
@@ -102,7 +102,7 @@ Kaggle is a **remote batch executor**, not an interactive machine. Remote state 
 
 Default order: RTX-class first, then T4 (`docs/ENVIRONMENTS.md` §5 generic policy).
 
-This project's Tier 1 model is small (≈ 60k parameters) and the GPU is a convenience, not a scientific variable. Use RTX-class hardware when available. If the hardware changes between pairs of one comparison, record it in `research/DECISIONS.md` and keep the same device class within each comparison (runtime is compared only within a device class).
+This project uses the T4 (D-010): the RTX example config requires a competition source this project cannot attach. The Tier 1 model is small (≈ 60k parameters) and the GPU is a convenience, not a scientific variable. If the hardware changes between pairs of one comparison, record it in `research/DECISIONS.md` and keep the same device class within each comparison (runtime is compared only within a device class).
 
 ---
 

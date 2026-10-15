@@ -1,0 +1,10 @@
+Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/boinhbo/dce-smoke-gpu
+boinhbo/dce-smoke-gpu has status "KernelWorkerStatus.COMPLETE"
+[{"stream_name":"stdout","time":14.359387005,"data":"{\"schema_version\": 1, \"kind\": \"smoke_gpu\", \"python\": \"3.13.15\", \"platform\": \"Linux-6.18.48+-x86_64-with-glibc2.39\", \"torch\": \"2.11.0+cu128\", \"cuda_available\": true, \"gpus\": [\"Tesla T4\", \"Tesla T4\"], \"observed_hardware\": [\"Tesla T4\", \"Tesla T4\"], \"prep_artifact_sha256\": \"70a53bb7941eec54f68bac71dc796a6ac9012bab6a2ef15ea22fb0860c247d5f\", \"prep_hash_verified\": true, \"mnist_train_rows_used\": 512, \"loss\": 0.6925380229949951, \"image_libs\": {\"skimage\": \"0.25.2\", \"scipy\": \"1.16.3\"}, \"seconds\": 13.68, \"work\": {\"processed\": 512}}\n"}
+,{"stream_name":"stderr","time":19.665395704,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":19.665428924,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":19.931154412,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":19.931195798,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":20.700377053,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":21.667169517,"data":"[NbConvertApp] Writing 290808 bytes to __results__.html\n"}
+]

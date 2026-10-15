@@ -1,0 +1,74 @@
+{
+  "run_id": "smoke_0002",
+  "status": "SUCCESS",
+  "executor": "kaggle",
+  "kernel": "boinhbo/dce-smoke-gpu",
+  "git_commit": "8cc2492b94eef0ea47e82eb7fa700142ceb64423",
+  "requested_hardware": "NvidiaTeslaT4",
+  "internet": false,
+  "started_at": "2026-10-15T08:20:53.911391+00:00",
+  "finished_at": "2026-10-15T08:21:33.272707+00:00",
+  "git_dirty": true,
+  "submitted_code_sha256": "e923e6613ebb82b877ceb8b60317d9ad224810b966e2b4d3f9f3f58e97f1aa8a",
+  "source_dir": "/home/toska/code/research/Agent-auto-Research",
+  "source_path": "/home/toska/code/research/Agent-auto-Research/src/dce/remote/smoke_gpu.py",
+  "source_sha256": "e923e6613ebb82b877ceb8b60317d9ad224810b966e2b4d3f9f3f58e97f1aa8a",
+  "source_git_tracked": false,
+  "config": {
+    "id": "boinhbo/dce-smoke-gpu",
+    "title": "dce smoke gpu",
+    "code_file": "src/dce/remote/smoke_gpu.py",
+    "kernel_type": "script",
+    "language": "python",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": false,
+    "machine_shape": "NvidiaTeslaT4",
+    "expected_hardware_contains": "T4",
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [
+      "boinhbo/dce-smoke-prep"
+    ],
+    "model_sources": [],
+    "timeout_seconds": 900,
+    "wait_timeout_seconds": 1200,
+    "poll_interval_seconds": 30,
+    "immutable_kernel": false,
+    "kernel_source_expectations": [],
+    "fetch_files": [
+      "result.json",
+      "artifact_manifest.json"
+    ],
+    "required_outputs": [
+      "result.json",
+      "artifact_manifest.json"
+    ],
+    "metrics_file": "result.json",
+    "json_checks": [
+      {
+        "path": "work.processed",
+        "op": "gte",
+        "value": 100
+      }
+    ],
+    "parameters": {}
+  },
+  "error": null,
+  "kernel_version": 1,
+  "remote_status": "KernelWorkerStatus.COMPLETE",
+  "remote_failure_message": null,
+  "observed_hardware": [
+    "Tesla T4",
+    "Tesla T4"
+  ],
+  "expected_hardware_contains": "T4",
+  "remote_artifacts": {
+    "provider": "kaggle_kernel",
+    "kernel": "boinhbo/dce-smoke-gpu",
+    "kernel_version": 1,
+    "manifest": "artifact_manifest.json",
+    "manifest_sha256": "cb7e6d9a7d13313f57a23cb70d51cea36f47083c410bcf219242de4022450b2f"
+  },
+  "account": "boinhbo"
+}

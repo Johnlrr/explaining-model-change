@@ -1,0 +1,69 @@
+{
+  "run_id": "smoke_0001",
+  "status": "SUCCESS",
+  "executor": "kaggle",
+  "kernel": "boinhbo/dce-smoke-prep",
+  "git_commit": "8cc2492b94eef0ea47e82eb7fa700142ceb64423",
+  "requested_hardware": null,
+  "internet": true,
+  "started_at": "2026-10-15T08:19:59.086536+00:00",
+  "finished_at": "2026-10-15T08:20:39.522978+00:00",
+  "git_dirty": true,
+  "submitted_code_sha256": "3d6e69ba473b952bfd55c27d275072d90d9b8fbbdbab767dbd70da34cb9cf49e",
+  "source_dir": "/home/toska/code/research/Agent-auto-Research",
+  "source_path": "/home/toska/code/research/Agent-auto-Research/src/dce/remote/smoke_prep.py",
+  "source_sha256": "3d6e69ba473b952bfd55c27d275072d90d9b8fbbdbab767dbd70da34cb9cf49e",
+  "source_git_tracked": false,
+  "config": {
+    "id": "boinhbo/dce-smoke-prep",
+    "title": "dce smoke prep",
+    "code_file": "src/dce/remote/smoke_prep.py",
+    "kernel_type": "script",
+    "language": "python",
+    "is_private": true,
+    "enable_gpu": false,
+    "enable_internet": true,
+    "machine_shape": null,
+    "expected_hardware_contains": null,
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [],
+    "model_sources": [],
+    "timeout_seconds": 900,
+    "wait_timeout_seconds": 1200,
+    "poll_interval_seconds": 30,
+    "immutable_kernel": false,
+    "kernel_source_expectations": [],
+    "fetch_files": [
+      "result.json",
+      "artifact_manifest.json"
+    ],
+    "required_outputs": [
+      "result.json",
+      "artifact_manifest.json"
+    ],
+    "metrics_file": "result.json",
+    "json_checks": [
+      {
+        "path": "work.processed",
+        "op": "gte",
+        "value": 1000
+      }
+    ],
+    "parameters": {}
+  },
+  "error": null,
+  "kernel_version": 1,
+  "remote_status": "KernelWorkerStatus.COMPLETE",
+  "remote_failure_message": null,
+  "observed_hardware": null,
+  "expected_hardware_contains": null,
+  "remote_artifacts": {
+    "provider": "kaggle_kernel",
+    "kernel": "boinhbo/dce-smoke-prep",
+    "kernel_version": 1,
+    "manifest": "artifact_manifest.json",
+    "manifest_sha256": "347a885db9bef4c62c1410e4679bb02eeb4707c2c76bfd584d50c727dae30e62"
+  },
+  "account": "boinhbo"
+}
