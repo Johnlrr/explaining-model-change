@@ -17,10 +17,9 @@ kernel:
   wait_timeout_seconds: 4200
   poll_interval_seconds: 30
   parameters: {limit: 200}
-  required_outputs:
+  required_outputs:            # tier1_data.npz stays remote; its hash is in artifact_manifest.json
     - result.json
     - artifact_manifest.json
-    - tier1_data.npz
   metrics_file: result.json
   fetch_files:
     - result.json
