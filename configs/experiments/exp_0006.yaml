@@ -1,3 +1,4 @@
+# Historical: runs at commit f45d5ba (v1.4); the v1.5 tier config changed seed sets and the solver.
 # exp_0006 — G1 H4 on Tier L with the v1.4 two-phase solver (H-004). Run ONCE (v1.4 E4):
 # pass → G1 continues; fail → stop and report (only a documented bug fix allows a rerun).
 experiment_id: exp_0006

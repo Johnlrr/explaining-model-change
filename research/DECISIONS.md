@@ -31,7 +31,8 @@
 | D-019 | G0 knob log (spec §4.4 / v1.2 B4) and f_old reuse in exp_0003 | active | 2026-10-15 | — | exp_0002, exp_0003 |
 | D-020 | Amendment v1.3 after G0 exp_0002/exp_0003: T3 criterion C1 (ΔFlip_k* ≥ 0.15, exclusivity, DD outside); last G0 criterion change; Tier 1 T3 pre-declared | active | 2026-10-15 | — | exp_0003, exp_0004 |
 | D-021 | Pre-G1 clarifications: Flip_k only for re-sampleable factors (D1); descriptive Recovery\|reach (D2) | active | 2026-10-15 | — | exp_0004 |
-| D-022 | Amendment v1.4 after H4 exp_0005: two-phase solver (Adam + R1, then SLSQP per restart) for Δ-CE and ordinary CE; H4 extended to CE; one H4 run | active | 2026-10-15 | — | exp_0005, exp_0006 |
+| D-022 | Amendment v1.4 after H4 exp_0005: two-phase solver (Adam + R1, then SLSQP per restart) for Δ-CE and ordinary CE; H4 extended to CE; one H4 run | partially superseded by D-023 (E1 phase 2 starts, E4) | 2026-10-15 | — | exp_0005, exp_0006 |
+| D-023 | Amendment v1.5 after exp_0006: SLSQP from z0 and every restart end; κ+1e-4 target, float32 confirmation; H4 on two seed sets; E4 replaced (deadline 17/10); F5 completeness check at pilot | active | 2026-10-15 | — | exp_0006, exp_0007 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -682,6 +683,35 @@ Recovery|reach is biased in favour of Δ-CE (the subset is selected on its own s
 
 ### Consequences
 exp_0005 is reproducible only from commit 157320b (its variant flags were removed). The Tier 0/1 pilot cost grows by the SLSQP runs (≤ R per point).
+
+## D-023 — Amendment v1.5: SLSQP from every start, two H4 seed sets, E4 replaced
+
+### Status
+active (author's decision, 2026-10-15, after exp_0006; before any method result on data). H4 tolerances unchanged.
+
+### Context
+exp_0006 (v1.4): phase 2 exact on every found witness (≤ 4.8e-6), ordinary CE 1.000, but Δ-CE p=5 found-rate 0.967 because phase 1 found no feasible start for 3.3% of pairs (far witnesses). v1.4 E4 forced a stop. The author judged E4 misplaced for a technical check on synthetic data.
+
+### Decision
+`docs/source/delta_ce_spec_amendment_v1.5.md` F1–F5:
+- F1: SLSQP from z0 and from the final phase-1 iterate of each restart (R + 1 = 6 starts), feasible or not. Result: smallest distance among confirmed-feasible points. Phase 1 unchanged (v1.4 R1, T = 400).
+- F2: SLSQP targets κ' = κ + 1e-4; feasibility confirmed with the original κ by the float32 model used in evaluation. Same for Δ-CE and the ordinary CE.
+- F3: H4 on seeds 0–999 and a holdout set 1000–1999, both dims; must pass on both.
+- F4 (replaces E4): solver repairs allowed for H4, never relaxing tolerances; every algorithmic change needs a reason independent of the specific failing cases and is logged here; deadline end of 17/10, then G1 fails and goes back to the author.
+- F5: at the G1 pilot (Tier 0 validation, diagnostic only), on 50 points of pair T1 seed 0, compare the standard solver with SLSQP from 50 random starts in the box; report the share of witnesses (within r) the standard solver misses and the distance gap.
+
+Rationale for F1 independent of the failing cases: SLSQP is an SQP method and handles infeasible starts; on the linear case the problem is a convex QP, so SLSQP from z0 solves it exactly whatever phase 1 does.
+
+### Implementation readings (declared before exp_0007)
+1. **Candidate pool** = all confirmed-feasible SLSQP outputs **plus** the phase-1 best feasible iterates (the v1.4 fallback); the answer is the minimum distance over the pool. F1 does not remove the phase-1 candidates, and including them can only shorten the answer.
+2. **SLSQP's success flag is not required** (F1: "nghiệm được xác nhận khả thi"): any output confirmed feasible is a candidate. This replaces v1.4's success requirement.
+3. κ' implemented as g ≥ 1e-4 on the constraint functions g (−κ − m_n, m_o − κ, −κ − m), which equals κ' = κ + 1e-4. On Tier L its distance cost is ≤ 1e-4 relative (a = m(z0) + κ ≥ 2κ = 1).
+4. Tier L models are float32 tensors (the "evaluation models" of F2); SLSQP evaluates them at float64 inputs (float32 weights promoted). Closed forms use the float64 weights; the rounding gap is ≈ 1e-7 relative.
+5. Restart noise: one generator per seed set, seed 10000 + first pair seed of the set.
+6. Pass rule unchanged: per (set, dim, method ∈ {Δ-CE, CE(f_old), CE(f_new)}), share with rel. error < 1e-3 and share with |cos| > 0.999 both ≥ 0.99; a pair without a witness fails both.
+
+### Consequences
+Phase 2 now runs 6 SLSQP problems per point (cost measured at the pilot, E5). F5 is added to the pilot plan.
 
 ---
 

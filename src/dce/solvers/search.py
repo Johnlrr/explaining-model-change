@@ -1,4 +1,4 @@
-"""Two-phase constrained search of amendment v1.4 E1, shared by Δ-CE and the ordinary CE.
+"""Two-phase constrained search (amendments v1.4 E1, v1.5 F1–F2), shared by Δ-CE and the ordinary CE.
 
 Problem: min_z ‖z − z0‖² (+ μ‖z‖²) s.t. g_i(z) ≥ 0 for every constraint i (and box bounds on Tier 0).
 
@@ -6,11 +6,12 @@ Phase 1 (spec §6.1 + R1): R restarts of T Adam steps on Σ_i relu(−g_i(z)) + 
   λ is halved every T/n_lam_steps steps while the restart has found no feasible iterate; each restart
   keeps its closest feasible iterate. Points are independent: the loss is a sum over the batch and
   Adam is element-wise, so one optimiser over a (B, p) tensor equals B separate searches.
-Phase 2 (v1.4): from each restart's best feasible iterate, SLSQP on the exact problem (gradients from
-  torch). The SLSQP result replaces the phase-1 candidate only if SLSQP reports success and the
-  point passes the hard feasibility test by forward pass.
-Result: the feasible candidate with the smallest distance over restarts; NOT_FOUND if none, or if the
-  distance exceeds r.
+Phase 2 (v1.5 F1–F2): SLSQP on the exact problem (float64, gradients from torch) from every start,
+  feasible or not: z0 and the final phase-1 iterate of each restart (R + 1 starts). SLSQP targets the
+  tightened constraints (κ' = κ + slsqp_tighten); each output is confirmed feasible with the original
+  κ by a forward pass in the working dtype of z0 (float32 for the models used in evaluation).
+Result: the smallest-distance point among all confirmed-feasible points (SLSQP outputs and the phase-1
+  best feasible iterates, D-023); NOT_FOUND if none, or if the distance exceeds r.
 
 Constraint functions take (z, idx): z is (n, p) and idx (n,) gives the point index of each row, so
 per-point models (Tier L) and shared models (CNN; idx ignored) use one interface.
@@ -43,10 +44,10 @@ class SolverConfig:
     clamp: tuple[float, float] | None = None  # Tier 0: (0, 1); projected gradient (phase 1), bounds (phase 2)
     lam_schedule: str = "halve_every"   # v1.4 R1; "half_once" = original spec §6.1 (exp_0005 only)
     n_lam_steps: int = 8
-    polish: bool = True                 # v1.4 phase 2; False for A1 (λ = 0) and for the original spec solver
+    polish: bool = True                 # phase 2; False for A1 (λ = 0) and for the original spec solver
     slsqp_maxiter: int = 100
     slsqp_ftol: float = 1e-10
-    slsqp_tighten: float = 1e-6         # SLSQP constraints g ≥ ε so the boundary optimum passes the hard re-check
+    slsqp_tighten: float = 1e-4         # v1.5 F2: SLSQP targets κ' = κ + 1e-4 (g ≥ 1e-4)
 
 
 @dataclass
@@ -55,8 +56,9 @@ class SearchResult:
     distance: Tensor   # (B,) d(z0, z); +inf where none was found
     found: Tensor      # (B,) bool: a feasible point exists AND distance ≤ r
     seconds: float
-    n_polished: int = 0        # phase-2 runs whose result was accepted
+    n_polished: int = 0        # phase-2 runs whose output was confirmed feasible
     n_polish_runs: int = 0
+    n_from_phase2: int = 0     # points whose final answer is a phase-2 output
 
 
 def _phase1(z0: Tensor, constraints: Constraints, cfg: SolverConfig, restart_seed: int):
@@ -64,6 +66,7 @@ def _phase1(z0: Tensor, constraints: Constraints, cfg: SolverConfig, restart_see
     idx = torch.arange(B, device=z0.device)
     gen = torch.Generator(device="cpu").manual_seed(restart_seed)
     cand_z = z0.unsqueeze(0).repeat(cfg.R, 1, 1)
+    last_z = z0.unsqueeze(0).repeat(cfg.R, 1, 1)
     cand_d = torch.full((cfg.R, B), float("inf"), dtype=z0.dtype, device=z0.device)
     for j in range(cfg.R):
         start_z = z0.clone()
@@ -93,16 +96,17 @@ def _phase1(z0: Tensor, constraints: Constraints, cfg: SolverConfig, restart_see
                 if cfg.lam_schedule == "half_once":
                     halve = t == cfg.T // 2
                 elif cfg.lam_schedule == "halve_every":
-                    halve = t % (cfg.T // cfg.n_lam_steps) == 0 and t < cfg.T
+                    halve = t % max(1, cfg.T // cfg.n_lam_steps) == 0 and t < cfg.T
                 else:
                     raise ValueError(f"unknown lam_schedule {cfg.lam_schedule!r}")
                 if halve:  # halve λ where this restart has found nothing yet
                     lam = torch.where(torch.isfinite(cand_d[j]), lam, lam / 2)
-    return cand_z, cand_d
+        last_z[j] = z.detach()
+    return cand_z, cand_d, last_z
 
 
 def _polish_one(z_start: np.ndarray, z0: Tensor, i: int, constraints: Constraints, cfg: SolverConfig):
-    """SLSQP on the exact problem for point i. Returns the polished z (numpy) or None.
+    """SLSQP on the exact problem for point i, from z_start (feasible or not). Returns z (numpy).
 
     Evaluated in float64: SLSQP's ftol = 1e-10 is below float32 noise (≈ 1e-7), which made it stop
     at the iteration limit or fail its line search (D-022, bug fix found in the smoke test). The
@@ -137,8 +141,7 @@ def _polish_one(z_start: np.ndarray, z0: Tensor, i: int, constraints: Constraint
                    constraints=[{"type": "ineq", "fun": lambda x: cons_eval(x)[0],
                                  "jac": lambda x: cons_eval(x)[1]}],
                    options={"maxiter": cfg.slsqp_maxiter, "ftol": cfg.slsqp_ftol})
-    if not res.success:
-        return None
+    # v1.5 F1: any output is a candidate; feasibility is confirmed by the caller (D-023)
     x = res.x if bounds is None else np.clip(res.x, *cfg.clamp)
     return x
 
@@ -148,23 +151,29 @@ def constrained_search(z0: Tensor, constraints: Constraints, cfg: SolverConfig,
     start = time.time()
     z0 = z0.detach()
     B = z0.shape[0]
-    cand_z, cand_d = _phase1(z0, constraints, cfg, restart_seed)
+    cand_z, cand_d, last_z = _phase1(z0, constraints, cfg, restart_seed)
 
     n_runs = n_ok = 0
+    from_p2 = torch.zeros(B, dtype=torch.bool, device=z0.device)
     if cfg.polish:
-        for j in range(cfg.R):
-            for i in torch.nonzero(torch.isfinite(cand_d[j])).flatten().tolist():
+        p2_z = z0.clone()
+        p2_d = torch.full((B,), float("inf"), dtype=z0.dtype, device=z0.device)
+        for i in range(B):
+            idx = torch.tensor([i], device=z0.device)
+            for start_z in [z0[i]] + [last_z[j, i] for j in range(cfg.R)]:
                 n_runs += 1
-                x = _polish_one(cand_z[j, i].detach().cpu().double().numpy(), z0[i], i, constraints, cfg)
-                if x is None:
-                    continue
+                x = _polish_one(start_z.detach().cpu().double().numpy(), z0[i], i, constraints, cfg)
                 z = torch.tensor(x, dtype=z0.dtype, device=z0.device).unsqueeze(0)
-                with torch.no_grad():  # hard feasibility re-check by forward pass
-                    ok = bool((constraints(z, torch.tensor([i], device=z0.device)) >= 0).all())
-                if ok:  # v1.4 E1: success and feasible → replaces this restart's phase-1 candidate
+                with torch.no_grad():  # F2: confirm with the original κ in the working dtype
+                    ok = bool((constraints(z, idx) >= 0).all())
+                if ok:
                     n_ok += 1
-                    cand_z[j, i] = z[0]
-                    cand_d[j, i] = float((z[0] - z0[i]).norm())
+                    d = float((z[0] - z0[i]).norm())
+                    if d < p2_d[i]:
+                        p2_d[i], p2_z[i] = d, z[0]
+        from_p2 = p2_d < cand_d.min(0).values
+        cand_z = torch.cat([cand_z, p2_z.unsqueeze(0)])
+        cand_d = torch.cat([cand_d, p2_d.unsqueeze(0)])
 
     best_j = cand_d.argmin(0)
     ar = torch.arange(B, device=z0.device)
@@ -172,4 +181,4 @@ def constrained_search(z0: Tensor, constraints: Constraints, cfg: SolverConfig,
     best_z = cand_z[best_j, ar]
     found = torch.isfinite(best_d) & (best_d <= cfg.r)
     return SearchResult(z=best_z, distance=best_d, found=found, seconds=time.time() - start,
-                        n_polished=n_ok, n_polish_runs=n_runs)
+                        n_polished=n_ok, n_polish_runs=n_runs, n_from_phase2=int((from_p2 & found).sum()))

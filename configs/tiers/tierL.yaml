@@ -1,9 +1,11 @@
-# Tier L shared parameters (spec §4.1, §6.1, §8 H4; amendment v1.4 E1). Spec frozen 2026-10-15.
+# Tier L shared parameters (spec §4.1, §6.1, §8 H4; amendments v1.4 E1, v1.5 F1–F3). Spec frozen 2026-10-15.
 tier: L
 dims: [5, 20]
-n_pairs: 1000               # per dimension; pair seeds 0–999 (EVALUATION §6)
+seed_sets:                  # v1.5 F3: original set and a holdout set, each × dims
+  original: [0, 1000]
+  holdout: [1000, 2000]
 kappa: 0.5
-solver:                     # v1.4 E1: phase 1 = spec §6.1 + R1; phase 2 = SLSQP per restart
+solver:                     # phase 1 = spec §6.1 + R1 (v1.4); phase 2 = SLSQP from z0 and every restart end (v1.5 F1)
   R: 5
   T: 400
   lr: 0.05
@@ -15,8 +17,8 @@ solver:                     # v1.4 E1: phase 1 = spec §6.1 + R1; phase 2 = SLSQ
   polish: true
   slsqp_maxiter: 100
   slsqp_ftol: 1.0e-10
-  slsqp_tighten: 1.0e-6     # constraints g ≥ 1e-6 inside SLSQP (D-022 implementation reading)
+  slsqp_tighten: 1.0e-4     # v1.5 F2: SLSQP targets κ' = κ + 1e-4; feasibility confirmed in float32 with κ
 r: .inf                     # reading: no distance budget on Tier L (compared with the exact optimum)
-restart_base: 10000         # restart noise seed 10000 + pair_id (spec §6.1)
+restart_base: 10000         # restart noise: one stream per seed set, seed 10000 + first pair seed (reading)
 tolerance: {rel_error: 1.0e-3, abs_cos: 0.999, share: 0.99}   # spec §8 H4, not relaxed (v1.4)
 threads: 8

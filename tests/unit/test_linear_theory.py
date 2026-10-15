@@ -89,7 +89,8 @@ def test_slsqp_respects_box_bounds():
     # m(z) = z1 − 0.8; target m ≤ −κ → z1 ≤ 0.3 from z0 = (0.9, 0.5); box [0, 1]: answer (0.3, 0.5).
     z0 = torch.tensor([[0.9, 0.5]])
     res = ordinary_ce(z0, lambda z, i: z[:, 0] - 0.8, SolverConfig(R=1, T=100, clamp=(0.0, 1.0)), 0)
-    assert res.found[0] and abs(res.z[0, 0].item() - 0.3) < 1e-4 and abs(res.z[0, 1].item() - 0.5) < 1e-4
+    # SLSQP targets κ + 1e-4 (v1.5 F2), so z1 ≈ 0.3 − 1e-4
+    assert res.found[0] and abs(res.z[0, 0].item() - 0.3) < 2e-4 and abs(res.z[0, 1].item() - 0.5) < 1e-4
     # infeasible inside the box: m(z) = z1 + 0.2 ≤ −0.5 needs z1 ≤ −0.7 → NOT_FOUND
     res = ordinary_ce(z0, lambda z, i: z[:, 0] + 0.2, SolverConfig(R=1, T=100, clamp=(0.0, 1.0)), 0)
     assert not res.found[0] and torch.isinf(res.distance[0])
@@ -100,3 +101,14 @@ def test_polish_off_is_phase1_only():
     z0, m_o, m_n = _batch(pairs)
     res = delta_ce(z0, m_o, m_n, SolverConfig(R=1, T=100, polish=False), restart_seed=1)
     assert res.n_polish_runs == 0
+
+
+def test_phase2_reaches_witness_phase1_misses():
+    # v1.5 F1: with T = 1 phase 1 cannot reach a far witness; SLSQP from z0 must still solve the QP.
+    pairs = [sample_pair(50_200 + s, 5) for s in range(5)]
+    z0, m_o, m_n = _batch(pairs)
+    res = delta_ce(z0, m_o, m_n, SolverConfig(R=1, T=1), restart_seed=1)
+    assert res.found.all()
+    for i, q in enumerate(pairs):
+        assert abs(res.distance[i].item() / closed_form(q)["delta"] - 1) < 1e-3
+    assert res.n_from_phase2 == len(pairs)

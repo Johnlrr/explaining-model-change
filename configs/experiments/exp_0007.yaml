@@ -1,0 +1,5 @@
+# exp_0007 — G1 H4 on Tier L with the v1.5 solver (H-004): SLSQP from z0 and every restart end,
+# κ' = κ + 1e-4, float32 confirmation; seed sets 0–999 and 1000–1999 (F3). Tolerances unchanged.
+experiment_id: exp_0007
+gate: G1
+tier_config: configs/tiers/tierL.yaml

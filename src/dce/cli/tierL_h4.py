@@ -3,12 +3,14 @@
 Usage:
     python -m dce.cli.tierL_h4 --config configs/experiments/exp_0006.yaml --out runs/experiments/exp_0006
 
-One solver (configs/tiers/tierL.yaml `solver`), run once (v1.4 E4) on seeds 0..n_pairs−1 for every dim.
+One solver (configs/tiers/tierL.yaml `solver`) on every seed set of `seed_sets` (v1.5 F3: seeds
+0–999 and 1000–1999) for every dim; H4 must pass on every set.
 Checks, each with the spec §8 tolerances (share ≥ 0.99 of pairs in every dim; a pair without a
 solution fails):
   delta_ce:   rel. error of δ_Δ (Proposition 3) and |cos(P u, P Δw)| (Proposition 4);
   ce_old/new: rel. error of the ordinary-CE distance and |cos(u, u*)| against u* = −(m(z0)+κ)/‖w‖² w.
-(exp_0005 ran the original spec solver and its variants from commit 157320b.)
+(exp_0005 ran the original spec solver and its variants from commit 157320b; exp_0006 the v1.4
+solver from commit f45d5ba.)
 """
 
 from __future__ import annotations
@@ -46,8 +48,8 @@ def summarise(found, rel, cos, tol) -> dict:
 
 
 def run_dim(pairs, cfg: SolverConfig, restart_seed: int, kappa: float, tol: dict) -> dict:
-    # float64 throughout: Tier L models are exact linear functions, as in the closed forms
-    t = lambda a: torch.tensor(np.array(a), dtype=torch.float64)  # noqa: E731
+    # float32 evaluation models (v1.5 F2); SLSQP promotes to float64 internally
+    t = lambda a: torch.tensor(np.array(a), dtype=torch.float32)
     w_o, w_n = t([q.w_o for q in pairs]), t([q.w_n for q in pairs])
     b_o, b_n, z0 = t([q.b_o for q in pairs]), t([q.b_n for q in pairs]), t([q.z0 for q in pairs])
     m_o = lambda z, idx: (w_o[idx] * z).sum(1) + b_o[idx]
@@ -62,8 +64,8 @@ def run_dim(pairs, cfg: SolverConfig, restart_seed: int, kappa: float, tol: dict
     cos = np.array([abs_cos(project_out(u[i], q.w_o), project_out(q.dw, q.w_o)) if found[i] else 0.0
                     for i, q in enumerate(pairs)])
     out["delta_ce"] = {**summarise(found, rel, cos, tol), "share_case_b": float(np.mean([c["case"] == "B" for c in cf])),
-                       "seconds": round(res.seconds, 2), "polish_accepted": res.n_polished,
-                       "polish_runs": res.n_polish_runs}
+                       "seconds": round(res.seconds, 2), "polish_feasible": res.n_polished,
+                       "polish_runs": res.n_polish_runs, "answers_from_phase2": res.n_from_phase2}
 
     for name, m, key in (("ce_old", m_o, "w_o"), ("ce_new", m_n, "w_n")):
         r = ordinary_ce(z0, m, cfg, restart_seed)
@@ -73,7 +75,8 @@ def run_dim(pairs, cfg: SolverConfig, restart_seed: int, kappa: float, tol: dict
         rel = np.array([abs(r.distance[i].item() - c["delta"]) / c["delta"] for i, c in enumerate(ref)])
         cos = np.array([abs_cos(u[i], c["u"]) if f[i] else 0.0 for i, c in enumerate(ref)])
         out[name] = {**summarise(f, rel, cos, tol), "seconds": round(r.seconds, 2),
-                     "polish_accepted": r.n_polished, "polish_runs": r.n_polish_runs}
+                     "polish_feasible": r.n_polished, "polish_runs": r.n_polish_runs,
+                     "answers_from_phase2": r.n_from_phase2}
     return out
 
 
@@ -99,13 +102,17 @@ def main(argv=None) -> int:
 
     solver = SolverConfig(**{**cfg["solver"], "kappa": cfg["kappa"], "r": float(cfg["r"])})
     tol = cfg["tolerance"]
-    results = {"tolerance": tol, "n_pairs": cfg["n_pairs"], "solver": solver.__dict__, "dims": {}}
-    for p in cfg["dims"]:
-        pairs = [sample_pair(s, p, cfg["kappa"]) for s in range(cfg["n_pairs"])]
-        results["dims"][str(p)] = run_dim(pairs, solver, cfg["restart_base"], cfg["kappa"], tol)
-        print(p, json.dumps({k: {m: v[m] for m in ("found_rate", "share_rel_lt_tol", "share_cos_gt_tol", "pass")}
-                             for k, v in results["dims"][str(p)].items()}), flush=True)
-    results["h4_pass"] = all(v["pass"] for d in results["dims"].values() for v in d.values())
+    results = {"tolerance": tol, "solver": solver.__dict__, "sets": {}}
+    for name, (lo, hi) in cfg["seed_sets"].items():
+        res_set = {}
+        for p in cfg["dims"]:
+            pairs = [sample_pair(s, p, cfg["kappa"]) for s in range(lo, hi)]
+            res_set[str(p)] = run_dim(pairs, solver, cfg["restart_base"] + lo, cfg["kappa"], tol)
+            print(name, p, json.dumps({k: {m: v[m] for m in ("found_rate", "share_rel_lt_tol", "share_cos_gt_tol", "pass")}
+                                       for k, v in res_set[str(p)].items()}), flush=True)
+        results["sets"][name] = {"seeds": [lo, hi - 1], "dims": res_set}
+    results["h4_pass"] = all(v["pass"] for st in results["sets"].values() for d in st["dims"].values()
+                             for v in d.values())
     (out / "metrics.json").write_text(json.dumps(results, indent=2, default=str))
     meta.update(status="SUCCESS", seconds=round(time.time() - start, 1))
     (out / "metadata.json").write_text(json.dumps(meta, indent=2))
