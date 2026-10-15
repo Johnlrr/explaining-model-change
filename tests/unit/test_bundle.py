@@ -22,7 +22,7 @@ def test_render_is_deterministic():
 
 def test_bundle_runs_outside_the_repo(tmp_path):
     src = BUNDLE_DIR / "bundle_smoke.py"
-    run = subprocess.run([sys.executable, "-I", str(src)], cwd=tmp_path, capture_output=True, text=True,
+    run = subprocess.run([sys.executable, "-I", str(src)], cwd=tmp_path, capture_output=True, text=True, check=False,
                          timeout=300)
     assert run.returncode == 0, run.stderr[-2000:]
     assert '"found": 8' in run.stdout

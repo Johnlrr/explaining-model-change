@@ -8,7 +8,6 @@ import numpy as np
 import torch
 
 import dce
-
 from dce.data.tierL import closed_form, sample_pair
 from dce.models.cnn import SmallCNN
 from dce.solvers.dce import delta_ce
@@ -19,7 +18,7 @@ def main():
     out = Path("/kaggle/working") if Path("/kaggle/working").exists() else Path("out")
     out.mkdir(parents=True, exist_ok=True)
     pairs = [sample_pair(60_000 + s, 5) for s in range(8)]
-    t = lambda a: torch.tensor(np.array(a), dtype=torch.float32)  # noqa: E731
+    t = lambda a: torch.tensor(np.array(a), dtype=torch.float32)
     wo, wn, bo, bn, z0 = (t([q.w_o for q in pairs]), t([q.w_n for q in pairs]), t([q.b_o for q in pairs]),
                           t([q.b_n for q in pairs]), t([q.z0 for q in pairs]))
     res = delta_ce(z0, lambda z, i: (wo[i] * z).sum(1) + bo[i], lambda z, i: (wn[i] * z).sum(1) + bn[i],
