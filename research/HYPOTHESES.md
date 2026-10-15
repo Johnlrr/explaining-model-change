@@ -13,7 +13,7 @@
 | H-001 | Δ-CE beats CE differencing on Tier 1 drift (paper H1) | contribution | proposed | high | — | exp_TBD (Tier 1, T1+T3, 3 seeds) | candidate |
 | H-002 | Δ-CE beats gradient difference on non-local drift T3 (paper H2a/H2b) | contribution | proposed | high | — | exp_TBD (Tier 0 and Tier 1, T3) | candidate |
 | H-003 | Pair-level detection of drift versus null (paper H3; descriptive since D-012) | other (descriptive) | proposed | low | — | exp_TBD (Tier 0 and Tier 1, all pairs) | not claimed |
-| H-004 | Solver reproduces linear closed forms (paper H4) | other | proposed | high (gate G1) | — | exp_TBD (Tier L, 1000 pairs) | not applicable |
+| H-004 | Solver reproduces linear closed forms (paper H4) | other | testing (blocked) | high (gate G1) | — | exp_0005 (Tier L, 1000 pairs) | not applicable |
 | H-005 | Local drifts give a predicted tie (Proposition 4; paper P-tie) | mechanistic | proposed | medium | H-001 | exp_TBD (Tier 0, T1 and T4) | candidate |
 | H-006 | Proximity term is needed for locality (A1, DeepXplore-style) | ablation | proposed | medium | H-001 | exp_TBD (Tier 0, A1) | not applicable |
 | H-007 | Minimal-witness search versus DIG-style line search (B5) on T3 | other (descriptive, pre-declared claim rule) | proposed | medium | H-002 | exp_TBD (Tier 0 and Tier 1, T3) | uncertain |
@@ -207,7 +207,7 @@ A failure here, with H-001/H-002 supported, is reported as a limitation. A failu
 ## H-004 — Solver reproduces linear closed forms
 
 ### Status
-proposed
+testing (G1 blocked: fails with the frozen solver and the allowed repairs; awaiting the author)
 
 ### Origin
 Proposal §3.6 "kiểm số trước khi viết" and spec §4.1 (Tier L).
@@ -243,10 +243,10 @@ None.
 Artelt et al. Theorems 1–2 cover a subset of this case (no bias).
 
 ### Experiments
-None yet.
+exp_0005 (commit 157320b): spec solver plus repair variants; closed forms checked by `tests/unit/test_linear_theory.py` (KKT + SLSQP).
 
 ### Results
-None yet.
+Spec solver: found-rate 0.10 / 0.59 (p = 5 / 20). Best allowed repair (λ halved every T/8 while infeasible): found 0.97 / 1.00, but rel. error < 1e-3 in 11% / 22% of pairs and |cos| > 0.999 in 71% / 64%. Cause: λ0 above the exact-penalty threshold (found-rate) and the Adam lr = 0.05 noise floor (precision). Not a bug in the closed form. Details: `research/NOTES.md` §3, exp_0005.
 
 ### Conclusion
 None yet.

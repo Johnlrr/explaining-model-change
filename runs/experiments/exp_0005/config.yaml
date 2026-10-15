@@ -1,0 +1,42 @@
+tier: L
+dims:
+- 5
+- 20
+n_pairs: 1000
+kappa: 0.5
+solver:
+  R: 5
+  T: 400
+  lr: 0.05
+  lam0: 1.0
+  mu: 0.0
+  sigma: 0.05
+r: .inf
+restart_base: 10000
+tolerance:
+  rel_error: 0.001
+  abs_cos: 0.999
+  share: 0.99
+experiment_id: exp_0005
+gate: G1
+tier_config: configs/tiers/tierL.yaml
+variants:
+  spec: {}
+  R1_halve_every_T8:
+    lam_schedule: halve_every
+  R1_T16:
+    lam_schedule: halve_every
+    n_lam_steps: 16
+  R1_R10:
+    lam_schedule: halve_every
+    R: 10
+  outside_R1_lr_cosine:
+    lam_schedule: halve_every
+    lr_cosine: true
+  outside_R1_lr_cosine_T800:
+    lam_schedule: halve_every
+    lr_cosine: true
+    T: 800
+  outside_R1_polish400:
+    lam_schedule: halve_every
+    polish_steps: 400

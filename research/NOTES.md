@@ -130,6 +130,29 @@ Options for the user (resolved: author chose c.1 + c.2 and replaced c.3 by the D
 
 ---
 
+### exp_0005 — G1 H4 check on Tier L (H-004), 2026-10-15
+
+H4 **fails** with the frozen solver of spec §6.1 and with every allowed repair tried. The closed forms are correct: `tests/unit/test_linear_theory.py` checks them against exact KKT conditions and SLSQP (cases A and B both present).
+
+| Variant | p=5 found | rel<1e-3 | cos>0.999 | p=20 found | rel<1e-3 | cos>0.999 |
+|---|---|---|---|---|---|---|
+| spec §6.1 (λ halved once at T/2) | 0.103 | 0.051 | 0.072 | 0.591 | 0.202 | 0.248 |
+| R1: halve λ every T/8 while nothing found (allowed: λ schedule) | 0.967 | 0.114 | 0.713 | 1.000 | 0.220 | 0.640 |
+| R1, every T/16 | 0.998 | 0.132 | 0.693 | 1.000 | 0.225 | 0.639 |
+| R1 + R = 10 (restarts) | 0.968 | 0.115 | 0.712 | 1.000 | 0.240 | 0.659 |
+| outside: R1 + cosine lr | 0.805 | 0.427 | 0.487 | 1.000 | 0.800 | 0.908 |
+| outside: R1 + cosine lr, T = 800 | 0.891 | 0.650 | 0.692 | 1.000 | 0.917 | 0.960 |
+| outside: R1 + 400 polish steps (lr 0.01 → 0) | 0.967 | 0.739 | 0.779 | 1.000 | 0.931 | 0.958 |
+
+Required: ≥ 0.99 for both shares in both dims.
+
+Diagnosis:
+1. **Found-rate (spec solver): λ0 = 1 is far above the exact-penalty threshold.** With hinge constraints, the penalised minimiser equals the constrained optimum only if the KKT multipliers of λ‖u‖² are ≤ 1, i.e. λ ≤ λ_crit. λ_crit has median 0.13 (p=5) / 0.67 (p=20), 1% quantile 0.012 / 0.18; only 10% / 65% of pairs have λ_crit ≥ 0.5. Halving once leaves most pairs infeasible: that matches the observed 10% / 59% found-rate. R1 fixes this, within the allowed repairs.
+2. **Precision: Adam at constant lr = 0.05 has a noise floor of about 1e-2 relative error.** Traces show the iterate oscillating around u* with amplitude 0.05–0.5 δ until T. Adam's step lr·m̂/√v̂ does not depend on the gradient scale, so no λ schedule shrinks it. Median relative error under R1 is 4e-3, 99% quantile ≈ 5e-2. p=5 is harder: w_o and w_n are nearly parallel (Δw ~ 0.3), δ is large (median 2.3) and λ_crit small.
+3. Only changes outside §9 (lr decay, more steps) move precision towards 1e-3, and none reaches 0.99 at p=5.
+
+Status: G1 blocked on H4. The tolerance (spec §8) and lr/T (locked) are the author's decision.
+
 ## 4. Questions
 
 1. Does the tie in Proposition 4 also hold for the constrained solver when λ is decayed? (H-005)
