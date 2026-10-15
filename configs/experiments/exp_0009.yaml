@@ -1,0 +1,7 @@
+# exp_0009 — G1 pilot on Tier 0 validation (spec §9 G1, D-024). Seed-0 pair of every condition,
+# N = 100 valid validation points, every method. Reads ONLY found-rate and runtime (+ F5, D-024).
+experiment_id: exp_0009
+tier_config: configs/tiers/tier0.yaml
+pair_ids: [0, 3, 6, 9, 14]
+n_points: 100
+f5: {pair_id: 0, n_points: 50, n_starts: 50, seed: 20000}

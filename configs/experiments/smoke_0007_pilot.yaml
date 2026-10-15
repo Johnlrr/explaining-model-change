@@ -1,0 +1,6 @@
+# smoke_0007 — same path as exp_0009, 2 pairs × 8 points, F5 on 4 points × 4 starts.
+experiment_id: smoke_0007
+tier_config: configs/tiers/tier0.yaml
+pair_ids: [0, 9]
+n_points: 8
+f5: {pair_id: 0, n_points: 4, n_starts: 4, seed: 20000}
