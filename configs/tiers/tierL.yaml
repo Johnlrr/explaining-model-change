@@ -1,0 +1,9 @@
+# Tier L shared parameters (spec §4.1, §6.1, §8 H4). Spec frozen 2026-10-15.
+tier: L
+dims: [5, 20]
+n_pairs: 1000               # per dimension; pair seeds 0–999 (EVALUATION §6)
+kappa: 0.5
+solver: {R: 5, T: 400, lr: 0.05, lam0: 1.0, mu: 0.0, sigma: 0.05}
+r: .inf                     # reading: no distance budget on Tier L (compared with the exact optimum)
+restart_base: 10000         # restart noise seed 10000 + pair_id (spec §6.1)
+tolerance: {rel_error: 1.0e-3, abs_cos: 0.999, share: 0.99}   # spec §8 H4
