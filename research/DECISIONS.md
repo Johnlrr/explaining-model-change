@@ -1,518 +1,383 @@
 # DECISIONS.md
 
-> Purpose: Record durable research and operational decisions that materially affect project direction, interpretation, or execution.
+> Purpose: Record important long-term technical and research decisions, with reasons, so a fresh agent does not re-open them.
 >
-> Ownership: Mutable research state. Update this file when an important decision is made, revised, superseded, or reversed.
->
-> This file is a **decision log, not an activity log**.
+> Ownership: Mutable research memory. Decisions with `pending confirmation` need a human answer before they are relied on.
 
 ---
 
 ## 1. Decision index
 
-Keep this table current.
-
 | ID | Short title | Status | Date | Related hypotheses | Related experiments |
 |---|---|---|---|---|---|
-| D-001 | <short title> | active | <date> | H-XXX | exp_XXXX |
+| D-001 | Map the delta spec onto the AGENTS.md layout | active | 2026-10-15 | all | — |
+| D-002 | Development gates use validation, not test | active, pending confirmation | 2026-10-15 | H-001–H-003 | G0, G1, G2 |
+| D-003 | Contribution type and primary acceptance rule | active | 2026-10-15 | H-001–H-003 | — |
+| D-004 | Venue, dates, and special session taken from the source spec, not verified | active, pending confirmation | 2026-10-15 | — | — |
+| D-005 | The spec supersedes the proposal where they differ | active | 2026-10-15 | H-001–H-006 | — |
+| D-006 | Environment split: Tier L and Tier 0 local CPU; Tier 1 Kaggle GPU | active | 2026-10-15 | H-001–H-003 | exp_TBD |
+| D-007 | Baselines are re-implemented, no external code | active | 2026-10-15 | H-001, H-002 | — |
+| D-008 | Research branch and kick-off commit | active | 2026-10-15 | — | — |
 
-Allowed status values:
-
-```text
-active
-superseded
-reversed
-```
+Allowed status values: active, superseded, reversed.
 
 ---
 
 ## 2. What belongs here
 
-Record a decision when it has lasting consequences for the project.
-
-Typical examples:
-
-- selecting or changing the primary baseline;
-- stopping a research direction even though it was not formally falsified;
-- changing research strategy because of resource limits;
-- deciding not to use a data source, model family, or external method;
-- choosing an implementation convention that affects many experiments;
-- accepting a known limitation;
-- changing environment strategy in a way that affects comparability;
-- deviating from a SOFT constraint;
-- establishing a project-wide convention not already defined in `docs/`;
-- choosing between multiple plausible interpretations of prior evidence.
-
-Do not use this file for routine actions such as:
-
-```text
-run exp_0012
-fix import error
-fetch Kaggle output
-update a config value for one experiment
-```
-
-Those belong in `research/STATE.md`, `research/HYPOTHESES.md`, run evidence, or Git history.
+Decisions that affect future work beyond one experiment: layout, test policy, baselines, environment, scope, deadlines.
 
 ---
 
 ## 3. Decision template
 
-Copy the following section for each important decision.
-
----
-
-## D-XXX — <short descriptive title>
+```text
+## D-XXX — <title>
 
 ### Status
-
-```text
-Status: active | superseded | reversed
-Date:
-Last updated:
-Relevant commit:
+### Context
+### Decision
+### Rationale
+### Evidence
+### Alternatives considered
+### Consequences
+### Revisit condition
+### Supersedes / superseded by
 ```
 
 ---
+
+## D-001 — Map the delta spec onto the AGENTS.md layout
+
+### Status
+active
 
 ### Context
-
-<REQUIRED — Explain why a decision was needed.>
-
-Describe the situation, ambiguity, tradeoff, or evidence that forced a choice.
-
-Keep this factual and concise.
-
----
+The source spec (`docs/source/delta_ce_spec.md` §12–§13) proposes its own layout (`dce/`, `scripts/`, `results/`, `logs/decisions.md`). AGENTS.md requires `src/`, `configs/`, `runs/`, `research/`, and no ad-hoc top-level source roots. The user asked to follow AGENTS.md and the existing repository conventions.
 
 ### Decision
+| Spec path | Used path |
+|---|---|
+| `dce/` package | `src/dce/` (package to be added to `pyproject.toml` when code starts) |
+| `dce/configs/*.yaml` | `configs/tiers/{tierL,tier0,tier1}.yaml` (shared parameters) and `configs/experiments/exp_NNNN.yaml` (one per run) |
+| `dce/scripts/*.py` | `src/dce/cli/*.py` (no top-level `scripts/`) |
+| `dce/tests/test_linear_theory.py` | `tests/unit/test_linear_theory.py` |
+| `results/{tier}/{cond}_s{seed}.json` | `runs/experiments/exp_NNNN/metrics.json` (per run, per pair entries inside) |
+| `logs/decisions.md` (spec §13) | `research/DECISIONS.md` |
+| Spec documents | `docs/source/delta_ce_spec.md` (read-only) |
+| Proposal | `research/proposals/delta_ce_proposal_v1.md` (historical, superseded by D-005) |
 
-<REQUIRED — State exactly what was decided.>
-
-Prefer a direct statement.
-
-Example:
-
-```text
-Do not test larger backbones unless new evidence specifically supports model capacity as the limiting factor.
-```
-
----
+Smoke runs go to `runs/smoke/smoke_NNNN/`.
 
 ### Rationale
-
-<REQUIRED — Explain why this option was chosen.>
-
-Focus on the reasoning that distinguishes this choice from alternatives.
-
-Possible factors:
-
-- experimental evidence;
-- literature;
-- constraints;
-- expected information value;
-- reproducibility;
-- compute cost;
-- implementation risk;
-- evaluation validity.
-
----
+AGENTS.md defines the authoritative source root and evidence layout. Following it keeps this project comparable to other branches and avoids duplicate decision logs.
 
 ### Evidence
-
-<REQUIRED when evidence exists. Otherwise write `Not evidence-driven`.>
-
-Reference relevant sources:
-
-```text
-Hypotheses:
-Experiments:
-Run evidence:
-Literature entries:
-Constraints:
-Other:
-```
-
-Prefer IDs and repository references over conversational descriptions.
-
----
+AGENTS.md "Implementation discipline" and "Git and reproducibility"; `docs/RESEARCH_PROTOCOL.md` §11.
 
 ### Alternatives considered
-
-<REQUIRED — Record meaningful alternatives that were considered.>
-
-Example:
-
-```text
-1. Continue scaling model size.
-2. Switch focus to preprocessing.
-3. Run one targeted capacity diagnostic first.
-```
-
-Do not list obviously irrelevant alternatives.
-
----
+Keeping the spec layout as-is. Rejected: it creates a second source root and a second decision log.
 
 ### Consequences
-
-<REQUIRED — State what this decision changes going forward.>
-
-Consider effects on:
-
-- future hypotheses;
-- experiment design;
-- baseline comparison;
-- implementation;
-- environment selection;
-- resource usage;
-- interpretation of results;
-- final reporting.
-
-Example:
-
-```text
-Future hypotheses should focus on preprocessing and restoration behavior.
-Large-model scaling should not consume additional GPU budget unless the revisit condition is met.
-```
-
----
+Paths in the spec §12–§13 are read as the mapping above. Checksums and hashes in the spec are unchanged.
 
 ### Revisit condition
-
-<REQUIRED — Define what evidence or situation would justify reconsidering this decision.>
-
-Examples:
-
-```text
-Revisit if a later experiment indicates model capacity is the dominant bottleneck.
-
-Revisit if RTX availability changes enough to make the previously rejected experiment affordable.
-
-Revisit if new prior work introduces a directly comparable baseline.
-```
-
-Avoid vague conditions such as:
-
-```text
-revisit later
-```
-
----
+If the repository convention changes.
 
 ### Supersedes / superseded by
-
-```text
-Supersedes:
-Superseded by:
-```
-
-Use decision IDs when applicable.
-
-If neither applies:
-
-```text
-None
-```
+None.
 
 ---
 
-### Notes
+## D-002 — Development gates use validation, not test
 
-<OPTIONAL — Add concise implementation or interpretation notes that do not belong elsewhere.>
+### Status
+active, **pending human confirmation**
+
+### Context
+The source spec applies several development checks to test data: G0 on 2 000 clean test points (spec §9); G1 pilot with N = 100 points from the test set (§9); G2 shape-oracle accuracy on test images (§9); and the seeds for the evaluation points are drawn from test (§7). `docs/EVALUATION.md` §5–§6 forbids test information from flowing into development, and the spec's own G0 knobs (≤ 2 adjustments) would then be chosen on test.
+
+### Decision
+Development checks (G0, G1, G2, pilot, r calibration, σ_k normalisation, shape-oracle qualification) use the validation split. The test split is used only in the final procedure (`docs/EVALUATION.md` §19). Point sampling for the pilot uses validation with seed 5000 + pair_id. The paper-facing evaluation points still use test with seed 5000 + pair_id.
+
+### Rationale
+The blindness rule in EVALUATION §6 is explicit; the spec's test-based gates would make the final test non-blind. The validation split is large enough (5 000 Tier 0; ~10% of train for Tier 1) for every gate.
+
+### Evidence
+`docs/EVALUATION.md` §5–§6; `docs/source/delta_ce_spec.md` §7 and §9.
+
+### Alternatives considered
+(a) Keep test for gates and declare them as "phenomenon checks" — rejected: the gates decide which knobs to use, which is development. (b) Create a third, untouched split only for gates — rejected for now: compute and data are fixed by the spec.
+
+### Consequences
+G0, G1, G2 numbers are validation numbers. The paper must say so. Test is evaluated once per locked candidate.
+
+### Revisit condition
+The human says the spec's test-based gates are intended. Then this decision is reversed (with the same caveat about blindness) and recorded here.
+
+### Supersedes / superseded by
+None.
+
+---
+
+## D-003 — Contribution type and primary acceptance rule
+
+### Status
+active
+
+### Context
+AGENTS.md requires that a contribution goal be stated explicitly and that tuning is not a contribution. The spec defines routes A, B, B′, Stop in §10.
+
+### Decision
+- Contribution type: methodological (definition, theory, solver, ground-truth benchmark).
+- Primary metric: Recovery@r on the test split.
+- Acceptance rule: `docs/EVALUATION.md` §15 (H3 AUROC ≥ 0.90 on both tiers and at least one of H1, H2a, H2b with CI > 0 after Holm and same sign in 3/3 seeds).
+- Routes A, B, B′, Stop as in §15.
+
+### Rationale
+A single rule prevents choosing the success criterion after results.
+
+### Evidence
+Spec §8, §10; `docs/GOAL.md`.
+
+### Alternatives considered
+A single H1-only rule — rejected: it would ignore the detection claim.
+
+### Consequences
+Route B (theory + analysis) remains a valid outcome.
+
+### Revisit condition
+None before results. Changes after results are exploratory (spec §13).
+
+### Supersedes / superseded by
+None.
+
+---
+
+## D-004 — Venue, dates, and special session from the source spec, not verified
+
+### Status
+active, **pending human confirmation**
+
+### Context
+The spec states the ESANN 2027 special session "From Understanding Distributional Change to Informed Action", a page budget of 6 pages including figures and references, and dates (internal submission 16/11, hard deadline 18/11/2026). The spec lists these as items to confirm (spec §16: session vs regular track, author registration commitment before 12/02/2027, GPU account and quota, arXiv policy). The proposal lists the page limit and special-session existence as unverified assumptions (proposal §11).
+
+### Decision
+Treat the dates and the session as project inputs, not verified facts. The research timeline depends on the freeze (17/10) and the internal deadline (16/11). Verification is a blocker for the paper, not for the experiments.
+
+### Rationale
+These claims were taken from a web reading in the spec and proposal; the repository does not contain the venue guidelines.
+
+### Evidence
+Spec header and §1 C1, §7–§16; proposal §11.
+
+### Alternatives considered
+Verify now via web search — deferred to the G-lit step, which covers literature and venue. Recorded as a blocker in `research/STATE.md` §12.
+
+### Consequences
+GOAL and CONSTRAINTS use the dates as HARD and mark them unverified.
+
+### Revisit condition
+When the ESANN 2027 call and author guidelines are read.
+
+### Supersedes / superseded by
+None.
+
+---
+
+## D-005 — The spec supersedes the proposal where they differ
+
+### Status
+active
+
+### Context
+The proposal v1 (15/10) and the spec v1.0 (15/10) differ in several places: H3 (SAR → AUROC), B1 definition, the null-pair set (N1 added), G0 criteria, Tier 0 renderer, r calibration, H4 tolerance (1e-4 → 1e-3), pair counts (14 → 17 Tier 0 pairs; 11 Tier 1), and the budget (12 → 10 GPU-hours).
+
+### Decision
+The spec governs. The proposal is kept as history in `research/proposals/`. Where the proposal's text is used (e.g. §2 novelty, §3.6 limits), it is cited as the proposal.
+
+### Rationale
+The spec was written after the proposal's full-text check and explicitly replaces it (spec §1).
+
+### Evidence
+Spec §1 table C1–C8.
+
+### Alternatives considered
+Keep both as co-equal — rejected: the protocol needs one source of truth.
+
+### Consequences
+None beyond the above.
+
+### Revisit condition
+None.
+
+### Supersedes / superseded by
+Supersedes: `research/proposals/delta_ce_proposal_v1.md` (for the listed items).
+
+---
+
+## D-006 — Environment split: Tier L and Tier 0 local CPU; Tier 1 Kaggle GPU
+
+### Status
+active
+
+### Context
+The local machine has 16 CPU cores and 15 GB RAM, with no NVIDIA GPU detected. The spec assigns Tier L and Tier 0 to CPU and Tier 1 (VAE, classifiers, oracle) to GPU with ≤ 4 Kaggle jobs.
+
+### Decision
+- Tier L and Tier 0: local CPU. PyTorch CPU is installed at G0 (a genuine local requirement).
+- Tier 1: Kaggle GPU via the repository harness, with the prep-kernel pattern for MNIST (kaggle-prep, Internet on; kaggle-gpu, Internet off, `kernel_sources`).
+- Kaggle accounts: multi-account harness; `--account auto` only for runs where the device class is recorded.
+
+### Rationale
+Matches the spec's compute plan and AGENTS.md's Kaggle rules.
+
+### Evidence
+`docs/ENVIRONMENTS.md` §1–§7; spec §11.
+
+### Alternatives considered
+Tier 1 locally on CPU — rejected for the acceptance runs (budget and runtime), allowed only for debugging.
+
+### Consequences
+A Kaggle smoke run is the first Tier 1 action; the environment remains `unverified` until then.
+
+### Revisit condition
+A smoke run fails on every account.
+
+### Supersedes / superseded by
+None.
+
+---
+
+## D-007 — Baselines are re-implemented, no external code
+
+### Status
+active
+
+### Context
+Artelt et al. and DiG-IN code may exist. Their licences, versions, and the need to match the benchmark are not checked.
+
+### Decision
+B1, B1-det, B3, B4 and the ablations are written in `src/dce/baselines/` and `src/dce/solvers/` from the equations in the spec. No external code is copied.
+
+### Rationale
+Same optimiser, budget, and points for every method (EVALUATION §14); avoids licence and version issues.
+
+### Evidence
+Spec §6.2–§6.4; `docs/CONSTRAINTS.md` §8.
+
+### Alternatives considered
+Using the authors' code — deferred; it can be checked later as a validation of B1 if available.
+
+### Consequences
+Baseline fidelity needs a unit test against the closed form for the linear case (H-004 covers Δ-CE; B1 gets its own check at G1).
+
+### Revisit condition
+A reviewer requires the original code.
+
+### Supersedes / superseded by
+None.
+
+---
+
+## D-008 — Research branch and kick-off commit
+
+### Status
+active
+
+### Context
+AGENTS.md: research happens on `research/<topic>`; `main` is the template.
+
+### Decision
+Branch `research/delta-ce` from `main`. The kick-off commit contains the docs, the research state, the moved spec and proposal, and the project `project rules file`. No code is included in the kick-off commit.
+
+### Rationale
+Keeps `main` free of project-specific content.
+
+### Evidence
+AGENTS.md "Branch model".
+
+### Alternatives considered
+None.
+
+### Consequences
+`main` stays generic.
+
+### Revisit condition
+None.
+
+### Supersedes / superseded by
+None.
 
 ---
 
 ## 4. Status semantics
 
-### `active`
-
-The decision currently governs project behavior.
-
-### `superseded`
-
-A newer decision replaces it.
-
-Keep the old entry for history and reference the replacement decision.
-
-Example:
-
-```text
-Status: superseded
-Superseded by: D-009
-```
-
-### `reversed`
-
-The project intentionally moved back from this decision because new evidence invalidated or outweighed the original rationale.
-
-Record the evidence that caused the reversal.
-
-Do not delete the original decision.
+`active`: in force. `superseded`: replaced by a later decision (name it). `reversed`: the opposite was decided (name it).
 
 ---
 
 ## 5. Decision lifecycle
 
-Recommended lifecycle:
-
-```text
-important ambiguity or tradeoff appears
-→ collect relevant evidence
-→ consider alternatives
-→ make decision
-→ record consequences
-→ define revisit condition
-→ keep active until new evidence warrants change
-```
-
-If a later decision changes it:
-
-```text
-old decision
-→ superseded or reversed
-→ new decision references old decision
-```
+Create when a decision affects more than one experiment. Mark `pending confirmation` when a human must answer. Supersede rather than edit history.
 
 ---
 
 ## 6. Evidence-driven decisions
 
-Whenever possible, decisions should reference concrete evidence.
-
-Good:
-
-```text
-Decision:
-Stop testing larger backbones.
-
-Evidence:
-exp_0011 and exp_0014 both increased compute substantially without improving the primary metric.
-```
-
-Weak:
-
-```text
-Decision:
-Stop testing larger backbones.
-
-Reason:
-Does not seem promising.
-```
-
-Not every decision can be evidence-driven, especially early project setup choices. In that case write:
-
-```text
-Evidence: Not evidence-driven
-```
-
-and explain the rationale clearly.
+None yet. Decisions that follow results go here with the run ID and the validity status.
 
 ---
 
 ## 7. Decisions derived from negative results
 
-Negative results may justify durable project decisions.
-
-Example:
-
-```text
-H-006: rejected
-H-008: rejected
-↓
-D-004:
-Stop allocating GPU budget to model-capacity scaling unless new evidence appears.
-```
-
-Keep the hypothesis conclusion in `research/HYPOTHESES.md` and the durable strategic consequence here.
+None yet.
 
 ---
 
 ## 8. Constraint deviations
 
-A meaningful deviation from a SOFT constraint should be recorded here.
-
-Template:
-
-```text
-Constraint:
-Original preference:
-Deviation:
-Reason:
-Expected benefit:
-Expected cost/risk:
-Scope:
-Revisit condition:
-```
-
-HARD constraints cannot be overridden autonomously.
-
-If a human explicitly approves a HARD-constraint exception, record the approval and scope here after the specification is handled appropriately.
+None.
 
 ---
 
 ## 9. Environment and infrastructure decisions
 
-Record environment/infrastructure choices here only when they affect research interpretation or many future runs.
-
-Examples worth recording:
-
-- switching final benchmarking from T4 to RTX;
-- deciding all runtime comparisons must use one GPU class;
-- accepting a platform limitation that affects artifact handling;
-- changing the default remote execution strategy for the project.
-
-Routine infrastructure fixes belong in Git history or issue tracking, not this decision log.
+D-006 and D-001 above.
 
 ---
 
 ## 10. Baseline decisions
 
-When choosing or changing a primary baseline, record:
-
-```text
-Baseline selected:
-Reason:
-Alternatives considered:
-Comparability implications:
-Required reproduction:
-Revisit condition:
-```
-
-A baseline change can materially alter interpretation of all later results and should therefore be treated as a durable decision.
+D-007 above.
 
 ---
 
 ## 11. Research-direction decisions
 
-Use a decision when the project intentionally changes direction.
-
-Examples:
-
-```text
-Stop pursuing architecture scaling.
-Focus remaining budget on preprocessing.
-Abandon external retrieval because it violates the intended deployment setting.
-Prioritize robustness over runtime optimization until target robustness is reached.
-```
-
-These decisions should reference the evidence that motivated them.
+D-003 above.
 
 ---
 
 ## 12. Decision conflicts
 
-If two active decisions conflict:
-
-1. Prefer the newer decision only if it explicitly supersedes the older one.
-2. If neither supersedes the other, treat the conflict as unresolved.
-3. Do not silently choose one.
-4. Resolve the conflict through a new decision or human input.
-
-A conflict involving project specifications under `docs/` must not be resolved by this file alone.
-
-Project specifications remain authoritative.
+None at kick-off. Conflicts between the spec and the protocol are resolved in favour of `docs/EVALUATION.md` (D-002) and the layout in AGENTS.md (D-001).
 
 ---
 
 ## 13. Relationship to other files
 
-Use:
-
-```text
-docs/GOAL.md
-```
-
-for what the project is trying to achieve.
-
-Use:
-
-```text
-docs/EVALUATION.md
-```
-
-for how results are judged.
-
-Use:
-
-```text
-docs/CONSTRAINTS.md
-```
-
-for project limits.
-
-Use:
-
-```text
-docs/ENVIRONMENTS.md
-```
-
-for available execution environments.
-
-Use:
-
-```text
-research/STATE.md
-```
-
-for the current snapshot and next action.
-
-Use:
-
-```text
-research/HYPOTHESES.md
-```
-
-for scientific hypotheses and their evidence.
-
-Use:
-
-```text
-research/LITERATURE.md
-```
-
-for prior work and novelty evidence.
-
-Use:
-
-```text
-research/DECISIONS.md
-```
-
-only for durable choices and their rationale.
+`docs/` holds the spec; this file holds decisions taken under it. Hypothesis-level detail stays in `research/HYPOTHESES.md`.
 
 ---
 
 ## 14. Cleanup and maintenance
 
-Periodically review active decisions.
-
-For each active decision ask:
-
-```text
-Is the rationale still valid?
-Has the revisit condition been triggered?
-Has another decision superseded it?
-Does the project still follow it?
-```
-
-Do not delete obsolete decisions.
-
-Update status and links instead.
+Do not delete decisions. Mark them superseded.
 
 ---
 
 ## 15. Completion checklist
 
-For each important decision, confirm:
-
-- [ ] Unique decision ID exists.
-- [ ] Status is current.
-- [ ] Context explains why a decision was needed.
-- [ ] Decision is stated precisely.
-- [ ] Rationale is explicit.
-- [ ] Relevant evidence is referenced.
-- [ ] Meaningful alternatives are recorded.
-- [ ] Consequences are clear.
-- [ ] Revisit condition is defined.
-- [ ] Superseded/reversed relationships are recorded when applicable.
-- [ ] The entry describes a durable decision, not a routine action.
+- [x] Decisions D-001 to D-008 have status, context, decision, rationale.
+- [ ] D-002 and D-004 confirmed by the human.

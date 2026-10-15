@@ -11,372 +11,154 @@
 ## 1. Project status
 
 ```text
-Status: initializing | baseline | researching | verifying | blocked | completed
-Last updated:
-Current commit:
-Current branch:
+Status: initializing
+Last updated: 2026-10-15
+Current commit: see `git log -1` (kick-off commit on research/delta-ce)
+Current branch: research/delta-ce (from main)
 ```
-
-Use the status that best describes the project now.
 
 ---
 
 ## 2. Current objective
 
-<REQUIRED — Summarize the active research objective in 1–3 lines.>
+Test whether Δ-CE (minimal on-manifold witnesses on which exactly one model changes its decision) recovers the injected factor of a known model change, and separates drift from null pairs, better than CE differencing (B1) and gradient difference (B3). Acceptance rule: `docs/EVALUATION.md` §15.
 
-Do not duplicate all of `docs/GOAL.md`.
-
-Example:
-
-```text
-Improve adversarial robustness over the reproduced baseline while preserving clean accuracy under the official evaluation protocol.
-```
+Next gate: G-lit (17/10/2026). Spec freeze: 17/10/2026 23:59 ICT.
 
 ---
 
 ## 3. Baseline status
 
 ```text
-Baseline:
-Status: not_started | running | reproduced | failed | unavailable
-Best reproduced result:
-Primary metric:
-Relevant experiment ID:
-Commit:
-Notes:
+Baseline: B1 — CE differencing (Artelt et al., Definition 3). Secondary: B1-det, B3, B4.
+Status: not_started
+Best reproduced result: none
+Primary metric: Recovery@r (EVALUATION §2)
+Relevant experiment ID: none
+Commit: none
+Notes: baseline to be re-implemented under src/dce/baselines/ after the solver (G1).
 ```
-
-If baseline reproduction is skipped or impossible, reference the corresponding decision in `research/DECISIONS.md`.
 
 ---
 
 ## 4. Current best result
 
-Only a scientifically valid experiment should be treated as the current best.
-
-```text
-Experiment ID:
-Hypothesis ID:
-Primary metric:
-Secondary constraints satisfied: yes | no | n/a
-Comparison vs baseline:
-Validity: valid | provisional | invalid
-Commit:
-Run evidence:
-Remote kernel / artifact manifest: <optional, for a persistent-artifact candidate>
-```
-
-Use:
-
 ```text
 None yet
 ```
-
-if no valid candidate result exists.
-
-A provisional or invalid result must not silently replace the current valid best.
 
 ---
 
 ## 5. Active hypothesis
 
 ```text
-Hypothesis ID:
-Short statement:
-Status: proposed | testing | supported | rejected | inconclusive
-Current experiment ID:
-Why this hypothesis is active:
+Hypothesis ID: H-004 (solver correctness; a verification step, not a scientific claim)
+Short statement: the Δ-CE solver reproduces the linear closed form of Proposition 3 and the cos-alignment of Proposition 4 on Tier L.
+Status: proposed
+Current experiment ID: none
+Why this hypothesis is active: it is the first gate (G1). Without it no result can be trusted.
 ```
-
-Detailed hypothesis history belongs in `research/HYPOTHESES.md`.
 
 ---
 
 ## 6. Latest experiment
 
 ```text
-Experiment ID:
-Hypothesis ID:
-Run type: smoke | full | verification | baseline
-Result:
-Validity: valid | provisional | invalid
-Primary observation:
-Conclusion:
-Relevant run evidence:
+None yet. No experiment has been run.
 ```
-
-This section describes the latest meaningful experiment, not necessarily the current best.
 
 ---
 
 ## 7. Strongest current observations
 
-<REQUIRED — Keep only observations that materially affect current research direction.>
+Only theoretical results exist so far; none is empirical:
 
-Example:
+- Band containment (Lemma 1, spec §3.2, proposal §3.2): every witness satisfies h(z) ≤ −2κ and |h(z)| ≥ m_o(z) + κ. Proved.
+- Null certificate (Proposition 2): under a Lipschitz bound on h, no witness exists near z0 when h(z0) + 2κ > 0. Proved for the idealised Lipschitz case only; not certified for deep networks.
+- Linear closed form (Proposition 3): cases A and B. Proved.
+- Direction recovery (Proposition 4): Δ-CE and CE differencing both recover span{PΔw} in the linear case. Proved, and it means Δ-CE is not expected to beat B1 on local linear changes. This is a stated prediction (P-tie), not a result.
 
-```text
-- H-003 improved validation robustness but caused unacceptable clean-accuracy loss.
-- Runtime bottleneck is dominated by restoration rather than classification.
-- Increasing model capacity did not improve the primary metric.
-```
-
-Avoid turning this section into an experiment history.
+Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposal_v1.md` §3.
 
 ---
 
 ## 8. Next action
 
-This should be the single most important action for the agent to take after reading this file.
-
-```text
-Exact next action:
-Why:
-Expected evidence:
-Relevant hypothesis:
-Relevant experiment/config:
-```
-
-Example:
-
-```text
-Exact next action:
-Run smoke for exp_0007 testing H-004.
-
-Why:
-Implementation and local validation passed, and this is the minimal experiment that can test H-004.
-
-Expected evidence:
-Whether the modified normalization path executes correctly and produces finite metrics.
-```
-
-The next action should be concrete enough to execute without rediscovering project context.
+1. **G-lit (by 17/10):** read full texts listed in `research/LITERATURE.md` §12 (Artelt et al. NPL 2022 persistent explanations; Hammer & Hüllermeier 2021; Muschalik et al. 2022; Hinder et al. model-based drift explanations; citing papers of Artelt 2021 and DiG-IN). Record each in `research/LITERATURE.md`. Decide: continue, narrow to benchmark + H3, or Stop.
+2. **Human confirmation** of D-002 (gates on validation, not test; before G0) and D-004 (venue and dates; before the paper) — see `research/DECISIONS.md`.
+3. **G0 (by 20/10):** build Tier 0 renderer, drift data, classifiers (`src/dce/`), and the flip-sensitivity check on validation. CPU only.
+4. Then G1 (H4 + pilot), G2 (Tier 1 on Kaggle), G3.
 
 ---
 
 ## 9. In-flight remote jobs
 
-Track all currently active remote jobs before and while waiting. These records are
-recovery checkpoints for interruption or local execution limits; a job appearing
-here does not mean the agent should stop normally. Under normal operation, block on
-the executor wait when no independent work remains, then remove or update the entry
-after reconciling the terminal result.
-
-Do not repeatedly poll or rewrite an in-flight entry while its remote status is
-unchanged. An unchanged status is not new research evidence.
-
-If none exist:
-
 ```text
-In-flight jobs: none
-```
-
-Otherwise, for each job record:
-
-```text
-Experiment ID:
-Run type:
-Kernel slug / remote job ID:
-Purpose:
-Submitted from commit:
-Requested hardware:
-Last known status:
-Last checked:
-Expected outputs:
+None.
 ```
 
 ### Resume rule
 
-Before submitting new remote work, the agent must inspect this section.
-
-For every in-flight job:
-
-```text
-check remote status
-→ if complete: fetch and validate outputs
-→ if failed: classify failure
-→ if still running: avoid duplicate submission and continue one blocking wait
-→ update STATE.md only when state meaningfully changes
-```
-
-Do not submit a replacement job merely because the previous local session ended.
-
-When resuming after interruption, reconcile every in-flight job first: fetch and
-validate completed work, classify terminal failures, and continue blocking wait for
-queued or running work unless an external interruption, local execution limit,
-human-intervention requirement, or explicit stop condition prevents it. Do not hand
-monitoring to the human merely because a recovered job remains active.
+If a Kaggle job is recorded here as in flight, resume by waiting on it with the harness (`docs/RESEARCH_PROTOCOL.md` §8, remote wait), not by resubmitting.
 
 ---
 
 ## 10. Test-set state
 
-This section is required to preserve test-set blindness and information-flow provenance.
-
 ```text
-Status: untouched | evaluated
-Last evaluation:
-Methods/configurations evaluated:
-Relevant commits:
-Information revealed:
-Blindness notes:
+Tier 0 test (5 000 renderer samples): untouched
+Tier 1 test (MNIST 4/9 official test): untouched
+Status rule: a test split becomes `evaluated` only in the final procedure (EVALUATION §19), once per locked candidate.
 ```
-
-### `untouched`
-
-Use only when no information derived from the final test set has been observed.
-
-### `evaluated`
-
-Use once final test information has been revealed.
-
-Record enough information to determine whether future methods are independent of prior test-set information.
-
-Example:
-
-```text
-Status: evaluated
-Last evaluation: exp_0018
-Methods/configurations evaluated: method-A
-Relevant commits: abc123
-Information revealed: aggregate primary and secondary metrics only
-Blindness notes:
-Method-B was already fully specified and committed before exp_0018 completed.
-```
-
-Do not reset this field to `untouched`.
 
 ---
 
 ## 11. Resource state
 
-Keep current resource usage visible.
-
-Template:
-
 ```text
-GPU budget used:
-GPU budget remaining:
-Full experiments used:
-Full experiments remaining:
-Wall-clock deadline / time remaining:
-Other constrained resources:
+GPU budget (HARD, 10 GPU-hours): used 0.0 / 10
+Kaggle accounts: not verified (kaggle-gpu status: unverified)
+Local compute: 16 CPU cores, no GPU; Tier 0 and Tier L run on CPU
+Tier 1 Kaggle jobs used: 0 / 4
 ```
-
-If a resource is not constrained:
-
-```text
-Not constrained
-```
-
-Use the accounting rules defined in `docs/CONSTRAINTS.md`.
 
 ---
 
 ## 12. Current blockers
 
-If none:
-
-```text
-Blockers: none
-```
-
-Otherwise:
-
-```text
-Blocker:
-Impact:
-What has already been tried:
-Human action required: yes | no
-Next resolution attempt:
-```
-
-Do not hide blockers by repeatedly retrying the same failure without new evidence.
+1. Human confirmation of D-002 (validation-based gates) is needed before G0 (20/10). The agent works with the conservative reading (validation-based gates) until then. D-004 (venue, deadlines) is needed before the paper, not before the experiments.
+2. Kaggle GPU has not been verified on the connected account (smoke required before Tier 1).
+3. ESANN 2027 special-session name and dates are taken from the source spec and not verified.
 
 ---
 
 ## 13. Immediate queue
 
-Keep only a short queue of the next 1–3 likely actions.
-
-Example:
-
-```text
-1. Fetch and validate exp_0012 when its Kaggle job completes.
-2. If valid, update H-006 based on the result.
-3. If H-006 is rejected, evaluate whether H-007 has enough evidence to proceed.
-```
-
-This is not the full hypothesis backlog.
-
-The complete backlog belongs in `research/HYPOTHESES.md`.
+- [ ] G-lit: full-text reading and `research/LITERATURE.md` update (by 17/10)
+- [ ] Human decisions D-002, D-004
+- [ ] `src/dce/` package skeleton; add it to `pyproject.toml` packages when code starts
+- [ ] Tier L test `tests/unit/test_linear_theory.py` (H-004)
+- [ ] Tier 0 renderer, drift builder, classifier (G0)
+- [ ] Kaggle smoke for kaggle-gpu and kaggle-prep (before G2)
 
 ---
 
 ## 14. Current research phase summary
 
-<OPTIONAL — Use when a short free-form summary materially improves resume quality.>
-
-Keep this concise.
-
-Example:
-
-```text
-Baseline is reproduced. Two optimization hypotheses were rejected.
-Current evidence points toward preprocessing as the main source of robustness loss.
-H-006 is running as the next targeted test.
-```
+Phase: W0 (15–17/10): literature and kick-off. Specification and research memory are in place; no code or experiments yet.
 
 ---
 
 ## 15. State update rules
 
-Update `STATE.md` whenever any of the following changes:
-
-- project status;
-- baseline status;
-- current best result;
-- active hypothesis;
-- latest valid experiment;
-- strongest observations;
-- next action;
-- in-flight remote jobs;
-- test-set state;
-- resource usage;
-- blockers.
-
-Prefer replacing stale state over appending historical notes.
-
-Before ending a meaningful research session, ensure this file accurately answers:
-
-```text
-Where are we?
-What is currently true?
-What is running?
-What is the best valid result?
-What information has the test set revealed?
-What should happen next?
-What could block it?
-```
+Update this file after each meaningful change: gate passed or failed, hypothesis status change, experiment completed, test split touched, Kaggle job submitted or completed, blocker raised or resolved.
 
 ---
 
 ## 16. Completion checklist
 
-Before relying on this file for autonomous resume, confirm:
-
-- [ ] Project status is current.
-- [ ] Current objective is concise.
-- [ ] Baseline status is current.
-- [ ] Current best points only to a valid result.
-- [ ] Active hypothesis is identified.
-- [ ] Latest experiment is recorded.
-- [ ] Strongest observations reflect current evidence.
-- [ ] One exact next action is defined.
-- [ ] All in-flight remote jobs are tracked.
-- [ ] Test-set state is current and never falsely reset.
-- [ ] Resource usage is current.
-- [ ] Blockers are explicit.
-- [ ] Immediate queue contains no more than a few useful next actions.
-- [ ] Stale history has been removed rather than accumulated.
+- [x] Current objective stated.
+- [x] Baseline status stated.
+- [x] Test-set state stated.
+- [x] Next action stated.
+- [x] Blockers stated.

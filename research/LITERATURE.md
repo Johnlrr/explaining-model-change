@@ -1,667 +1,185 @@
 # LITERATURE.md
 
-> Purpose: Track prior work, search history, source evidence, and novelty assessment for this research project.
+> Purpose: Record prior work, novelty checks, and citations that materially influence the project.
 >
-> Ownership: Mutable research state. The agent should update this file whenever prior work is searched, reviewed, or found to materially affect hypotheses, baselines, novelty, interpretation, or experiment design.
->
-> This file is **not a bibliography dump**. Record sources only when they materially affect the research.
+> Ownership: Mutable research memory. The Research Lead writes the interpretation. Entries marked `discovered` come from web search at kick-off and have **not** been read in full.
 
 ---
 
 ## 1. Literature index
 
-Keep this table current.
-
 | ID | Title / source | Year | Relevance | Status | Related hypotheses | Code available |
 |---|---|---:|---|---|---|---|
-| L-001 | <title> | <year> | high | reviewed | H-001 | yes |
+| L-001 | Artelt, Hinder, Vaquet, Feldhans, Hammer — *Contrastive Explanations for Explaining Model Adaptations* (arXiv:2104.02459) | 2021 | high | discovered | H-001, H-005, H-006 | unknown |
+| L-002 | Artelt et al. — *Contrasting Explanations for Understanding and Regularizing Model Adaptations* (Neural Processing Letters) | 2022 | high | discovered (full text required, G-lit) | H-001, H-002 | unknown |
+| L-003 | Hinder, Hammer — *Counterfactual Explanations of Concept Drift* (arXiv:2006.12822) | 2020 | high | discovered | H-003 | unknown |
+| L-004 | Hammer, Hüllermeier — *Interpretable Machine Learning: On the Problem of Explaining Model Change* | 2021 | medium | discovered (full text required) | H-003 | no |
+| L-005 | Muschalik, Fumagalli, Hammer, Hüllermeier — *Agnostic Explanation of Model Change based on Feature Importance* (KI) | 2022 | medium | discovered | H-002 (B4) | unknown |
+| L-006 | Augustin et al. — *DiG-IN: Diffusion Guidance for Investigating Networks* (CVPR; arXiv:2311.17833) | 2024 | high | discovered | H-006 | unknown |
+| L-007 | Weng et al. — *FastDiME* (ECCV; arXiv:2312.14223) | 2024 | medium | discovered | — | unknown |
+| L-008 | Hamman et al. — *Robust Counterfactual Explanations for Neural Networks With Probabilistic Guarantees* (ICML) | 2023 | medium | discovered | — | unknown |
+| L-009 | *Provably Robust Bayesian Counterfactual Explanations under Model Changes* (PSCE; arXiv:2601.16659) | 2026 | medium | discovered | — | unknown |
+| L-010 | *Probabilistically robust counterfactual explanations under model changes* (Artificial Intelligence) | 2025 | medium | discovered | — | unknown |
+| L-011 | Pawelczyk, Broelemann, Kasneci — *On Counterfactual Explanations under Predictive Multiplicity* (UAI) | 2020 | medium | discovered | H-003 (Rashomon) | unknown |
+| L-012 | Altmeyer et al. — *ECCCo* (AAAI) | 2024 | low | discovered | — | unknown |
+| L-013 | Castro et al. — *Morpho-MNIST* (JMLR) | 2019 | high | discovered | Tier 1 | yes (public) |
+| L-014 | *A Geometric View of Counterfactual Behavior* (arXiv:2606.04209) | 2026 | low | discovered | motivation only | unknown |
+| L-015 | *Explaining Concept Drift through the Evolution of Group Counterfactuals* (arXiv:2509.09616) | 2025 | low | discovered | — | unknown |
+| L-016 | Wachter, Mittelstadt, Russell — *Counterfactual Explanations without Opening the Black Box* | 2017 | medium | discovered | background | n/a |
+| L-017 | Yan et al. — *Positive-Congruent Training* (CVPR) | 2021 | low | discovered; not re-checked in the proposal | negative flips | unknown |
+| L-018 | Kaden, Paassen, Hammer, Schubert, Villmann — *Reliable Counterfactuals for Machine Learning Models* (ESANN 2026) | 2026 | low | discovered | venue context | unknown |
 
-Allowed relevance values:
+Allowed relevance values: high, medium, low.
 
-```text
-high
-medium
-low
-```
+Suggested status values: discovered, screened, reviewed, follow_up_needed, not_relevant, superseded.
 
-Suggested status values:
-
-```text
-discovered
-screened
-reviewed
-follow_up_needed
-not_relevant
-superseded
-```
+**Caveat.** arXiv identifiers and years in this table come from the proposal's web search (15/10/2026). They must be checked against the source before citation (spec §14 flags Yan et al. for this).
 
 ---
 
 ## 2. Search history
 
-Track literature searches so the agent does not repeatedly search the same space without purpose.
+| Date | Query or source | Result |
+|---|---|---|
+| 2026-10-15 | Proposal §2.1 web search (Artelt 2021/2022, Hinder & Hammer, Muschalik, DiG-IN, FastDiME, Hamman, PSCE, ECCCo, Geometric view, Group CE) | list L-001–L-015 |
+| 2026-10-15 | Spec §2 (reading of Artelt et al. arXiv:2104.02459v2 §3, Def. 3, Thm 1–2, §4.2, experiments) | recorded in spec; full text check not repeated in this session |
 
-For each meaningful search, record:
-
-```text
-Search ID:
-Date:
-Research question / purpose:
-Query:
-Search source:
-Filters:
-Top relevant sources:
-Outcome:
-Next search:
-```
-
-Example:
-
-```text
-Search ID: S-004
-Date: 2026-09-16
-Research question / purpose:
-Find prior work using localized restoration for adversarial defense.
-
-Query:
-"localized adversarial image restoration defense confidence mask"
-
-Search source:
-Google Scholar / arXiv / web search
-
-Filters:
-2020-present, vision, adversarial robustness
-
-Top relevant sources:
-L-007, L-011
-
-Outcome:
-Found regional restoration methods, but no direct match for confidence-weighted partial restoration.
-
-Next search:
-Search specifically for confidence-weighted or uncertainty-weighted regional purification.
-```
-
-Search history should help answer:
-
-```text
-What did we already search?
-What terminology did we use?
-What gaps remain?
-What search would add new information?
-```
-
-Do not create entries for trivial duplicate searches.
+Not yet done (G-lit, due 17/10): full-text reading of L-002, L-004, L-005; citing-paper search (Semantic Scholar) for L-001 and L-006 with terms "explaining model updates", "negative flip explanation", "backward-compatible explanations", "explanation of model differences counterfactual", "disagreement witness".
 
 ---
 
 ## 3. Source entry template
 
-Copy the following section for each source that materially matters.
-
----
-
-## L-XXX — <title>
-
-### Bibliographic information
-
-```text
-Title:
-Authors:
-Year:
-Venue:
-Source type: paper | preprint | benchmark | repository | blog | documentation | other
-URL:
-DOI / identifier:
-```
-
-Use the most authoritative source available.
-
----
-
-### Relevance
-
-```text
-Relevance: high | medium | low
-Status: discovered | screened | reviewed | follow_up_needed | not_relevant | superseded
-Related hypotheses:
-Related decisions:
-Related baseline:
-```
-
----
-
-### Problem addressed
-
-<REQUIRED — What problem is the source trying to solve?>
-
-Keep this concise.
-
----
-
-### Method
-
-<REQUIRED — Summarize the core method or idea in your own words.>
-
-Focus on the mechanism relevant to this project.
-
-Do not reproduce large passages from the source.
-
----
-
-### Experimental setting
-
-Record what matters for comparison:
-
-```text
-Dataset / benchmark:
-Model:
-Training setup:
-Evaluation protocol:
-Primary metric:
-Compute / hardware if relevant:
-```
-
-If unknown:
-
-```text
-Unknown / not reported
-```
-
----
-
-### Main reported findings
-
-<REQUIRED — Summarize the findings reported by the source.>
-
-Clearly distinguish source-reported facts from our interpretation.
-
-Use:
-
-```text
-Reported by source:
-- ...
-
-Our interpretation:
-- ...
-```
-
-Do not convert an interpretation into a claim that the source itself made.
-
----
-
-### Assumptions and limitations
-
-Record limitations relevant to this project.
-
-Examples:
-
-- different benchmark;
-- weaker attack/evaluation;
-- unavailable implementation details;
-- high compute requirement;
-- dependence on external data;
-- incompatible deployment assumptions;
-- unclear reproducibility;
-- evaluation on a narrow model family.
-
----
-
-### Relevance to this project
-
-<REQUIRED — Explain why this source matters here.>
-
-Possible roles:
-
-```text
-baseline
-directly related method
-supporting mechanism
-contradictory evidence
-evaluation reference
-implementation reference
-novelty threat
-background only
-```
-
-Explain the relation explicitly.
-
----
-
-### Relation to hypotheses
-
-```text
-Supports:
-Challenges:
-Motivates:
-Overlaps with:
-No direct relation:
-```
-
-Reference hypothesis IDs where possible.
-
-Example:
-
-```text
-Motivates: H-006
-Overlaps with: H-009
-```
-
----
-
-### Code / repository availability
-
-<REQUIRED>
-
-```text
-Official code available: yes | no | unclear
-Repository:
-License:
-Pretrained weights available: yes | no | unclear
-Reproduction notes:
-```
-
-If the repository is unofficial, say so.
-
-Code availability is especially important for baseline reproduction and fair comparison.
-
----
-
-### Follow-up needed
-
-```text
-None
-```
-
-or:
-
-```text
-- inspect official implementation;
-- verify exact benchmark split;
-- compare attack settings;
-- check whether method already includes mechanism proposed in H-007.
-```
+Use the template in the earlier version of this file (git history). Full entries are written for L-001, L-002, L-003, L-006 at G-lit.
 
 ---
 
 ## 4. Baseline literature
 
-Track the authoritative sources for the primary baseline.
-
-For each baseline:
-
-```text
-Baseline:
-Primary source:
-Official implementation:
-Reported benchmark:
-Reported metric:
-Relevant version/checkpoint:
-Known reproduction notes:
-Local reproduction status:
-Related literature IDs:
-```
-
-Use this section to avoid ambiguity about what “the baseline” means.
-
-Detailed reproduction results belong in run evidence and `research/STATE.md`.
+- **B1 (CE differencing):** Artelt et al. 2021, Definition 3.
+- **B3 (gradient difference):** Artelt et al. 2021, Eq. 14 (approximation).
+- **B4 (global feature importance difference):** Muschalik et al. 2022.
+- **B1-det, A1–A3:** this project's ablations of B1 and Δ-CE.
 
 ---
 
 ## 5. Related-method map
 
-Group important prior work into method families.
-
-Example:
-
-```text
-### Purification-based defenses
-- L-003
-- L-008
-
-### Detection + localized restoration
-- L-011
-- L-014
-
-### Test-time adaptation
-- L-017
-```
-
-For each family, summarize:
-
-```text
-Core idea:
-Strengths:
-Weaknesses:
-How it differs from our current direction:
-```
-
-This section should make the research landscape easier to reason about than a flat bibliography.
+| Family | Methods | Relation to Δ-CE |
+|---|---|---|
+| Explaining model adaptation with counterfactuals | Artelt 2021/2022 (L-001, L-002) | closest; uses CE differencing (B1) |
+| Explaining drift of data | Hinder & Hammer 2020 (L-003) | explains data drift, not model change |
+| Feature-importance model change | Muschalik 2022 (L-005), Hammer & Hüllermeier 2021 (L-004) | global; B4 |
+| Diffusion-guided disagreement | DiG-IN (L-006) | ablation A1 (no proximity) |
+| Robust CE under model change | Hamman 2023 (L-008), PSCE (L-009) | opposite goal: CE valid under both models; dual |
+| Shortcut via CE | FastDiME (L-007) | one model; Δ-CE compares two |
 
 ---
 
 ## 6. Novelty map
 
-Track novelty for every hypothesis or method intended as a contribution.
+| Claim | Novelty status | Reason |
+|---|---|---|
+| Δ-CE as a witness on which two models disagree, on the manifold, within budget | candidate | not found in the proposal search; to be confirmed at G-lit (L-002 full text is the main check) |
+| Band containment lemma (any witness has |h| ≥ m_o + κ) | candidate | elementary; still checked against L-002 |
+| Null certificate (Proposition 2) | candidate | Lipschitz form; not certified for deep networks |
+| Linear direction recovery (Proposition 4) | not_novel | Artelt Theorems 1–2 cover the direction case (no bias); Proposition 4 reproduces it and is cited, not claimed |
+| Linear closed form with bias and margin (Proposition 3) | candidate | Artelt's linear results exclude bias; the constrained case with margin κ is an extension to check at G-lit |
+| Benchmark with exact or analytic ground truth for model change | candidate | none found in the proposal search |
+| Predicted tie on local drift (P-tie) | candidate | a prediction, not a result |
 
-Template:
-
-```text
-Candidate:
-Related hypothesis:
-Closest prior work:
-Key overlap:
-Key difference:
-Evidence supporting the difference:
-Remaining uncertainty:
-Novelty status: candidate | supported | uncertain | not_novel
-Next search:
-```
-
-Example:
-
-```text
-Candidate:
-Confidence-weighted partial restoration
-
-Related hypothesis:
-H-007
-
-Closest prior work:
-L-012, L-019
-
-Key overlap:
-Both localize adversarially affected image regions before restoration.
-
-Key difference:
-Prior work restores the full localized region, while H-007 uses confidence-weighted partial restoration.
-
-Evidence supporting the difference:
-No reviewed source currently found using the same weighting mechanism under the same defense setting.
-
-Remaining uncertainty:
-Search has not yet covered all restoration/purification work before 2020.
-
-Novelty status:
-uncertain
-
-Next search:
-Search older purification literature and uncertainty-weighted image restoration methods.
-```
-
-Do not mark a contribution `supported` merely because no exact title match was found.
+Novelty values follow the template: candidate | supported | uncertain | not_novel. **No claim of novelty is made until G-lit is complete.**
 
 ---
 
 ## 7. Novelty status semantics
 
-### `candidate`
-
-The idea appears distinct enough to justify further novelty search.
-
-### `supported`
-
-Search evidence currently supports meaningful differentiation from the closest known prior work.
-
-This is not a guarantee that no prior work exists.
-
-### `uncertain`
-
-The search is incomplete, terminology is ambiguous, or overlap remains unclear.
-
-### `not_novel`
-
-Prior work already contains the material contribution being proposed.
-
-When this occurs:
-
-- record the overlapping source;
-- update the affected hypothesis;
-- decide whether adaptation/extension remains worthwhile;
-- do not present reproduction as a new contribution.
+Use the template definitions. The current overall status is `candidate`.
 
 ---
 
 ## 8. Open research gaps
 
-Record gaps supported by literature evidence.
-
-Template:
-
-```text
-Gap ID:
-Observed gap:
-Evidence:
-Relevant sources:
-Why it matters:
-Related hypotheses:
-Confidence: high | medium | low
-```
-
-A gap should not be created merely because the agent has not yet found a paper.
-
-Prefer:
-
-```text
-Multiple reviewed methods improve robustness but all restore the entire detected region; none of the reviewed sources study confidence-weighted partial restoration.
-```
-
-over:
-
-```text
-No one has tried our idea.
-```
+- A witness-based explanation of decision change on the data manifold, with a budget, for deep models.
+- A benchmark where the change type is known and the explanation can be scored exactly.
+- A test for non-local change that the local gradient approximation cannot see.
 
 ---
 
 ## 9. Contradictory evidence
 
-Use this section when sources materially disagree.
-
-Template:
-
-```text
-Question:
-Source A:
-Reported result:
-Source B:
-Reported result:
-Possible reasons:
-Implication for this project:
-Needed experiment/search:
-```
-
-Do not force contradictory literature into one narrative without noting the disagreement.
+- Proposition 4: in the linear case Δ-CE gives no direction advantage over CE differencing. This is a limit on the claim, not an empirical contradiction.
 
 ---
 
 ## 10. Literature-derived hypotheses
 
-Track hypotheses that originate materially from prior work.
-
-Example:
-
-```text
-L-008
-→ observation: localized restoration reduces unnecessary image modification
-→ H-006: restoration area may be the main robustness/clean-accuracy tradeoff
-
-L-014
-→ observation: uncertainty can guide region selection
-→ H-007: confidence-weighted partial restoration may improve the tradeoff
-```
-
-This helps preserve intellectual provenance.
+H-001 to H-003 are taken from the gaps in §8. H-005 comes from Proposition 4 (Artelt Theorem 1 in the linear case).
 
 ---
 
 ## 11. Novelty threats
 
-Record sources that may invalidate or narrow the contribution claim.
-
-Template:
-
-```text
-Threat ID:
-Candidate contribution:
-Potentially overlapping source:
-Nature of overlap:
-What must be checked:
-Current assessment:
-```
-
-A novelty threat should be resolved before describing a result as a contribution.
+- **Artelt et al. NPL 2022** may already define a disagreement-based explanation in its "persistent explanations" section. The spec states that Artelt et al. set disagreement regions aside (spec §2, citing §3 of arXiv:2104.02459). This must be checked in full text. **If a disagreement witness with a ground-truth benchmark exists, the project moves to Route B′ or Stop (spec §10).**
+- **Hinder et al. (model-based explanations of concept drift)** is listed in the spec's G-lit. Not yet read.
+- **Muschalik et al. 2022** may include a local variant. To be checked.
 
 ---
 
 ## 12. Search gaps and next searches
 
-Keep a short queue of unresolved literature questions.
+Full-text reading for G-lit (due 17/10):
 
-Example:
-
-```text
-1. Search confidence-weighted restoration in adversarial defense.
-2. Check whether L-012 has a supplementary ablation equivalent to H-007.
-3. Search older purification methods before 2020.
-```
-
-Do not let this become a general reading list.
-
-Each search should answer a specific research or novelty question.
+1. L-002 Artelt et al. NPL 2022: the persistent-explanations section and theorems.
+2. L-004 Hammer & Hüllermeier 2021.
+3. L-005 Muschalik et al. 2022.
+4. Hinder et al., "Model-based explanations of concept drift".
+5. Citing papers of L-001 and L-006 (Semantic Scholar).
+6. Keyword searches listed in §2.
 
 ---
 
 ## 13. Source quality and authority
 
-Prefer:
-
-1. original paper / official benchmark / official repository;
-2. peer-reviewed or primary technical source;
-3. authoritative documentation;
-4. secondary summaries only when primary material is unavailable.
-
-For each important claim, favor the original source when possible.
-
-Do not rely on a blog or secondary article for a claim that can be verified directly from the paper or official implementation.
+Peer-reviewed venues (NPL, KI, JMLR, CVPR, ECCV, ICML, AAAI, UAI) are preferred. arXiv entries are used only with the version stated. Web summaries are not evidence.
 
 ---
 
 ## 14. Literature search policy
 
-Literature search is required when:
-
-- opening a substantially new research direction;
-- selecting or changing an important baseline;
-- adopting an external technique;
-- evaluating whether a hypothesis overlaps existing work;
-- preparing to describe a result as a contribution;
-- assessing novelty.
-
-It is not necessary before every small parameter or implementation experiment.
-
-Follow the generic policy in `docs/RESEARCH_PROTOCOL.md`.
+Record the query and date in §2 for each search that influences a decision.
 
 ---
 
 ## 15. Novelty review before contribution claim
 
-Before calling a result a candidate contribution:
-
-```text
-identify candidate contribution
-→ search closest method family
-→ search mechanism-specific terminology
-→ search alternative terminology
-→ inspect closest sources
-→ compare mechanism and evaluation setting
-→ update novelty map
-```
-
-Before marking novelty as `supported`, verify:
-
-- [ ] Closest known prior work is identified.
-- [ ] Key overlap is explicit.
-- [ ] Key difference is explicit.
-- [ ] Difference is meaningful, not merely cosmetic.
-- [ ] Search used more than one plausible terminology where appropriate.
-- [ ] Official implementations/supplements were checked when relevant.
-- [ ] Remaining uncertainty is documented.
-- [ ] No known source already contains the same material contribution.
+No contribution claim is written into the paper until §6 is updated after G-lit, and the L-002 full text has been read.
 
 ---
 
 ## 16. Search saturation
 
-Do not search indefinitely.
-
-A novelty search may be considered sufficiently saturated for the current stage when:
-
-- repeated queries return the same core sources;
-- several plausible terminology variants have been tried;
-- closest method families have been inspected;
-- recent and foundational work have both been considered where relevant;
-- no unresolved high-risk novelty threat remains.
-
-Record remaining uncertainty rather than pretending the search is exhaustive.
+Not reached.
 
 ---
 
 ## 17. What not to store
 
-Do not turn this file into:
-
-- a complete bibliography of the field;
-- copied paper abstracts;
-- long quotations;
-- generic background notes with no project relevance;
-- duplicate search results;
-- unsourced novelty claims;
-- conversational memory.
-
-Store only what materially helps:
-
-- choose baselines;
-- form or reject hypotheses;
-- assess novelty;
-- interpret experiments;
-- design fair comparisons.
+Full copies of papers; long quotes beyond what a decision needs.
 
 ---
 
 ## 18. Maintenance rules
 
-Update this file when:
-
-- a new important source is reviewed;
-- a search materially changes novelty confidence;
-- a baseline source is identified or changed;
-- a literature finding creates or invalidates a hypothesis;
-- contradictory evidence is found;
-- official code/repository availability changes the research plan;
-- a novelty threat is resolved.
-
-Do not delete important old sources merely because the research direction changes.
-
-Mark them `not_relevant` or `superseded` when appropriate.
+Update the index, the search history, and the novelty map together.
 
 ---
 
 ## 19. Completion checklist
 
-Before relying on the literature state, confirm:
-
-- [ ] Important sources have stable `L-XXX` IDs.
-- [ ] Search history records meaningful queries and outcomes.
-- [ ] Each important source has relevance `high`, `medium`, or `low`.
-- [ ] Source-reported facts are separated from our interpretation.
-- [ ] Baseline literature is identified.
-- [ ] Official code/repository availability is recorded.
-- [ ] Closest related-method families are mapped.
-- [ ] Contribution candidates have novelty entries.
-- [ ] Novelty overlap and differences are explicit.
-- [ ] Novelty status is `candidate`, `supported`, `uncertain`, or `not_novel`.
-- [ ] Contradictory evidence is preserved when present.
-- [ ] Literature-derived hypotheses reference their sources.
-- [ ] Search gaps and next searches are explicit.
-- [ ] Novelty claims do not exceed the evidence available.
+- [x] Index with IDs and statuses.
+- [x] Search history recorded.
+- [x] Novelty map with status values.
+- [ ] Full-text reading of L-002, L-004, L-005, and Hinder et al. (G-lit).
+- [ ] Citing-paper search done.
+- [ ] arXiv identifiers verified.

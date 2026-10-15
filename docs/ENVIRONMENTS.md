@@ -10,218 +10,132 @@
 
 ## 1. Environment registry
 
-<REQUIRED — List every execution environment available to this project.>
-
-Use stable environment IDs.
-
-Recommended structure:
-
-```text
-Environment ID:
-Type:
-Status: available | unavailable | unverified
-Primary purpose:
-```
-
-Example:
-
 ```text
 Environment ID: local
-Type: local workstation
+Type: local workstation (WSL2, Linux 6.18 kernel)
 Status: available
-Primary purpose: development, local validation, lightweight analysis
+Primary purpose: development, Tier L and Tier 0 experiments (CPU), unit tests, analysis, artifact inspection
 
 Environment ID: kaggle-gpu
-Type: Kaggle kernel
-Status: available
-Primary purpose: smoke runs, full GPU experiments, final verification
+Type: Kaggle kernel (batch), through the repository harness (tools/kaggle)
+Status: unverified
+Primary purpose: Tier 1 smoke and full runs (GPU). Verified first by a smoke run that records observed hardware.
+
+Environment ID: kaggle-prep
+Type: Kaggle kernel with Internet ON
+Status: unverified
+Primary purpose: download MNIST 4/9 and write it to kernel output for the offline Tier 1 kernels (kernel_sources).
 ```
 
-Do not assume an environment is usable merely because it is documented. If status is `unverified`, verify it before relying on it.
+Kaggle status is `unverified` until a smoke run on the connected account succeeds. Do not rely on either Kaggle environment before that.
 
 ---
 
 ## 2. Default environment selection
 
-<REQUIRED — Define the default environment for each stage of research.>
-
-Template:
-
-```text
-Development / coding:
-Local validation:
-Smoke runs:
-Full experiments:
-Final verification:
-Literature / web research:
-Artifact inspection:
-```
-
-Recommended default:
-
 ```text
 Development / coding: local
-Local validation: local
-Smoke runs: Kaggle GPU when remote GPU is required
-Full experiments: Kaggle GPU
-Final verification: same class of environment required by evaluation protocol
-Literature / web research: environment with Internet access
-Artifact inspection: local after fetch when practical
+Local validation: local (pytest, ruff; PyTorch CPU only where a local test needs it)
+Smoke runs: local for Tier L and Tier 0; kaggle-gpu for Tier 1
+Full experiments: local CPU for Tier L and Tier 0; kaggle-gpu for Tier 1 (≤ 4 jobs)
+Final verification: local CPU for Tier 0 reproduction; kaggle-gpu for Tier 1 reproduction of one drift and one null pair
+Literature / web research: local with Internet access
+Artifact inspection: local after fetch (checkpoints are small)
 ```
-
-Project-specific requirements may override this.
 
 ---
 
 ## 3. Local environment
 
-<REQUIRED — Describe the local environment available to the agent.>
-
-Template:
-
 ```text
 Environment ID: local
-Status: available | unavailable | unverified
+Status: available
 
-Operating system:
-Architecture:
-Python version:
-Package manager / virtual environment:
-CPU:
-GPU:
-RAM:
-Persistent storage:
-Working directory:
-Internet access:
-Relevant tools:
-Known limitations:
+Operating system: Ubuntu-like Linux under WSL2 (kernel 6.18.33.2-microsoft-standard-WSL2)
+Architecture: x86_64
+Python version: 3.12.3 (system); project uses uv (uv 0.12.7)
+Package manager / virtual environment: uv, project virtual environment (.venv, git-ignored); uv.lock present
+CPU: 16 logical cores
+GPU: none detected (nvidia-smi not available)
+RAM: 15 GB
+Persistent storage: ~935 GB free on the root filesystem
+Working directory: /home/toska/code/research/Agent-auto-Research
+Internet access: on
+Relevant tools: git, gh, uv, pytest, ruff, the Kaggle CLI (via tools/kaggle)
+Known limitations: no GPU, so Tier 1 cannot run locally. PyTorch and torchvision are not installed locally at kick-off;
+                   they are installed (CPU wheels) when the Tier 0 renderer and classifier are implemented at G0,
+                   because Tier 0 is specified as a local CPU run.
 ```
 
 Do not include credentials, API keys, tokens, passwords, or other secrets.
-
-The local environment is normally preferred for:
-
-- code editing;
-- unit tests;
-- integration tests;
-- configuration validation;
-- lightweight preprocessing;
-- result analysis;
-- artifact inspection;
-- tasks that do not require expensive remote compute.
 
 ---
 
 ## 4. Kaggle environment
 
-<REQUIRED when Kaggle is used. Otherwise mark `Not used`.>
-
-Template:
-
 ```text
 Environment ID: kaggle-gpu
-Status: available | unavailable | unverified
+Status: unverified
 
-Execution model: batch kernel
-Kaggle account context:
-Python/runtime assumptions:
-Internet capability:
-Available accelerator classes:
-Competition sources:
-Dataset sources:
-Kernel sources:
-Model sources:
-Persistent output behavior:
-Known platform limitations:
+Execution model: batch kernel (script), submitted and waited on by the repository harness only
+Kaggle account context: one or more Kaggle accounts connected through `python -m tools.kaggle accounts add` (token files
+                        kept outside Git). `--account auto` selects an account with GPU quota; the chosen account is
+                        recorded in run metadata. Account names are not recorded in this file.
+Python/runtime assumptions: Python 3.10+; PyTorch and torchvision available in the Kaggle image; scikit-image and scipy
+                        installed from the staged dependency bundle if missing (see §8).
+Internet capability: kaggle-prep ON; kaggle-gpu OFF (offline experiments).
+Available accelerator classes: RTX-class preferred (see §5); T4 as fallback. Observed hardware is verified in the smoke run.
+Competition sources: none.
+Dataset sources: none. MNIST is obtained by kaggle-prep and passed through kernel_sources.
+Kernel sources: kaggle-prep output (MNIST 4/9 raw files, skimage/scipy wheels if needed).
+Model sources: none (no pretrained models).
+Persistent output behavior: kernel output is kept remotely; checkpoints (< 5 MB) and result.json / artifact_manifest.json are fetched.
+Known platform limitations: session time limit (harness sets 3600 s for full runs); GPU quota varies per account;
+                        offline kernels cannot download data.
 ```
 
-Kaggle should be treated as a **remote batch executor**, not as an interactive SSH machine.
-
-Remote state and artifacts should be handled through the repository Kaggle harness.
+Kaggle is a **remote batch executor**, not an interactive machine. Remote state and artifacts are handled through the repository harness.
 
 ---
 
 ## 5. GPU preference policy
 
-For general-purpose GPU research, prefer faster compatible RTX-class hardware over T4.
+Default order: RTX-class first, then T4 (`docs/ENVIRONMENTS.md` §5 generic policy).
 
-Default preference order:
-
-```text
-1. RTX-class GPU
-2. T4
-```
-
-Use RTX-class hardware whenever:
-
-- it is available;
-- it is compatible with project requirements;
-- it does not violate `docs/CONSTRAINTS.md`;
-- it does not invalidate a hardware-controlled comparison.
-
-Use T4 when:
-
-- RTX hardware is unavailable;
-- RTX quota is exhausted;
-- the experiment specifically requires T4;
-- a fair-comparison protocol requires T4;
-- or there is another documented research/infrastructure reason.
-
-Do not choose slower hardware merely for consistency unless evaluation fairness requires it.
+This project's Tier 1 model is small (≈ 60k parameters) and the GPU is a convenience, not a scientific variable. Use RTX-class hardware when available. If the hardware changes between pairs of one comparison, record it in `research/DECISIONS.md` and keep the same device class within each comparison (runtime is compared only within a device class).
 
 ---
 
 ## 6. Requested vs observed hardware
 
-Every important remote run should distinguish:
+Every Kaggle run records:
 
 ```text
-Requested accelerator:
-Observed accelerator:
+Requested accelerator: from the kernel config (machine_shape)
+Observed accelerator: from inside the runtime (nvidia-smi output or torch.cuda.get_device_name())
 ```
 
-Do not record requested hardware as though it were observed runtime fact.
-
-For important experiments, verify observed hardware from inside the execution environment when possible.
-
-If requested and observed hardware differ:
-
-- record the mismatch;
-- determine whether hardware matters under `docs/EVALUATION.md`;
-- invalidate or rerun the experiment if the mismatch affects evaluation validity;
-- otherwise, the run may remain usable if the mismatch is documented and does not affect the scientific conclusion.
+Mismatch between requested and observed hardware is recorded. It invalidates a run only if it affects runtime comparisons (EVALUATION §14).
 
 ---
 
 ## 7. Internet policy
 
-<REQUIRED — Define Internet availability and permitted usage for each environment.>
-
-Template:
-
 ```text
 Local:
-Internet: on | off | conditional
-Permitted use:
+Internet: on
+Permitted use: literature search, dependency acquisition, public repositories for reading
 
-Kaggle preparation environment:
-Internet: on | off | conditional
-Permitted use:
+Kaggle preparation environment (kaggle-prep):
+Internet: on
+Permitted use: download MNIST 4/9 (torchvision) and write it to kernel output. Nothing else.
 
-Kaggle experiment environment:
-Internet: on | off | conditional
-Permitted use:
+Kaggle experiment environment (kaggle-gpu):
+Internet: off
+Permitted use: none beyond the staged inputs (kernel_sources). Experiment code must not call the network.
 ```
 
-Possible permitted uses include:
-
-- literature search;
-- dependency acquisition;
-- downloading public pretrained assets;
-- accessing public repositories;
-- fetching project-approved resources.
-
-Internet availability does not override resource restrictions in `docs/CONSTRAINTS.md`.
+Internet availability does not override the resource restrictions in `docs/CONSTRAINTS.md` §8.
 
 ---
 
@@ -270,7 +184,25 @@ Do not perform unnecessary Kaggle → local → Kaggle transfers of large depend
 
 ## 9. Input sources and mounts
 
-<REQUIRED — List external inputs required by the project and how they are attached.>
+Inputs for this project:
+
+```text
+Input ID: mnist-4-9
+Type: dataset_source (via kaggle-prep kernel output, not a Kaggle dataset)
+Source: torchvision MNIST download, performed by kaggle-prep with Internet ON; digits 4 and 9 filtered
+Required by: Tier 1 data build (job a in CONSTRAINTS §4)
+Expected mount/path: kernel_sources output of kaggle-prep, read-only
+Availability: after the prep kernel completes
+Notes: no Kaggle Dataset upload loop (AGENTS.md)
+
+Input ID: offline-wheels (only if needed)
+Type: kernel_source
+Source: kaggle-prep output with scikit-image/scipy wheels, only if the Kaggle image lacks them
+Required by: all Tier 1 kernels
+Availability: verified in the smoke run
+```
+
+Tier 0 and Tier L need no external inputs (synthetic, generated locally with seed 1234).
 
 Template:
 
@@ -329,7 +261,11 @@ Do not treat temporary remote assets as durable project memory unless their prov
 
 ## 11. Output and artifact handling
 
-<REQUIRED — Define what each environment should produce and what should be persisted.>
+Per environment:
+
+- `local`: generated configs, unit-test reports, analysis tables, figures, the paper draft. Tier 0 and Tier L run outputs are persisted under `runs/experiments/exp_NNNN/` (metadata, config, metrics, logs, artifacts).
+- `kaggle-prep`: MNIST raw files for the offline kernels. Not persisted in Git.
+- `kaggle-gpu`: `result.json`, `artifact_manifest.json` (with SHA256 of every checkpoint), stdout/stderr logs, and the small checkpoints (VAE, shape oracle, f_old, f_new). Fetched into `runs/experiments/exp_NNNN/` by the harness. Only evidence and checkpoints are fetched; the raw dataset is not.
 
 Recommended policy:
 
@@ -501,7 +437,11 @@ Do not use remote GPU for work that can be validated cheaply and reliably locall
 
 ## 17. Fallback environment policy
 
-<REQUIRED — Define whether and when the agent may switch environments.>
+This project's rules:
+
+- Switching Tier 1 from RTX to T4 is allowed only if the switch is recorded in `research/DECISIONS.md`, and the same device class is used within each paired comparison (B1 vs Δ-CE, B3 vs Δ-CE).
+- Switching Tier 1 to local CPU is not allowed for the acceptance runs (no GPU locally, and the spec budget assumes GPU).
+- A switch made for an infrastructure failure must not change any scientific variable (EVALUATION §17).
 
 Recommended default:
 

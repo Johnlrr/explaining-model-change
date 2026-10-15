@@ -1,695 +1,432 @@
 # HYPOTHESES.md
 
-> Purpose: Track the complete lifecycle of research hypotheses across the project.
+> Purpose: Record every hypothesis: its origin, prediction, falsification condition, experiment, result, and conclusion.
 >
-> Ownership: Mutable research state. The agent should update this file whenever hypotheses are proposed, tested, reprioritized, concluded, or abandoned.
->
-> This file preserves research reasoning across time. Unlike `research/STATE.md`, it is intentionally historical.
+> Ownership: Mutable research memory. Scientific conclusions are recorded here by the Research Lead only.
 
 ---
 
 ## 1. Hypothesis index
 
-Keep this table current.
-
 | ID | Short name | Type | Status | Priority | Parent | Main experiment | Novelty status |
 |---|---|---|---|---|---|---|---|
-| H-001 | <short name> | contribution | proposed | high | — | — | candidate |
+| H-001 | Δ-CE beats CE differencing on Tier 1 drift (paper H1) | contribution | proposed | high | — | exp_TBD (Tier 1, T1+T3, 3 seeds) | candidate |
+| H-002 | Δ-CE beats gradient difference on non-local drift T3 (paper H2a/H2b) | contribution | proposed | high | — | exp_TBD (Tier 0 and Tier 1, T3) | candidate |
+| H-003 | Δ-CE detects drift versus null at pair level (paper H3, AUROC ≥ 0.90) | contribution | proposed | high | — | exp_TBD (Tier 0 and Tier 1, all pairs) | candidate |
+| H-004 | Solver reproduces linear closed forms (paper H4) | other | proposed | high (gate G1) | — | exp_TBD (Tier L, 1000 pairs) | not applicable |
+| H-005 | Local drifts give a predicted tie (Proposition 4; paper P-tie) | mechanistic | proposed | medium | H-001 | exp_TBD (Tier 0, T1 and T4) | candidate |
+| H-006 | Proximity term is needed for locality (ablation A1) | ablation | proposed | medium | H-001 | exp_TBD (Tier 0, A1) | not applicable |
 
-Allowed type values:
+Allowed type values: contribution, mechanistic, tuning, ablation, reproduction, other.
 
-```text
-contribution
-mechanistic
-tuning
-ablation
-reproduction
-other
-```
+Status values: proposed, queued, testing, supported, rejected, inconclusive, abandoned.
 
-Classify ordinary hyperparameter, regularization, scaling, or training-recipe
-changes as `tuning` unless they test a clearly stated mechanism and intervention.
-Tuning can support the research, but it does not satisfy a methodological or
-academic contribution goal unless `docs/GOAL.md` explicitly makes optimization
-or tuning the intended contribution.
-
-Allowed status values:
-
-```text
-proposed
-queued
-testing
-supported
-rejected
-inconclusive
-abandoned
-```
-
-Allowed priority values:
-
-```text
-high
-medium
-low
-```
-
-Suggested novelty status values:
-
-```text
-candidate
-supported
-uncertain
-not_novel
-not_applicable
-```
+Priority: high = on the acceptance path; medium = reported analysis; low = optional.
 
 ---
 
 ## 2. Status definitions
 
-### `proposed`
-
-The hypothesis has been formulated but is not yet scheduled for testing.
-
-### `queued`
-
-The hypothesis is considered worth testing and is waiting for execution.
-
-### `testing`
-
-An experiment is currently being prepared, run, or validated.
-
-### `supported`
-
-Current valid evidence is consistent with the hypothesis.
-
-This does **not** mean the hypothesis has been proven true.
-
-### `rejected`
-
-Valid evidence contradicts the hypothesis strongly enough that the current formulation should no longer guide research.
-
-### `inconclusive`
-
-The experiment produced valid evidence, but the evidence is insufficient to support or reject the hypothesis.
-
-### `abandoned`
-
-The hypothesis has not necessarily been falsified, but it is no longer worth pursuing.
-
-Possible reasons include:
-
-- excessive cost;
-- low expected information value;
-- dependency became unavailable;
-- project scope changed;
-- a stronger hypothesis superseded it;
-- prior work made it non-novel or irrelevant.
-
-Do not use `abandoned` to hide an unfavorable valid result.
+Use the status definitions in the template (`proposed`, `queued`, `testing`, `supported`, `rejected`, `inconclusive`, `abandoned`). A hypothesis is `supported` or `rejected` only after its test-set evaluation (EVALUATION §19) or, for H-004 and gate checks, after the validation check defined in its entry.
 
 ---
 
 ## 3. Priority policy
 
-Priority indicates the expected value of testing the hypothesis now.
+H-004 is the first hypothesis: its result gates all later work (G1). H-001 to H-003 form the acceptance rule (EVALUATION §15). H-005 and H-006 explain results and are reported regardless of direction.
 
-### `high`
+---
 
-Use when the hypothesis:
+## H-001 — Δ-CE beats CE differencing on Tier 1 drift
 
-- could materially change project direction;
-- directly targets the primary objective;
-- has strong evidence or rationale;
-- has high information value;
-- is required before other hypotheses can proceed.
+### Status
+proposed
 
-### `medium`
+### Origin
+Theory: Proposition 4 (both Δ-CE and CE differencing recover span{PΔw} in the linear case), so any advantage must come from the witness property, the budget, and non-uniqueness of CE, not from direction alone. Source: spec §6.4 (B1), §8 (H1).
 
-Use when the hypothesis is useful but not currently critical.
+### Contribution quality
+Methodological. Δ-CE is a different object (a witness on which the models disagree) from a CE difference. A positive result would show the object is better for recovering the injected factor on realistic images.
 
-### `low`
+### Hypothesis
+On Colored MorphoMNIST (Tier 1), for drift pairs T1 (colour shortcut) and T3 (thickness subgroup), Δ-CE recovers the injected factor more often than CE differencing (B1) within budget r.
 
-Use when the hypothesis is speculative, expensive relative to expected value, or mainly useful as a later ablation/follow-up.
+### Rationale
+B1 explains two independent CE points, whose difference can point to a factor the models do not disagree on, and can fail on non-unique CE. Δ-CE searches directly for disagreement.
 
-Priority may change as evidence accumulates.
+### Predictions
+- Recovery@r(Δ-CE) − Recovery@r(B1), pooled over T1 and T3 Tier 1 pairs (6 pairs, 200 points each), has 95% paired-bootstrap CI > 0 after Holm.
+- The difference is positive for classifier seeds 0, 1, 2 (per-seed averages over T1_s and T3_s).
 
-Material reprioritization should be justified in the hypothesis entry or `research/DECISIONS.md`.
+### Falsification signals
+- CI includes 0 or is negative.
+- Sign differs for any seed.
+- Found-rate of Δ-CE is below 0.6 on T1 at G1 (then the solver is repaired first, not the hypothesis).
+
+### Controlled variables
+Classifiers, points, r, φ̃, normalisation, R = 5 restarts, κ = 0.5, λ schedule.
+
+### Minimal experiment
+Tier 1, T1 and T3, seeds 0–2, 200 points each, Δ-CE N and B1 and B1-det. Smoke: Tier 1 seed 0, 20 points, same code path.
+
+### Confirmation procedure
+Validation pilot at G2 (validation split, N = 100), then the final test procedure (EVALUATION §19) once for the locked candidate.
+
+### Parent and dependencies
+Depends on H-004 (solver correct) and the G0 gate (drift is real).
+
+### Prior-work relation
+Artelt et al. (2021, 2022): B1 is their method. Hinder & Hammer (2020): CE for data drift, not model change. See `research/LITERATURE.md`.
+
+### Planned experiment
+Tier 1 job (c) in CONSTRAINTS §4, after the classifier job (b).
+
+### Experiments
+None yet.
+
+### Results
+None yet.
+
+### Conclusion
+None yet.
+
+### Follow-up
+If supported: report with H-002, H-003. If rejected: report B1 as sufficient on Tier 1 and go to Route B.
+
+---
+
+## H-002 — Δ-CE beats gradient difference on non-local drift
+
+### Status
+proposed
+
+### Origin
+Proposal §3.6 and spec §2 point 3: gradient difference at x (Artelt Eq. 14) sees only local change. T3 (label flip on a subgroup, size > 0.75 / thickness > q85) is non-local by construction.
+
+### Contribution quality
+Methodological; the prediction is falsifiable and the baseline is the published approximation.
+
+### Hypothesis
+On T3 drift pairs, Δ-CE recovers the injected factor more often than gradient difference (B3), on Tier 0 and on Tier 1.
+
+### Rationale
+Where the decision change lies away from z0, ∇h(z0) can be zero while the witness set is non-empty.
+
+### Predictions
+- H2a (Tier 0, T3, 3 pairs): Recovery@r(Δ-CE) − Recovery@r(B3) has CI > 0 after Holm; positive for seeds 0–2.
+- H2b (Tier 1, T3, 3 pairs): same with B3 on Tier 1.
+
+### Falsification signals
+- CI includes 0 or is negative on either tier.
+- Found-rate of Δ-CE on T3 at or below 0.3 (witness rarely in budget; then the claim is about budget, not locality).
+
+### Controlled variables
+As H-001, B3 closed form.
+
+### Minimal experiment
+Tier 0 T3 seeds 0–2, 300 points; Tier 1 T3 seeds 0–2, 200 points.
+
+### Confirmation procedure
+Validation diagnostic first; then the final test once per tier.
+
+### Parent and dependencies
+H-004; G0 (T3 changes the model: test-free check on validation).
+
+### Prior-work relation
+Artelt et al. Eq. 14 (B3). Muschalik et al. 2022 (global feature importance, B4).
+
+### Experiments
+None yet.
+
+### Results
+None yet.
+
+### Conclusion
+None yet.
+
+### Follow-up
+If supported on both tiers: strongest claim (Route A). If one tier only: report the tier that supports it. If none: Route B.
+
+---
+
+## H-003 — Δ-CE detects drift versus null at pair level
+
+### Status
+proposed
+
+### Origin
+Spec §1 (C5): H3 replaced SAR by AUROC because SAR depends on a magnitude threshold.
+
+### Contribution quality
+Methodological; a detection claim, which the other baselines are not designed to make.
+
+### Hypothesis
+The pair-level score S (Δ-CE found-rate over both directions) separates drift pairs (T1, T3, T4 on Tier 0; T1, T3 on Tier 1) from null pairs (N0, N1 on Tier 0; N0 on Tier 1), with AUROC ≥ 0.90 on each tier.
+
+### Rationale
+A drift changes the decision region, so witnesses with disagreement exist within budget. Null pairs have only Rashomon-level disagreement, which should be rare within r.
+
+### Predictions
+- Tier 0: AUROC ≥ 0.90 (9 drift vs 8 null).
+- Tier 1: AUROC ≥ 0.90 (6 drift vs 5 null).
+
+### Falsification signals
+- AUROC < 0.90 on either tier.
+- Null pairs reach high found-rate (≥ 0.5) at budget r. This would show the budget is too loose, and the result is reported as such.
+
+### Controlled variables
+r fixed from calibration on T1 seed 0 validation; direction-union definition fixed in config.
+
+### Minimal experiment
+All pairs of §9 (EVALUATION) on both tiers with Δ-CE N and O.
+
+### Confirmation procedure
+Validation S values for all pairs (diagnostic); then test once.
+
+### Parent and dependencies
+H-004, G0.
+
+### Prior-work relation
+Hinder & Hammer 2020 and Muschalik 2022 do not produce a pair-level witness score of this kind (to be checked at G-lit).
+
+### Experiments
+None yet.
+
+### Results
+None yet.
+
+### Conclusion
+None yet.
+
+### Follow-up
+A failure here, with H-001/H-002 supported, is reported as a limitation. A failure with H-001/H-002 also failing means Route B′ is possible.
+
+---
+
+## H-004 — Solver reproduces linear closed forms
+
+### Status
+proposed
+
+### Origin
+Proposal §3.6 "kiểm số trước khi viết" and spec §4.1 (Tier L).
+
+### Contribution quality
+Verification. Not a scientific claim. A failure is a bug.
+
+### Hypothesis
+On Tier L (1000 random pairs, p ∈ {5, 20}), the Δ-CE solver matches Proposition 3: relative error of δ_Δ < 1e-3; |cos(Pu*, PΔw)| > 0.999 for ≥ 99% of pairs.
+
+### Rationale
+The closed forms are exact, so the solver can be checked without data.
+
+### Predictions
+As stated; tolerances are those of spec §8 (H4), which replace the 1e-4 of the proposal.
+
+### Falsification signals
+Any pair outside tolerance after the repair budget (5 attempts, CONSTRAINTS §7).
+
+### Controlled variables
+κ = 0.5, R = 5, T = 400, lr = 0.05, λ0 = 1.0, no noise for the check.
+
+### Minimal experiment
+`tests/unit/test_linear_theory.py` (local, CPU, seconds).
+
+### Confirmation procedure
+Not applicable (no data split).
+
+### Parent and dependencies
+None.
+
+### Prior-work relation
+Artelt et al. Theorems 1–2 cover a subset of this case (no bias).
+
+### Experiments
+None yet.
+
+### Results
+None yet.
+
+### Conclusion
+None yet.
+
+### Follow-up
+Pass → G1 pilot. Fail → fix the solver, not the closed form.
+
+---
+
+## H-005 — Local drifts give a predicted tie
+
+### Status
+proposed
+
+### Origin
+Proposition 4 and proposal §5.3.
+
+### Contribution quality
+Mechanistic. It predicts a null-looking result, which is informative: it explains when Δ-CE adds nothing over B1 or B3.
+
+### Hypothesis
+On T1 and T4 (local drifts, Tier 0), |Recovery@r(Δ-CE) − Recovery@r(B3)| ≤ 0.10 and |Recovery@r(Δ-CE) − Recovery@r(B1-det)| ≤ 0.10.
+
+### Rationale
+Proposition 4 shows the linear directions agree. Local changes are approximately linear near z0.
+
+### Predictions
+As above, per tier and per condition.
+
+### Falsification signals
+Difference > 0.10 in either direction. This is reported as a contradiction of the linear-local argument, and a bound on Proposition 4 is discussed.
+
+### Controlled variables
+As H-001.
+
+### Minimal experiment
+Tier 0, T1 and T4, seeds 0–2.
+
+### Confirmation procedure
+Validation check at G1 for direction; test once.
+
+### Parent and dependencies
+H-001.
+
+### Prior-work relation
+Artelt et al. Theorem 1 (linear case).
+
+### Experiments
+None yet.
+
+### Results
+None yet.
+
+### Conclusion
+None yet.
+
+### Follow-up
+Report as prediction and outcome, regardless of direction.
+
+---
+
+## H-006 — Proximity term is needed for locality
+
+### Status
+proposed
+
+### Origin
+Spec §6.4 ablation A1 (λ = 0, similar to DiG-IN, which has no proximity term).
+
+### Contribution quality
+Ablation. Tests whether the proximity term is a necessary part of the method.
+
+### Hypothesis
+With λ = 0 (A1), Δ-CE witnesses are farther from z0 on average and have lower Recovery@r on T3 than with λ > 0.
+
+### Rationale
+Without proximity, the solver finds any disagreement point, which may be on another factor.
+
+### Predictions
+Recovery@r(A1) < Recovery@r(Δ-CE) on T3 (Tier 0), with the median witness distance of A1 greater than that of Δ-CE.
+
+### Falsification signals
+No difference or A1 better.
+
+### Controlled variables
+As H-001, only λ changed.
+
+### Minimal experiment
+Tier 0, T3 seeds 0–2, A1.
+
+### Confirmation procedure
+Validation diagnostic; reported with the main results, not used for acceptance.
+
+### Parent and dependencies
+H-001.
+
+### Prior-work relation
+DiG-IN (Augustin et al. CVPR 2024).
+
+### Experiments
+None yet.
+
+### Results
+None yet.
+
+### Conclusion
+None yet.
+
+### Follow-up
+Reported as an ablation.
 
 ---
 
 ## 4. Hypothesis template
 
-Copy the following section for each new hypothesis.
-
----
-
-## H-XXX — <short descriptive name>
-
-### Status
-
-```text
-Status: proposed | queued | testing | supported | rejected | inconclusive | abandoned
-Type: contribution | mechanistic | tuning | ablation | reproduction | other
-Priority: high | medium | low
-Created:
-Last updated:
-```
-
----
-
-### Origin
-
-<REQUIRED — State what motivated this hypothesis.>
-
-Possible sources:
-
-- observation from a previous experiment;
-- baseline weakness;
-- literature finding;
-- theoretical reasoning;
-- failure pattern;
-- implementation behavior;
-- metric tradeoff.
-
-Reference relevant experiment IDs, literature entries, or decisions when possible.
-
-If sample-level diagnostics inspired the hypothesis, record the observed pattern and diagnostic source. The inspected examples themselves must not be treated as confirmation evidence. If diagnostics were not used, write `N/A` for the diagnostic-specific fields.
-
-```text
-Origin:
-Diagnostic source, if any:
-Observed failure pattern:
-```
-
-Example:
-
-```text
-Origin:
-exp_0004 showed that robustness improved only on samples where restoration area was small.
-This suggests the restoration mechanism may be over-editing already-correct regions.
-
-Diagnostic source, if any: exp_0004 validation diagnostics
-Observed failure pattern: failures concentrate among samples with large restoration areas
-```
-
----
-
-### Contribution quality
-
-<REQUIRED for `contribution` and `mechanistic`; otherwise write `not_applicable`.>
-
-```text
-Observed problem:
-Proposed mechanism:
-Proposed contribution or intervention:
-Why this is more than routine tuning:
-Ablation or control that isolates the mechanism:
-```
-
-Known techniques and adaptations must be labeled accurately. Do not promote a
-routine tweak by description alone; require the predefined prediction,
-falsification signal, control/ablation, prior-work relation, and confirmation
-evidence.
-
----
-
-### Hypothesis
-
-<REQUIRED — State one precise, falsifiable claim.>
-
-Prefer:
-
-```text
-Reducing restoration outside high-confidence adversarial regions will improve robust accuracy without materially decreasing clean accuracy.
-```
-
-Avoid:
-
-```text
-Maybe masking can be improved.
-```
-
----
-
-### Rationale
-
-<REQUIRED — Explain why the hypothesis is plausible.>
-
-Keep this focused on mechanism or causal reasoning rather than repeating the hypothesis.
-
----
-
-### Predictions
-
-<REQUIRED — Write this before running the experiment.>
-
-State in advance what diagnostic and confirmation outcomes would support the hypothesis. The confirmation prediction must describe evidence beyond the examples that inspired the change.
-
-Example:
-
-```text
-Diagnostic prediction:
-- the recurring failure pattern should change in the predicted direction;
-
-Confirmation prediction:
-- compared with the reproduced baseline, the primary robust-accuracy metric should increase;
-- the improvement should satisfy the predefined confirmation criterion;
-- clean-accuracy drop should remain within the allowed threshold;
-- restoration area should decrease.
-```
-
-Do not rewrite the prediction after seeing the result.
-
----
-
-### Falsification signals
-
-<REQUIRED — Define what evidence would count against the hypothesis.>
-
-State what diagnostic and confirmation outcomes would weaken or falsify the hypothesis.
-
-Example:
-
-```text
-Diagnostic falsification signal:
-The predicted failure pattern does not change on permitted diagnostic data.
-
-Confirmation falsification signal:
-The independent confirmation criterion is not met, or any gain comes only with an unacceptable clean-accuracy drop.
-```
-
-This should be defined before the full experiment.
-
----
-
-### Controlled variables
-
-<REQUIRED — List what should remain unchanged so the experiment is interpretable.>
-
-Example:
-
-```text
-- model checkpoint;
-- attack parameters;
-- dataset split;
-- preprocessing;
-- evaluation code;
-- random-seed policy;
-- training budget.
-```
-
----
-
-### Minimal experiment
-
-<REQUIRED — Define the smallest experiment that can meaningfully test the hypothesis.>
-
-Template:
-
-```text
-Change:
-Control:
-Smoke:
-Full experiment:
-Primary metric:
-Secondary checks:
-```
-
-Prefer minimal targeted experiments over broad uncontrolled changes.
-
-### Confirmation procedure
-
-<REQUIRED — Reference the predefined procedure in `docs/EVALUATION.md` and state how this hypothesis will use it.>
-
-```text
-Confirmation data/procedure:
-Permitted access level:
-Aggregate metric(s):
-Seeds/repeats, when applicable:
-Support criterion:
-Outcome that weakens the hypothesis:
-Outcome that falsifies the hypothesis:
-```
-
----
-
-### Parent and dependencies
-
-<OPTIONAL — Use when this hypothesis depends on prior reasoning or experiments.>
-
-```text
-Parent hypothesis:
-Depends on experiments:
-Depends on artifacts:
-Blocked by:
-```
-
-Example:
-
-```text
-Parent hypothesis: H-003
-Depends on experiments: exp_0008
-```
-
-A parent relation means the new hypothesis was motivated by or derived from another hypothesis.
-
-A dependency means testing cannot proceed until the dependency is satisfied.
-
----
-
-### Prior-work relation
-
-<REQUIRED when novelty or contribution is relevant. Otherwise mark `not_applicable`.>
-
-```text
-Relevant prior work:
-Relation: baseline reproduction | replication | adaptation/extension | candidate contribution
-Novelty status: candidate | supported | uncertain | not_novel | not_applicable
-Literature references:
-```
-
-Do not claim novelty merely because the idea was generated independently.
-
-If prior work materially overlaps, update `research/LITERATURE.md`.
-
----
-
-### Planned experiment
-
-```text
-Primary experiment ID:
-Config:
-Expected environment:
-Expected cost:
-Expected runtime:
-```
-
-If not yet scheduled:
-
-```text
-Primary experiment ID: not assigned
-```
-
----
-
-### Experiments
-
-Append only experiments that materially test this hypothesis.
-
-Example:
-
-```text
-- exp_0007 — smoke — passed
-- exp_0008 — full — valid
-- exp_0009 — verification — valid
-```
-
-For each relevant experiment, reference run evidence when available.
-
----
-
-### Results
-
-<Fill after valid experiment evidence exists.>
-
-Record:
-
-```text
-Diagnostic result:
-Confirmation result:
-Observed primary result:
-Observed secondary results:
-Comparison with diagnostic prediction:
-Comparison with confirmation prediction:
-Validity:
-Relevant run evidence:
-```
-
-Do not treat invalid execution as scientific evidence.
-
----
-
-### Conclusion
-
-<Fill after analysis.>
-
-```text
-Conclusion: supported | rejected | inconclusive | abandoned
-Reason:
-Confidence / remaining uncertainty:
-```
-
-Use `supported` only when valid evidence is consistent with the prediction.
-
-Use `rejected` only when valid evidence meaningfully contradicts the hypothesis.
-
-Use `inconclusive` when the evidence cannot distinguish between plausible explanations.
-
----
-
-### Follow-up
-
-<REQUIRED after conclusion unless no follow-up is warranted.>
-
-Possible outcomes:
-
-```text
-- propose child hypothesis;
-- run targeted ablation;
-- improve measurement;
-- stop this line of inquiry;
-- revisit after dependency is resolved.
-```
-
-If creating a child hypothesis, reference its ID.
+Use the template from the earlier version of this file (preserved in git history) when a hypothesis is added. Required fields: ID, type, status, origin, contribution quality, hypothesis, rationale, predictions, falsification signals, controlled variables, minimal experiment, confirmation procedure, parent, prior-work relation, experiments, results, conclusion, follow-up.
 
 ---
 
 ## 5. Hypothesis lifecycle
 
-Recommended lifecycle:
-
-```text
-observation
-→ proposed
-→ prior-work check when needed
-→ prediction + falsification rule
-→ queued
-→ testing
-→ valid evidence
-→ predefined confirmation when required
-→ supported / rejected / inconclusive
-→ follow-up or closure
-```
-
-Possible alternate ending:
-
-```text
-proposed
-→ abandoned
-```
-
-when the hypothesis is no longer worth testing.
+`proposed → queued → testing → supported | rejected | inconclusive | abandoned`, as in the template.
 
 ---
 
 ## 6. Experiment-to-hypothesis rule
 
-Default:
-
-```text
-one primary hypothesis per experiment
-```
-
-An experiment may provide evidence about multiple hypotheses only when interpretation remains clear.
-
-If multiple hypotheses are affected, identify:
-
-```text
-Primary hypothesis:
-Secondary hypotheses:
-```
-
-Do not create a large bundle of changes that makes causal interpretation impossible.
+Every experiment must cite one hypothesis ID. Experiments that only check implementation (smoke runs, bug runs) cite H-004 or the hypothesis they gate.
 
 ---
 
 ## 7. Pre-registration discipline
 
-Before a full experiment begins, the hypothesis entry should already contain:
-
-- hypothesis statement;
-- rationale;
-- diagnostic and confirmation predictions;
-- diagnostic and confirmation falsification signals;
-- controlled variables;
-- minimal experiment;
-- confirmation procedure;
-- planned experiment ID/config when available.
-
-This prevents post-hoc rewriting of the hypothesis to match observed results.
-
-Git history may be used to verify that these fields existed before the result was observed.
+The predictions, thresholds, and falsification signals above are written before any experiment. Changes after results are recorded in `research/DECISIONS.md` and are exploratory.
 
 ---
 
 ## 8. Test-set information-flow rule
 
-Hypotheses must obey the blindness rules in `docs/EVALUATION.md`.
-
-A hypothesis may be developed from:
-
-- training data;
-- validation data;
-- literature;
-- theory;
-- prior non-test experiments;
-- implementation analysis.
-
-A hypothesis must not be presented as test-independent if it was influenced by:
-
-- final test metrics;
-- test error analysis;
-- test subgroup behavior;
-- qualitative inspection of final test failures;
-- any other information derived from the final test set.
-
-If a hypothesis was influenced by prior test-set information, record that explicitly.
-
-Do not conceal test-derived reasoning.
+See `docs/EVALUATION.md` §6. No hypothesis is updated from test-split information before the final procedure.
 
 ---
 
 ## 9. Negative and rejected hypotheses
 
-Never delete a rejected hypothesis merely because it failed.
-
-A rejected hypothesis should preserve:
-
-- original prediction;
-- experiment evidence;
-- conclusion;
-- useful observation;
-- likely reason for failure;
-- whether a narrower follow-up remains plausible.
-
-Negative results help prevent repeated dead ends.
+Rejected hypotheses stay in this file with their results. They are not deleted.
 
 ---
 
 ## 10. Inconclusive hypotheses
 
-Use `inconclusive` when:
-
-- effect size is too small relative to uncertainty;
-- experiment lacks power;
-- multiple explanations remain plausible;
-- measurement is noisy;
-- required comparison failed validation;
-- evidence conflicts across valid runs.
-
-Do not force every valid experiment into `supported` or `rejected`.
+Use `inconclusive` when the validity conditions (EVALUATION §16) fail or the CI overlaps the threshold in a way the rule does not decide.
 
 ---
 
 ## 11. Abandoned hypotheses
 
-Use `abandoned` only when the hypothesis is not worth further resource expenditure.
-
-Record:
-
-```text
-Reason for abandonment:
-Evidence already collected:
-What would justify reopening:
-```
-
-An abandoned hypothesis may later be reopened if new evidence or resources change the decision.
+Use `abandoned` only with a decision entry in `research/DECISIONS.md`.
 
 ---
 
 ## 12. Hypothesis relationships
 
-Optional relationship fields:
-
-```text
-Parent:
-Children:
-Depends on:
-Supersedes:
-Contradicts:
-Related:
-```
-
-Use these when they materially improve reasoning continuity.
-
-Do not build relationship graphs for trivial connections.
+H-004 → H-001, H-002, H-003 (correctness gate). H-001 → H-005, H-006 (explanation of results). H-003 is independent of H-001/H-002.
 
 ---
 
 ## 13. Choosing the next hypothesis
 
-When selecting among queued hypotheses, prefer those with:
-
-1. highest relevance to the primary objective;
-2. highest expected information value;
-3. strongest evidence/rationale;
-4. lowest cost for the information gained;
-5. ability to reject major branches of the search space;
-6. minimal dependency on uncertain assumptions.
-
-Respect resource-priority rules in `docs/CONSTRAINTS.md`.
-
-Do not automatically choose the newest hypothesis.
+Order: H-004 (G1), then the G0 phenomenon check, then H-001/H-002/H-003 in the order of their experiments, then H-005/H-006.
 
 ---
 
 ## 14. Hypothesis cleanup
 
-Periodically review the index.
-
-Allowed actions:
-
-- reprioritize;
-- mark stale ideas as abandoned;
-- merge genuinely duplicate hypotheses;
-- create narrower child hypotheses;
-- add missing provenance.
-
-Do not erase historical conclusions.
-
-If two entries are merged, preserve references from the old IDs to the surviving hypothesis.
+Keep this file current. Move completed detail into the hypothesis entry, not into NOTES.md.
 
 ---
 
 ## 15. Completion checklist
 
-For every hypothesis that enters `testing`, confirm:
-
-- [ ] Unique hypothesis ID exists.
-- [ ] Type is assigned accurately.
-- [ ] Status is current.
-- [ ] Priority is assigned.
-- [ ] Origin is documented.
-- [ ] Hypothesis is falsifiable.
-- [ ] Rationale is explicit.
-- [ ] Diagnostic source and observed pattern are recorded, or marked `N/A`.
-- [ ] Diagnostic and confirmation predictions were written before the result.
-- [ ] Diagnostic and confirmation falsification signals were written before the result.
-- [ ] Controlled variables are defined.
-- [ ] Minimal experiment is defined.
-- [ ] Confirmation procedure and promotion criterion are identified.
-- [ ] Parent/dependencies are recorded when relevant.
-- [ ] Prior-work relation is recorded when relevant.
-- [ ] Contribution/mechanistic entries pass the contribution-quality gate.
-- [ ] Planned experiment is identifiable.
-- [ ] Test-set information-flow rules are respected.
-
-For concluded hypotheses, also confirm:
-
-- [ ] Relevant experiments are linked.
-- [ ] Result is summarized.
-- [ ] Conclusion is one of supported/rejected/inconclusive/abandoned.
-- [ ] Follow-up is recorded.
-- [ ] Rejected or abandoned hypotheses were not deleted.
+- [x] Every hypothesis has ID, type, status, prediction, and falsification signal.
+- [x] Predictions and thresholds match `docs/EVALUATION.md` §15.
+- [ ] Experiments cited once they exist.
