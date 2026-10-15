@@ -30,6 +30,7 @@
 | D-018 | Amendment v1.2 after G0 exp_0001: f_old cosine 30 ep, noisy adaptation sets, DD criterion, T3/T4 lr knob | active | 2026-10-15 | — | exp_0001, exp_0002 |
 | D-019 | G0 knob log (spec §4.4 / v1.2 B4) and f_old reuse in exp_0003 | active | 2026-10-15 | — | exp_0002, exp_0003 |
 | D-020 | Amendment v1.3 after G0 exp_0002/exp_0003: T3 criterion C1 (ΔFlip_k* ≥ 0.15, exclusivity, DD outside); last G0 criterion change; Tier 1 T3 pre-declared | active | 2026-10-15 | — | exp_0003, exp_0004 |
+| D-021 | Pre-G1 clarifications: Flip_k only for re-sampleable factors (D1); descriptive Recovery\|reach (D2) | active | 2026-10-15 | — | exp_0004 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -624,6 +625,33 @@ T3-Tier 0 enters the benchmark if exp_0004 confirms C1 on all seeds with exact n
 
 ### Supersedes / superseded by
 Supersedes the T3 rows of spec §9 and of v1.2 B3.
+
+## D-021 — Pre-G1 clarifications: Flip_k domain and Recovery|reach
+
+### Status
+active (author's decision, 2026-10-15). **Declared before any result of any method** (no solver, baseline, `r` calibration or pilot output exists). D1 is a clarification of a definition, not a G0 amendment; D2 is a new descriptive metric outside the acceptance rule and outside Holm. Neither changes `docs/` or any locked parameter.
+
+### Decision
+```text
+D1. Flip_k is defined only for re-sampleable factors. Tier 1: {color, bg, thick};
+    shape has no Flip. Condition (ii) of C1 (v1.3) on Tier 1 ranges over {color, bg, thick} \ {k*}
+    (k* = thick; for the bg fallback, k* = bg).
+D2. New descriptive metric (outside the acceptance rule, outside Holm):
+    Recovery|reach = Recovery computed on the subset of points where Δ-CE finds a witness within r,
+    applied to EVERY method on the SAME subset.
+    Reported next to Recovery@r for every condition; found-rate reported per condition.
+    Purpose: separate "reaching the change within the budget" from "right factor once reached".
+```
+
+### Rationale
+- D1: shape cannot be re-sampled while keeping the digit, so Flip_shape is undefined (spec §9 defines Flip_k by re-sampling factor k). Writing this now avoids it looking like a criterion change at G2.
+- D2: `r` is calibrated on T1 (2 × median CE distance) and is locked. T3 witnesses must move size into the subgroup, so many T3 points may be out of budget; Recovery@r scores NOT_FOUND as 0 while B3 always returns a direction, so H2 could fail because of the budget rather than the method. `r` is **not** changed; the pilot's found-rate (allowed to be read, EVALUATION §8) shows early whether this risk is real. A low T3 found-rate is information for reading the final result, not a reason to tune `r`.
+
+### Caveat (Research Lead)
+The D2 subset is selected on Δ-CE's own success, so within it Δ-CE has no NOT_FOUND by construction while other methods may still have theirs. Recovery|reach is therefore not a neutral comparison and must never be used as evidence for H1/H2; the paper presents it as a decomposition of Δ-CE's Recovery@r, with the subset size (found-rate) next to it.
+
+### Consequences
+The G3 evaluation code computes Recovery|reach and per-condition found-rate in addition to the metrics of EVALUATION §8 step 8.
 
 ---
 

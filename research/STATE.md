@@ -91,6 +91,7 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 
 1. G-lit, Kaggle smoke, G0-Tier 0: done (G0 closed by exp_0004 under v1.3, D-020).
 2. **G1 (validation only):** Tier L linear-theory test (H-004, `tests/unit/test_linear_theory.py`), Δ-CE solver (`src/dce/solvers/`), ordinary CE, `r` calibration, pilot on validation (found-rate and runtime only).
+   Pre-declared before G1 (D-021): Flip_k only for re-sampleable factors; Recovery|reach reported (descriptive). Pilot reads found-rate per condition; a low T3 found-rate does not justify changing `r`.
 3. Then G2 (Tier 1 on Kaggle; T3-Tier1 uses C1 from the start, fallback bg > q85, then drop — v1.3 C3), G3.
 
 ## 9. In-flight remote jobs

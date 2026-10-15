@@ -113,7 +113,8 @@ T3 under C1 (seeds 0/1/2):
 | C2: subgroup acc, raw (v1.2) | 0.866 | 0.814 | 0.754 | was ≥ 0.85 |
 | C2: subgroup acc, \|m_n\| ≥ κ | 0.934 (n=412) | 0.896 (n=384) | 0.779 (n=402) | — |
 
-- (ii) is tight on seed 1: ΔFlip_aspect = −0.0465, 0.0035 below the limit. Aspect is the task factor; f_new becomes less sensitive to it because the subgroup's labels no longer follow aspect. This is a side effect of the T3 design, not a second drift, but it means C1 (ii) can bind on Tier 1 T3 (thick > q85), where the task factor is the digit shape.
+- (ii) is tight on seed 1: ΔFlip_aspect = −0.0465, 0.0035 below the limit. Aspect is the task factor. T3 *inverts* the labels in the subgroup (new label 1 − 1[φ1 > 0.5]), so labels there still depend fully on aspect, only with the opposite sign. The likelier reading (corrected by the author, 2026-10-15): in the soft transition zone (size ≈ 0.70–0.80) f_new hesitates between two opposite rules, so its predictions there are less determined by aspect. A consequence of the soft boundary, not a second drift.
+- This does not carry over to Tier 1: shape (the task factor) cannot be re-sampled, so Flip_shape is undefined and C1 (ii) only ranges over the re-sampleable factors other than k* (D-021, D1).
 - Other conditions unchanged from exp_0002/exp_0003: T1 ΔFlip_color 0.200 / 0.161 / 0.221; T4 band acc 0.910 / 0.995 / 0.862; N0 and N1 DD = 0 on every seed, max |ΔFlip| ≤ 0.0115.
 
 Options for the user (resolved: author chose c.1 + c.2 and replaced c.3 by the DD criterion; amendment v1.2, D-018):
