@@ -102,17 +102,35 @@ def main(argv=None) -> int:
     seeds = sorted({p["seed"] for p in pairs})
     manifest, results, f_old = [], {"f_old": {}, "pairs": []}, {}
 
+    reuse = cfg.get("f_old_from")
+    if reuse:  # reuse f_old checkpoints of an earlier run; any hash mismatch is fatal
+        src_manifest = json.loads((Path(reuse) / "artifacts" / "artifact_manifest.json").read_text())
+        expected = {a["name"]: a["sha256"] for a in src_manifest["artifacts"]}
+        meta["f_old_from"] = {"run": reuse, "sha256": {}}
+
     for s in seeds:
-        torch.manual_seed(cfg["seeds"]["init_base"] + s)
         model = SmallCNN()
-        losses = train(model, splits["train"].phi, splits["train"].y, noisy,
-                       epochs=scale["f_old_epochs"], lr=tr["f_old_lr"], batch_size=tr["batch_size"],
-                       order_seed=cfg["seeds"]["order_base"] + s, noise_seed=cfg["seeds"]["noise_base"] + s,
-                       cosine=cfg.get("f_old_cosine", False))
-        path = out / "artifacts" / "models" / f"f_old_s{s}.pt"
-        torch.save(model.state_dict(), path)
-        manifest.append({"name": f"f_old_s{s}", "kind": "checkpoint", "path": f"models/{path.name}",
-                         "sha256": sha256(path)})
+        if reuse:
+            src = Path(reuse) / "artifacts" / "models" / f"f_old_s{s}.pt"
+            digest = sha256(src)
+            if digest != expected.get(f"f_old_s{s}"):
+                raise SystemExit(f"hash mismatch for {src}: {digest}")
+            model.load_state_dict(torch.load(src))
+            losses = []
+            meta["f_old_from"]["sha256"][f"f_old_s{s}"] = digest
+            manifest.append({"name": f"f_old_s{s}", "kind": "checkpoint_reference",
+                             "path": str(src), "sha256": digest})
+        else:
+            torch.manual_seed(cfg["seeds"]["init_base"] + s)
+            losses = train(model, splits["train"].phi, splits["train"].y, noisy,
+                           epochs=scale["f_old_epochs"], lr=tr["f_old_lr"], batch_size=tr["batch_size"],
+                           order_seed=cfg["seeds"]["order_base"] + s,
+                           noise_seed=cfg["seeds"]["noise_base"] + s,
+                           cosine=cfg.get("f_old_cosine", False))
+            path = out / "artifacts" / "models" / f"f_old_s{s}.pt"
+            torch.save(model.state_dict(), path)
+            manifest.append({"name": f"f_old_s{s}", "kind": "checkpoint", "path": f"models/{path.name}",
+                             "sha256": sha256(path)})
         pred = predictor(model)
         acc = float((pred(val.phi) == val.y_clean).mean())
         flips = flip_rates(pred, g0_phi)

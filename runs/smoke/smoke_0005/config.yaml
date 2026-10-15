@@ -1,0 +1,55 @@
+tier: 0
+data_seed: 1234
+label_noise: 0.05
+adapt_label_noise: 0.05
+f_old_cosine: true
+kappa: 0.5
+training: &id001
+  f_old_lr: 0.001
+  finetune_lr: 0.0003
+  batch_size: 256
+seeds: &id002
+  init_base: 0
+  order_base: 100
+  noise_base: 200
+  adapt_data_base: 2000
+  adapt_order_base: 3000
+  adapt_noise_base: 4000
+  points_base: 5000
+  restart_base: 10000
+threads: 8
+experiment_id: smoke_0005
+gate: G0
+tier_config: configs/tiers/tier0.yaml
+f_old_from: runs/experiments/exp_0002
+pair_ids:
+- 0
+- 3
+- 6
+scale:
+  n_train: 20000
+  n_val: 5000
+  n_test: 5000
+  n_g0_points: 300
+  n_adapt: 500
+  f_old_epochs: 30
+  finetune_epochs: 1
+drift_params:
+  t1_correlation: 0.99
+finetune_override:
+  T3:
+    epochs: 1
+    lr: 0.001
+  T4:
+    epochs: 1
+    lr: 0.001
+_tier:
+  tier: 0
+  data_seed: 1234
+  label_noise: 0.05
+  adapt_label_noise: 0.05
+  f_old_cosine: true
+  kappa: 0.5
+  training: *id001
+  seeds: *id002
+  threads: 8

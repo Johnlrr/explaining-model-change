@@ -1,0 +1,22 @@
+# exp_0003 — Gate G0 on Tier 0, drift pairs only, with pre-declared knobs (D-019).
+# Reuses the f_old checkpoints of exp_0002 (hash-verified); N0/N1 already passed there with them.
+#   T3, T4: knob 2 of amendment v1.2 B4 (10 epochs at lr 1e-3) — last allowed adjustment.
+#   T1:     knob 1 of spec §4.4 (colour–label correlation 0.95 → 0.99); 3 epochs at lr 3e-4 unchanged.
+experiment_id: exp_0003
+gate: G0
+tier_config: configs/tiers/tier0.yaml
+f_old_from: runs/experiments/exp_0002
+pair_ids: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+scale:
+  n_train: 20000
+  n_val: 5000
+  n_test: 5000
+  n_g0_points: 2000
+  n_adapt: 10000
+  f_old_epochs: 30
+  finetune_epochs: 3
+drift_params:
+  t1_correlation: 0.99
+finetune_override:
+  T3: {epochs: 10, lr: 1.0e-3}
+  T4: {epochs: 10, lr: 1.0e-3}

@@ -28,6 +28,7 @@
 | D-016 | B0 global vs local wording, full B5 claim rule (A7); spec frozen | active | 2026-10-15 | H-003, H-007 | — |
 | D-017 | Tier 0 implementation readings where the spec is silent | partially superseded by D-018 (label noise) | 2026-10-15 | — | exp_0001 |
 | D-018 | Amendment v1.2 after G0 exp_0001: f_old cosine 30 ep, noisy adaptation sets, DD criterion, T3/T4 lr knob | active | 2026-10-15 | — | exp_0001, exp_0002 |
+| D-019 | G0 knob log (spec §4.4 / v1.2 B4) and f_old reuse in exp_0003 | active | 2026-10-15 | — | exp_0002, exp_0003 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -566,6 +567,30 @@ Fine-tune recipes differ across conditions; reported in the paper. If any f_old 
 
 ### Supersedes / superseded by
 Supersedes the label-noise row of D-017 and the G0 agreement criteria of spec §9.
+
+---
+
+## D-019 — G0 knob log and f_old reuse
+
+### Status
+active (Research Lead, within pre-declared knobs; spec §13 log: after seeing exp_0002)
+
+### Knob log (max 2 per condition)
+
+| Condition | Adjustment 1 | Adjustment 2 |
+|---|---|---|
+| T1 | exp_0003: colour–label correlation 0.95 → 0.99 (spec §4.4) | free: ambiguous fraction 0.7 → 0.9, or epochs 3 → 5 |
+| T3 | exp_0002: 5 epochs, lr 1e-3 (v1.2 B4 knob 1) | exp_0003: 10 epochs, lr 1e-3 (knob 2) — last |
+| T4 | exp_0002: 5 epochs, lr 1e-3 (v1.2 B4 knob 1) | exp_0003: 10 epochs, lr 1e-3 (knob 2) — last |
+
+### Rationale for the T1 knob
+exp_0002 lowered ΔFlip_color to 0.12–0.15 after B2 added 5% label noise. The colour is drawn from the noise-free label, so the noise weakens the colour–label association the shortcut needs; raising the correlation targets that cause directly. The fine-tune loss had plateaued (0.28–0.29), so more epochs at lr 3e-4 are less likely to help.
+
+### f_old reuse
+exp_0003 loads the five f_old checkpoints of exp_0002 after verifying their SHA256 against its manifest, and reruns only the nine drift pairs. N0 and N1 passed in exp_0002 with these same checkpoints, so the G0 verdict combines exp_0002 (f_old, N0, N1) and exp_0003 (T1, T3, T4). A smoke run reproduced exp_0002's f_old seed-0 validation accuracy exactly.
+
+### Consequence
+If T3 or T4 fails in exp_0003, no knob remains: Stop or back to the author (v1.2 B5).
 
 ---
 

@@ -1,0 +1,22 @@
+# smoke_0005 — smoke for exp_0003 (reuse path), reduced scale.
+# Reuses the f_old checkpoints of exp_0002 (hash-verified); N0/N1 already passed there with them.
+#   T3, T4: knob 2 of amendment v1.2 B4 (10 epochs at lr 1e-3) — last allowed adjustment.
+#   T1:     knob 1 of spec §4.4 (colour–label correlation 0.95 → 0.99); 3 epochs at lr 3e-4 unchanged.
+experiment_id: smoke_0005
+gate: G0
+tier_config: configs/tiers/tier0.yaml
+f_old_from: runs/experiments/exp_0002
+pair_ids: [0, 3, 6]
+scale:
+  n_train: 20000
+  n_val: 5000
+  n_test: 5000
+  n_g0_points: 300
+  n_adapt: 500
+  f_old_epochs: 30
+  finetune_epochs: 1
+drift_params:
+  t1_correlation: 0.99
+finetune_override:
+  T3: {epochs: 1, lr: 1.0e-3}
+  T4: {epochs: 1, lr: 1.0e-3}

@@ -1,0 +1,142 @@
+{
+  "f_old": {
+    "0": {
+      "val_accuracy": 0.9812,
+      "meets_95": true,
+      "train_loss": [],
+      "flip": {
+        "aspect": 0.48,
+        "size": 0.023333333333333334,
+        "color": 0.01,
+        "bg": 0.013333333333333334,
+        "posx": 0.02
+      }
+    }
+  },
+  "pairs": [
+    {
+      "pair_id": 0,
+      "condition": "T1",
+      "seed": 0,
+      "k_star": 2,
+      "finetune_epochs": 1,
+      "finetune_lr": 0.0003,
+      "finetune_loss": [
+        0.37742839074134826
+      ],
+      "f_new_val_accuracy_clean_labels": 0.9808,
+      "flip_old": {
+        "aspect": 0.48,
+        "size": 0.023333333333333334,
+        "color": 0.01,
+        "bg": 0.013333333333333334,
+        "posx": 0.02
+      },
+      "flip_new": {
+        "aspect": 0.4866666666666667,
+        "size": 0.01,
+        "color": 0.02,
+        "bg": 0.0033333333333333335,
+        "posx": 0.016666666666666666
+      },
+      "agreement_all": 0.9866666666666667,
+      "decisive_disagreement_all": 0.0,
+      "delta_flip": [
+        0.00666666666666671,
+        -0.013333333333333334,
+        0.01,
+        -0.01,
+        -0.003333333333333334
+      ],
+      "delta_flip_color": 0.01,
+      "pass": false
+    },
+    {
+      "pair_id": 3,
+      "condition": "T3",
+      "seed": 0,
+      "k_star": 1,
+      "finetune_epochs": 1,
+      "finetune_lr": 0.001,
+      "finetune_loss": [
+        1.0592818093299865
+      ],
+      "f_new_val_accuracy_clean_labels": 0.9062,
+      "flip_old": {
+        "aspect": 0.48,
+        "size": 0.023333333333333334,
+        "color": 0.01,
+        "bg": 0.013333333333333334,
+        "posx": 0.02
+      },
+      "flip_new": {
+        "aspect": 0.5233333333333333,
+        "size": 0.006666666666666667,
+        "color": 0.0,
+        "bg": 0.01,
+        "posx": 0.006666666666666667
+      },
+      "agreement_all": 0.91,
+      "decisive_disagreement_all": 0.03333333333333333,
+      "delta_flip": [
+        0.043333333333333335,
+        -0.016666666666666666,
+        -0.01,
+        -0.003333333333333334,
+        -0.013333333333333332
+      ],
+      "n_subgroup": 79,
+      "acc_new_labels_subgroup": 0.11392405063291139,
+      "agreement_outside_subgroup": 0.918552036199095,
+      "dd_outside_subgroup": 0.03619909502262444,
+      "pass": false
+    },
+    {
+      "pair_id": 6,
+      "condition": "T4",
+      "seed": 0,
+      "k_star": 0,
+      "finetune_epochs": 1,
+      "finetune_lr": 0.001,
+      "finetune_loss": [
+        0.40185957527160643
+      ],
+      "f_new_val_accuracy_clean_labels": 0.8586,
+      "flip_old": {
+        "aspect": 0.48,
+        "size": 0.023333333333333334,
+        "color": 0.01,
+        "bg": 0.013333333333333334,
+        "posx": 0.02
+      },
+      "flip_new": {
+        "aspect": 0.47333333333333333,
+        "size": 0.03,
+        "color": 0.006666666666666667,
+        "bg": 0.01,
+        "posx": 0.0033333333333333335
+      },
+      "agreement_all": 0.8766666666666667,
+      "decisive_disagreement_all": 0.06333333333333334,
+      "delta_flip": [
+        -0.006666666666666654,
+        0.0066666666666666645,
+        -0.003333333333333333,
+        -0.003333333333333334,
+        -0.016666666666666666
+      ],
+      "n_band": 24,
+      "acc_new_labels_band": 1.0,
+      "pass": true
+    }
+  ],
+  "condition_pass": {
+    "T1": false,
+    "T3": false,
+    "T4": true
+  },
+  "f_old_all_meet_95": true,
+  "g0_pass": false,
+  "n_g0_points": 300,
+  "split": "validation"
+}

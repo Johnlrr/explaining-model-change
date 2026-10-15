@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "f_old_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s0.pt",
+      "sha256": "b54fdbc57708d958ffbc0f1e54a7e476ec6b51db4213eee4edd28dda64d7d0c5"
+    },
+    {
+      "name": "f_new_p00_T1_s0",
+      "kind": "checkpoint",
+      "path": "models/f_new_p00_T1_s0.pt",
+      "sha256": "35b01900ea4245c24e779d8a62a6eb9e41f9c54a86099499834b63f6fb3694fc"
+    },
+    {
+      "name": "f_new_p03_T3_s0",
+      "kind": "checkpoint",
+      "path": "models/f_new_p03_T3_s0.pt",
+      "sha256": "5bab33c8d952dd6518c8fc5d71793b9a1586d47a67d1a611f8c8097b8b2f6593"
+    },
+    {
+      "name": "f_new_p06_T4_s0",
+      "kind": "checkpoint",
+      "path": "models/f_new_p06_T4_s0.pt",
+      "sha256": "f18f7ddebd6e91c443aba747de638eb8fe3241ca1324ab286cbaf12935fcae45"
+    }
+  ]
+}
