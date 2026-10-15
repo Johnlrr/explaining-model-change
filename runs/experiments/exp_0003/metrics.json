@@ -1,0 +1,456 @@
+{
+  "f_old": {
+    "0": {
+      "val_accuracy": 0.9812,
+      "meets_95": true,
+      "train_loss": [],
+      "flip": {
+        "aspect": 0.486,
+        "size": 0.021,
+        "color": 0.007,
+        "bg": 0.0105,
+        "posx": 0.014
+      }
+    },
+    "1": {
+      "val_accuracy": 0.9822,
+      "meets_95": true,
+      "train_loss": [],
+      "flip": {
+        "aspect": 0.488,
+        "size": 0.022,
+        "color": 0.0045,
+        "bg": 0.007,
+        "posx": 0.018
+      }
+    },
+    "2": {
+      "val_accuracy": 0.9796,
+      "meets_95": true,
+      "train_loss": [],
+      "flip": {
+        "aspect": 0.486,
+        "size": 0.0265,
+        "color": 0.0055,
+        "bg": 0.0055,
+        "posx": 0.0125
+      }
+    }
+  },
+  "pairs": [
+    {
+      "pair_id": 0,
+      "condition": "T1",
+      "seed": 0,
+      "k_star": 2,
+      "finetune_epochs": 3,
+      "finetune_lr": 0.0003,
+      "finetune_loss": [
+        0.2918110569238663,
+        0.26803424546718596,
+        0.26647701456546785
+      ],
+      "f_new_val_accuracy_clean_labels": 0.8392,
+      "flip_old": {
+        "aspect": 0.486,
+        "size": 0.021,
+        "color": 0.007,
+        "bg": 0.0105,
+        "posx": 0.014
+      },
+      "flip_new": {
+        "aspect": 0.4365,
+        "size": 0.0315,
+        "color": 0.207,
+        "bg": 0.012,
+        "posx": 0.0195
+      },
+      "agreement_all": 0.8425,
+      "decisive_disagreement_all": 0.092,
+      "delta_flip": [
+        -0.04949999999999999,
+        0.010499999999999999,
+        0.19999999999999998,
+        0.0014999999999999996,
+        0.0055
+      ],
+      "delta_flip_color": 0.19999999999999998,
+      "pass": true
+    },
+    {
+      "pair_id": 1,
+      "condition": "T1",
+      "seed": 1,
+      "k_star": 2,
+      "finetune_epochs": 3,
+      "finetune_lr": 0.0003,
+      "finetune_loss": [
+        0.3357878115177155,
+        0.26586467781066897,
+        0.26170594158172605
+      ],
+      "f_new_val_accuracy_clean_labels": 0.8648,
+      "flip_old": {
+        "aspect": 0.488,
+        "size": 0.022,
+        "color": 0.0045,
+        "bg": 0.007,
+        "posx": 0.018
+      },
+      "flip_new": {
+        "aspect": 0.4455,
+        "size": 0.0345,
+        "color": 0.1655,
+        "bg": 0.0095,
+        "posx": 0.0215
+      },
+      "agreement_all": 0.8715,
+      "decisive_disagreement_all": 0.0685,
+      "delta_flip": [
+        -0.04249999999999998,
+        0.012500000000000004,
+        0.161,
+        0.0024999999999999996,
+        0.0034999999999999996
+      ],
+      "delta_flip_color": 0.161,
+      "pass": true
+    },
+    {
+      "pair_id": 2,
+      "condition": "T1",
+      "seed": 2,
+      "k_star": 2,
+      "finetune_epochs": 3,
+      "finetune_lr": 0.0003,
+      "finetune_loss": [
+        0.2951860507965088,
+        0.2715121265411377,
+        0.2682569083213806
+      ],
+      "f_new_val_accuracy_clean_labels": 0.8212,
+      "flip_old": {
+        "aspect": 0.486,
+        "size": 0.0265,
+        "color": 0.0055,
+        "bg": 0.0055,
+        "posx": 0.0125
+      },
+      "flip_new": {
+        "aspect": 0.421,
+        "size": 0.032,
+        "color": 0.2265,
+        "bg": 0.006,
+        "posx": 0.016
+      },
+      "agreement_all": 0.8215,
+      "decisive_disagreement_all": 0.096,
+      "delta_flip": [
+        -0.065,
+        0.005500000000000001,
+        0.221,
+        0.0005000000000000004,
+        0.0034999999999999996
+      ],
+      "delta_flip_color": 0.221,
+      "pass": true
+    },
+    {
+      "pair_id": 3,
+      "condition": "T3",
+      "seed": 0,
+      "k_star": 1,
+      "finetune_epochs": 10,
+      "finetune_lr": 0.001,
+      "finetune_loss": [
+        0.6616323789596558,
+        0.5635945420265198,
+        0.4926974585056305,
+        0.41490463018417356,
+        0.3729930227518082,
+        0.3525650434017181,
+        0.343477441740036,
+        0.3268288873672485,
+        0.3302302981376648,
+        0.3153846826553345
+      ],
+      "f_new_val_accuracy_clean_labels": 0.731,
+      "flip_old": {
+        "aspect": 0.486,
+        "size": 0.021,
+        "color": 0.007,
+        "bg": 0.0105,
+        "posx": 0.014
+      },
+      "flip_new": {
+        "aspect": 0.469,
+        "size": 0.3445,
+        "color": 0.004,
+        "bg": 0.019,
+        "posx": 0.029
+      },
+      "agreement_all": 0.7175,
+      "decisive_disagreement_all": 0.2075,
+      "delta_flip": [
+        -0.017000000000000015,
+        0.32349999999999995,
+        -0.003,
+        0.008499999999999999,
+        0.015000000000000001
+      ],
+      "n_subgroup": 500,
+      "acc_new_labels_subgroup": 0.866,
+      "agreement_outside_subgroup": 0.9106666666666666,
+      "dd_outside_subgroup": 0.028,
+      "pass": true
+    },
+    {
+      "pair_id": 4,
+      "condition": "T3",
+      "seed": 1,
+      "k_star": 1,
+      "finetune_epochs": 10,
+      "finetune_lr": 0.001,
+      "finetune_loss": [
+        0.679318496131897,
+        0.5620810147285461,
+        0.5108167462825776,
+        0.4611023411273956,
+        0.4261469720840454,
+        0.4086901738643646,
+        0.39728067846298215,
+        0.3681401194572449,
+        0.35237321338653566,
+        0.340647131061554
+      ],
+      "f_new_val_accuracy_clean_labels": 0.7402,
+      "flip_old": {
+        "aspect": 0.488,
+        "size": 0.022,
+        "color": 0.0045,
+        "bg": 0.007,
+        "posx": 0.018
+      },
+      "flip_new": {
+        "aspect": 0.4415,
+        "size": 0.339,
+        "color": 0.0035,
+        "bg": 0.0145,
+        "posx": 0.053
+      },
+      "agreement_all": 0.747,
+      "decisive_disagreement_all": 0.1775,
+      "delta_flip": [
+        -0.046499999999999986,
+        0.317,
+        -0.0009999999999999996,
+        0.007500000000000001,
+        0.035
+      ],
+      "n_subgroup": 500,
+      "acc_new_labels_subgroup": 0.814,
+      "agreement_outside_subgroup": 0.9346666666666666,
+      "dd_outside_subgroup": 0.01,
+      "pass": false
+    },
+    {
+      "pair_id": 5,
+      "condition": "T3",
+      "seed": 2,
+      "k_star": 1,
+      "finetune_epochs": 10,
+      "finetune_lr": 0.001,
+      "finetune_loss": [
+        0.6969710168838501,
+        0.593977470779419,
+        0.5645412848949433,
+        0.528807450580597,
+        0.5021124904632568,
+        0.4924963189125061,
+        0.4726686125278473,
+        0.4732192959785461,
+        0.45670244178771974,
+        0.4494919374465942
+      ],
+      "f_new_val_accuracy_clean_labels": 0.7292,
+      "flip_old": {
+        "aspect": 0.486,
+        "size": 0.0265,
+        "color": 0.0055,
+        "bg": 0.0055,
+        "posx": 0.0125
+      },
+      "flip_new": {
+        "aspect": 0.493,
+        "size": 0.3455,
+        "color": 0.008,
+        "bg": 0.0155,
+        "posx": 0.0425
+      },
+      "agreement_all": 0.7265,
+      "decisive_disagreement_all": 0.184,
+      "delta_flip": [
+        0.007000000000000006,
+        0.31899999999999995,
+        0.0025000000000000005,
+        0.01,
+        0.030000000000000002
+      ],
+      "n_subgroup": 500,
+      "acc_new_labels_subgroup": 0.754,
+      "agreement_outside_subgroup": 0.886,
+      "dd_outside_subgroup": 0.042666666666666665,
+      "pass": false
+    },
+    {
+      "pair_id": 6,
+      "condition": "T4",
+      "seed": 0,
+      "k_star": 0,
+      "finetune_epochs": 10,
+      "finetune_lr": 0.001,
+      "finetune_loss": [
+        0.29613110580444335,
+        0.2854488509178162,
+        0.2843341838359833,
+        0.28264969327449796,
+        0.28155973055362704,
+        0.2917460566997528,
+        0.28161077013015745,
+        0.2933155078411102,
+        0.2816389186382294,
+        0.28425288927555087
+      ],
+      "f_new_val_accuracy_clean_labels": 0.905,
+      "flip_old": {
+        "aspect": 0.486,
+        "size": 0.021,
+        "color": 0.007,
+        "bg": 0.0105,
+        "posx": 0.014
+      },
+      "flip_new": {
+        "aspect": 0.4875,
+        "size": 0.0225,
+        "color": 0.007,
+        "bg": 0.0075,
+        "posx": 0.0165
+      },
+      "agreement_all": 0.897,
+      "decisive_disagreement_all": 0.0345,
+      "delta_flip": [
+        0.0015000000000000013,
+        0.0014999999999999979,
+        0.0,
+        -0.003000000000000001,
+        0.0025000000000000005
+      ],
+      "n_band": 188,
+      "acc_new_labels_band": 0.9095744680851063,
+      "pass": true
+    },
+    {
+      "pair_id": 7,
+      "condition": "T4",
+      "seed": 1,
+      "k_star": 0,
+      "finetune_epochs": 10,
+      "finetune_lr": 0.001,
+      "finetune_loss": [
+        0.28654757385253904,
+        0.27802661697864534,
+        0.27622871580123903,
+        0.2731513035297394,
+        0.27735865354537964,
+        0.2715833589553833,
+        0.26910494117736816,
+        0.2724921882033348,
+        0.27670549468994143,
+        0.2673856109857559
+      ],
+      "f_new_val_accuracy_clean_labels": 0.8834,
+      "flip_old": {
+        "aspect": 0.488,
+        "size": 0.022,
+        "color": 0.0045,
+        "bg": 0.007,
+        "posx": 0.018
+      },
+      "flip_new": {
+        "aspect": 0.472,
+        "size": 0.022,
+        "color": 0.005,
+        "bg": 0.0075,
+        "posx": 0.0115
+      },
+      "agreement_all": 0.8835,
+      "decisive_disagreement_all": 0.041,
+      "delta_flip": [
+        -0.016000000000000014,
+        0.0,
+        0.0005000000000000004,
+        0.0004999999999999996,
+        -0.006499999999999999
+      ],
+      "n_band": 188,
+      "acc_new_labels_band": 0.9946808510638298,
+      "pass": true
+    },
+    {
+      "pair_id": 8,
+      "condition": "T4",
+      "seed": 2,
+      "k_star": 0,
+      "finetune_epochs": 10,
+      "finetune_lr": 0.001,
+      "finetune_loss": [
+        0.291776952958107,
+        0.2897292400598526,
+        0.2789435188770294,
+        0.27765897128582,
+        0.28853159754276275,
+        0.28656042098999024,
+        0.27674597363471987,
+        0.2795746015548706,
+        0.2776852698326111,
+        0.2785758529663086
+      ],
+      "f_new_val_accuracy_clean_labels": 0.912,
+      "flip_old": {
+        "aspect": 0.486,
+        "size": 0.0265,
+        "color": 0.0055,
+        "bg": 0.0055,
+        "posx": 0.0125
+      },
+      "flip_new": {
+        "aspect": 0.4895,
+        "size": 0.0225,
+        "color": 0.0095,
+        "bg": 0.007,
+        "posx": 0.0115
+      },
+      "agreement_all": 0.904,
+      "decisive_disagreement_all": 0.0285,
+      "delta_flip": [
+        0.003500000000000003,
+        -0.004,
+        0.004,
+        0.0015000000000000005,
+        -0.0010000000000000009
+      ],
+      "n_band": 188,
+      "acc_new_labels_band": 0.8617021276595744,
+      "pass": true
+    }
+  ],
+  "condition_pass": {
+    "T1": true,
+    "T3": false,
+    "T4": true
+  },
+  "f_old_all_meet_95": true,
+  "g0_pass": false,
+  "n_g0_points": 2000,
+  "split": "validation"
+}

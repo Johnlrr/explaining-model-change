@@ -81,6 +81,22 @@ Reading:
 - T4 is bimodal: seed 1 moves its boundary fully (0.98), seeds 0 and 2 not at all (DD 0). The shifted band is ≈ 9% of the data, so the loss gain from moving is small; 5 epochs at lr 1e-3 are not always enough.
 - T3 is close for seeds 0/1 and short for seed 2 (0.59); fine-tune loss still falling (0.37–0.50 at epoch 5).
 
+### exp_0003 — drift pairs with the last knobs (reusing exp_0002 f_old), 2026-10-15
+
+| Condition | Pass | Key numbers (seeds 0/1/2) | Knobs used |
+|---|---|---|---|
+| T1 | **yes** | ΔFlip_color 0.200 / 0.161 / 0.221 | 1 of 2 (correlation 0.99) |
+| T3 | no | subgroup acc 0.866 / 0.814 / 0.754; DD outside 0.028 / 0.010 / 0.043 | 2 of 2 (10 ep, lr 1e-3) — none left |
+| T4 | **yes** | band acc 0.910 / 0.995 / 0.862 | 2 of 2 |
+
+G0 status: f_old, T1, T4, N0, N1 pass; **T3 fails** with no knob left (v1.2 B5: Stop or back to the author).
+
+T3 diagnosis (validation):
+- **The change exists and is attributable to size.** ΔFlip_size = +0.323 / +0.317 / +0.319, while every other factor moves ≤ 0.05; decisive disagreement inside the subgroup 0.75 / 0.68 / 0.61 vs outside 0.03 / 0.01 / 0.04.
+- **The learned size boundary is soft and seed-shifted.** On all 5 000 validation points, subgroup accuracy rises with size: 0.55–0.66 at size 0.75–0.80, 0.65–0.81 at 0.80–0.85, 0.92–0.99 above 0.90. Just outside (size 0.70–0.75), 31–47% of predictions already follow the flipped rule, but with low margins (DD outside stays ≤ 0.05).
+- **A decisive-margin version of the accuracy criterion does not rescue seed 2:** accuracy on subgroup points with |m_n| ≥ κ is 0.934 / 0.896 / 0.779.
+- Accuracy kept rising slowly from 5 to 10 epochs only for seed 2 (0.586 → 0.754); seeds 0/1 were flat (0.87 → 0.87, 0.82 → 0.81).
+
 Options for the user (resolved: author chose c.1 + c.2 and replaced c.3 by the DD criterion; amendment v1.2, D-018):
 
 - (a) Stop, as spec §9 allows.

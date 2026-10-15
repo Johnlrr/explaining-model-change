@@ -1,0 +1,43 @@
+{
+  "experiment": "exp_0003",
+  "gate": "G0",
+  "tier": 0,
+  "git": {
+    "commit": "8d02f3df8147e8d49176a0d6de8806aac46a9682",
+    "dirty": false
+  },
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "numpy": "2.5.4",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "device": "cpu",
+  "threads": 8,
+  "drift_params": {
+    "t1_ambiguous_frac": 0.7,
+    "t1_ambiguous_low": 0.4,
+    "t1_ambiguous_high": 0.6,
+    "t1_correlation": 0.99,
+    "t3_size_threshold": 0.75,
+    "t4_threshold": 0.6,
+    "n1_size_low": 0.5
+  },
+  "scale": {
+    "n_train": 20000,
+    "n_val": 5000,
+    "n_test": 5000,
+    "n_g0_points": 2000,
+    "n_adapt": 10000,
+    "f_old_epochs": 30,
+    "finetune_epochs": 3
+  },
+  "status": "SUCCESS",
+  "f_old_from": {
+    "run": "runs/experiments/exp_0002",
+    "sha256": {
+      "f_old_s0": "b54fdbc57708d958ffbc0f1e54a7e476ec6b51db4213eee4edd28dda64d7d0c5",
+      "f_old_s1": "b65ed1e696119fb8f9a825c26c9bcc65a5dc9cd36a9cb8627e9e1808414883fc",
+      "f_old_s2": "b6f462719d1aa0e38a682b907674ff90ea524e35f9119a5aa29e28079acff330"
+    }
+  },
+  "seconds": 270.3
+}

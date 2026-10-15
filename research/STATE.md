@@ -64,14 +64,14 @@ Why this hypothesis is active: it is the first gate (G1). Without it no result c
 ## 6. Latest experiment
 
 ```text
-Experiment ID: exp_0002 (gate G0, Tier 0, validation; amendment v1.2; commit 1755879, clean tree)
-Run type: full gate run (CPU, 1 644 s)
-Result: G0 not yet passed — f_old all seeds ≥ 0.975; N0, N1 pass (DD = 0); T1, T3, T4 fail
+Experiment ID: exp_0003 (gate G0, Tier 0 drift pairs, validation; f_old from exp_0002, hash-verified; commit 8d02f3d)
+Run type: gate run (CPU, 270 s)
+Result: T1 and T4 pass; T3 fails (subgroup accuracy 0.866 / 0.814 / 0.754 < 0.85) with no knob left
 Validity: valid
-Primary observation: v1.2 fixed f_old and the nulls; T1 weakened (ΔFlip_color 0.12–0.15); T4 bimodal across seeds;
-  T3 close for two seeds
-Conclusion: continue with pre-declared knobs (exp_0003), reusing the exp_0002 f_old checkpoints
-Relevant run evidence: runs/experiments/exp_0002/ ; research/NOTES.md §3
+Primary observation: T3's change is real and size-specific (ΔFlip_size +0.32 on all seeds, others ≤ 0.05),
+  but the learned size boundary is soft and seed-shifted, so accuracy w.r.t. the new labels stays below 0.85
+Conclusion: G0 blocked on T3 only; back to the author (v1.2 B5)
+Relevant run evidence: runs/experiments/exp_0003/ ; research/NOTES.md §3
 ```
 
 ## 7. Strongest current observations
@@ -131,7 +131,7 @@ Tier 1 Kaggle jobs used: 0 / 4
 
 ## 12. Current blockers
 
-1. None. G0 failure of exp_0001 resolved by amendment v1.2 (D-018); exp_0002 running.
+1. **G0 blocked on T3 only** (exp_0003): no knob left; v1.2 B5 says Stop or back to the author. f_old, T1, T4, N0, N1 pass (exp_0002 + exp_0003, same f_old checkpoints).
 2. None from the user: spec amendment v1.1 (A1–A6) applied on 2026-10-15 (D-011–D-015).
 3. Residual G-lit risk: NPL 2022 journal text and Muschalik 2022 not readable (access blocked); arXiv v2 of Artelt covers the same scope.
 
@@ -148,7 +148,8 @@ Plan to G0 (deadline 20/10), Tier 0, local CPU:
 - [x] G0 check `src/dce/eval/g0.py`, CLI `src/dce/cli/g0_tier0.py`; smoke_0003 passed the pipeline.
 - [x] exp_0001: full G0 — FAILED (see §6).
 - [x] Amendment v1.2 implemented (cosine f_old, noisy adaptation sets, DD, per-condition recipe); smoke_0004 passed the pipeline.
-- [ ] exp_0002: G0 with v1.2; T3/T4 at knob 1. If it fails: exp_0003 with knob 2 (T3/T4 epochs 10); then Stop or back to the author. If any f_old seed < 0.95: back to the author.
+- [x] exp_0002: f_old, N0, N1 pass; T1, T3, T4 fail.
+- [x] exp_0003: T1 (knob 1) and T4 (knob 2) pass; T3 fails with no knob left → waiting for the author.
 - [ ] If a condition fails: apply the pre-declared knob (spec §4.4) in a new experiment (exp_0002), max 2 per condition.
 - [ ] Then G1: Tier L test (H4), Δ-CE solver, ordinary CE, r calibration, pilot (validation).
 
