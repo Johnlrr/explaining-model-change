@@ -46,7 +46,34 @@ Raw observations and unresolved items only. Do not store final results here.
 
 ## 3. Experimental observations
 
-None yet.
+### exp_0001 — G0 on Tier 0 (validation, 2 000 points), 2026-10-15
+
+| Condition | Pass | Key numbers (seeds 0/1/2[/3/4]) | Criterion |
+|---|---|---|---|
+| f_old accuracy | no | 0.925 / 0.978 / 0.983 / 0.982 / 0.972 | ≥ 0.95 all seeds |
+| T1 | yes | ΔFlip_color 0.20 / 0.17 / 0.22 | ≥ 0.15 |
+| T3 | no | subgroup acc (new labels) 0.35 / 0.26 / 0.10; agreement outside 0.91 / 0.94 / 0.92 | ≥ 0.85 and ≥ 0.95 |
+| T4 | no | band acc (new labels) 0.76 / 0.78 / 0.34 | ≥ 0.80 |
+| N0 | no | agreement 0.932 / 0.974 / 0.993 / 0.947 / 0.987; max abs ΔFlip ≤ 0.011 | ≥ 0.98 and ≤ 0.05 |
+| N1 | no | agreement 0.903 / 0.979 / 0.982; max abs ΔFlip ≤ 0.018 | ≥ 0.98 and ≤ 0.05 |
+
+Diagnosis (validation, from saved checkpoints, no extra training):
+
+1. **Threshold jitter, not drift.** Null-pair disagreements sit at the decision threshold: 34–77% of them have |φ1 − 0.5| < 0.03, median |φ1 − 0.5| 0.013–0.043. A shift of 0.01 in φ1 is a 1.4% change of the log aspect ratio, below one pixel at 32 × 32. The ΔFlip_k part of the null criterion passes easily (≤ 0.018); only the agreement part fails. The same jitter lowers T3's "agreement outside the subgroup" (0.91–0.94).
+2. **f_old is not converged / seed-sensitive.** Training loss plateaus near 0.28 at epoch 15, while the floor with 5% symmetric label noise is about 0.20. Seed 0 has error 0.47 in the band 0.02 ≤ |φ1 − 0.5| < 0.05 (its boundary is offset), so N0/N1 fine-tunes of seed 0 move the boundary back (f_new clean accuracy 0.982).
+3. **Null is not a pure null (D-017 reading).** f_old trains on 5% noisy labels; N0 fine-tunes on noise-free labels, so N0 changes the training distribution, not only the data order.
+4. **T3 is under-trained.** Fine-tune loss 0.53–0.60 after 3 epochs; the size × aspect interaction is not learned. T4 seed 2 also moves its boundary only partly (band acc 0.34).
+
+Options for the user (none applied):
+
+- (a) Stop, as spec §9 allows.
+- (b) Apply only the pre-declared knob (T3/T4 epochs 3 → 5). This cannot fix N0/N1 or f_old seed 0, so G0 still fails.
+- (c) Post-G0 amendment v1.2 (logged "after seeing G0 results"; G0 is a gate, not a main test):
+  1. f_old training: 30 epochs with cosine learning-rate decay (accuracy requirement ≥ 0.95 unchanged);
+  2. all adaptation sets carry the same 5% label noise as the training split, so N0 differs from f_old only in data order and the drifts differ only in the drift (revises D-017);
+  3. agreement criteria (N0/N1 ≥ 0.98, T3 outside ≥ 0.95) measured on points with |φ1 − 0.5| ≥ 0.05, outside the threshold band; thresholds unchanged; ΔFlip criteria unchanged;
+  4. then the pre-declared knob for T3/T4 if they still fail.
+  Cost: one rerun, ≈ 35 min CPU.
 
 ---
 

@@ -64,10 +64,15 @@ Why this hypothesis is active: it is the first gate (G1). Without it no result c
 ## 6. Latest experiment
 
 ```text
-None yet. No experiment has been run.
+Experiment ID: exp_0001 (gate G0, Tier 0, validation; commit ad80b91, clean tree)
+Run type: full gate run (CPU, 958 s)
+Result: G0 FAILED — T1 pass; T3, T4, N0, N1 fail; f_old seed 0 below 95% (0.925)
+Validity: valid (all 17 pairs completed; hashes in artifact_manifest.json)
+Primary observation: disagreements of null pairs sit at |φ1 − 0.5| < 0.03 (decision-threshold jitter);
+  f_old training loss plateaus near 0.28 (floor with 5% label noise ≈ 0.20); T3 fine-tune loss still 0.53–0.60 after 3 epochs
+Conclusion: blocked on a human decision (spec §9: no pre-declared knob for N0/N1 or for f_old accuracy)
+Relevant run evidence: runs/experiments/exp_0001/ ; diagnosis in research/NOTES.md §3
 ```
-
----
 
 ## 7. Strongest current observations
 
@@ -126,7 +131,7 @@ Tier 1 Kaggle jobs used: 0 / 4
 
 ## 12. Current blockers
 
-1. None.
+1. **G0 failed (exp_0001).** Spec §9: knobs exist only for T1/T3/T4; N0/N1 and f_old accuracy have none, so the spec requires reporting back and choosing Stop or a narrowed design. Options in `research/NOTES.md` §3. Waiting for the user.
 2. None from the user: spec amendment v1.1 (A1–A6) applied on 2026-10-15 (D-011–D-015).
 3. Residual G-lit risk: NPL 2022 journal text and Muschalik 2022 not readable (access blocked); arXiv v2 of Artelt covers the same scope.
 
@@ -141,7 +146,7 @@ Plan to G0 (deadline 20/10), Tier 0, local CPU:
 - [x] Drift data `src/dce/data/drift.py` (clean splits, T1/T3/T4/N0/N1 adaptation sets, 17 pair ids) + tests.
 - [x] Classifier `src/dce/models/cnn.py` (≈ 56k parameters) + tests.
 - [x] G0 check `src/dce/eval/g0.py`, CLI `src/dce/cli/g0_tier0.py`; smoke_0003 passed the pipeline.
-- [ ] exp_0001: full G0 (5 f_old × 15 epochs, 17 fine-tunes), ≈ 25 min CPU.
+- [x] exp_0001: full G0 — FAILED (see §6). Waiting for the user's decision before any knob.
 - [ ] If a condition fails: apply the pre-declared knob (spec §4.4) in a new experiment (exp_0002), max 2 per condition.
 - [ ] Then G1: Tier L test (H4), Δ-CE solver, ordinary CE, r calibration, pilot (validation).
 
