@@ -1,0 +1,6 @@
+# exp_0008 — G1: calibrate the Tier 0 budget r once (spec §6.3, D-024). Validation, pair 0 (T1 seed 0),
+# 300 valid points, CE(f_new) with the v1.5 solver. r = 2 × median over found CEs; then frozen in tier0.yaml.
+experiment_id: exp_0008
+tier_config: configs/tiers/tier0.yaml
+pair_id: 0
+n_points: 300

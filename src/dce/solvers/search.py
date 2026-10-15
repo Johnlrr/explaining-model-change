@@ -19,6 +19,7 @@ per-point models (Tier L) and shared models (CNN; idx ignored) use one interface
 
 from __future__ import annotations
 
+import multiprocessing as mp
 import time
 from collections.abc import Callable
 from dataclasses import dataclass
@@ -48,6 +49,7 @@ class SolverConfig:
     slsqp_maxiter: int = 100
     slsqp_ftol: float = 1e-10
     slsqp_tighten: float = 1e-4         # v1.5 F2: SLSQP targets κ' = κ + 1e-4 (g ≥ 1e-4)
+    n_workers: int = 1                  # D-024: phase 2 parallelised over points (fork, 1 thread each)
 
 
 @dataclass
@@ -59,50 +61,99 @@ class SearchResult:
     n_polished: int = 0        # phase-2 runs whose output was confirmed feasible
     n_polish_runs: int = 0
     n_from_phase2: int = 0     # points whose final answer is a phase-2 output
+    n_f64_ok_f32_rejected: int = 0  # D-024: feasible in float64 with κ but rejected by the float32 check
+    cpu_seconds: float = 0.0   # parent + phase-2 workers
 
 
-def _phase1(z0: Tensor, constraints: Constraints, cfg: SolverConfig, restart_seed: int):
-    B = z0.shape[0]
-    idx = torch.arange(B, device=z0.device)
+def _restart_noise(z0: Tensor, cfg: SolverConfig, restart_seed: int) -> Tensor:
+    """(R, B, p) start offsets; restart 1 has none. Drawn once for the whole batch, so phase 1 does not
+    depend on how points are split across workers."""
     gen = torch.Generator(device="cpu").manual_seed(restart_seed)
+    noise = torch.zeros((cfg.R, *z0.shape), dtype=z0.dtype)
+    for j in range(1, cfg.R):
+        noise[j] = cfg.sigma * torch.randn(z0.shape, generator=gen, dtype=z0.dtype)
+    return noise.to(z0.device)
+
+
+def _phase1(z0: Tensor, idx: Tensor, constraints: Constraints, cfg: SolverConfig, noise: Tensor):
+    """Phase 1 for the points idx (rows of z0 and noise[:, ·] already restricted to them)."""
+    B = z0.shape[0]
     cand_z = z0.unsqueeze(0).repeat(cfg.R, 1, 1)
     last_z = z0.unsqueeze(0).repeat(cfg.R, 1, 1)
     cand_d = torch.full((cfg.R, B), float("inf"), dtype=z0.dtype, device=z0.device)
     for j in range(cfg.R):
-        start_z = z0.clone()
-        if j > 0:  # restart 1 starts at z0 without noise
-            start_z = start_z + cfg.sigma * torch.randn(z0.shape, generator=gen, dtype=z0.dtype).to(z0.device)
-            if cfg.clamp is not None:
-                start_z = start_z.clamp(*cfg.clamp)
-        z = start_z.requires_grad_(True)
+        start_z = z0 + noise[j]
+        if j > 0 and cfg.clamp is not None:
+            start_z = start_z.clamp(*cfg.clamp)
+        z = start_z.clone().requires_grad_(True)
         opt = torch.optim.Adam([z], lr=cfg.lr)
         lam = torch.full((B,), cfg.lam0, dtype=z0.dtype, device=z0.device)
-        for t in range(1, cfg.T + 1):
+        # One forward per step: g at z_{t−1} gives both the feasibility record of the iterate produced
+        # by step t−1 and the loss of step t. Same checked iterates and λ timing as checking after
+        # each step; z_0 itself is not recorded.
+        for t in range(1, cfg.T + 2):
             opt.zero_grad(set_to_none=True)
+            last = t == cfg.T + 1
+            with torch.set_grad_enabled(not last):
+                g = constraints(z, idx)
+            if t > 1:
+                with torch.no_grad():
+                    ok = (g >= 0).all(1)
+                    d = (z - z0).norm(dim=1)
+                    better = ok & (d < cand_d[j])
+                    cand_d[j] = torch.where(better, d, cand_d[j])
+                    cand_z[j][better] = z.detach()[better]
+                    s_ = t - 1  # the step that produced this iterate
+                    if cfg.lam_schedule == "half_once":
+                        halve = s_ == cfg.T // 2
+                    elif cfg.lam_schedule == "halve_every":
+                        halve = s_ % max(1, cfg.T // cfg.n_lam_steps) == 0 and s_ < cfg.T
+                    else:
+                        raise ValueError(f"unknown lam_schedule {cfg.lam_schedule!r}")
+                    if halve:  # halve λ where this restart has found nothing yet
+                        lam = torch.where(torch.isfinite(cand_d[j]), lam, lam / 2)
+            if last:
+                break
             u = z - z0
-            loss = torch.relu(-constraints(z, idx)).sum(1) + lam * (u * u).sum(1)
+            loss = torch.relu(-g).sum(1) + lam * (u * u).sum(1)
             if cfg.mu:
                 loss = loss + cfg.mu * (z * z).sum(1)
             loss.sum().backward()
             opt.step()
-            with torch.no_grad():
-                if cfg.clamp is not None:
+            if cfg.clamp is not None:
+                with torch.no_grad():
                     z.clamp_(*cfg.clamp)
-                ok = (constraints(z, idx) >= 0).all(1)
-                d = (z - z0).norm(dim=1)
-                better = ok & (d < cand_d[j])
-                cand_d[j] = torch.where(better, d, cand_d[j])
-                cand_z[j][better] = z[better]
-                if cfg.lam_schedule == "half_once":
-                    halve = t == cfg.T // 2
-                elif cfg.lam_schedule == "halve_every":
-                    halve = t % max(1, cfg.T // cfg.n_lam_steps) == 0 and t < cfg.T
-                else:
-                    raise ValueError(f"unknown lam_schedule {cfg.lam_schedule!r}")
-                if halve:  # halve λ where this restart has found nothing yet
-                    lam = torch.where(torch.isfinite(cand_d[j]), lam, lam / 2)
         last_z[j] = z.detach()
     return cand_z, cand_d, last_z
+
+
+def _phase1_chunk(chunk: list[int]):
+    z0, constraints, cfg, noise = _CTX
+    c0 = time.process_time()
+    idx = torch.tensor(chunk, device=z0.device)
+    out = _phase1(z0[idx], idx, constraints, cfg, noise[:, idx])
+    return out, time.process_time() - c0
+
+
+def run_phase1(z0: Tensor, constraints: Constraints, cfg: SolverConfig, restart_seed: int):
+    """Phase 1 for all points; split over cfg.n_workers forked workers (1 thread each, D-024)."""
+    global _CTX
+    noise = _restart_noise(z0, cfg, restart_seed)
+    B = z0.shape[0]
+    if cfg.n_workers <= 1 or B < 2:
+        return (*_phase1(z0, torch.arange(B, device=z0.device), constraints, cfg, noise), 0.0)
+    chunks = [c.tolist() for c in np.array_split(np.arange(B), min(cfg.n_workers, B)) if len(c)]
+    _CTX = (z0, constraints, cfg, noise)
+    try:
+        with mp.get_context("fork").Pool(len(chunks), initializer=torch.set_num_threads,
+                                          initargs=(1,)) as pool:
+            res = pool.map(_phase1_chunk, chunks, chunksize=1)
+    finally:
+        _CTX = None
+    cand_z = torch.cat([r[0][0] for r in res], dim=1)
+    cand_d = torch.cat([r[0][1] for r in res], dim=1)
+    last_z = torch.cat([r[0][2] for r in res], dim=1)
+    return cand_z, cand_d, last_z, sum(c for _, c in res)
 
 
 def _polish_one(z_start: np.ndarray, z0: Tensor, i: int, constraints: Constraints, cfg: SolverConfig):
@@ -146,31 +197,64 @@ def _polish_one(z_start: np.ndarray, z0: Tensor, i: int, constraints: Constraint
     return x
 
 
+_CTX: tuple | None = None  # set in the parent before forking the phase-2 workers
+
+
+def _phase2_point(i: int):
+    z0, constraints, cfg, starts = _CTX
+    c0 = time.process_time()
+    out = []
+    idx = torch.tensor([i], device=z0.device)
+    for start_z in starts[:, i]:
+        x = _polish_one(start_z.detach().cpu().double().numpy(), z0[i], i, constraints, cfg)
+        with torch.no_grad():  # float64 view with the original κ (for the D-024 mismatch count)
+            g = constraints(torch.tensor(x, dtype=torch.float64, device=z0.device).unsqueeze(0), idx)
+        out.append((x, bool((g >= 0).all())))
+    return out, time.process_time() - c0
+
+
+def run_phase2(z0: Tensor, constraints: Constraints, cfg: SolverConfig, starts: Tensor):
+    """SLSQP for every point i from every starts[s, i]; returns per-point [(x, f64_ok)], worker CPU s."""
+    global _CTX
+    _CTX = (z0, constraints, cfg, starts)
+    try:
+        if cfg.n_workers <= 1:
+            res = [_phase2_point(i) for i in range(z0.shape[0])]
+        else:
+            with mp.get_context("fork").Pool(cfg.n_workers, initializer=torch.set_num_threads,
+                                              initargs=(1,)) as pool:
+                res = pool.map(_phase2_point, range(z0.shape[0]), chunksize=1)
+    finally:
+        _CTX = None
+    return [o for o, _ in res], sum(c for _, c in res)
+
+
 def constrained_search(z0: Tensor, constraints: Constraints, cfg: SolverConfig,
                        restart_seed: int) -> SearchResult:
-    start = time.time()
+    start, cpu0 = time.time(), time.process_time()
     z0 = z0.detach()
     B = z0.shape[0]
-    cand_z, cand_d, last_z = _phase1(z0, constraints, cfg, restart_seed)
+    cand_z, cand_d, last_z, worker_cpu = run_phase1(z0, constraints, cfg, restart_seed)
 
-    n_runs = n_ok = 0
+    n_runs = n_ok = n_mismatch = 0
     from_p2 = torch.zeros(B, dtype=torch.bool, device=z0.device)
     if cfg.polish:
-        p2_z = z0.clone()
-        p2_d = torch.full((B,), float("inf"), dtype=z0.dtype, device=z0.device)
-        for i in range(B):
-            idx = torch.tensor([i], device=z0.device)
-            for start_z in [z0[i]] + [last_z[j, i] for j in range(cfg.R)]:
-                n_runs += 1
-                x = _polish_one(start_z.detach().cpu().double().numpy(), z0[i], i, constraints, cfg)
-                z = torch.tensor(x, dtype=z0.dtype, device=z0.device).unsqueeze(0)
-                with torch.no_grad():  # F2: confirm with the original κ in the working dtype
-                    ok = bool((constraints(z, idx) >= 0).all())
-                if ok:
-                    n_ok += 1
-                    d = float((z[0] - z0[i]).norm())
-                    if d < p2_d[i]:
-                        p2_d[i], p2_z[i] = d, z[0]
+        outs, cpu2 = run_phase2(z0, constraints, cfg, torch.cat([z0.unsqueeze(0), last_z]))
+        worker_cpu += cpu2
+        xs = torch.tensor(np.stack([x for o in outs for x, _ in o]), dtype=z0.dtype, device=z0.device)
+        f64_ok = torch.tensor([ok for o in outs for _, ok in o], device=z0.device)
+        n_starts = cfg.R + 1
+        idx = torch.arange(B, device=z0.device).repeat_interleave(n_starts)
+        with torch.no_grad():  # F2: confirm with the original κ in the working dtype, batched
+            ok = (constraints(xs, idx) >= 0).all(1)
+        n_runs, n_ok = len(xs), int(ok.sum())
+        n_mismatch = int((f64_ok & ~ok).sum())
+        d = (xs - z0[idx]).norm(dim=1)
+        d = torch.where(ok, d, torch.full_like(d, float("inf"))).view(B, n_starts)
+        k = d.argmin(1)
+        ar = torch.arange(B, device=z0.device)
+        p2_d = d[ar, k]
+        p2_z = torch.where(torch.isfinite(p2_d)[:, None], xs.view(B, n_starts, -1)[ar, k], z0)
         from_p2 = p2_d < cand_d.min(0).values
         cand_z = torch.cat([cand_z, p2_z.unsqueeze(0)])
         cand_d = torch.cat([cand_d, p2_d.unsqueeze(0)])
@@ -181,4 +265,6 @@ def constrained_search(z0: Tensor, constraints: Constraints, cfg: SolverConfig,
     best_z = cand_z[best_j, ar]
     found = torch.isfinite(best_d) & (best_d <= cfg.r)
     return SearchResult(z=best_z, distance=best_d, found=found, seconds=time.time() - start,
-                        n_polished=n_ok, n_polish_runs=n_runs, n_from_phase2=int((from_p2 & found).sum()))
+                        n_polished=n_ok, n_polish_runs=n_runs, n_from_phase2=int((from_p2 & found).sum()),
+                        n_f64_ok_f32_rejected=n_mismatch,
+                        cpu_seconds=time.process_time() - cpu0 + worker_cpu)

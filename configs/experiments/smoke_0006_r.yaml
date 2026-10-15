@@ -1,0 +1,5 @@
+# smoke_0006 — same path as exp_0008, 16 points.
+experiment_id: smoke_0006
+tier_config: configs/tiers/tier0.yaml
+pair_id: 0
+n_points: 16

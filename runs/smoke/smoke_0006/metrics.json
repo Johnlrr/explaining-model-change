@@ -1,0 +1,17 @@
+{
+  "pair_id": 0,
+  "condition": "T1",
+  "seed": 0,
+  "split": "validation",
+  "n_points": 16,
+  "ce_found_share": 1.0,
+  "median_ce_distance": 0.3346947133541107,
+  "r": 0.6693894267082214,
+  "float64_gap_f_new": 1.5293180668507489e-06,
+  "float64_gap_f_old": 1.5619735469485363e-06,
+  "f64_ok_f32_rejected": 0,
+  "polish_runs": 96,
+  "polish_feasible": 96,
+  "wall_seconds": 27.37,
+  "cpu_seconds": 226.37
+}

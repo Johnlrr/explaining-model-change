@@ -20,3 +20,19 @@ seeds:
   points_base: 5000        # evaluation points: 5000 + pair_id (spec §7)
   restart_base: 10000      # solver restarts: 10000 + pair_id (spec §6.1)
 threads: 8
+solver:                    # amendments v1.4 E1 + v1.5 F1–F2 (Tier 0: box bounds [0, 1]^5); D-024 n_workers
+  R: 5
+  T: 400
+  lr: 0.05
+  lam0: 1.0
+  mu: 0.0
+  sigma: 0.05
+  clamp: [0.0, 1.0]
+  lam_schedule: halve_every
+  n_lam_steps: 8
+  polish: true
+  slsqp_maxiter: 100
+  slsqp_ftol: 1.0e-10
+  slsqp_tighten: 1.0e-4
+  n_workers: 16
+r: null                    # spec §6.3: calibrated once (exp_0008), then frozen here

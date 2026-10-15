@@ -112,3 +112,12 @@ def test_phase2_reaches_witness_phase1_misses():
     for i, q in enumerate(pairs):
         assert abs(res.distance[i].item() / closed_form(q)["delta"] - 1) < 1e-3
     assert res.n_from_phase2 == len(pairs)
+
+
+def test_parallel_phase2_equals_sequential():
+    pairs = [sample_pair(50_300 + s, 5) for s in range(8)]
+    z0, m_o, m_n = _batch(pairs)
+    a = delta_ce(z0, m_o, m_n, SolverConfig(R=2, T=50, n_workers=1), restart_seed=3)
+    b = delta_ce(z0, m_o, m_n, SolverConfig(R=2, T=50, n_workers=4), restart_seed=3)
+    assert torch.equal(a.z, b.z) and torch.equal(a.distance, b.distance)
+    assert a.n_polish_runs == b.n_polish_runs == 8 * 3

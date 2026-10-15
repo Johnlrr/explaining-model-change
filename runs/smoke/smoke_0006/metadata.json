@@ -1,0 +1,30 @@
+{
+  "experiment": "smoke_0006",
+  "gate": "G1 (r calibration)",
+  "tier": 0,
+  "git": {
+    "commit": "d0b45b0efd080c2859354e4550e85562a1cc5e33",
+    "dirty": true
+  },
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "numpy": "2.5.4",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "device": "cpu",
+  "status": "SUCCESS",
+  "checkpoints": [
+    {
+      "name": "f_old_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s0.pt",
+      "sha256": "b54fdbc57708d958ffbc0f1e54a7e476ec6b51db4213eee4edd28dda64d7d0c5"
+    },
+    {
+      "name": "f_new_p00_T1_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0003/artifacts/models/f_new_p00_T1_s0.pt",
+      "sha256": "67bfc56712068ff880352f103b79e52cc8c4434fb509becc68a29cbd32938fb0"
+    }
+  ],
+  "seconds": 27.4
+}
