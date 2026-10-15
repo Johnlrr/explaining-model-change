@@ -1,0 +1,32 @@
+# exp_0010 — Tier 1 data prep (spec §4.3, D-025): MNIST 4/9 morphology ladder, measured thickness, clean splits. Immutable slug; later Tier 1 kernels attach it via kernel_sources and verify the manifest hash.
+kernel:
+  id: boinhbo/dce-tier1-data-v1
+  title: dce-tier1-data-v1
+  code_file: src/dce/remote/tier1_prep.py
+  kernel_type: script
+  language: python
+  is_private: true
+  enable_gpu: false
+  enable_internet: true
+  dataset_sources: []
+  competition_sources: []
+  kernel_sources: []
+  model_sources: []
+  immutable_kernel: true
+  timeout_seconds: 3600
+  wait_timeout_seconds: 4200
+  poll_interval_seconds: 30
+  parameters: {}
+  required_outputs:
+    - result.json
+    - artifact_manifest.json
+    - tier1_data.npz
+  metrics_file: result.json
+  fetch_files:
+    - result.json
+    - artifact_manifest.json
+  kernel_source_expectations: []
+  json_checks:
+    - path: work.processed
+      op: gte
+      value: 13000

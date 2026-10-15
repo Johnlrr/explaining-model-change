@@ -1,0 +1,16 @@
+{
+  "experiment": "exp_0009",
+  "gate": "G1 pilot",
+  "tier": 0,
+  "git": {
+    "commit": "7c6401a06136412d69d6e6f75d8ed533a8687153",
+    "dirty": false
+  },
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "numpy": "2.5.4",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "device": "cpu (16 logical cores)",
+  "status": "RUNNING",
+  "checkpoints": []
+}

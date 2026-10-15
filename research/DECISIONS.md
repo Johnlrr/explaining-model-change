@@ -34,6 +34,7 @@
 | D-022 | Amendment v1.4 after H4 exp_0005: two-phase solver (Adam + R1, then SLSQP per restart) for Δ-CE and ordinary CE; H4 extended to CE; one H4 run | partially superseded by D-023 (E1 phase 2 starts, E4) | 2026-10-15 | — | exp_0005, exp_0006 |
 | D-023 | Amendment v1.5 after exp_0006: SLSQP from z0 and every restart end; κ+1e-4 target, float32 confirmation; H4 on two seed sets; E4 replaced (deadline 17/10); F5 completeness check at pilot | active | 2026-10-15 | — | exp_0006, exp_0007 |
 | D-024 | Pre-pilot declarations (G1): parallel phase 2, wall+CPU time, r calibration over found CEs, float64 model check, pilot readings | active | 2026-10-15 | — | exp_0008, exp_0009 |
+| D-025 | Tier 1 data preparation: morphology ladder with measured thickness, clean splits and factors (prep kernel, CPU) | active | 2026-10-15 | — | smoke_0008, exp_0010 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -738,6 +739,21 @@ active (author: items 1–3, 2026-10-15; Research Lead: implementation readings)
 - **Pilot pairs:** seed 0 of each condition: pair 0 (T1), 3 (T3), 6 (T4), 9 (N0), 14 (N1); N = 100 valid validation points each.
 - **Pilot outputs persisted:** per pair and method, found-rate, wall-clock and CPU time per point, polish counts and the float64/float32 rejection count; nothing per point, no Δφ̃. The G1 runtime check is on Δ-CE (EVALUATION §15), extrapolated from N = 100 to N = 300 and labelled as such.
 - **F5 (v1.5):** the first 50 pilot points of pair 0; reference = SLSQP (same settings) from 50 starts uniform in [0, 1]^5 (seed 20000), best confirmed-feasible; report the share of points with a reference witness within r that the standard Δ-CE misses, and the relative distance gap (d_std − d_ref)/d_ref where both are found. Diagnostic only.
+
+## D-025 — Tier 1 data preparation (spec §4.3)
+
+### Status
+active (Research Lead, 2026-10-15; started during the G1 pilot as the author suggested, D-024 item 4). Implementation readings of spec §4.3, declared before any Tier 1 data exists.
+
+### Decision
+- Kaggle prep kernel (Internet ON, CPU, no GPU budget), `src/dce/remote/tier1_prep.py`; full run on the immutable slug `boinhbo/dce-tier1-data-v1` (exp_0010) after smoke_0008. It is data staging, not one of the four Tier 1 GPU jobs (CONSTRAINTS §4).
+- **Morphology ladder:** per MNIST 4/9 image, grayscale erosion/dilation with disk(1), levels −2 … +3 (negative = erosion), each measured as 2 × mean distance transform on the skeleton of α > 0.5 (the same mask threshold as the oracle, spec §5.3). Empty mask or skeleton → invalid level.
+- "Lặp cho tới gần t nhất" is read as: t ~ U[1.5, 5.0] per image, and the valid level with the nearest measured thickness is used. The measured thickness of that level is the ground truth. Keeping the whole ladder lets later steps re-sample thickness (Flip_thick at G0-Tier 1, T3) without re-running morphology.
+- **Splits:** official train 4/9 → `default_rng(1234)` permutation, first 10% validation, rest train; official test 4/9 → test. Label y = 1 for digit 9.
+- **Clean factors:** per split, `default_rng(1235 / 1236 / 1237)` (train / val / test) draws t, then φc, φb ~ U[0, 1]. Colouring I = αc + (1 − α)b·1 is applied when images are built (`colorize`).
+
+### Consequences
+The thickness distribution is discrete per image (one value per ladder level); the measured value, not the target, is the factor. Whether this suffices for the G2 oracle criterion (Spearman ≥ 0.8 for thick) is checked at G2, not assumed.
 
 ---
 
