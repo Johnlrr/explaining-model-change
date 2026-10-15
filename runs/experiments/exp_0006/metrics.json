@@ -1,0 +1,106 @@
+{
+  "tolerance": {
+    "rel_error": 0.001,
+    "abs_cos": 0.999,
+    "share": 0.99
+  },
+  "n_pairs": 1000,
+  "solver": {
+    "kappa": 0.5,
+    "R": 5,
+    "T": 400,
+    "lr": 0.05,
+    "lam0": 1.0,
+    "mu": 0.0,
+    "sigma": 0.05,
+    "r": Infinity,
+    "clamp": null,
+    "lam_schedule": "halve_every",
+    "n_lam_steps": 8,
+    "polish": true,
+    "slsqp_maxiter": 100,
+    "slsqp_ftol": 1e-10,
+    "slsqp_tighten": 1e-06
+  },
+  "dims": {
+    "5": {
+      "delta_ce": {
+        "found_rate": 0.967,
+        "share_rel_lt_tol": 0.967,
+        "share_cos_gt_tol": 0.967,
+        "rel_median": 1.3533448840126619e-06,
+        "rel_max": 4.8331661389312055e-06,
+        "cos_min_found": 0.999999999988596,
+        "pass": false,
+        "share_case_b": 0.941,
+        "seconds": 16.77,
+        "polish_accepted": 4820,
+        "polish_runs": 4820
+      },
+      "ce_old": {
+        "found_rate": 1.0,
+        "share_rel_lt_tol": 1.0,
+        "share_cos_gt_tol": 1.0,
+        "rel_median": 4.3359189952755024e-07,
+        "rel_max": 9.998501573975343e-07,
+        "cos_min_found": 0.9999999999965112,
+        "pass": true,
+        "seconds": 9.42,
+        "polish_accepted": 4999,
+        "polish_runs": 5000
+      },
+      "ce_new": {
+        "found_rate": 1.0,
+        "share_rel_lt_tol": 1.0,
+        "share_cos_gt_tol": 1.0,
+        "rel_median": 4.2328743389666546e-07,
+        "rel_max": 9.95985693288007e-07,
+        "cos_min_found": 0.9999999999983035,
+        "pass": true,
+        "seconds": 9.33,
+        "polish_accepted": 4999,
+        "polish_runs": 5000
+      }
+    },
+    "20": {
+      "delta_ce": {
+        "found_rate": 1.0,
+        "share_rel_lt_tol": 1.0,
+        "share_cos_gt_tol": 1.0,
+        "rel_median": 6.279801852456278e-07,
+        "rel_max": 4.417803298568575e-06,
+        "cos_min_found": 0.9999999999877304,
+        "pass": true,
+        "share_case_b": 0.765,
+        "seconds": 16.54,
+        "polish_accepted": 5000,
+        "polish_runs": 5000
+      },
+      "ce_old": {
+        "found_rate": 1.0,
+        "share_rel_lt_tol": 1.0,
+        "share_cos_gt_tol": 1.0,
+        "rel_median": 2.384294652366186e-07,
+        "rel_max": 9.792000737630778e-07,
+        "cos_min_found": 0.9999999999659265,
+        "pass": true,
+        "seconds": 10.1,
+        "polish_accepted": 5000,
+        "polish_runs": 5000
+      },
+      "ce_new": {
+        "found_rate": 1.0,
+        "share_rel_lt_tol": 1.0,
+        "share_cos_gt_tol": 1.0,
+        "rel_median": 2.311014708622155e-07,
+        "rel_max": 9.92876429959179e-07,
+        "cos_min_found": 0.9999999999635121,
+        "pass": true,
+        "seconds": 10.53,
+        "polish_accepted": 5000,
+        "polish_runs": 5000
+      }
+    }
+  },
+  "h4_pass": false
+}

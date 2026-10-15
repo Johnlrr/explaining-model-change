@@ -153,6 +153,22 @@ Diagnosis:
 
 Status: G1 blocked on H4. The tolerance (spec §8) and lr/T (locked) are the author's decision.
 
+### exp_0006 — G1 H4 on Tier L with the v1.4 two-phase solver (single run, E4), 2026-10-15
+
+Commit f45d5ba, 73 s CPU. **H4 fails, only on Δ-CE at p = 5, only through found-rate.**
+
+| | p=5 found | rel<1e-3 | \|cos\|>0.999 | p=20 found | rel<1e-3 | \|cos\|>0.999 |
+|---|---|---|---|---|---|---|
+| Δ-CE | **0.967** | 0.967 | 0.967 | 1.000 | 1.000 | 1.000 |
+| CE(f_old) | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+| CE(f_new) | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+
+- Every found witness is exact: Δ-CE rel. error median 1.4e-6 / max 4.8e-6 (p=5), min |cos| 0.99999999999; SLSQP accepted in 4 820 / 4 820 (p=5) and 5 000 / 5 000 (p=20) runs; ordinary CE 4 999 / 5 000 and 5 000 / 5 000. Phase 2 does what v1.4 intended.
+- The 33 failures (3.3%) have **no feasible phase-1 candidate in any restart**, so phase 2 never runs. Phase 1 is unchanged from exp_0005 R1 (same found-rate 0.967 there).
+- Predicted from the closed forms (no solver rerun): the hardest 3.3% by λ_crit have median δ ≈ 6.3 (all pairs: 2.3); 2.1% need λ < 1/64, which R1 (halving every 50 steps) reaches only at t = 350. Far witnesses and late λ leave too few steps to reach the wedge.
+- Not a bug under E4: the code implements the declared algorithm. Per E4 → stop and report; no variant tried.
+- Context for the author (not a criterion): Tier 0 lives in [0, 1]^5 (diameter √5 ≈ 2.24), so witnesses at δ ≈ 6 cannot occur there, and on Tier 0/1 the budget r turns far witnesses into NOT_FOUND anyway. exp_0005 had shown R1 with halving every T/16 at found-rate 0.998 (phase 1 only).
+
 ## 4. Questions
 
 1. Does the tie in Proposition 4 also hold for the constrained solver when λ is decayed? (H-005)

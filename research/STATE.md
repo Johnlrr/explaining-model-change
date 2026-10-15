@@ -11,7 +11,7 @@
 ## 1. Project status
 
 ```text
-Status: G1 blocked on H4 (exp_0005); awaiting the author
+Status: G1 blocked on H4 (exp_0006, v1.4, single run per E4); awaiting the author
 Last updated: 2026-10-15
 Current commit: see `git log -1` (kick-off commit on research/delta-ce)
 Current branch: research/delta-ce (from main)
@@ -64,15 +64,14 @@ Why this hypothesis is active: it is the first gate (G1). Without it no result c
 ## 6. Latest experiment
 
 ```text
-Experiment ID: exp_0005 (gate G1, H4 on Tier L, 1000 pairs × p ∈ {5, 20}; commit 157320b)
-Run type: local CPU, ≈ 25 s, spec solver plus repair variants
-Result: H4 FAILS. Spec solver found-rate 0.10 / 0.59; best allowed repair (λ halved every T/8 while
-  infeasible) found 0.97 / 1.00 but rel. error < 1e-3 in only 11% / 22%, |cos| > 0.999 in 71% / 64%
-Validity: valid; closed forms verified by KKT + SLSQP (tests/unit/test_linear_theory.py)
-Cause: λ0 = 1 above the exact-penalty threshold (found-rate, fixed by the λ-schedule repair);
-  Adam at fixed lr 0.05 has a ≈ 1e-2 precision floor (no allowed repair changes it)
-Relevant run evidence: runs/experiments/exp_0005/ ; research/NOTES.md §3
-Previous: exp_0004 — G0-Tier 0 passes under v1.3 (17/17 pairs)
+Experiment ID: exp_0006 (gate G1, H4 on Tier L with the v1.4 two-phase solver; commit f45d5ba; single run, E4)
+Run type: local CPU, 73 s
+Result: H4 FAILS only on Δ-CE at p=5: found-rate 0.967 (< 0.99); every found witness exact
+  (rel. error ≤ 4.8e-6, |cos| ≥ 0.99999999999). Δ-CE p=20 and ordinary CE (both models, both dims): 1.000
+Cause: 3.3% of p=5 pairs get no feasible phase-1 candidate (far witnesses, λ_crit < 1/64 reached late by R1);
+  phase 2 never runs for them. Not a bug (declared algorithm implemented) → stop per E4
+Relevant run evidence: runs/experiments/exp_0006/ ; research/NOTES.md §3 ; D-022
+Previous: exp_0005 (spec solver fails H4), exp_0004 (G0-Tier 0 passes)
 ```
 
 ## 7. Strongest current observations
@@ -130,7 +129,7 @@ Tier 1 Kaggle jobs used: 0 / 4
 
 ## 12. Current blockers
 
-1. **G1 blocked on H4** (exp_0005): the H4 tolerance (spec §8: rel. error < 1e-3, |cos| > 0.999 in ≥ 99%) is not reachable with lr = 0.05, T = 400 (locked) and the allowed repairs (restarts, λ schedule, CE init). Needs the author. (G0 T3 blocker resolved earlier by v1.3, D-020.)
+1. **G1 blocked on H4** (exp_0006, v1.4): Δ-CE found-rate 0.967 at p=5; v1.4 E4 says stop and report. Needs the author. (exp_0005: spec solver failed; G0 T3 resolved earlier by v1.3.)
 2. None from the user: spec amendment v1.1 (A1–A6) applied on 2026-10-15 (D-011–D-015).
 3. Residual G-lit risk: NPL 2022 journal text and Muschalik 2022 not readable (access blocked); arXiv v2 of Artelt covers the same scope.
 
@@ -154,7 +153,7 @@ Plan to G0 (deadline 20/10), Tier 0, local CPU:
 
 ## 14. Current research phase summary
 
-Phase: W1: G0-Tier 0 passed (exp_0004); G1 H4 blocked (exp_0005), awaiting the author.
+Phase: W1: G0-Tier 0 passed (exp_0004); G1 H4 blocked (exp_0006 under v1.4), awaiting the author.
 
 ---
 

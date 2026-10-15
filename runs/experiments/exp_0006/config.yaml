@@ -1,0 +1,29 @@
+tier: L
+dims:
+- 5
+- 20
+n_pairs: 1000
+kappa: 0.5
+solver:
+  R: 5
+  T: 400
+  lr: 0.05
+  lam0: 1.0
+  mu: 0.0
+  sigma: 0.05
+  lam_schedule: halve_every
+  n_lam_steps: 8
+  polish: true
+  slsqp_maxiter: 100
+  slsqp_ftol: 1.0e-10
+  slsqp_tighten: 1.0e-06
+r: .inf
+restart_base: 10000
+tolerance:
+  rel_error: 0.001
+  abs_cos: 0.999
+  share: 0.99
+threads: 8
+experiment_id: exp_0006
+gate: G1
+tier_config: configs/tiers/tierL.yaml

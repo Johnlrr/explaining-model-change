@@ -207,7 +207,7 @@ A failure here, with H-001/H-002 supported, is reported as a limitation. A failu
 ## H-004 — Solver reproduces linear closed forms
 
 ### Status
-testing (G1 blocked: fails with the frozen solver and the allowed repairs; awaiting the author)
+testing (G1 blocked: exp_0006 under v1.4 fails on Δ-CE p=5 found-rate 0.967; per v1.4 E4 stopped, awaiting the author)
 
 ### Origin
 Proposal §3.6 "kiểm số trước khi viết" and spec §4.1 (Tier L).
@@ -247,6 +247,8 @@ exp_0005 (commit 157320b): spec solver plus repair variants; closed forms checke
 
 ### Results
 Spec solver: found-rate 0.10 / 0.59 (p = 5 / 20). Best allowed repair (λ halved every T/8 while infeasible): found 0.97 / 1.00, but rel. error < 1e-3 in 11% / 22% of pairs and |cos| > 0.999 in 71% / 64%. Cause: λ0 above the exact-penalty threshold (found-rate) and the Adam lr = 0.05 noise floor (precision). Not a bug in the closed form. Details: `research/NOTES.md` §3, exp_0005.
+
+exp_0006 (v1.4 two-phase solver, commit f45d5ba, single run): ordinary CE passes at 1.000 on both dims; Δ-CE passes at p=20 (1.000) and at p=5 every found witness is exact (rel. error ≤ 4.8e-6), but 3.3% of p=5 pairs have no feasible phase-1 candidate → shares 0.967 < 0.99. H4 fails.
 
 ### Conclusion
 None yet.
