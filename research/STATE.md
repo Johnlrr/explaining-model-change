@@ -11,7 +11,7 @@
 ## 1. Project status
 
 ```text
-Status: G1 — H4 passed (exp_0007, v1.5); next: G1 pilot on Tier 0 validation
+Status: G1 — H4 passed (exp_0007); r frozen (exp_0008); pilot exp_0009 running locally; Tier 1 data ready (exp_0010)
 Last updated: 2026-10-15
 Current commit: see `git log -1` (kick-off commit on research/delta-ce)
 Current branch: research/delta-ce (from main)
@@ -89,7 +89,11 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 ## 8. Next action
 
 1. G-lit, Kaggle smoke, G0-Tier 0: done (G0 closed by exp_0004 under v1.3, D-020).
-2. **G1 pilot (validation only):** Tier 0 margin wrappers (float32 model for evaluation, float64 copy for SLSQP); `r` calibration (spec §6.3: 2 × median CE(f_new) distance, 300 validation points of T1 seed 0, then frozen); baselines B1, B1-det, B3, B4, B5, A1 (`src/dce/baselines/`); pilot seed 0, N = 100, all methods — read only found-rate (per condition) and runtime (≤ 5 min per pair); F5 completeness check. H4 done (exp_0007).
+2. **Done for G1 so far:** r = 0.5413 frozen (exp_0008, 300/300 CE found, float64 gap 1.5e-6); pilot exp_0009 running.
+   Tier 1 data prepared (exp_0010, `boinhbo/dce-tier1-data-v1`, D-025).
+   **Open infra question for G2:** Tier 1 GPU jobs need the whole `dce` package, but the harness stages one file.
+   Options: install from GitHub at a pinned commit (needs a push, the author's call) or a generated single-file bundle.
+   **G1 pilot plan (validation only):** Tier 0 margin wrappers (float32 model for evaluation, float64 copy for SLSQP); `r` calibration (spec §6.3: 2 × median CE(f_new) distance, 300 validation points of T1 seed 0, then frozen); baselines B1, B1-det, B3, B4, B5, A1 (`src/dce/baselines/`); pilot seed 0, N = 100, all methods — read only found-rate (per condition) and runtime (≤ 5 min per pair); F5 completeness check. H4 done (exp_0007).
    Pilot adds the F5 completeness check (v1.5, D-023): 50 points of T1 seed 0, standard solver vs SLSQP from 50 random box starts.
    Pre-declared before G1 (D-021): Flip_k only for re-sampleable factors; Recovery|reach reported (descriptive). Pilot reads found-rate per condition; a low T3 found-rate does not justify changing `r`.
 3. Then G2 (Tier 1 on Kaggle; T3-Tier1 uses C1 from the start, fallback bg > q85, then drop — v1.3 C3), G3.
@@ -97,7 +101,9 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 ## 9. In-flight remote jobs
 
 ```text
-None.
+None on Kaggle. Local: exp_0009 (G1 pilot) running in the background, log .work/exp_0009.log; if the
+session is interrupted, check `runs/experiments/exp_0009/metrics.json`; if absent, delete the partial
+run directory and rerun the same command (deterministic).
 ```
 
 ### Resume rule
