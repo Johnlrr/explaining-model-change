@@ -84,7 +84,7 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 
 ## 8. Next action
 
-1. **G-lit: done 2026-10-15, passed provisionally** (`research/LITERATURE.md` §2). Close the remaining reads when texts are available; decision to continue is Route A planning.
+1. **G-lit: done 2026-10-15 (two rounds), passed.** Definition-level novelty downgraded to `uncertain` (DIG, DeepXplore); benchmark, margin-κ witness for updates, and theory remain `candidate` (`research/LITERATURE.md` §2, §6).
 2. **Kaggle smoke: done** (smoke_0001 prep, smoke_0002 T4 GPU). Nothing further before G2.
 3. **G0 (by 20/10):** build Tier 0 renderer, drift data, classifiers (`src/dce/`), and the Flip_k / accuracy check on 2 000 clean test points as the spec says (aggregate statistics only, EVALUATION §6). CPU only.
 4. Then G1 (H4 + pilot), G2 (Tier 1 on Kaggle), G3.
@@ -127,7 +127,8 @@ Tier 1 Kaggle jobs used: 0 / 4
 ## 12. Current blockers
 
 1. None.
-2. Residual G-lit risk: journal text of Artelt NPL 2022, Hammer & Hüllermeier 2021 and Muschalik 2022 not read (`research/LITERATURE.md` §12).
+2. Awaiting the user before the freeze (17/10): correction of D-009 (pilot and G2 split), a B0 disagreement-rate baseline for H3, and the positioning against DIG/DeepXplore (`research/NOTES.md` §2).
+3. Residual G-lit risk: NPL 2022 journal text and Muschalik 2022 not readable (access blocked); arXiv v2 of Artelt covers the same scope.
 
 ---
 
