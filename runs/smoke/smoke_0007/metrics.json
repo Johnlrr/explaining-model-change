@@ -1,0 +1,217 @@
+{
+  "r": 0.5412657260894775,
+  "n_points": 8,
+  "split": "validation",
+  "pairs": {
+    "0": {
+      "condition": "T1",
+      "seed": 0,
+      "float64_gap": {
+        "f_old": 1.5619735469485363e-06,
+        "f_new": 1.5293180668507489e-06
+      },
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.625,
+          "wall_s_per_point": 3.2132920920848846,
+          "cpu_s_per_point": 21.330264129,
+          "wall_s_total": 25.71,
+          "polish_runs": 48,
+          "polish_feasible": 48,
+          "answers_from_phase2": 5,
+          "f64_ok_f32_rejected": 0
+        },
+        "b1": {
+          "found_rate": 0.875,
+          "wall_s_per_point": 3.7224509716033936,
+          "cpu_s_per_point": 23.840347552875002,
+          "ce_old_found_rate": 1.0,
+          "ce_new_found_rate": 0.875,
+          "f64_ok_f32_rejected": 0
+        },
+        "b1_det": {
+          "found_rate": 0.875,
+          "wall_s_per_point": 1.2900733053684235,
+          "cpu_s_per_point": 8.169419960874997,
+          "ce_old_found_rate": 1.0,
+          "ce_new_found_rate": 0.875,
+          "f64_ok_f32_rejected": 0
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "wall_s_per_point": 0.0056369006633758545
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "wall_s_total": 27.7
+        },
+        "b5": {
+          "found_rate": 0.125,
+          "wall_s_per_point": 0.49569767713546753
+        },
+        "a1": {
+          "found_rate": 0.5,
+          "wall_s_per_point": 1.8391827046871185,
+          "cpu_s_per_point": 13.605853569125001,
+          "wall_s_total": 14.71,
+          "polish_runs": 0,
+          "polish_feasible": 0,
+          "answers_from_phase2": 0,
+          "f64_ok_f32_rejected": 0
+        },
+        "a2": {
+          "found_rate": 0.875,
+          "wall_s_per_point": 1.547541320323944,
+          "cpu_s_per_point": 11.330905077250002,
+          "wall_s_total": 12.38,
+          "polish_runs": 48,
+          "polish_feasible": 48,
+          "answers_from_phase2": 7,
+          "f64_ok_f32_rejected": 0
+        },
+        "a3_k0": {
+          "found_rate": 0.75,
+          "wall_s_per_point": 4.845655471086502,
+          "cpu_s_per_point": 24.875399132875003,
+          "wall_s_total": 38.77,
+          "polish_runs": 48,
+          "polish_feasible": 48,
+          "answers_from_phase2": 6,
+          "f64_ok_f32_rejected": 0
+        },
+        "a3_k1": {
+          "found_rate": 0.625,
+          "wall_s_per_point": 3.6550459563732147,
+          "cpu_s_per_point": 23.492220970000005,
+          "wall_s_total": 29.24,
+          "polish_runs": 48,
+          "polish_feasible": 48,
+          "answers_from_phase2": 5,
+          "f64_ok_f32_rejected": 0
+        }
+      },
+      "dce_wall_s_per_pair_at_N": 25.7,
+      "dce_wall_min_per_pair_extrapolated_N300": 16.07,
+      "f5": {
+        "n_points": 4,
+        "n_starts": 4,
+        "ref_found_rate": 0.25,
+        "std_found_rate": 0.25,
+        "share_missed_by_std": 0.0,
+        "share_found_by_std_not_ref": 0.0,
+        "rel_gap_median": -6.951420772338679e-08,
+        "rel_gap_max": -6.951420772338679e-08,
+        "share_std_longer_by_1e-3": 0.0,
+        "wall_s": 8.31
+      }
+    },
+    "9": {
+      "condition": "N0",
+      "seed": 0,
+      "float64_gap": {
+        "f_old": 1.5619735469485363e-06,
+        "f_new": 1.6571649368302133e-06
+      },
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "wall_s_per_point": 6.721155554056168,
+          "cpu_s_per_point": 48.274221348249995,
+          "wall_s_total": 53.77,
+          "polish_runs": 48,
+          "polish_feasible": 0,
+          "answers_from_phase2": 0,
+          "f64_ok_f32_rejected": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "wall_s_per_point": 7.100962936878204,
+          "cpu_s_per_point": 49.628614295125004,
+          "wall_s_total": 56.81,
+          "polish_runs": 48,
+          "polish_feasible": 0,
+          "answers_from_phase2": 0,
+          "f64_ok_f32_rejected": 0
+        },
+        "dce_N_or_O_found_rate": 0.0,
+        "b1": {
+          "found_rate": 1.0,
+          "wall_s_per_point": 3.1295311748981476,
+          "cpu_s_per_point": 21.623273296875006,
+          "ce_old_found_rate": 1.0,
+          "ce_new_found_rate": 1.0,
+          "f64_ok_f32_rejected": 0
+        },
+        "b1_det": {
+          "found_rate": 1.0,
+          "wall_s_per_point": 1.1284515857696533,
+          "cpu_s_per_point": 7.758427635874999,
+          "ce_old_found_rate": 1.0,
+          "ce_new_found_rate": 1.0,
+          "f64_ok_f32_rejected": 0
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "wall_s_per_point": 0.0019364356994628906
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "wall_s_total": 27.29
+        },
+        "b5": {
+          "found_rate": 0.0,
+          "wall_s_per_point": 0.5062214732170105
+        },
+        "a1": {
+          "found_rate": 0.0,
+          "wall_s_per_point": 1.692319095134735,
+          "cpu_s_per_point": 13.876772190874995,
+          "wall_s_total": 13.54,
+          "polish_runs": 0,
+          "polish_feasible": 0,
+          "answers_from_phase2": 0,
+          "f64_ok_f32_rejected": 0
+        },
+        "a2": {
+          "found_rate": 1.0,
+          "wall_s_per_point": 1.7044721841812134,
+          "cpu_s_per_point": 11.02520793762499,
+          "wall_s_total": 13.64,
+          "polish_runs": 48,
+          "polish_feasible": 48,
+          "answers_from_phase2": 8,
+          "f64_ok_f32_rejected": 0
+        },
+        "a3_k0": {
+          "found_rate": 0.75,
+          "wall_s_per_point": 4.846682548522949,
+          "cpu_s_per_point": 30.755989434500002,
+          "wall_s_total": 38.77,
+          "polish_runs": 48,
+          "polish_feasible": 47,
+          "answers_from_phase2": 6,
+          "f64_ok_f32_rejected": 0
+        },
+        "a3_k1": {
+          "found_rate": 0.0,
+          "wall_s_per_point": 8.770484298467636,
+          "cpu_s_per_point": 65.431865945125,
+          "wall_s_total": 70.16,
+          "polish_runs": 48,
+          "polish_feasible": 0,
+          "answers_from_phase2": 0,
+          "f64_ok_f32_rejected": 0
+        }
+      },
+      "dce_wall_s_per_pair_at_N": 110.6,
+      "dce_wall_min_per_pair_extrapolated_N300": 69.11
+    }
+  },
+  "g1": {
+    "dce_found_rate_T1": 0.625,
+    "found_rate_T1_ge_0.6": true,
+    "max_dce_min_per_pair_extrapolated_N300": 69.11,
+    "runtime_le_5min": false,
+    "pass": false
+  }
+}
