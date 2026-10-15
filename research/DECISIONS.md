@@ -33,6 +33,7 @@
 | D-021 | Pre-G1 clarifications: Flip_k only for re-sampleable factors (D1); descriptive Recovery\|reach (D2) | active | 2026-10-15 | — | exp_0004 |
 | D-022 | Amendment v1.4 after H4 exp_0005: two-phase solver (Adam + R1, then SLSQP per restart) for Δ-CE and ordinary CE; H4 extended to CE; one H4 run | partially superseded by D-023 (E1 phase 2 starts, E4) | 2026-10-15 | — | exp_0005, exp_0006 |
 | D-023 | Amendment v1.5 after exp_0006: SLSQP from z0 and every restart end; κ+1e-4 target, float32 confirmation; H4 on two seed sets; E4 replaced (deadline 17/10); F5 completeness check at pilot | active | 2026-10-15 | — | exp_0006, exp_0007 |
+| D-024 | Pre-pilot declarations (G1): parallel phase 2, wall+CPU time, r calibration over found CEs, float64 model check, pilot readings | active | 2026-10-15 | — | exp_0008, exp_0009 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -712,6 +713,31 @@ Rationale for F1 independent of the failing cases: SLSQP is an SQP method and ha
 
 ### Consequences
 Phase 2 now runs 6 SLSQP problems per point (cost measured at the pilot, E5). F5 is added to the pilot plan.
+
+## D-024 — Pre-pilot declarations for G1 (before any pilot or calibration output)
+
+### Status
+active (author: items 1–3, 2026-10-15; Research Lead: implementation readings). Declared before `r` calibration and the pilot. ε = 1e-4 (v1.5 F2) unchanged: on Tier 0/1 it moves a witness by ≈ ε/‖∇m‖, far below the |Δφ̃| that Recovery uses.
+
+### Author's declarations
+1. **Runtime.** Phase 2 may be parallelised over points (16 cores), with one code path for every method that uses the solver. Report wall-clock and CPU time per point. If the pilot still exceeds 5 min per pair after parallelisation, that is reported as a result; `maxiter` is not lowered to fit.
+2. **r calibration.** Median over the points where CE(f_new) is found; the found share is reported; r is computed once and frozen. r is a Euclidean distance in the normalised factor space [0, 1]^5.
+3. **float64 model.** Before use, max |logit64 − logit32| is measured on the validation split for every model and recorded. The pilot counts the cases "SLSQP feasible in float64 (κ') but rejected by float32 (κ)".
+4. Tier 1 data preparation may start on Kaggle (prep kernel) while the Tier 0 pilot runs locally.
+5. Discipline: no Recovery, share or attribution vector is read anywhere in G1.
+
+### Research Lead's implementation readings
+- **Valid points (spec §3.2, EVALUATION §8 step 5):** validation indices permuted with `default_rng(5000 + pair_id)`; the first N with m_o(z0) ≥ κ and m_n(z0) ≥ κ for y = y_clean(z0) are kept. Margins are for this y throughout the search.
+- **Margins on Tier 0:** m(z) = margin_y(CNN(render(z))). The float64 path uses a float64 copy of the CNN and the renderer at float64; it is used only inside SLSQP. Phase 1 and every feasibility check use the float32 model.
+- **r calibration (spec §6.3):** the 300 valid validation points of pair 0 (T1 seed 0) from the sampler above; CE(f_new) with the v1.5 solver, restart seed 10000 + 0; r = 2 × median distance over the found CEs.
+- **Restart seeds:** Δ-CE 10000 + pair_id; B1 CE(f_old) 10000 + pair_id + 0 and CE(f_new) 10000 + pair_id + 1 (spec §6.4 "seed+0 / seed+1"); B1-det R = 1 without noise (start z0) and phase 2 (E2).
+- **B4** in the pilot uses the 2 000 G0 validation points (test only in the final run); permutation importance = accuracy drop w.r.t. y_clean when factor k is permuted, 5 permutations (seeds 0–4), difference f_new − f_old.
+- **B5:** K = 20 nearest training-split factor vectors to z0 (Euclidean), points z0 + t(z_k − z0) for t = 1/50, …, 50/50; feasibility in F^N_κ with the float32 model; smallest d ≤ r.
+- **A1:** λ0 = 0, phase 1 only (v1.5 E2), same R, T, restart seeds as Δ-CE.
+- **Δ-CE type O** is run for N0 and N1 only (spec §3.2).
+- **Pilot pairs:** seed 0 of each condition: pair 0 (T1), 3 (T3), 6 (T4), 9 (N0), 14 (N1); N = 100 valid validation points each.
+- **Pilot outputs persisted:** per pair and method, found-rate, wall-clock and CPU time per point, polish counts and the float64/float32 rejection count; nothing per point, no Δφ̃. The G1 runtime check is on Δ-CE (EVALUATION §15), extrapolated from N = 100 to N = 300 and labelled as such.
+- **F5 (v1.5):** the first 50 pilot points of pair 0; reference = SLSQP (same settings) from 50 starts uniform in [0, 1]^5 (seed 20000), best confirmed-feasible; report the share of points with a reference witness within r that the standard Δ-CE misses, and the relative distance gap (d_std − d_ref)/d_ref where both are found. Diagnostic only.
 
 ---
 
