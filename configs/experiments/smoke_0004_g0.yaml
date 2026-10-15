@@ -1,0 +1,17 @@
+# smoke_0004 — G0 smoke for exp_0002: same path, reduced scale.
+experiment_id: smoke_0004
+gate: G0
+tier_config: configs/tiers/tier0.yaml   # f_old 30 epochs + cosine, adaptation label noise 5%
+pair_ids: [0, 3, 6, 9, 14]
+scale:
+  n_train: 2000
+  n_val: 5000
+  n_test: 5000
+  n_g0_points: 500
+  n_adapt: 1000
+  f_old_epochs: 1
+  finetune_epochs: 1
+drift_params: {}
+finetune_override:         # v1.2 B4 knob 1 for T3 and T4: epochs 3 → 5 and lr 3e-4 → 1e-3
+  T3: {epochs: 1, lr: 1.0e-3}
+  T4: {epochs: 1, lr: 1.0e-3}

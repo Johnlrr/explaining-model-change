@@ -1,9 +1,10 @@
 """Tier 0 data: clean splits and injected-drift adaptation sets (spec §4.2, §4.4).
 
-Reading of the spec where it is silent (research/DECISIONS.md D-017):
-- adaptation sets carry no label noise (the 5% noise of §4.2 is for the clean training split only);
+Readings and amendments (research/DECISIONS.md D-017, D-018):
+- adaptation sets carry the same 5% symmetric label noise as the training split (amendment v1.2 B2),
+  so N0 differs from f_old only in data order and each drift only in the drift itself;
 - in T1 the colour–label correlation applies to every adaptation sample, including the 30% drawn
-  outside the ambiguous band.
+  outside the ambiguous band, and is drawn from the noise-free label.
 """
 
 from __future__ import annotations
@@ -69,9 +70,10 @@ def drift_label(condition: str, phi: np.ndarray, params: DriftParams) -> np.ndar
 
 
 def adaptation_set(
-    condition: str, seed: int, n: int = 10_000, params: DriftParams | None = None
+    condition: str, seed: int, n: int = 10_000, params: DriftParams | None = None,
+    label_noise: float = 0.05,
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Adaptation data (φ, y) for fine-tuning f_new (spec §4.4)."""
+    """Adaptation data (φ, y) for fine-tuning f_new (spec §4.4; v1.2 B2 label noise)."""
     if condition not in CONDITIONS:
         raise ValueError(f"unknown condition {condition!r}")
     params = params or DriftParams()
@@ -86,12 +88,15 @@ def adaptation_set(
         high = rng.uniform(0.5, 1.0, n)
         low = rng.uniform(0.0, 0.5, n)
         phi[:, 2] = np.where(corr, np.where(y == 1, high, low), phi[:, 2])
-        return phi, y
+    else:
+        if condition == "N1":
+            phi[:, 1] = rng.uniform(params.n1_size_low, 1.0, n)
+        y = drift_label(condition, phi, params)
 
-    if condition == "N1":
-        phi[:, 1] = rng.uniform(params.n1_size_low, 1.0, n)
-
-    return phi, drift_label(condition, phi, params)
+    if label_noise > 0:
+        flip = rng.random(n) < label_noise
+        y = np.where(flip, 1 - y, y)
+    return phi, y
 
 
 def tier0_pairs(n_seeds_drift: int = 3, n_seeds_n0: int = 5, n_seeds_n1: int = 3) -> list[dict]:

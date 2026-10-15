@@ -6,7 +6,7 @@
 >
 > This file is the source of truth for whether an experiment is scientifically valid and whether the project has met its success criteria.
 >
-> Source protocol: `docs/source/delta_ce_spec.md` §4–§9 as amended by `docs/source/delta_ce_spec_amendment_v1.1.md` (A1–A6). Where this file differs from those sources, this file governs. All gates run on validation; the test split is touched once, in the final procedure (§6, D-011).
+> Source protocol: `docs/source/delta_ce_spec.md` §4–§9 as amended by `docs/source/delta_ce_spec_amendment_v1.1.md` (A1–A7) and `docs/source/delta_ce_spec_amendment_v1.2.md` (B1–B5, after G0 exp_0001). Where this file differs from those sources, this file governs. All gates run on validation; the test split is touched once, in the final procedure (§6, D-011).
 
 ---
 
@@ -100,7 +100,7 @@ The test set is blind only if the evaluated method was developed without any inf
 
 | Gate or step | Split |
 |---|---|
-| G0 (Flip_k, classifier accuracy, agreement f_new = f_old) | validation (Tier 0: 2 000 clean points; Tier 1: whole validation split) |
+| G0 (Flip_k, classifier accuracy, decisive disagreement DD — v1.2 B3) | validation (Tier 0: 2 000 clean points; Tier 1: whole validation split) |
 | G1 (H4 check) | Tier L synthetic |
 | G1 (pilot, seed 0, N = 100, all methods) | validation points, sampled with seed 5000 + pair_id |
 | G2 (oracle correlation, shape-oracle accuracy, G0-Tier 1) | validation images |
@@ -227,7 +227,7 @@ Tie-breaking rule: not applicable.
 Early-stopping rule: none.
 ```
 
-f_old: 15 epochs (Tier 0) / 10 epochs (Tier 1), final checkpoint. f_new: fine-tuning for 3 epochs (or 5 epochs if the single pre-declared G0 knob is used, §4.4 of spec), final checkpoint.
+f_old: 30 epochs, Adam lr 1e-3 with cosine decay to 0 (v1.2 B1; Tier 1 epochs per its own G0), final checkpoint. f_new: fine-tuning on an adaptation set with 5% symmetric label noise (v1.2 B2); 3 epochs at lr 3e-4 for T1, N0, N1; T3 and T4 use the knobs of v1.2 B4 (knob 1: 5 epochs at lr 1e-3; knob 2: 10 epochs). The final recipe per condition is reported in the paper.
 
 ### Persistent artifact and final-evaluation policy
 

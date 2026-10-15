@@ -131,7 +131,7 @@ Tier 1 Kaggle jobs used: 0 / 4
 
 ## 12. Current blockers
 
-1. **G0 failed (exp_0001).** Spec §9: knobs exist only for T1/T3/T4; N0/N1 and f_old accuracy have none, so the spec requires reporting back and choosing Stop or a narrowed design. Options in `research/NOTES.md` §3. Waiting for the user.
+1. None. G0 failure of exp_0001 resolved by amendment v1.2 (D-018); exp_0002 running.
 2. None from the user: spec amendment v1.1 (A1–A6) applied on 2026-10-15 (D-011–D-015).
 3. Residual G-lit risk: NPL 2022 journal text and Muschalik 2022 not readable (access blocked); arXiv v2 of Artelt covers the same scope.
 
@@ -146,7 +146,9 @@ Plan to G0 (deadline 20/10), Tier 0, local CPU:
 - [x] Drift data `src/dce/data/drift.py` (clean splits, T1/T3/T4/N0/N1 adaptation sets, 17 pair ids) + tests.
 - [x] Classifier `src/dce/models/cnn.py` (≈ 56k parameters) + tests.
 - [x] G0 check `src/dce/eval/g0.py`, CLI `src/dce/cli/g0_tier0.py`; smoke_0003 passed the pipeline.
-- [x] exp_0001: full G0 — FAILED (see §6). Waiting for the user's decision before any knob.
+- [x] exp_0001: full G0 — FAILED (see §6).
+- [x] Amendment v1.2 implemented (cosine f_old, noisy adaptation sets, DD, per-condition recipe); smoke_0004 passed the pipeline.
+- [ ] exp_0002: G0 with v1.2; T3/T4 at knob 1. If it fails: exp_0003 with knob 2 (T3/T4 epochs 10); then Stop or back to the author. If any f_old seed < 0.95: back to the author.
 - [ ] If a condition fails: apply the pre-declared knob (spec §4.4) in a new experiment (exp_0002), max 2 per condition.
 - [ ] Then G1: Tier L test (H4), Δ-CE solver, ordinary CE, r calibration, pilot (validation).
 

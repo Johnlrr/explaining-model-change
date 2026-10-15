@@ -13,3 +13,6 @@ scale:
   finetune_epochs: 3
 drift_params: {}           # spec defaults; G0 knobs (≤ 2 adjustments) go here in a new experiment
 finetune_epochs_override: {}
+# Pinned after amendment v1.2 so this config still reproduces the recorded run:
+adapt_label_noise: 0.0
+f_old_cosine: false

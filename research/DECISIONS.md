@@ -26,7 +26,8 @@
 | D-014 | Positioning and contribution order (A5) | active | 2026-10-15 | — | — |
 | D-015 | NPL 2022 residual risk accepted (A6) | active | 2026-10-15 | — | — |
 | D-016 | B0 global vs local wording, full B5 claim rule (A7); spec frozen | active | 2026-10-15 | H-003, H-007 | — |
-| D-017 | Tier 0 implementation readings where the spec is silent | active | 2026-10-15 | — | exp_0001 |
+| D-017 | Tier 0 implementation readings where the spec is silent | partially superseded by D-018 (label noise) | 2026-10-15 | — | exp_0001 |
+| D-018 | Amendment v1.2 after G0 exp_0001: f_old cosine 30 ep, noisy adaptation sets, DD criterion, T3/T4 lr knob | active | 2026-10-15 | — | exp_0001, exp_0002 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -532,7 +533,7 @@ active (Research Lead, 2026-10-15, before any result; spec §13 log: "before see
 ### Decision
 | Spec point | Reading |
 |---|---|
-| §4.4 adaptation sets: label noise | none; the 5% noise of §4.2 applies to the clean training split only |
+| §4.4 adaptation sets: label noise | ~~none~~ — **superseded by D-018 (v1.2 B2): 5% symmetric noise, as the training split** |
 | §4.4 T1: colour–label correlation 0.95 | applied to all 10 000 adaptation samples, including the 30% outside the ambiguous band |
 | §4.4 N0: "khác seed thứ tự dữ liệu" | a fresh clean adaptation sample (seed 2000 + pair_id) with its own order and noise seeds; same distribution as the training split |
 | §4.2 pixel noise | added per batch during f_old training and fine-tuning; never at evaluation or in G0 |
@@ -546,6 +547,25 @@ Each reading is the simplest one consistent with the spec text; none is tuned.
 
 ### Evidence
 `src/dce/data/drift.py`, `src/dce/cli/g0_tier0.py`, `configs/tiers/tier0.yaml`.
+
+---
+
+## D-018 — Amendment v1.2 after G0 exp_0001
+
+### Status
+active (author's decision, 2026-10-15; spec §13 log: **after seeing G0 results**; G0 is a gate, test untouched, H1–H4 unaffected)
+
+### Context
+exp_0001 failed G0 (T3, T4, N0, N1, f_old seed 0). Diagnosis in `research/NOTES.md` §3: null disagreements are threshold jitter; f_old not converged (loss ≈ 0.28 vs floor ≈ 0.20); N0 fine-tuned on noise-free labels (D-017 reading) so it was not a null; T3 under-trained.
+
+### Decision
+`docs/source/delta_ce_spec_amendment_v1.2.md` B1–B5: f_old 30 epochs with cosine decay; 5% label noise on every adaptation set; decisive disagreement DD (argmax differs and both |margins| ≥ κ) replaces raw agreement in G0 (N0/N1: DD ≤ 0.02; T3 outside subgroup: DD ≤ 0.05; raw agreement still reported); T3/T4 knobs: knob 1 = 5 epochs and lr 1e-3 (used at once in exp_0002), knob 2 = 10 epochs. The Research Lead's proposal c.3 (|φ1 − 0.5| ≥ 0.05) was rejected by the author: not transferable to Tier 1, filters on task ground truth, and unrelated to L1.
+
+### Consequences
+Fine-tune recipes differ across conditions; reported in the paper. If any f_old seed still misses 0.95 after B1, G0 fails and goes back to the author.
+
+### Supersedes / superseded by
+Supersedes the label-noise row of D-017 and the G0 agreement criteria of spec §9.
 
 ---
 

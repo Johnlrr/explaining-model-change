@@ -44,13 +44,17 @@ def train(
     batch_size: int = 256,
     order_seed: int,
     noise_seed: int,
+    cosine: bool = False,
 ) -> list[float]:
     """Adam training; `make_batch` turns raw inputs (e.g. factors) into a noisy image batch.
 
     The data order and the pixel noise have their own seeds, so f_old and the N0 fine-tunes differ
-    only in the data order and noise (spec §4.4).
+    only in the data order and noise (spec §4.4). `cosine` decays the learning rate to 0 over all
+    steps (amendment v1.2 B1, used for f_old).
     """
     opt = torch.optim.Adam(model.parameters(), lr=lr)
+    n_steps = epochs * -(-len(labels) // batch_size)
+    sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=n_steps, eta_min=0.0) if cosine else None
     order_rng = np.random.default_rng(order_seed)
     noise_gen = torch.Generator().manual_seed(noise_seed)
     y_all = torch.as_tensor(labels, dtype=torch.long)
@@ -66,6 +70,8 @@ def train(
             opt.zero_grad()
             loss.backward()
             opt.step()
+            if sched is not None:
+                sched.step()
             total += loss.item() * len(idx)
             count += len(idx)
         losses.append(total / count)

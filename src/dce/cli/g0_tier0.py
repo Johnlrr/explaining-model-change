@@ -92,6 +92,9 @@ def main(argv=None) -> int:
     g0_phi = val.phi[: scale["n_g0_points"]]
     noisy, clean = make_batch_fn(True), make_batch_fn(False)
 
+    def logits_fn(model):
+        return lambda phi: predict_logits(model, phi, clean).numpy()
+
     def predictor(model):
         return lambda phi: predict_logits(model, phi, clean).argmax(1).numpy()
 
@@ -104,7 +107,8 @@ def main(argv=None) -> int:
         model = SmallCNN()
         losses = train(model, splits["train"].phi, splits["train"].y, noisy,
                        epochs=scale["f_old_epochs"], lr=tr["f_old_lr"], batch_size=tr["batch_size"],
-                       order_seed=cfg["seeds"]["order_base"] + s, noise_seed=cfg["seeds"]["noise_base"] + s)
+                       order_seed=cfg["seeds"]["order_base"] + s, noise_seed=cfg["seeds"]["noise_base"] + s,
+                       cosine=cfg.get("f_old_cosine", False))
         path = out / "artifacts" / "models" / f"f_old_s{s}.pt"
         torch.save(model.state_dict(), path)
         manifest.append({"name": f"f_old_s{s}", "kind": "checkpoint", "path": f"models/{path.name}",
@@ -112,19 +116,22 @@ def main(argv=None) -> int:
         pred = predictor(model)
         acc = float((pred(val.phi) == val.y_clean).mean())
         flips = flip_rates(pred, g0_phi)
-        f_old[s] = (model, pred, flips)
+        f_old[s] = (model, logits_fn(model), flips)
         results["f_old"][s] = {"val_accuracy": acc, "meets_95": acc >= 0.95, "train_loss": losses,
                                "flip": dict(zip(FACTOR_NAMES, flips.tolist()))}
         print(f"f_old s{s}: val acc {acc:.4f}  ({time.time() - start:.0f}s)", flush=True)
 
     for p in pairs:
-        base_model, pred_old, flip_old = f_old[p["seed"]]
+        base_model, logits_old, flip_old = f_old[p["seed"]]
         model = SmallCNN()
         model.load_state_dict(base_model.state_dict())
         phi_a, y_a = adaptation_set(p["condition"], seed=cfg["seeds"]["adapt_data_base"] + p["pair_id"],
-                                    n=scale["n_adapt"], params=params)
-        epochs = cfg.get("finetune_epochs_override", {}).get(p["condition"], scale["finetune_epochs"])
-        losses = train(model, phi_a, y_a, noisy, epochs=epochs, lr=tr["finetune_lr"],
+                                    n=scale["n_adapt"], params=params,
+                                    label_noise=cfg.get("adapt_label_noise", 0.0))
+        recipe = cfg.get("finetune_override", {}).get(p["condition"], {})
+        epochs = recipe.get("epochs", scale["finetune_epochs"])
+        ft_lr = recipe.get("lr", tr["finetune_lr"])
+        losses = train(model, phi_a, y_a, noisy, epochs=epochs, lr=ft_lr,
                        batch_size=tr["batch_size"], order_seed=cfg["seeds"]["adapt_order_base"] + p["pair_id"],
                        noise_seed=cfg["seeds"]["adapt_noise_base"] + p["pair_id"])
         path = out / "artifacts" / "models" / f"f_new_p{p['pair_id']:02d}_{p['condition']}_s{p['seed']}.pt"
@@ -134,9 +141,9 @@ def main(argv=None) -> int:
         pred_new = predictor(model)
         flip_new = flip_rates(pred_new, g0_phi)
         y_new = drift_label(p["condition"], g0_phi, params)
-        crit = g0_criteria(p["condition"], g0_phi, pred_old(g0_phi), pred_new(g0_phi), y_new,
-                           flip_old, flip_new, params)
-        row = {**p, "finetune_epochs": epochs, "finetune_loss": losses,
+        crit = g0_criteria(p["condition"], g0_phi, logits_old(g0_phi), logits_fn(model)(g0_phi), y_new,
+                           flip_old, flip_new, params, kappa=cfg["kappa"])
+        row = {**p, "finetune_epochs": epochs, "finetune_lr": ft_lr, "finetune_loss": losses,
                "f_new_val_accuracy_clean_labels": float((pred_new(val.phi) == val.y_clean).mean()),
                "flip_old": dict(zip(FACTOR_NAMES, flip_old.tolist())),
                "flip_new": dict(zip(FACTOR_NAMES, flip_new.tolist())), **crit}

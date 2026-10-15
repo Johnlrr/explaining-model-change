@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "f_old_s0",
+      "kind": "checkpoint",
+      "path": "models/f_old_s0.pt",
+      "sha256": "75e602854ace999e9681a5a72d5e3c90858c3a71404e6c671b79dbfe34a57baa"
+    },
+    {
+      "name": "f_new_p00_T1_s0",
+      "kind": "checkpoint",
+      "path": "models/f_new_p00_T1_s0.pt",
+      "sha256": "0982baa26923505989600d12bbf391db3b7fb0c5f6f05eaaee1bd831c83e6149"
+    },
+    {
+      "name": "f_new_p03_T3_s0",
+      "kind": "checkpoint",
+      "path": "models/f_new_p03_T3_s0.pt",
+      "sha256": "59c66d3d4637606a90f10dd2806a2b477876a2decdf4bdb653923cdc28d4e2ce"
+    },
+    {
+      "name": "f_new_p06_T4_s0",
+      "kind": "checkpoint",
+      "path": "models/f_new_p06_T4_s0.pt",
+      "sha256": "f122c883a0016395c94595cadec2b1b4a85f4ad4b73047fc64fe353f497e0ff4"
+    },
+    {
+      "name": "f_new_p09_N0_s0",
+      "kind": "checkpoint",
+      "path": "models/f_new_p09_N0_s0.pt",
+      "sha256": "ac342767cff13eb6bdd6f1cb28a1176cd173da0053dbfad0865ddfa45b2f9785"
+    },
+    {
+      "name": "f_new_p14_N1_s0",
+      "kind": "checkpoint",
+      "path": "models/f_new_p14_N1_s0.pt",
+      "sha256": "c3ffbc94b6e8ad70cf3c623109610ce7bf9eca56b5eb75248c8df5ae0bf81db5"
+    }
+  ]
+}

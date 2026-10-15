@@ -64,7 +64,7 @@ Diagnosis (validation, from saved checkpoints, no extra training):
 3. **Null is not a pure null (D-017 reading).** f_old trains on 5% noisy labels; N0 fine-tunes on noise-free labels, so N0 changes the training distribution, not only the data order.
 4. **T3 is under-trained.** Fine-tune loss 0.53–0.60 after 3 epochs; the size × aspect interaction is not learned. T4 seed 2 also moves its boundary only partly (band acc 0.34).
 
-Options for the user (none applied):
+Options for the user (resolved: author chose c.1 + c.2 and replaced c.3 by the DD criterion; amendment v1.2, D-018):
 
 - (a) Stop, as spec §9 allows.
 - (b) Apply only the pre-declared knob (T3/T4 epochs 3 → 5). This cannot fix N0/N1 or f_old seed 0, so G0 still fails.

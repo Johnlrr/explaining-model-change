@@ -1,0 +1,18 @@
+# exp_0002 — Gate G0 on Tier 0 after amendment v1.2 (B1 + B2 + B3; T3/T4 use knob 1 of B4).
+# Validation split (D-011). Not a hypothesis test.
+experiment_id: exp_0002
+gate: G0
+tier_config: configs/tiers/tier0.yaml   # f_old 30 epochs + cosine, adaptation label noise 5%
+pair_ids: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+scale:
+  n_train: 20000
+  n_val: 5000
+  n_test: 5000
+  n_g0_points: 2000        # first 2000 clean validation points
+  n_adapt: 10000
+  f_old_epochs: 30         # v1.2 B1
+  finetune_epochs: 3       # T1, N0, N1 keep the spec recipe (3 epochs, lr 3e-4)
+drift_params: {}
+finetune_override:         # v1.2 B4 knob 1 for T3 and T4: epochs 3 → 5 and lr 3e-4 → 1e-3
+  T3: {epochs: 5, lr: 1.0e-3}
+  T4: {epochs: 5, lr: 1.0e-3}

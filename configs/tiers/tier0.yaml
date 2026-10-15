@@ -1,7 +1,10 @@
-# Tier 0 shared parameters (spec §4.2, §4.4, §5.1; amendment v1.1). Frozen with the spec on 2026-10-15.
+# Tier 0 shared parameters (spec §4.2, §4.4, §5.1; amendments v1.1 and v1.2). Spec frozen 2026-10-15;
+# v1.2 (after G0 exp_0001) adds f_old_cosine, adapt_label_noise and the per-condition fine-tune knobs.
 tier: 0
 data_seed: 1234
-label_noise: 0.05          # training split only
+label_noise: 0.05          # training split
+adapt_label_noise: 0.05    # v1.2 B2: same 5% symmetric noise on every adaptation set
+f_old_cosine: true         # v1.2 B1: Adam lr 1e-3 with cosine decay to 0
 kappa: 0.5
 training:
   f_old_lr: 1.0e-3

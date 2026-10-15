@@ -1,0 +1,35 @@
+{
+  "experiment": "smoke_0004",
+  "gate": "G0",
+  "tier": 0,
+  "git": {
+    "commit": "46dfd52b0e77834245c4296696c7cd461c9757ef",
+    "dirty": true
+  },
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "numpy": "2.5.4",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "device": "cpu",
+  "threads": 8,
+  "drift_params": {
+    "t1_ambiguous_frac": 0.7,
+    "t1_ambiguous_low": 0.4,
+    "t1_ambiguous_high": 0.6,
+    "t1_correlation": 0.95,
+    "t3_size_threshold": 0.75,
+    "t4_threshold": 0.6,
+    "n1_size_low": 0.5
+  },
+  "scale": {
+    "n_train": 2000,
+    "n_val": 5000,
+    "n_test": 5000,
+    "n_g0_points": 500,
+    "n_adapt": 1000,
+    "f_old_epochs": 1,
+    "finetune_epochs": 1
+  },
+  "status": "SUCCESS",
+  "seconds": 16.3
+}
