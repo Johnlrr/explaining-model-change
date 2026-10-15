@@ -11,7 +11,7 @@
 ## 1. Project status
 
 ```text
-Status: G1 blocked on H4 (exp_0006, v1.4, single run per E4); awaiting the author
+Status: G1 — H4 passed (exp_0007, v1.5); next: G1 pilot on Tier 0 validation
 Last updated: 2026-10-15
 Current commit: see `git log -1` (kick-off commit on research/delta-ce)
 Current branch: research/delta-ce (from main)
@@ -64,14 +64,13 @@ Why this hypothesis is active: it is the first gate (G1). Without it no result c
 ## 6. Latest experiment
 
 ```text
-Experiment ID: exp_0006 (gate G1, H4 on Tier L with the v1.4 two-phase solver; commit f45d5ba; single run, E4)
-Run type: local CPU, 73 s
-Result: H4 FAILS only on Δ-CE at p=5: found-rate 0.967 (< 0.99); every found witness exact
-  (rel. error ≤ 4.8e-6, |cos| ≥ 0.99999999999). Δ-CE p=20 and ordinary CE (both models, both dims): 1.000
-Cause: 3.3% of p=5 pairs get no feasible phase-1 candidate (far witnesses, λ_crit < 1/64 reached late by R1);
-  phase 2 never runs for them. Not a bug (declared algorithm implemented) → stop per E4
-Relevant run evidence: runs/experiments/exp_0006/ ; research/NOTES.md §3 ; D-022
-Previous: exp_0005 (spec solver fails H4), exp_0004 (G0-Tier 0 passes)
+Experiment ID: exp_0007 (gate G1, H4 on Tier L with the v1.5 solver; commit 6de9add)
+Run type: local CPU, 215 s; seed sets 0–999 and holdout 1000–1999, p ∈ {5, 20}
+Result: H4 PASSES — Δ-CE, CE(f_old), CE(f_new): found, rel<1e-3, |cos|>0.999 all 1.000 on both sets
+  Δ-CE max rel. error 5.8e-4 (holdout p=5), from the κ+1e-4 tightening (headroom ≈ 1.7×)
+Validity: valid; all SLSQP outputs confirmed feasible in float32 with the original κ
+Relevant run evidence: runs/experiments/exp_0007/ ; research/NOTES.md §3 ; D-022, D-023
+Previous: exp_0006 (v1.4, fails on p=5 found-rate), exp_0005 (spec solver fails), exp_0004 (G0-Tier 0 passes)
 ```
 
 ## 7. Strongest current observations
@@ -90,7 +89,7 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 ## 8. Next action
 
 1. G-lit, Kaggle smoke, G0-Tier 0: done (G0 closed by exp_0004 under v1.3, D-020).
-2. **G1 (validation only):** H4 under v1.5 (exp_0007, two seed sets; deadline end of 17/10, F4), then Tier L linear-theory test (H-004, `tests/unit/test_linear_theory.py`), Δ-CE solver (`src/dce/solvers/`), ordinary CE, `r` calibration, pilot on validation (found-rate and runtime only).
+2. **G1 pilot (validation only):** Tier 0 margin wrappers (float32 model for evaluation, float64 copy for SLSQP); `r` calibration (spec §6.3: 2 × median CE(f_new) distance, 300 validation points of T1 seed 0, then frozen); baselines B1, B1-det, B3, B4, B5, A1 (`src/dce/baselines/`); pilot seed 0, N = 100, all methods — read only found-rate (per condition) and runtime (≤ 5 min per pair); F5 completeness check. H4 done (exp_0007).
    Pilot adds the F5 completeness check (v1.5, D-023): 50 points of T1 seed 0, standard solver vs SLSQP from 50 random box starts.
    Pre-declared before G1 (D-021): Flip_k only for re-sampleable factors; Recovery|reach reported (descriptive). Pilot reads found-rate per condition; a low T3 found-rate does not justify changing `r`.
 3. Then G2 (Tier 1 on Kaggle; T3-Tier1 uses C1 from the start, fallback bg > q85, then drop — v1.3 C3), G3.
@@ -130,7 +129,7 @@ Tier 1 Kaggle jobs used: 0 / 4
 
 ## 12. Current blockers
 
-1. **G1 blocked on H4** (exp_0006, v1.4): Δ-CE found-rate 0.967 at p=5; v1.4 E4 says stop and report. Needs the author. (exp_0005: spec solver failed; G0 T3 resolved earlier by v1.3.)
+1. None. (H4 passed in exp_0007 under v1.5; G0 T3 resolved by v1.3.)
 2. None from the user: spec amendment v1.1 (A1–A6) applied on 2026-10-15 (D-011–D-015).
 3. Residual G-lit risk: NPL 2022 journal text and Muschalik 2022 not readable (access blocked); arXiv v2 of Artelt covers the same scope.
 
@@ -154,7 +153,7 @@ Plan to G0 (deadline 20/10), Tier 0, local CPU:
 
 ## 14. Current research phase summary
 
-Phase: W1: G0-Tier 0 passed (exp_0004); G1 H4 blocked (exp_0006 under v1.4), awaiting the author.
+Phase: W1: G0-Tier 0 passed (exp_0004); G1 H4 passed (exp_0007, v1.5); G1 pilot next.
 
 ---
 

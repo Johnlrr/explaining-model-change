@@ -169,6 +169,22 @@ Commit f45d5ba, 73 s CPU. **H4 fails, only on Δ-CE at p = 5, only through found
 - Not a bug under E4: the code implements the declared algorithm. Per E4 → stop and report; no variant tried.
 - Context for the author (not a criterion): Tier 0 lives in [0, 1]^5 (diameter √5 ≈ 2.24), so witnesses at δ ≈ 6 cannot occur there, and on Tier 0/1 the budget r turns far witnesses into NOT_FOUND anyway. exp_0005 had shown R1 with halving every T/16 at found-rate 0.998 (phase 1 only).
 
+### exp_0007 — G1 H4 on Tier L with the v1.5 solver, two seed sets, 2026-10-15
+
+Commit 6de9add, 215 s CPU. **H4 passes**: on both seed sets (0–999, holdout 1000–1999), both dims, and all three methods (Δ-CE, CE(f_old), CE(f_new)), found-rate, share rel < 1e-3 and share |cos| > 0.999 are all 1.000.
+
+| set, p | Δ-CE rel median / max | Δ-CE min \|cos\| | CE rel max | answers from phase 2 (Δ-CE / CE) |
+|---|---|---|---|---|
+| original, 5 | 1.4e-4 / 4.8e-4 | 0.99960 | 1.0e-4 | 970 / ≈ 707 |
+| original, 20 | 6.3e-5 / 4.4e-4 | 0.99992 | 9.9e-5 | 995 / ≈ 967 |
+| holdout, 5 | 1.4e-4 / 5.8e-4 | 0.99984 | 9.9e-5 | 982 / ≈ 695 |
+| holdout, 20 | 6.6e-5 / 3.8e-4 | 0.99984 | 9.9e-5 | 992 / ≈ 970 |
+
+- All 6 000 SLSQP outputs per (set, dim, method) were confirmed feasible in float32 with the original κ.
+- **The residual error is now the F2 tightening itself**, not the optimiser: CE rel. error caps at ≈ 1.0e-4 (= 1e-4 / a with a ≥ 1); Δ-CE reaches 5.8e-4 because both constraints are tightened inside a narrow wedge. The headroom to the 1e-3 tolerance is ≈ 1.7× at p = 5. exp_0006 (ε = 1e-6) had 4.8e-6.
+- For the ordinary CE, about 30% of p=5 answers are phase-1 iterates: a just-feasible Adam iterate can be closer than the κ + 1e-4 optimum. Both are within tolerance.
+- Runtime: ≈ 21 ms per point for Δ-CE (6 SLSQP runs, linear model), ≈ 16 ms for the ordinary CE.
+
 ## 4. Questions
 
 1. Does the tie in Proposition 4 also hold for the constrained solver when λ is decayed? (H-005)

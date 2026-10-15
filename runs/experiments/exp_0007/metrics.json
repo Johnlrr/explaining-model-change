@@ -1,0 +1,211 @@
+{
+  "tolerance": {
+    "rel_error": 0.001,
+    "abs_cos": 0.999,
+    "share": 0.99
+  },
+  "solver": {
+    "kappa": 0.5,
+    "R": 5,
+    "T": 400,
+    "lr": 0.05,
+    "lam0": 1.0,
+    "mu": 0.0,
+    "sigma": 0.05,
+    "r": Infinity,
+    "clamp": null,
+    "lam_schedule": "halve_every",
+    "n_lam_steps": 8,
+    "polish": true,
+    "slsqp_maxiter": 100,
+    "slsqp_ftol": 1e-10,
+    "slsqp_tighten": 0.0001
+  },
+  "sets": {
+    "original": {
+      "seeds": [
+        0,
+        999
+      ],
+      "dims": {
+        "5": {
+          "delta_ce": {
+            "found_rate": 1.0,
+            "share_rel_lt_tol": 1.0,
+            "share_cos_gt_tol": 1.0,
+            "rel_median": 0.000137389197578629,
+            "rel_max": 0.00048319054159249626,
+            "cos_min_found": 0.9996045518657566,
+            "pass": true,
+            "share_case_b": 0.941,
+            "seconds": 21.56,
+            "polish_feasible": 6000,
+            "polish_runs": 6000,
+            "answers_from_phase2": 970
+          },
+          "ce_old": {
+            "found_rate": 1.0,
+            "share_rel_lt_tol": 1.0,
+            "share_cos_gt_tol": 1.0,
+            "rel_median": 3.7171283733129155e-05,
+            "rel_max": 0.0001001774471522951,
+            "cos_min_found": 0.9999235210468019,
+            "pass": true,
+            "seconds": 16.87,
+            "polish_feasible": 6000,
+            "polish_runs": 6000,
+            "answers_from_phase2": 707
+          },
+          "ce_new": {
+            "found_rate": 1.0,
+            "share_rel_lt_tol": 1.0,
+            "share_cos_gt_tol": 1.0,
+            "rel_median": 3.550625131280597e-05,
+            "rel_max": 9.956337396775849e-05,
+            "cos_min_found": 0.9999368052427746,
+            "pass": true,
+            "seconds": 15.07,
+            "polish_feasible": 6000,
+            "polish_runs": 6000,
+            "answers_from_phase2": 706
+          }
+        },
+        "20": {
+          "delta_ce": {
+            "found_rate": 1.0,
+            "share_rel_lt_tol": 1.0,
+            "share_cos_gt_tol": 1.0,
+            "rel_median": 6.274295977837988e-05,
+            "rel_max": 0.0004423204777459776,
+            "cos_min_found": 0.9999224578666668,
+            "pass": true,
+            "share_case_b": 0.765,
+            "seconds": 21.55,
+            "polish_feasible": 6000,
+            "polish_runs": 6000,
+            "answers_from_phase2": 995
+          },
+          "ce_old": {
+            "found_rate": 1.0,
+            "share_rel_lt_tol": 1.0,
+            "share_cos_gt_tol": 1.0,
+            "rel_median": 2.335682141283479e-05,
+            "rel_max": 9.796428358485171e-05,
+            "cos_min_found": 0.9999725358648698,
+            "pass": true,
+            "seconds": 17.31,
+            "polish_feasible": 6000,
+            "polish_runs": 6000,
+            "answers_from_phase2": 964
+          },
+          "ce_new": {
+            "found_rate": 1.0,
+            "share_rel_lt_tol": 1.0,
+            "share_cos_gt_tol": 1.0,
+            "rel_median": 2.2838620757264128e-05,
+            "rel_max": 9.920661308623462e-05,
+            "cos_min_found": 0.9999766765885119,
+            "pass": true,
+            "seconds": 15.57,
+            "polish_feasible": 6000,
+            "polish_runs": 6000,
+            "answers_from_phase2": 971
+          }
+        }
+      }
+    },
+    "holdout": {
+      "seeds": [
+        1000,
+        1999
+      ],
+      "dims": {
+        "5": {
+          "delta_ce": {
+            "found_rate": 1.0,
+            "share_rel_lt_tol": 1.0,
+            "share_cos_gt_tol": 1.0,
+            "rel_median": 0.00014228806327586108,
+            "rel_max": 0.0005821015004903935,
+            "cos_min_found": 0.9998419092157271,
+            "pass": true,
+            "share_case_b": 0.946,
+            "seconds": 20.21,
+            "polish_feasible": 6000,
+            "polish_runs": 6000,
+            "answers_from_phase2": 982
+          },
+          "ce_old": {
+            "found_rate": 1.0,
+            "share_rel_lt_tol": 1.0,
+            "share_cos_gt_tol": 1.0,
+            "rel_median": 3.596175595578104e-05,
+            "rel_max": 9.926010159030208e-05,
+            "cos_min_found": 0.9999391153450179,
+            "pass": true,
+            "seconds": 15.58,
+            "polish_feasible": 6000,
+            "polish_runs": 6000,
+            "answers_from_phase2": 685
+          },
+          "ce_new": {
+            "found_rate": 1.0,
+            "share_rel_lt_tol": 1.0,
+            "share_cos_gt_tol": 1.0,
+            "rel_median": 3.591646956329129e-05,
+            "rel_max": 9.986715650771376e-05,
+            "cos_min_found": 0.9999390805572062,
+            "pass": true,
+            "seconds": 16.73,
+            "polish_feasible": 6000,
+            "polish_runs": 6000,
+            "answers_from_phase2": 705
+          }
+        },
+        "20": {
+          "delta_ce": {
+            "found_rate": 1.0,
+            "share_rel_lt_tol": 1.0,
+            "share_cos_gt_tol": 1.0,
+            "rel_median": 6.56293394612824e-05,
+            "rel_max": 0.00038345853777736917,
+            "cos_min_found": 0.9998423177362628,
+            "pass": true,
+            "share_case_b": 0.76,
+            "seconds": 21.09,
+            "polish_feasible": 6000,
+            "polish_runs": 6000,
+            "answers_from_phase2": 992
+          },
+          "ce_old": {
+            "found_rate": 1.0,
+            "share_rel_lt_tol": 1.0,
+            "share_cos_gt_tol": 1.0,
+            "rel_median": 2.374135598420225e-05,
+            "rel_max": 9.918214382002509e-05,
+            "cos_min_found": 0.9999762186714466,
+            "pass": true,
+            "seconds": 17.23,
+            "polish_feasible": 6000,
+            "polish_runs": 6000,
+            "answers_from_phase2": 971
+          },
+          "ce_new": {
+            "found_rate": 1.0,
+            "share_rel_lt_tol": 1.0,
+            "share_cos_gt_tol": 1.0,
+            "rel_median": 2.2798343923107686e-05,
+            "rel_max": 9.903772251876135e-05,
+            "cos_min_found": 0.9999718959705088,
+            "pass": true,
+            "seconds": 15.44,
+            "polish_feasible": 6000,
+            "polish_runs": 6000,
+            "answers_from_phase2": 970
+          }
+        }
+      }
+    }
+  },
+  "h4_pass": true
+}

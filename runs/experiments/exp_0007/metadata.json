@@ -1,0 +1,16 @@
+{
+  "experiment": "exp_0007",
+  "gate": "G1",
+  "tier": "L",
+  "git": {
+    "commit": "6de9add200ce4f1944b3414fbbc11c6ade4e7a22",
+    "dirty": false
+  },
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "numpy": "2.5.4",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "device": "cpu",
+  "status": "SUCCESS",
+  "seconds": 214.7
+}
