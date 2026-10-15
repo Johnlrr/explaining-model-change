@@ -11,7 +11,7 @@
 ## 1. Project status
 
 ```text
-Status: G1 — H4 passed (exp_0007); r frozen (exp_0008); pilot exp_0009 running locally; Tier 1 data ready (exp_0010)
+Status: G1 — H4 passed, r frozen, pilot done (exp_0009): found-rate passes, RUNTIME FAILS; awaiting the author
 Last updated: 2026-10-15
 Current commit: see `git log -1` (kick-off commit on research/delta-ce)
 Current branch: research/delta-ce (from main)
@@ -64,13 +64,12 @@ Why this hypothesis is active: it is the first gate (G1). Without it no result c
 ## 6. Latest experiment
 
 ```text
-Experiment ID: exp_0007 (gate G1, H4 on Tier L with the v1.5 solver; commit 6de9add)
-Run type: local CPU, 215 s; seed sets 0–999 and holdout 1000–1999, p ∈ {5, 20}
-Result: H4 PASSES — Δ-CE, CE(f_old), CE(f_new): found, rel<1e-3, |cos|>0.999 all 1.000 on both sets
-  Δ-CE max rel. error 5.8e-4 (holdout p=5), from the κ+1e-4 tightening (headroom ≈ 1.7×)
-Validity: valid; all SLSQP outputs confirmed feasible in float32 with the original κ
-Relevant run evidence: runs/experiments/exp_0007/ ; research/NOTES.md §3 ; D-022, D-023
-Previous: exp_0006 (v1.4, fails on p=5 found-rate), exp_0005 (spec solver fails), exp_0004 (G0-Tier 0 passes)
+Experiment ID: exp_0009 (G1 pilot, Tier 0 validation, seed-0 pairs, N = 100, every method; commit 7c6401a)
+Result: Δ-CE found-rate T1 0.81 (≥ 0.6, pass); runtime per pair at N = 100: T1 4.9, T3 4.8, T4 9.6 min (16 cores),
+  N0 25.5, N1 24.9 min (8 cores) → runtime ≤ 5 min FAILS. F5: standard solver misses no witness within r.
+Cause: SLSQP runs to maxiter (≈ 480 evaluations) on points without a witness (nulls, much of T4)
+Relevant run evidence: runs/experiments/exp_0009/ ; research/NOTES.md §3
+Previous: exp_0010 (Tier 1 data), exp_0008 (r = 0.5413), exp_0007 (H4 passes)
 ```
 
 ## 7. Strongest current observations
@@ -101,9 +100,7 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 ## 9. In-flight remote jobs
 
 ```text
-None on Kaggle. Local: exp_0009 (G1 pilot) running in the background, log .work/exp_0009.log; if the
-session is interrupted, check `runs/experiments/exp_0009/metrics.json`; if absent, delete the partial
-run directory and rerun the same command (deterministic).
+None.
 ```
 
 ### Resume rule
@@ -135,7 +132,7 @@ Tier 1 Kaggle jobs used: 0 / 4
 
 ## 12. Current blockers
 
-1. None. (H4 passed in exp_0007 under v1.5; G0 T3 resolved by v1.3.)
+1. **G1 runtime criterion fails** (exp_0009): SLSQP on witness-less points dominates; D-024 says report, do not lower maxiter. Needs the author.
 2. None from the user: spec amendment v1.1 (A1–A6) applied on 2026-10-15 (D-011–D-015).
 3. Residual G-lit risk: NPL 2022 journal text and Muschalik 2022 not readable (access blocked); arXiv v2 of Artelt covers the same scope.
 

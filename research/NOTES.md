@@ -203,6 +203,29 @@ Kernel `boinhbo/dce-tier1-data-v1` (immutable), CPU, 42 s; smoke_0008 first (att
 
 At the user's request the running pilot was capped from 16 to 8 logical cores (taskset on the main process and its workers, cores 0–7). Pairs 0 (T1), 3 (T3), 6 (T4) had finished on 16 cores; pairs 9 (N0) and 14 (N1) run on 8. Results do not depend on the number of cores (phase 1 noise is drawn once, points are independent; test `test_parallel_phase2_equals_sequential`), only runtime does. Runtime rows are labelled by core count. Later runs use `n_workers: 8` (tier0.yaml).
 
+### exp_0009 — G1 pilot on Tier 0 validation (seed-0 pairs, N = 100), 2026-10-15/16
+
+Commit 7c6401a, 3.4 h wall. Pairs 0, 3, 6 on 16 cores; 9, 14 on 8 cores (cap at 23:01). Read: found-rate, runtime, solver counters only (pilot discipline; no Recovery, share or Δφ̃ was computed into the record).
+
+Found-rate (Δ-CE = type N; nulls also type O):
+
+| pair | Δ-CE N | Δ-CE O | B1 | B1-det | B3 | B4 | B5 | A1 | A2 | A3 κ=0 | A3 κ=1 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| T1 s0 | **0.81** | — | 0.90 | 0.90 | 1.00 | 1.00 | 0.08 | 0.65 | 0.90 | 0.90 | 0.72 |
+| T3 s0 | 0.82 | — | 1.00 | 1.00 | 1.00 | 1.00 | 0.18 | 0.69 | 1.00 | 0.93 | 0.70 |
+| T4 s0 | 0.40 | — | 0.87 | 0.86 | 1.00 | 1.00 | 0.07 | 0.35 | 0.87 | 0.40 | 0.26 |
+| N0 s0 | 0.00 | 0.00 | 1.00 | 1.00 | 1.00 | 1.00 | 0.00 | 0.00 | 1.00 | 0.73 | 0.00 |
+| N1 s0 | 0.00 | 0.00 | 0.99 | 0.99 | 1.00 | 1.00 | 0.00 | 0.00 | 0.99 | 0.96 | 0.00 |
+
+Runtime of Δ-CE per pair at N = 100 (measured): T1 4.9 min, T3 4.8 min, T4 9.6 min (16 cores); N0 25.5 min, N1 24.9 min (types N + O, 8 cores). Linear extrapolation to N = 300 (D-024): 14–77 min. CPU per point: 39 s (T1) to 79 s (T4); B1 (two CEs) 16–34 s; B1-det 5–10 s.
+
+- **G1 found-rate criterion passes** (T1 0.81 ≥ 0.6). **G1 runtime criterion fails** (≤ 5 min per pair): already at N = 100 for T4 and both nulls.
+- Cause (profile on 16 points, diagnostic only): SLSQP on points **without a witness** runs to maxiter = 100 with ≈ 480 function evaluations (N0: 77 of 96 runs at the iteration limit, 14 line-search failures, 5 incompatible constraints); where a witness exists it converges in ≈ 33 iterations / 83 evaluations. Phase 1 is ≈ 22 s per 16 points on 8 workers. So the cost grows with the share of points without a witness: nulls (found 0) and T4 (0.40) are the slow pairs.
+- F5 (pair 0, 50 points, 50 random box starts): standard and reference both find 0.86; **the standard solver misses no witness within r**; distance gap median 1e-7, max 0.85%, 4.7% of points longer by > 1e-3.
+- float64 gap ≤ 3.4e-6 for every model; "feasible in float64 but rejected by float32" = 0 in every method.
+- Descriptive (found-rate only, allowed): Δ-CE returns no witness on both null pairs (N and O), while B1 and A2 "explain" ≈ 100% of null points; A3 with κ = 0 finds 0.73 / 0.96 on nulls, i.e. the margin κ is what removes threshold jitter (Lemma 1). These are pilot observations on validation, not results.
+- Full-run cost if nothing changes: the pilot (5 pairs × N = 100, every method) took 3.4 h; 17 pairs × N = 300 scales to the order of 1.5–2 days of CPU on 8 cores.
+
 ## 4. Questions
 
 1. Does the tie in Proposition 4 also hold for the constrained solver when λ is decayed? (H-005)
