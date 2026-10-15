@@ -1,0 +1,10 @@
+Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/boinhbo/dce-bundle-smoke
+boinhbo/dce-bundle-smoke has status "KernelWorkerStatus.COMPLETE"
+[{"stream_name":"stdout","time":14.617507455,"data":"{\"schema_version\": 1, \"kind\": \"bundle_smoke\", \"tree_hash\": \"8a7f89c7f58f90a4b71d8e375a07d1f04ae131ebb5b61ab73dcb0c3608f016f5\", \"dce_file\": \"/tmp/dce_bundle__1ksz7gu/dce/__init__.py\", \"from_bundle\": true, \"cnn_params\": 56450, \"found\": 8, \"max_rel_error\": 0.0002722266504002757, \"torch\": \"2.11.0+cpu\", \"cuda\": false, \"work\": {\"processed\": 8}}\n"}
+,{"stream_name":"stderr","time":17.998223852,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":17.998264908,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":18.354394489,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":18.354422925,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":19.327491136,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":20.651392536,"data":"[NbConvertApp] Writing 353051 bytes to __results__.html\n"}
+]

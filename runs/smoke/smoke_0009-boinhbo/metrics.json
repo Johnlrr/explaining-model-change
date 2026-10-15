@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "bundle_smoke",
+  "tree_hash": "8a7f89c7f58f90a4b71d8e375a07d1f04ae131ebb5b61ab73dcb0c3608f016f5",
+  "dce_file": "/tmp/dce_bundle__1ksz7gu/dce/__init__.py",
+  "from_bundle": true,
+  "cnn_params": 56450,
+  "found": 8,
+  "max_rel_error": 0.0002722266504002757,
+  "torch": "2.11.0+cpu",
+  "cuda": false,
+  "work": {
+    "processed": 8
+  }
+}
