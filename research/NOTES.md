@@ -64,6 +64,23 @@ Diagnosis (validation, from saved checkpoints, no extra training):
 3. **Null is not a pure null (D-017 reading).** f_old trains on 5% noisy labels; N0 fine-tunes on noise-free labels, so N0 changes the training distribution, not only the data order.
 4. **T3 is under-trained.** Fine-tune loss 0.53–0.60 after 3 epochs; the size × aspect interaction is not learned. T4 seed 2 also moves its boundary only partly (band acc 0.34).
 
+### exp_0002 — G0 on Tier 0 after amendment v1.2 (knob 1 for T3/T4), 2026-10-15
+
+| Condition | Pass | Key numbers (seeds 0/1/2[/3/4]) | Criterion |
+|---|---|---|---|
+| f_old accuracy | **yes** | 0.981 / 0.982 / 0.980 / 0.982 / 0.975 (final loss 0.276–0.285) | ≥ 0.95 |
+| T1 | no | ΔFlip_color 0.134 / 0.120 / 0.148 (exp_0001: 0.17–0.22) | ≥ 0.15 |
+| T3 (5 ep, lr 1e-3) | no | subgroup acc 0.87 / 0.82 / 0.59; DD outside 0.009 / 0.049 / 0.019 | ≥ 0.85; ≤ 0.05 |
+| T4 (5 ep, lr 1e-3) | no | band acc 0.18 / **0.98** / 0.38; DD 0.000 / 0.037 / 0.000 | ≥ 0.80 |
+| N0 | **yes** | DD 0.000 all; raw agreement 0.968–0.992; max abs ΔFlip ≤ 0.010 | DD ≤ 0.02, ΔFlip ≤ 0.05 |
+| N1 | **yes** | DD 0.000 all; raw agreement 0.979–0.990; max abs ΔFlip ≤ 0.012 | same |
+
+Reading:
+- B1/B2/B3 fixed what they targeted: all f_old seeds pass, and null pairs have zero decisive disagreement (raw disagreement is threshold jitter only).
+- T1 weakened below 0.15. Likely cause: B2 label noise dilutes the colour–label association the shortcut relies on (colour is drawn from the noise-free label, then 5% of labels flip), and the more converged f_old (cosine) moves less in 3 epochs at lr 3e-4; fine-tune loss plateaus at 0.28–0.29.
+- T4 is bimodal: seed 1 moves its boundary fully (0.98), seeds 0 and 2 not at all (DD 0). The shifted band is ≈ 9% of the data, so the loss gain from moving is small; 5 epochs at lr 1e-3 are not always enough.
+- T3 is close for seeds 0/1 and short for seed 2 (0.59); fine-tune loss still falling (0.37–0.50 at epoch 5).
+
 Options for the user (resolved: author chose c.1 + c.2 and replaced c.3 by the DD criterion; amendment v1.2, D-018):
 
 - (a) Stop, as spec §9 allows.

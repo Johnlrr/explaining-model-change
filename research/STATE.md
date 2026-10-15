@@ -64,14 +64,14 @@ Why this hypothesis is active: it is the first gate (G1). Without it no result c
 ## 6. Latest experiment
 
 ```text
-Experiment ID: exp_0001 (gate G0, Tier 0, validation; commit ad80b91, clean tree)
-Run type: full gate run (CPU, 958 s)
-Result: G0 FAILED — T1 pass; T3, T4, N0, N1 fail; f_old seed 0 below 95% (0.925)
-Validity: valid (all 17 pairs completed; hashes in artifact_manifest.json)
-Primary observation: disagreements of null pairs sit at |φ1 − 0.5| < 0.03 (decision-threshold jitter);
-  f_old training loss plateaus near 0.28 (floor with 5% label noise ≈ 0.20); T3 fine-tune loss still 0.53–0.60 after 3 epochs
-Conclusion: blocked on a human decision (spec §9: no pre-declared knob for N0/N1 or for f_old accuracy)
-Relevant run evidence: runs/experiments/exp_0001/ ; diagnosis in research/NOTES.md §3
+Experiment ID: exp_0002 (gate G0, Tier 0, validation; amendment v1.2; commit 1755879, clean tree)
+Run type: full gate run (CPU, 1 644 s)
+Result: G0 not yet passed — f_old all seeds ≥ 0.975; N0, N1 pass (DD = 0); T1, T3, T4 fail
+Validity: valid
+Primary observation: v1.2 fixed f_old and the nulls; T1 weakened (ΔFlip_color 0.12–0.15); T4 bimodal across seeds;
+  T3 close for two seeds
+Conclusion: continue with pre-declared knobs (exp_0003), reusing the exp_0002 f_old checkpoints
+Relevant run evidence: runs/experiments/exp_0002/ ; research/NOTES.md §3
 ```
 
 ## 7. Strongest current observations

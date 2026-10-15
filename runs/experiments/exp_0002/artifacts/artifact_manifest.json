@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "f_old_s0",
+      "kind": "checkpoint",
+      "path": "models/f_old_s0.pt",
+      "sha256": "b54fdbc57708d958ffbc0f1e54a7e476ec6b51db4213eee4edd28dda64d7d0c5"
+    },
+    {
+      "name": "f_old_s1",
+      "kind": "checkpoint",
+      "path": "models/f_old_s1.pt",
+      "sha256": "b65ed1e696119fb8f9a825c26c9bcc65a5dc9cd36a9cb8627e9e1808414883fc"
+    },
+    {
+      "name": "f_old_s2",
+      "kind": "checkpoint",
+      "path": "models/f_old_s2.pt",
+      "sha256": "b6f462719d1aa0e38a682b907674ff90ea524e35f9119a5aa29e28079acff330"
+    },
+    {
+      "name": "f_old_s3",
+      "kind": "checkpoint",
+      "path": "models/f_old_s3.pt",
+      "sha256": "ed4494b8a5035258c1b6a65d6644585a0d455ea0633e016ec7889b04ce23e558"
+    },
+    {
+      "name": "f_old_s4",
+      "kind": "checkpoint",
+      "path": "models/f_old_s4.pt",
+      "sha256": "232a09c0e7d6b01426ac83bb96756db861693f363595fd5cda32a07925186084"
+    },
+    {
+      "name": "f_new_p00_T1_s0",
+      "kind": "checkpoint",
+      "path": "models/f_new_p00_T1_s0.pt",
+      "sha256": "db488c955584ae0c60a745bddc21911d9292547970be1c35d157b2cd094697c4"
+    },
+    {
+      "name": "f_new_p01_T1_s1",
+      "kind": "checkpoint",
+      "path": "models/f_new_p01_T1_s1.pt",
+      "sha256": "7481371240897f213f0b6d42a710882938fe1f2bcca3069c9cd41c2ca27d0bb5"
+    },
+    {
+      "name": "f_new_p02_T1_s2",
+      "kind": "checkpoint",
+      "path": "models/f_new_p02_T1_s2.pt",
+      "sha256": "1317c9f67f5efec0295f8cd20d7bfd2ba053e43f77ea5b4147080d36e9151d08"
+    },
+    {
+      "name": "f_new_p03_T3_s0",
+      "kind": "checkpoint",
+      "path": "models/f_new_p03_T3_s0.pt",
+      "sha256": "7efa9b68d5356e6ab046283188fcf835ea4b36ac279b304f7e85f2b95e2ce8a0"
+    },
+    {
+      "name": "f_new_p04_T3_s1",
+      "kind": "checkpoint",
+      "path": "models/f_new_p04_T3_s1.pt",
+      "sha256": "8968cf20ea40caab5892833ef92d550deb60ed4105a353f42560c1c15c49fb1c"
+    },
+    {
+      "name": "f_new_p05_T3_s2",
+      "kind": "checkpoint",
+      "path": "models/f_new_p05_T3_s2.pt",
+      "sha256": "24845643cbc2ca451f7238080cc950eb34bca76021ef69a8f606dc8a36543c9f"
+    },
+    {
+      "name": "f_new_p06_T4_s0",
+      "kind": "checkpoint",
+      "path": "models/f_new_p06_T4_s0.pt",
+      "sha256": "74d0f1d5b8e937163ab7667cac12c76cfa747273c2898c03d649e4e85250ac5b"
+    },
+    {
+      "name": "f_new_p07_T4_s1",
+      "kind": "checkpoint",
+      "path": "models/f_new_p07_T4_s1.pt",
+      "sha256": "bfe924cd9694f3b888a88c9ef30c0a48a4b077727e91d6533a1925ca40ad5021"
+    },
+    {
+      "name": "f_new_p08_T4_s2",
+      "kind": "checkpoint",
+      "path": "models/f_new_p08_T4_s2.pt",
+      "sha256": "67007b109700e6435894adae4d7cb99be2d028cbc95a319a7d87c0254f39005c"
+    },
+    {
+      "name": "f_new_p09_N0_s0",
+      "kind": "checkpoint",
+      "path": "models/f_new_p09_N0_s0.pt",
+      "sha256": "b652e302249ddb9b8938cf3985aa3c29514fc7010eb6a6d99ef1f7088be6586e"
+    },
+    {
+      "name": "f_new_p10_N0_s1",
+      "kind": "checkpoint",
+      "path": "models/f_new_p10_N0_s1.pt",
+      "sha256": "14aee0e8ec0383799120f7adeb6649efdfe97814ae76a0ead6c9cf9155ca5f7e"
+    },
+    {
+      "name": "f_new_p11_N0_s2",
+      "kind": "checkpoint",
+      "path": "models/f_new_p11_N0_s2.pt",
+      "sha256": "a2e9ab58cbd7b16dea0e5a62670ea9f33a7bf4a5f1d0ad26d0c40431b3ebacc5"
+    },
+    {
+      "name": "f_new_p12_N0_s3",
+      "kind": "checkpoint",
+      "path": "models/f_new_p12_N0_s3.pt",
+      "sha256": "b8f87d09ffb313d54d84952aac13b276dd58d3ce6e0d1e7eedbd5e0595ade781"
+    },
+    {
+      "name": "f_new_p13_N0_s4",
+      "kind": "checkpoint",
+      "path": "models/f_new_p13_N0_s4.pt",
+      "sha256": "ea28f9da017b9118c11a4d752b1b46eb52232e74217d8c03b9e58ec2e0aaae76"
+    },
+    {
+      "name": "f_new_p14_N1_s0",
+      "kind": "checkpoint",
+      "path": "models/f_new_p14_N1_s0.pt",
+      "sha256": "3c03129a0abf9c537787d30e3419c76b0d2b7c164308e224d027d647d3c8bf71"
+    },
+    {
+      "name": "f_new_p15_N1_s1",
+      "kind": "checkpoint",
+      "path": "models/f_new_p15_N1_s1.pt",
+      "sha256": "81cf765549b9e44b79a2e14a46ab3a05debd5b1c59853b7889223a1a11cbfdb6"
+    },
+    {
+      "name": "f_new_p16_N1_s2",
+      "kind": "checkpoint",
+      "path": "models/f_new_p16_N1_s2.pt",
+      "sha256": "c1a551f8f1c5dafec0375768c627749768b7793a7e4c70beea74fb0fd72995e1"
+    }
+  ]
+}
