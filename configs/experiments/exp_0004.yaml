@@ -1,0 +1,26 @@
+# exp_0004 — Gate G0 on Tier 0, re-evaluation only (amendment v1.3, D-020). No training.
+# Recomputes all 17 pairs on the saved, hash-verified checkpoints with T3 criterion C1:
+#   f_old, N0, N1 from exp_0002; T1, T3, T4 from exp_0003 (last knobs, D-019).
+# Data, κ, points and flip seeds are identical to exp_0002/exp_0003.
+experiment_id: exp_0004
+gate: G0
+tier_config: configs/tiers/tier0.yaml
+t3_criteria: v1.3
+sources:
+  f_old: runs/experiments/exp_0002
+  N0: runs/experiments/exp_0002
+  N1: runs/experiments/exp_0002
+  T1: runs/experiments/exp_0003
+  T3: runs/experiments/exp_0003
+  T4: runs/experiments/exp_0003
+pair_ids: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+scale:
+  n_train: 20000
+  n_val: 5000
+  n_test: 5000
+  n_g0_points: 2000
+  n_adapt: 10000
+  f_old_epochs: 30
+  finetune_epochs: 3
+drift_params:
+  t1_correlation: 0.99

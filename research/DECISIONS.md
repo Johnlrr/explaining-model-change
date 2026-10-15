@@ -29,6 +29,7 @@
 | D-017 | Tier 0 implementation readings where the spec is silent | partially superseded by D-018 (label noise) | 2026-10-15 | — | exp_0001 |
 | D-018 | Amendment v1.2 after G0 exp_0001: f_old cosine 30 ep, noisy adaptation sets, DD criterion, T3/T4 lr knob | active | 2026-10-15 | — | exp_0001, exp_0002 |
 | D-019 | G0 knob log (spec §4.4 / v1.2 B4) and f_old reuse in exp_0003 | active | 2026-10-15 | — | exp_0002, exp_0003 |
+| D-020 | Amendment v1.3 after G0 exp_0002/exp_0003: T3 criterion C1 (ΔFlip_k* ≥ 0.15, exclusivity, DD outside); last G0 criterion change; Tier 1 T3 pre-declared | active | 2026-10-15 | — | exp_0003, exp_0004 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -591,6 +592,38 @@ exp_0003 loads the five f_old checkpoints of exp_0002 after verifying their SHA2
 
 ### Consequence
 If T3 or T4 fails in exp_0003, no knob remains: Stop or back to the author (v1.2 B5).
+
+## D-020 — Amendment v1.3: T3 G0 criterion C1, last G0 criterion change
+
+### Status
+active (author's decision, 2026-10-15; spec §13 log: **after seeing G0 results** exp_0002 and exp_0003; G0 is a gate, test untouched, H1–H4 unaffected). **This is the last change to the G0 criteria** (both tiers).
+
+### Context
+exp_0003 used the last T3 knob (D-019). Subgroup accuracy w.r.t. the new labels stayed below 0.85 (0.866 / 0.814 / 0.754), but the change is real and size-specific (ΔFlip_size ≈ +0.32, DD inside 0.61–0.75, outside ≤ 0.04). The learned size boundary is soft and seed-shifted (`research/NOTES.md` §3, exp_0003).
+
+### Decision
+`docs/source/delta_ce_spec_amendment_v1.3.md` C1–C4:
+- T3 passes G0 iff, on every seed, (i) ΔFlip_{k*} ≥ 0.15 (k* = size on Tier 0, thick on Tier 1), (ii) max_{k≠k*} |ΔFlip_k| ≤ 0.05, (iii) DD outside the subgroup ≤ 0.05.
+- C2: the old accuracies (raw and decisive-margin) are still computed and reported in the paper, with the limitation that the soft boundary makes T3 less non-local than designed, which hurts Δ-CE in H2.
+- C3: Tier 1 T3 uses C1 from the start (pre-declared). Knobs: §4.4 (epochs; quantile 0.85 → 0.80) and the v1.2 B4 lr knob, max 2. Then fallback T3-Tier1 = flip by bg > q85, k* = bg, same C1. If that fails too: drop T3-Tier1; H2b untested, H1 on T1-Tier1 only, Holm over the remaining tests.
+- C4: T1, T4, N0, N1 unchanged from v1.2.
+- T3-Tier 0 is not retrained; G0 is recomputed on the saved checkpoints in exp_0004.
+
+The Research Lead proposed (A) without (ii); the author added the exclusivity condition (ii). Option (B), dropping T3, was rejected: it loses H2a and H2b.
+
+### G0 history (for the paper)
+| Step | Trigger | Change | Type |
+|---|---|---|---|
+| exp_0001 | — | spec §9 criteria | baseline |
+| v1.2 (D-018) | exp_0001 failed | f_old cosine 30 ep; 5% noise on adaptation sets (N0 was not a null); DD replaces raw agreement; lr knob for T3/T4 | amendment, after results |
+| exp_0002, exp_0003 (D-019) | — | knobs: T1 1/2 used (corr 0.99); T3 2/2 (5 ep → 10 ep, lr 1e-3); T4 2/2 (same) | pre-declared knobs |
+| v1.3 (this) | exp_0003 T3 failed | T3 criterion C1 | amendment, after results; last |
+
+### Consequences
+T3-Tier 0 enters the benchmark if exp_0004 confirms C1 on all seeds with exact numbers. H2 is tested on a less non-local change than designed (against Δ-CE).
+
+### Supersedes / superseded by
+Supersedes the T3 rows of spec §9 and of v1.2 B3.
 
 ---
 

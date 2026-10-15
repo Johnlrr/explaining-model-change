@@ -82,3 +82,22 @@ def test_decisive_disagreement_needs_both_margins():
     old = np.array([[2.0, 0.0], [2.0, 0.0], [0.2, 0.0], [1.0, 0.0]])
     new = np.array([[0.0, 2.0], [0.0, 0.3], [0.0, 2.0], [2.0, 0.0]])
     assert decisive_disagreement(old, new, kappa=0.5).tolist() == [True, False, False, False]
+
+
+def test_t3_criteria_v13_requires_exclusive_size_change():
+    from dce.eval.g0 import g0_criteria
+
+    rng = np.random.default_rng(0)
+    phi = rng.uniform(size=(400, 5))
+    params = DriftParams()
+    y_new = drift_label("T3", phi, params)
+    logits = np.stack([np.zeros(400), np.where(y_new == 1, 2.0, -2.0)], 1)  # f_new == f_old here
+    flip_old = np.array([0.49, 0.02, 0.01, 0.01, 0.01])
+    good = flip_old + np.array([0.04, 0.30, 0.0, 0.0, 0.0])
+    leaky = flip_old + np.array([0.06, 0.30, 0.0, 0.0, 0.0])
+    weak = flip_old + np.array([0.0, 0.14, 0.0, 0.0, 0.0])
+    run = lambda f, v: g0_criteria("T3", phi, logits, logits, y_new, flip_old, f, params, 0.5, t3_criteria=v)
+    assert run(good, "v1.3")["pass"] and not run(leaky, "v1.3")["pass"] and not run(weak, "v1.3")["pass"]
+    out = run(good, "v1.3")
+    assert {"acc_new_labels_subgroup", "acc_new_labels_subgroup_decisive", "pass_v1_2"} <= out.keys()
+    assert out["pass"] == out["pass_v1_3"]
