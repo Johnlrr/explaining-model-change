@@ -1,12 +1,14 @@
-"""H-004 on Tier L: run the Δ-CE solver on random linear pairs and compare with Proposition 3–4.
+"""H-004 on Tier L (spec §8 H4, amendment v1.4 E3–E4): solver versus closed forms.
 
 Usage:
-    python -m dce.cli.tierL_h4 --config configs/experiments/exp_0005.yaml --out runs/experiments/exp_0005
+    python -m dce.cli.tierL_h4 --config configs/experiments/exp_0006.yaml --out runs/experiments/exp_0006
 
-The config lists solver variants (`variants: {name: {SolverConfig overrides}}`); each is run on the
-same pairs (seeds 0..n_pairs−1, both dims). H4 passes for a variant iff, in every dim, the share of
-pairs with relative error of δ_Δ < rel_error and the share with |cos(Pu, PΔw)| > abs_cos are both
-≥ share (spec §8 H4); a pair without a witness fails both.
+One solver (configs/tiers/tierL.yaml `solver`), run once (v1.4 E4) on seeds 0..n_pairs−1 for every dim.
+Checks, each with the spec §8 tolerances (share ≥ 0.99 of pairs in every dim; a pair without a
+solution fails):
+  delta_ce:   rel. error of δ_Δ (Proposition 3) and |cos(P u, P Δw)| (Proposition 4);
+  ce_old/new: rel. error of the ordinary-CE distance and |cos(u, u*)| against u* = −(m(z0)+κ)/‖w‖² w.
+(exp_0005 ran the original spec solver and its variants from commit 157320b.)
 """
 
 from __future__ import annotations
@@ -23,25 +25,56 @@ import torch
 import yaml
 
 from dce.cli.g0_tier0 import git_state
-from dce.data.tierL import abs_cos, closed_form, project_out, sample_pair
+from dce.data.tierL import abs_cos, ce_closed_form, closed_form, project_out, sample_pair
 from dce.solvers.dce import delta_ce
+from dce.solvers.ordinary_ce import ordinary_ce
 from dce.solvers.search import SolverConfig
 
 
-def run_variant(pairs, overrides: dict, base: dict, restart_seed: int) -> dict:
-    t = lambda a: torch.tensor(np.array(a), dtype=torch.float32)  # noqa: E731
+def summarise(found, rel, cos, tol) -> dict:
+    rel = np.where(found, rel, np.inf)
+    cos = np.where(found, cos, 0.0)
+    fin = rel[np.isfinite(rel)]
+    out = {"found_rate": float(found.mean()),
+           "share_rel_lt_tol": float((rel < tol["rel_error"]).mean()),
+           "share_cos_gt_tol": float((cos > tol["abs_cos"]).mean()),
+           "rel_median": float(np.median(fin)) if len(fin) else None,
+           "rel_max": float(fin.max()) if len(fin) else None,
+           "cos_min_found": float(cos[found].min()) if found.any() else None}
+    out["pass"] = out["share_rel_lt_tol"] >= tol["share"] and out["share_cos_gt_tol"] >= tol["share"]
+    return out
+
+
+def run_dim(pairs, cfg: SolverConfig, restart_seed: int, kappa: float, tol: dict) -> dict:
+    # float64 throughout: Tier L models are exact linear functions, as in the closed forms
+    t = lambda a: torch.tensor(np.array(a), dtype=torch.float64)  # noqa: E731
     w_o, w_n = t([q.w_o for q in pairs]), t([q.w_n for q in pairs])
     b_o, b_n, z0 = t([q.b_o for q in pairs]), t([q.b_n for q in pairs]), t([q.z0 for q in pairs])
-    cfg = SolverConfig(**{**base, **overrides})
-    res = delta_ce(z0, lambda z: (w_o * z).sum(1) + b_o, lambda z: (w_n * z).sum(1) + b_n, cfg, restart_seed)
-    cf = [closed_form(q) for q in pairs]
-    ref = np.array([c["delta"] for c in cf])
+    m_o = lambda z, idx: (w_o[idx] * z).sum(1) + b_o[idx]
+    m_n = lambda z, idx: (w_n[idx] * z).sum(1) + b_n[idx]
+    out = {}
+
+    res = delta_ce(z0, m_o, m_n, cfg, restart_seed)
+    cf = [closed_form(q, kappa) for q in pairs]
+    u = res.z.double().numpy() - np.stack([q.z0 for q in pairs])
     found = res.found.numpy()
-    rel = np.where(found, np.abs(res.distance.double().numpy() - ref) / ref, np.inf)
-    cos = np.array([abs_cos(project_out(res.z[i].double().numpy() - q.z0, q.w_o), project_out(q.dw, q.w_o))
-                    if found[i] else 0.0 for i, q in enumerate(pairs)])
-    return {"found": found, "rel": rel, "cos": cos, "case_b": np.array([c["case"] == "B" for c in cf]),
-            "seconds": res.seconds}
+    rel = np.array([abs(res.distance[i].item() - c["delta"]) / c["delta"] for i, c in enumerate(cf)])
+    cos = np.array([abs_cos(project_out(u[i], q.w_o), project_out(q.dw, q.w_o)) if found[i] else 0.0
+                    for i, q in enumerate(pairs)])
+    out["delta_ce"] = {**summarise(found, rel, cos, tol), "share_case_b": float(np.mean([c["case"] == "B" for c in cf])),
+                       "seconds": round(res.seconds, 2), "polish_accepted": res.n_polished,
+                       "polish_runs": res.n_polish_runs}
+
+    for name, m, key in (("ce_old", m_o, "w_o"), ("ce_new", m_n, "w_n")):
+        r = ordinary_ce(z0, m, cfg, restart_seed)
+        ref = [ce_closed_form(getattr(q, key), q.b_o if key == "w_o" else q.b_n, q.z0, kappa) for q in pairs]
+        u = r.z.double().numpy() - np.stack([q.z0 for q in pairs])
+        f = r.found.numpy()
+        rel = np.array([abs(r.distance[i].item() - c["delta"]) / c["delta"] for i, c in enumerate(ref)])
+        cos = np.array([abs_cos(u[i], c["u"]) if f[i] else 0.0 for i, c in enumerate(ref)])
+        out[name] = {**summarise(f, rel, cos, tol), "seconds": round(r.seconds, 2),
+                     "polish_accepted": r.n_polished, "polish_runs": r.n_polish_runs}
+    return out
 
 
 def main(argv=None) -> int:
@@ -50,8 +83,7 @@ def main(argv=None) -> int:
     ap.add_argument("--out", type=Path, required=True)
     args = ap.parse_args(argv)
     cfg = yaml.safe_load(args.config.read_text())
-    tier = yaml.safe_load(Path(cfg["tier_config"]).read_text())
-    cfg = {**tier, **cfg}
+    cfg = {**yaml.safe_load(Path(cfg["tier_config"]).read_text()), **cfg}
     out = args.out
     if (out / "metrics.json").exists():
         print(f"refusing to overwrite completed run {out}", file=sys.stderr)
@@ -65,33 +97,19 @@ def main(argv=None) -> int:
     (out / "metadata.json").write_text(json.dumps(meta, indent=2))
     start = time.time()
 
-    base = {**cfg["solver"], "kappa": cfg["kappa"], "r": float(cfg["r"])}
+    solver = SolverConfig(**{**cfg["solver"], "kappa": cfg["kappa"], "r": float(cfg["r"])})
     tol = cfg["tolerance"]
-    pairs = {p: [sample_pair(s, p, cfg["kappa"]) for s in range(cfg["n_pairs"])] for p in cfg["dims"]}
-    results = {"tolerance": tol, "n_pairs": cfg["n_pairs"], "variants": {}}
-    for name, overrides in cfg["variants"].items():
-        row = {"overrides": overrides or {}, "dims": {}}
-        for p, ps in pairs.items():
-            r = run_variant(ps, overrides or {}, base, cfg["restart_base"])
-            fin = r["rel"][np.isfinite(r["rel"])]
-            row["dims"][str(p)] = {
-                "found_rate": float(r["found"].mean()), "share_case_b": float(r["case_b"].mean()),
-                "share_rel_lt_tol": float((r["rel"] < tol["rel_error"]).mean()),
-                "share_rel_lt_1e-2": float((r["rel"] < 1e-2).mean()),
-                "share_cos_gt_tol": float((r["cos"] > tol["abs_cos"]).mean()),
-                "share_cos_gt_0.99": float((r["cos"] > 0.99).mean()),
-                "rel_median_found": float(np.median(fin)) if len(fin) else None,
-                "rel_q99_found": float(np.quantile(fin, 0.99)) if len(fin) else None,
-                "seconds": round(r["seconds"], 2)}
-        d = row["dims"].values()
-        row["h4_pass"] = all(v["share_rel_lt_tol"] >= tol["share"] and v["share_cos_gt_tol"] >= tol["share"] for v in d)
-        results["variants"][name] = row
-        print(name, json.dumps({p: {k: v[k] for k in ("found_rate", "share_rel_lt_tol", "share_cos_gt_tol")}
-                                for p, v in row["dims"].items()}), "H4", row["h4_pass"], flush=True)
-    results["h4_pass_spec_solver"] = results["variants"].get("spec", {}).get("h4_pass")
-    (out / "metrics.json").write_text(json.dumps(results, indent=2))
+    results = {"tolerance": tol, "n_pairs": cfg["n_pairs"], "solver": solver.__dict__, "dims": {}}
+    for p in cfg["dims"]:
+        pairs = [sample_pair(s, p, cfg["kappa"]) for s in range(cfg["n_pairs"])]
+        results["dims"][str(p)] = run_dim(pairs, solver, cfg["restart_base"], cfg["kappa"], tol)
+        print(p, json.dumps({k: {m: v[m] for m in ("found_rate", "share_rel_lt_tol", "share_cos_gt_tol", "pass")}
+                             for k, v in results["dims"][str(p)].items()}), flush=True)
+    results["h4_pass"] = all(v["pass"] for d in results["dims"].values() for v in d.values())
+    (out / "metrics.json").write_text(json.dumps(results, indent=2, default=str))
     meta.update(status="SUCCESS", seconds=round(time.time() - start, 1))
     (out / "metadata.json").write_text(json.dumps(meta, indent=2))
+    print(json.dumps({"h4_pass": results["h4_pass"]}))
     return 0
 
 

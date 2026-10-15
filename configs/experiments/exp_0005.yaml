@@ -1,3 +1,4 @@
+# Historical: runs only at commit 157320b (the variant flags were removed by amendment v1.4).
 # exp_0005 — G1 H4 check on Tier L (H-004), solver as in spec §6.1 plus diagnostic variants.
 # "spec" is the frozen solver. R1 is an allowed G1 repair (λ schedule, spec §9). Variants marked
 # "outside" change lr, T or add steps; they are NOT allowed repairs and are run only as evidence

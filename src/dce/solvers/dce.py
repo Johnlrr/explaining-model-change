@@ -1,6 +1,7 @@
-"""Δ-CE solver, type N (spec §3.2, §6.1): only f_new changes its decision.
+"""Δ-CE solver, type N (spec §3.2, §6.1; amendment v1.4 E1): only f_new changes its decision.
 
 F^N_κ = {z : m_n(z) ≤ −κ, m_o(z) ≥ κ}. Type O swaps the two margins.
+Margins take (z (n, p), idx (n,)) and return (n,); idx is the point index of each row.
 """
 
 from __future__ import annotations
@@ -9,9 +10,9 @@ from collections.abc import Callable
 
 import torch
 
-from .search import SearchResult, SolverConfig, penalised_search
+from .search import SearchResult, SolverConfig, constrained_search
 
-Margin = Callable[[torch.Tensor], torch.Tensor]
+Margin = Callable[[torch.Tensor, torch.Tensor], torch.Tensor]
 
 
 def delta_ce(z0: torch.Tensor, m_old: Margin, m_new: Margin, cfg: SolverConfig, restart_seed: int,
@@ -22,10 +23,7 @@ def delta_ce(z0: torch.Tensor, m_old: Margin, m_new: Margin, cfg: SolverConfig, 
         raise ValueError(f"unknown witness type {kind!r}")
     k = cfg.kappa
 
-    def hinge(z):
-        return torch.relu(m_new(z) + k) + torch.relu(k - m_old(z))
+    def constraints(z, idx):  # g ≥ 0 ⇔ m_n ≤ −κ and m_o ≥ κ
+        return torch.stack([-k - m_new(z, idx), m_old(z, idx) - k], 1)
 
-    def feasible(z):
-        return (m_new(z) <= -k) & (m_old(z) >= k)
-
-    return penalised_search(z0, hinge, feasible, cfg, restart_seed)
+    return constrained_search(z0, constraints, cfg, restart_seed)

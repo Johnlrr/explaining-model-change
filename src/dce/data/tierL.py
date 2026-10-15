@@ -57,3 +57,9 @@ def project_out(v: np.ndarray, w_o: np.ndarray) -> np.ndarray:
 
 def abs_cos(a: np.ndarray, b: np.ndarray) -> float:
     return float(abs(a @ b) / (np.linalg.norm(a) * np.linalg.norm(b)))
+
+
+def ce_closed_form(w: np.ndarray, b: float, z0: np.ndarray, kappa: float = 0.5) -> dict:
+    """Ordinary CE of a linear margin (amendment v1.4 E3): u = −(m(z0) + κ)/‖w‖² · w."""
+    a = w @ z0 + b + kappa
+    return {"u": -a / (w @ w) * w, "delta": float(a / np.linalg.norm(w))}

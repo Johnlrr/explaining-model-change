@@ -31,6 +31,7 @@
 | D-019 | G0 knob log (spec §4.4 / v1.2 B4) and f_old reuse in exp_0003 | active | 2026-10-15 | — | exp_0002, exp_0003 |
 | D-020 | Amendment v1.3 after G0 exp_0002/exp_0003: T3 criterion C1 (ΔFlip_k* ≥ 0.15, exclusivity, DD outside); last G0 criterion change; Tier 1 T3 pre-declared | active | 2026-10-15 | — | exp_0003, exp_0004 |
 | D-021 | Pre-G1 clarifications: Flip_k only for re-sampleable factors (D1); descriptive Recovery\|reach (D2) | active | 2026-10-15 | — | exp_0004 |
+| D-022 | Amendment v1.4 after H4 exp_0005: two-phase solver (Adam + R1, then SLSQP per restart) for Δ-CE and ordinary CE; H4 extended to CE; one H4 run | active | 2026-10-15 | — | exp_0005, exp_0006 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -652,6 +653,35 @@ The D2 subset is selected on Δ-CE's own success, so within it Δ-CE has no NOT_
 
 ### Consequences
 The G3 evaluation code computes Recovery|reach and per-condition found-rate in addition to the metrics of EVALUATION §8 step 8.
+
+## D-022 — Amendment v1.4: two-phase solver, single H4 run
+
+### Status
+active (author's decision, 2026-10-15; after H4 exp_0005, **before any method result on data**; Tier L is synthetic and has no test split). H4 tolerances not relaxed.
+
+### Context
+exp_0005: the spec solver (penalised hinge + Adam, lr 0.05) fails H4. λ0 = 1 is above the exact-penalty threshold (found-rate), and Adam at fixed lr has a ≈ 1e-2 precision floor (no allowed repair changes it). Option (B), relaxing the tolerance, was rejected as moving the goalposts of a correctness gate.
+
+### Decision
+`docs/source/delta_ce_spec_amendment_v1.4.md` E1–E5:
+- Phase 1 = spec §6.1 + R1 (λ halved every T/8 while the restart has no feasible iterate), R = 5, T = 400. Phase 2 = SLSQP (maxiter 100, ftol 1e-10) from each restart's best feasible candidate, on the exact problem; Tier 0 adds box bounds [0, 1]^5. The result replaces the phase-1 candidate only if SLSQP succeeds and the point passes the forward-pass feasibility check. Smallest distance over restarts; NOT_FOUND if none; r applied last.
+- The same two phases for Δ-CE and every ordinary CE (B1, B1-det, A2, A3, r calibration). B3, B5 unchanged; A1 (λ = 0) phase 1 only.
+- H4 also checks the ordinary CE against u = −(m(z0)+κ)/‖w‖² w, same tolerances (fidelity of B1, D-007).
+- **H4 runs once** (exp_0006). Pass → G1 continues; fail → stop and report. Only a documented bug fix (code not solving the declared problem) allows a rerun.
+- Runtime ≤ 5 min per pair is measured at the G1 pilot with the new solver.
+
+### Implementation readings (declared before exp_0006)
+1. **SLSQP constraints are tightened by ε = 1e-6** (g ≥ ε inside SLSQP): the exact optimum lies on the boundary and would otherwise fail the hard re-check by rounding. Distance cost ≈ ε/‖∇m‖, far below the 1e-3 tolerance.
+2. **Phase 2 is evaluated in float64.** Bug found in the smoke test before exp_0006: with float32 constraint evaluation (noise ≈ 1e-7) SLSQP at ftol 1e-10 stopped at the iteration limit or failed its line search in 9 of 18 runs, so the code did not solve the declared problem; in float64 18/18 succeed with relative error ≈ 1e-6. Consequence for Tier 0/1: margin functions must accept float64 inputs in phase 2 (a float64 copy of the CNN/decoder), to be implemented for the pilot.
+3. Tier L models are evaluated in float64 throughout (they are exact linear functions, as in the closed forms).
+4. A successful, feasible SLSQP result replaces its restart's candidate even if it is not shorter (E1 literal); the final choice is the minimum over restarts.
+5. CE check (E3) for both models: CE(f_old) and CE(f_new), each against its own closed form; the direction check is |cos(u, u*)| > 0.999.
+
+### Caveat on D-021 (author, 2026-10-15)
+Recovery|reach is biased in favour of Δ-CE (the subset is selected on its own success). It may only be used to explain a low Recovery@r, never as evidence.
+
+### Consequences
+exp_0005 is reproducible only from commit 157320b (its variant flags were removed). The Tier 0/1 pilot cost grows by the SLSQP runs (≤ R per point).
 
 ---
 
