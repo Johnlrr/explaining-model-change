@@ -12,7 +12,7 @@
 |---|---|---|---|---|---|
 | D-001 | Map the delta spec onto the AGENTS.md layout | active | 2026-10-15 | all | — |
 | D-002 | Development gates use validation, not test | reversed by D-009 | 2026-10-15 | H-001–H-003 | G0, G1, G2 |
-| D-003 | Contribution type and primary acceptance rule | active | 2026-10-15 | H-001–H-003 | — |
+| D-003 | Contribution type and primary acceptance rule | partially superseded by D-012, D-014 | 2026-10-15 | H-001–H-003 | — |
 | D-004 | Venue, dates, and special session | active, confirmed by the user | 2026-10-15 | — | — |
 | D-005 | The spec supersedes the proposal where they differ | active | 2026-10-15 | H-001–H-006 | — |
 | D-006 | Environment split: Tier L and Tier 0 local CPU; Tier 1 Kaggle GPU | active | 2026-10-15 | H-001–H-003 | exp_TBD |
@@ -25,6 +25,8 @@
 | D-013 | Non-local baselines B5 (DIG-style) and A1 (DeepXplore-style), outside Holm, with a pre-declared claim rule (A4) | active | 2026-10-15 | H-002, H-006, H-007 | — |
 | D-014 | Positioning and contribution order (A5) | active | 2026-10-15 | — | — |
 | D-015 | NPL 2022 residual risk accepted (A6) | active | 2026-10-15 | — | — |
+| D-016 | B0 global vs local wording, full B5 claim rule (A7); spec frozen | active | 2026-10-15 | H-003, H-007 | — |
+| D-017 | Tier 0 implementation readings where the spec is silent | active | 2026-10-15 | — | exp_0001 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -130,7 +132,7 @@ None.
 ## D-003 — Contribution type and primary acceptance rule
 
 ### Status
-active
+**partially superseded.** Still in force: the primary metric (Recovery@r on test) and the principle of one acceptance rule fixed before results. Superseded: the acceptance rule and routes below (by D-012: Route A = H4 ∧ (H1 ∨ H2a ∨ H2b), H3 descriptive, B′ merged into B) and the contribution wording (by D-014). Apply `docs/EVALUATION.md` §15, not the text below.
 
 ### Context
 AGENTS.md requires that a contribution goal be stated explicitly and that tuning is not a contribution. The spec defines routes A, B, B′, Stop in §10.
@@ -456,7 +458,7 @@ Comparing Δ-CE only against B3 on T3 could be read as a straw-man comparison, s
 - B5 (DIG-style): from z0, line search along segments z0 → z_k for the K = 20 nearest training points in Z (metric d), 50 steps per segment; return the point in F^N_κ with the smallest d ≤ r, else NOT_FOUND.
 - A1 is renamed "DeepXplore-style" (λ = 0) and reported next to B5.
 - Both appear in the main table and are not in the Holm family; the acceptance rule is unchanged.
-- Pre-declared: if |Recovery@r(Δ-CE) − Recovery@r(B5)| ≤ 0.10 on T3 in both tiers, the paper does not claim a better solver; the claim rests on theory (L1, P2, P3) and the benchmark.
+- Solver claim rule (revised by A7, see D-016 and `docs/EVALUATION.md` §15): a solver claim only if d_t > 0.10 and CI_t > 0 on T3 in both tiers; no solver claim otherwise; B5 better (d_t < −0.10 and CI_t < 0 in any tier) is reported explicitly; tier-specific outcomes reported per tier.
 
 ### Rationale
 Answers "how does it compare with DIG?" before a reviewer asks.
@@ -501,6 +503,49 @@ active (amendment A6)
 
 ### Decision
 The journal text of Artelt et al. NPL 2022 is not required to proceed. Try the author's page before 17/10; it does not block G0. The arXiv v2 already contains the regularisation section that matches the journal title.
+
+---
+
+## D-016 — A7 and spec freeze
+
+### Status
+active (author's decision, 2026-10-15)
+
+### Decision
+- B0 is computed on the whole, unfiltered test split. The paper states that B0 is a global measure over the data distribution, while Δ-CE found-rate is local around the filtered evaluation points; their AUROCs are shown side by side for reference only.
+- The B5 rule is replaced by the four-clause rule (a)–(d) in `docs/EVALUATION.md` §15: a solver claim only if d_t > 0.10 and CI_t > 0 in both tiers; B5 being better (d_t < −0.10 and CI_t < 0 in any tier) must be reported explicitly; per-tier outcomes reported as they are. Outside Holm; Route A unchanged.
+- Spec v1.0 + amendment v1.1 (A1–A7) is frozen on 2026-10-15, before the planned 17/10. Later changes follow spec §13 (logged here with "before/after seeing results").
+
+### Evidence
+`docs/source/delta_ce_spec_amendment_v1.1.md` (A7, freeze).
+
+### Supersedes / superseded by
+Supersedes the claim rule in D-013.
+
+---
+
+## D-017 — Tier 0 implementation readings where the spec is silent
+
+### Status
+active (Research Lead, 2026-10-15, before any result; spec §13 log: "before seeing results")
+
+### Decision
+| Spec point | Reading |
+|---|---|
+| §4.4 adaptation sets: label noise | none; the 5% noise of §4.2 applies to the clean training split only |
+| §4.4 T1: colour–label correlation 0.95 | applied to all 10 000 adaptation samples, including the 30% outside the ambiguous band |
+| §4.4 N0: "khác seed thứ tự dữ liệu" | a fresh clean adaptation sample (seed 2000 + pair_id) with its own order and noise seeds; same distribution as the training split |
+| §4.2 pixel noise | added per batch during f_old training and fine-tuning; never at evaluation or in G0 |
+| §9 Flip_k | the same re-sampled factor values (seed 7000 + k) are used for f_old and f_new, so ΔFlip_k is paired |
+| §9 G0 points | the first 2 000 points of the clean validation split (D-011) |
+| §5.1 accuracy requirement | on all 5 000 clean validation labels (D-011) |
+| Seeds | `configs/tiers/tier0.yaml` (init 0+s, order 100+s, noise 200+s, adaptation data 2000+pair_id, order 3000+pair_id, noise 4000+pair_id) |
+
+### Rationale
+Each reading is the simplest one consistent with the spec text; none is tuned.
+
+### Evidence
+`src/dce/data/drift.py`, `src/dce/cli/g0_tier0.py`, `configs/tiers/tier0.yaml`.
 
 ---
 
@@ -554,7 +599,7 @@ D-003 above.
 
 ## 12. Decision conflicts
 
-None at kick-off. Conflicts between the spec and the protocol are resolved in favour of `docs/EVALUATION.md` (D-002) and the layout in AGENTS.md (D-001).
+Conflicts between the spec and the protocol are resolved in favour of `docs/EVALUATION.md` (D-011, spec amendment v1.1) and the layout in AGENTS.md (D-001).
 
 ---
 
@@ -573,4 +618,5 @@ Do not delete decisions. Mark them superseded.
 ## 15. Completion checklist
 
 - [x] Decisions D-001 to D-008 have status, context, decision, rationale.
-- [x] D-002 reversed (D-009) and D-004 confirmed by the human.
+- [x] D-002 reversed by D-009; D-009 superseded by D-011 (amendment v1.1); D-004 confirmed by the human.
+- [x] Spec frozen 2026-10-15 (D-016).

@@ -7,7 +7,6 @@ offline kernels can attach them through `kernel_sources`. Not a scientific run.
 import hashlib
 import importlib
 import json
-import os
 import platform
 import sys
 import time

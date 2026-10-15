@@ -69,7 +69,7 @@ Novelty statuses are tracked in `research/LITERATURE.md` §6.
 Claims that are permitted and not permitted are listed in `research/LITERATURE.md` §6 and in the proposal's §2.2. In short:
 
 - permitted: a distance-based null certificate (for the idealised case), the linear closed form for the constrained problem with bias and margin, factor-level recovery of behaviour changes, and a benchmark with ground truth;
-- not permitted: "first to explain model change with counterfactuals"; "first to search for the closest input where models disagree" (DIG, DeepXplore); a solver advantage when B5 is within 0.10 of Δ-CE on T3 in both tiers (EVALUATION §15); "Δ-CE recovers the change direction better than CE differencing in general" (false in the linear case, Proposition 4); a certified null for deep networks.
+- not permitted: "first to explain model change with counterfactuals"; "first to search for the closest input where models disagree" (DIG, DeepXplore); a solver advantage unless the B5 rule in EVALUATION §15 (A7, clause a) is met; "Δ-CE recovers the change direction better than CE differencing in general" (false in the linear case, Proposition 4); a certified null for deep networks.
 
 ---
 

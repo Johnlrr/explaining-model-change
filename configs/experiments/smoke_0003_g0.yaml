@@ -1,0 +1,15 @@
+# smoke_0003 — G0 smoke: same path as exp_0001, reduced scale.
+experiment_id: smoke_0003
+gate: G0
+tier_config: configs/tiers/tier0.yaml
+pair_ids: [0, 3, 6, 9, 14]
+scale:
+  n_train: 2000
+  n_val: 5000
+  n_test: 5000
+  n_g0_points: 500
+  n_adapt: 1000
+  f_old_epochs: 1
+  finetune_epochs: 1
+drift_params: {}           # spec defaults; G0 knobs (≤ 2 adjustments) go here in a new experiment
+finetune_epochs_override: {}

@@ -134,17 +134,20 @@ Tier 1 Kaggle jobs used: 0 / 4
 
 ## 13. Immediate queue
 
-- [x] G-lit (provisional pass, 2026-10-15)
-- [ ] `src/dce/` package skeleton; add it to `pyproject.toml` packages when code starts
-- [ ] Tier L test `tests/unit/test_linear_theory.py` (H-004)
-- [ ] Tier 0 renderer, drift builder, classifier (G0)
-- [x] Kaggle smoke for kaggle-gpu and kaggle-prep (smoke_0001, smoke_0002)
+Plan to G0 (deadline 20/10), Tier 0, local CPU:
 
----
+- [x] Environment: `research` extra in `pyproject.toml` (torch CPU 2.14 locally; Kaggle image has torch 2.11).
+- [x] Renderer `src/dce/data/renderer.py` + `tests/unit/test_renderer.py` (render → read factors back: colour and background exact; aspect/size/posx via α moments within measured bounds).
+- [x] Drift data `src/dce/data/drift.py` (clean splits, T1/T3/T4/N0/N1 adaptation sets, 17 pair ids) + tests.
+- [x] Classifier `src/dce/models/cnn.py` (≈ 56k parameters) + tests.
+- [x] G0 check `src/dce/eval/g0.py`, CLI `src/dce/cli/g0_tier0.py`; smoke_0003 passed the pipeline.
+- [ ] exp_0001: full G0 (5 f_old × 15 epochs, 17 fine-tunes), ≈ 25 min CPU.
+- [ ] If a condition fails: apply the pre-declared knob (spec §4.4) in a new experiment (exp_0002), max 2 per condition.
+- [ ] Then G1: Tier L test (H4), Δ-CE solver, ordinary CE, r calibration, pilot (validation).
 
 ## 14. Current research phase summary
 
-Phase: W0 (15–17/10): kick-off, G-lit (provisional pass) and Kaggle verification done; no scientific code or experiments yet. Next: spec freeze 17/10, then G0.
+Phase: W1: spec frozen 2026-10-15; G0 implementation done, full G0 run (exp_0001) next.
 
 ---
 

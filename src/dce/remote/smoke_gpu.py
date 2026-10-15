@@ -63,8 +63,8 @@ def main():
     optimiser.step()
 
     try:
-        import skimage
         import scipy
+        import skimage
 
         sk = {"skimage": skimage.__version__, "scipy": scipy.__version__}
     except Exception as exc:  # noqa: BLE001

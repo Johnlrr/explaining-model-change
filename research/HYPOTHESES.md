@@ -375,10 +375,10 @@ Determines whether a solver claim is allowed. Not an acceptance criterion.
 On T3 (both tiers), the gradient-based minimal witness (Δ-CE) recovers the injected factor more often than a line search along segments to the K = 20 nearest training points (B5) within the same budget r.
 
 ### Predictions
-Recovery@r(Δ-CE) − Recovery@r(B5) > 0.10 on T3 in at least one tier.
+d_t = Recovery@r(Δ-CE) − Recovery@r(B5) on T3 satisfies d_t > 0.10 and 95% CI_t > 0 in both tiers (clause (a) of the B5 rule, EVALUATION §15).
 
 ### Falsification signals
-|Recovery@r(Δ-CE) − Recovery@r(B5)| ≤ 0.10 on T3 in both tiers. Pre-declared consequence: no solver claim; the paper's claim rests on theory (L1, P2, P3) and the benchmark.
+Any other outcome: no solver claim (clause b). If d_t < −0.10 and CI_t < 0 in any tier, B5 is reported as better in results and discussion (clause c). Per-tier outcomes reported as they are (clause d).
 
 ### Controlled variables
 Same points, r, κ, space Z, metric d, φ̃.

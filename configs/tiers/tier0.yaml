@@ -1,0 +1,19 @@
+# Tier 0 shared parameters (spec §4.2, §4.4, §5.1; amendment v1.1). Frozen with the spec on 2026-10-15.
+tier: 0
+data_seed: 1234
+label_noise: 0.05          # training split only
+kappa: 0.5
+training:
+  f_old_lr: 1.0e-3
+  finetune_lr: 3.0e-4
+  batch_size: 256
+seeds:
+  init_base: 0             # f_old^(s) initialisation: torch seed = init_base + s
+  order_base: 100          # f_old data order / pixel noise
+  noise_base: 200
+  adapt_data_base: 2000    # adaptation set sampling: 2000 + pair_id
+  adapt_order_base: 3000   # fine-tune data order: 3000 + pair_id
+  adapt_noise_base: 4000
+  points_base: 5000        # evaluation points: 5000 + pair_id (spec §7)
+  restart_base: 10000      # solver restarts: 10000 + pair_id (spec §6.1)
+threads: 8

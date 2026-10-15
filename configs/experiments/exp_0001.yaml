@@ -1,0 +1,15 @@
+# exp_0001 — Gate G0 on Tier 0 (spec §9, validation split per D-011). Not a hypothesis test.
+experiment_id: exp_0001
+gate: G0
+tier_config: configs/tiers/tier0.yaml
+pair_ids: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+scale:
+  n_train: 20000
+  n_val: 5000
+  n_test: 5000
+  n_g0_points: 2000        # first 2000 clean validation points
+  n_adapt: 10000
+  f_old_epochs: 15
+  finetune_epochs: 3
+drift_params: {}           # spec defaults; G0 knobs (≤ 2 adjustments) go here in a new experiment
+finetune_epochs_override: {}

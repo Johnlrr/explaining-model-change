@@ -50,7 +50,7 @@ Secondary metrics (§3) are reported but do not change the acceptance rule.
 | Share of k* | maximize | fraction | `mean_{i: v_i=1} |Δφ̃_ik*| / Σ_k |Δφ̃_ik|`; magnitude of attribution |
 | Pair-level score S | report | scalar | Δ-CE: found-rate (N ∪ O directions); B1, B1-det, B3: median ‖Δφ̃_i‖₂; B0: disagreement rate (below). Used for descriptive H3 |
 | B0 disagreement rate | report | fraction | Monte Carlo estimate of the discrepancy volume (Hammer & Hüllermeier 2021): share of **all** test samples of the tier (unfiltered) where argmax f_old ≠ argmax f_new. The filtered evaluation points cannot be used, since both models agree on them by construction (D-012) |
-| AUROC(S) per method (H3) | report | scalar | drift vs null pairs, for Δ-CE, B0, B1, B3; labelled "conditional on G0-qualified pairs" |
+| AUROC(S) per method (H3) | report | scalar | drift vs null pairs, for Δ-CE, B0, B1, B3; labelled "conditional on G0-qualified pairs". B0 is a **global** measure over the data distribution; Δ-CE found-rate is a **local** measure around the filtered evaluation points. They answer different questions; their AUROCs are shown side by side for reference, never to rank one above the other (A7) |
 | SAR (systematic attribution rate) | report | fraction of null pairs | share of N0/N1 pairs with `max_k mean_{v_i=1} share_ik ≥ 0.5` and found-rate ≥ 0.2 |
 | Plausibility (Tier 1) | report | fraction, distance | shape-oracle confidence ≥ 0.9 on decoded witnesses; 5-NN distance in shape-oracle feature space to real test images |
 | Runtime | report | seconds per point, device stated | efficiency; CPU or GPU recorded per run |
@@ -320,9 +320,15 @@ Required secondary conditions (reported, not part of the decision):
   - B5 and A1 (DeepXplore-style) Recovery@r in the main table;
   - SAR and found-rate on N0/N1.
 
-Pre-declared claim rule for B5 (amendment A4):
-  if |Recovery@r(Δ-CE) − Recovery@r(B5)| ≤ 0.10 on T3 in BOTH tiers, the paper does not claim a better solver;
-  the claim rests on the theory (L1, P2, P3 with bias and margin) and the benchmark.
+Solver claim rule versus B5 (amendment A4 as revised by A7; outside Holm; does not change Route A):
+  Let d_t = Recovery@r(Δ-CE) − Recovery@r(B5) on T3 of tier t ∈ {0, 1}, and CI_t its 95% paired-bootstrap CI
+  (same procedure as §11, no Holm correction).
+  (a) The claim "Δ-CE finds better witnesses than DIG-style search" is allowed ONLY IF d_t > 0.10 AND CI_t > 0
+      in BOTH tiers.
+  (b) In every other case: no solver claim; the claim rests on the theory (L1, P2, P3) and the benchmark.
+  (c) If in ANY tier d_t < −0.10 AND CI_t < 0: state explicitly in the results and the discussion that B5 is better.
+      This must not be omitted or moved to a footnote.
+  (d) Tier-specific outcomes are reported as they are, per tier.
 
 Required repetitions:
   3 classifier seeds for drift pairs; 5 for N0; 3 for N1 (§9).

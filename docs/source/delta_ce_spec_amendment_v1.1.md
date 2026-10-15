@@ -33,3 +33,26 @@ A6. NPL 2022: chấp nhận rủi ro còn lại; thử trang tác giả trước
 ## Làm rõ khi triển khai (Research Lead, cùng ngày)
 
 - **B0 tính trên đâu.** Điểm đánh giá (spec §7) được lọc sao cho cả hai mô hình cùng dự đoán đúng với margin ≥ κ, nên tỉ lệ bất đồng trên chính các điểm đó luôn bằng 0. Vì vậy B0 được tính trên **toàn bộ tập test của tier, không lọc** (ước lượng Monte Carlo của thể tích bất đồng theo phân phối dữ liệu). Xem D-012.
+
+## A7 — bổ sung cùng ngày (tác giả, 15/10/2026)
+
+**B0.** Tính trên toàn bộ tập test chưa lọc (xác nhận phần "Làm rõ khi triển khai"). Paper ghi rõ: B0 là thước đo **toàn cục theo phân phối dữ liệu**, còn found-rate của Δ-CE là thước đo **cục bộ quanh các điểm đã lọc**. Hai con số trả lời hai câu hỏi khác nhau; AUROC đặt cạnh nhau chỉ để tham khảo, không dùng để kết luận cái nào tốt hơn. B0 chỉ tính ở bước đánh giá cuối.
+
+**Quy tắc claim solver so với B5** (thay thế câu khai báo trước trong A4; ngoài nhóm Holm):
+
+```text
+Gọi d_t = Recovery@r(Δ-CE) − Recovery@r(B5) trên T3 của tier t ∈ {0, 1},
+CI_t = 95% paired bootstrap CI của d_t (cùng thủ tục §11, không hiệu chỉnh Holm).
+
+(a) Được claim "Δ-CE tìm witness tốt hơn tìm kiếm kiểu DIG" CHỈ KHI
+    d_t > 0.10 VÀ CI_t > 0 ở CẢ HAI tier.
+(b) Mọi trường hợp khác: không claim solver. Claim dựa trên lý thuyết (L1, P2, P3) và benchmark.
+(c) Nếu ở BẤT KỲ tier nào d_t < −0.10 VÀ CI_t < 0: báo cáo tường minh rằng B5 tốt hơn
+    trong phần kết quả và discussion. Không được lược bỏ hay đẩy xuống chú thích.
+(d) Kết quả khác nhau giữa hai tier được báo cáo nguyên trạng, theo từng tier.
+Quy tắc này không thay đổi acceptance rule (§15).
+```
+
+## Khóa spec
+
+Spec v1.0 + amendment v1.1 (A1–A7) được khóa ngày **15/10/2026** theo quyết định của tác giả (sớm hơn mốc 17/10). Mọi thay đổi sau mốc này ghi vào `research/DECISIONS.md` theo mẫu spec §13, có ghi "trước/sau khi thấy kết quả".
