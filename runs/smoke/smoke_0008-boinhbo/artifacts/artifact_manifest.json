@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "tier1_data",
+      "kind": "dataset",
+      "path": "tier1_data.npz",
+      "sha256": "e8daf71c93fb7ad2d5060f0d6ee2742b22815dbd1e8761d588e6cce3afc92aa9",
+      "bytes": 292269
+    }
+  ]
+}

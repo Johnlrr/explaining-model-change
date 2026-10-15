@@ -1,0 +1,71 @@
+{
+  "run_id": "smoke_0008-boinhbo",
+  "status": "SUCCESS",
+  "executor": "kaggle",
+  "kernel": "boinhbo/dce-tier1-data-smoke",
+  "git_commit": "be39794c31f657563ec4cbfb51e4c43ab786921f",
+  "requested_hardware": null,
+  "internet": true,
+  "started_at": "2026-10-15T14:22:51.512813+00:00",
+  "finished_at": "2026-10-15T14:23:35.606506+00:00",
+  "git_dirty": false,
+  "submitted_code_sha256": "20ada5d1aac148502b9d3208d14033878275ed41d3666f8cc1241f598ed0d40f",
+  "source_dir": "/home/toska/code/research/Agent-auto-Research",
+  "source_path": "/home/toska/code/research/Agent-auto-Research/src/dce/remote/tier1_prep.py",
+  "source_sha256": "7dc007c69aeb5c7c49a825957301a9a9f09eceebfe17c8d949a45b4b1d741255",
+  "source_git_tracked": true,
+  "config": {
+    "id": "boinhbo/dce-tier1-data-smoke",
+    "title": "dce-tier1-data-smoke",
+    "code_file": "src/dce/remote/tier1_prep.py",
+    "kernel_type": "script",
+    "language": "python",
+    "is_private": true,
+    "enable_gpu": false,
+    "enable_internet": true,
+    "machine_shape": null,
+    "expected_hardware_contains": null,
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [],
+    "model_sources": [],
+    "timeout_seconds": 3600,
+    "wait_timeout_seconds": 4200,
+    "poll_interval_seconds": 30,
+    "immutable_kernel": false,
+    "kernel_source_expectations": [],
+    "fetch_files": [
+      "result.json",
+      "artifact_manifest.json"
+    ],
+    "required_outputs": [
+      "result.json",
+      "artifact_manifest.json"
+    ],
+    "metrics_file": "result.json",
+    "json_checks": [
+      {
+        "path": "work.processed",
+        "op": "gte",
+        "value": 400
+      }
+    ],
+    "parameters": {
+      "limit": 200
+    }
+  },
+  "error": null,
+  "kernel_version": 2,
+  "remote_status": "KernelWorkerStatus.COMPLETE",
+  "remote_failure_message": null,
+  "observed_hardware": null,
+  "expected_hardware_contains": null,
+  "remote_artifacts": {
+    "provider": "kaggle_kernel",
+    "kernel": "boinhbo/dce-tier1-data-smoke",
+    "kernel_version": 2,
+    "manifest": "artifact_manifest.json",
+    "manifest_sha256": "4c4d56f567346757123fc40c71b6526c9c80f61736bc79795a6a6756faa9f769"
+  },
+  "account": "boinhbo"
+}

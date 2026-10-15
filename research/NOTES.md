@@ -185,6 +185,20 @@ Commit 6de9add, 215 s CPU. **H4 passes**: on both seed sets (0–999, holdout 10
 - For the ordinary CE, about 30% of p=5 answers are phase-1 iterates: a just-feasible Adam iterate can be closer than the κ + 1e-4 optimum. Both are within tolerance.
 - Runtime: ≈ 21 ms per point for Δ-CE (6 SLSQP runs, linear model), ≈ 16 ms for the ordinary CE.
 
+### exp_0010 — Tier 1 data prep on Kaggle (D-025), 2026-10-15
+
+Kernel `boinhbo/dce-tier1-data-v1` (immutable), CPU, 42 s; smoke_0008 first (attempt 1 failed on a config error: the npz was listed in `required_outputs` but deliberately not fetched). Output `tier1_data.npz`, 9.9 MB, sha256 e74fe388…c8f118 (manifest in `runs/experiments/exp_0010-boinhbo/artifacts/`).
+
+| split | n | share of 9 | chosen thickness q0 / q15 / q50 / q85 / q100 |
+|---|---|---|---|
+| train | 10 612 | 0.505 | 2.00 / 2.00 / 3.10 / 4.41 / 6.22 |
+| val | 1 179 | 0.500 | 2.00 / 2.00 / 3.08 / 4.40 / 6.41 |
+| test | 1 991 | 0.507 | 2.00 / 2.00 / 3.09 / 4.45 / 6.45 |
+
+- Ladder medians by level (−2 … +3): 2.0, 2.0, 2.6, 4.4, 6.6, 9.7. Level −2 is valid for only ≈ 51% of images (strokes vanish); level −1 for 99%.
+- **The thickness measurement has a floor of 2.0** (a one-pixel stroke has distance 1 on its skeleton), so ≥ 15% of images sit exactly at 2.0 and the distribution is lumpy. Not a problem for T3 (q85 ≈ 4.4 is well above the floor), but it may weigh on the G2 criterion Spearman(thick) ≥ 0.8 (ties) and on σ_thick. To check at G2, not assumed.
+- Median |chosen − target| = 0.34 px.
+
 ## 4. Questions
 
 1. Does the tie in Proposition 4 also hold for the constrained solver when λ is decayed? (H-005)

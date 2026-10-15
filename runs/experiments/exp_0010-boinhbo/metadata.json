@@ -1,0 +1,69 @@
+{
+  "run_id": "exp_0010-boinhbo",
+  "status": "SUCCESS",
+  "executor": "kaggle",
+  "kernel": "boinhbo/dce-tier1-data-v1",
+  "git_commit": "be39794c31f657563ec4cbfb51e4c43ab786921f",
+  "requested_hardware": null,
+  "internet": true,
+  "started_at": "2026-10-15T14:23:51.225803+00:00",
+  "finished_at": "2026-10-15T14:25:11.925120+00:00",
+  "git_dirty": true,
+  "submitted_code_sha256": "7dc007c69aeb5c7c49a825957301a9a9f09eceebfe17c8d949a45b4b1d741255",
+  "source_dir": "/home/toska/code/research/Agent-auto-Research",
+  "source_path": "/home/toska/code/research/Agent-auto-Research/src/dce/remote/tier1_prep.py",
+  "source_sha256": "7dc007c69aeb5c7c49a825957301a9a9f09eceebfe17c8d949a45b4b1d741255",
+  "source_git_tracked": true,
+  "config": {
+    "id": "boinhbo/dce-tier1-data-v1",
+    "title": "dce-tier1-data-v1",
+    "code_file": "src/dce/remote/tier1_prep.py",
+    "kernel_type": "script",
+    "language": "python",
+    "is_private": true,
+    "enable_gpu": false,
+    "enable_internet": true,
+    "machine_shape": null,
+    "expected_hardware_contains": null,
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [],
+    "model_sources": [],
+    "timeout_seconds": 3600,
+    "wait_timeout_seconds": 4200,
+    "poll_interval_seconds": 30,
+    "immutable_kernel": true,
+    "kernel_source_expectations": [],
+    "fetch_files": [
+      "result.json",
+      "artifact_manifest.json"
+    ],
+    "required_outputs": [
+      "result.json",
+      "artifact_manifest.json"
+    ],
+    "metrics_file": "result.json",
+    "json_checks": [
+      {
+        "path": "work.processed",
+        "op": "gte",
+        "value": 13000
+      }
+    ],
+    "parameters": {}
+  },
+  "error": null,
+  "kernel_version": 1,
+  "remote_status": "KernelWorkerStatus.COMPLETE",
+  "remote_failure_message": null,
+  "observed_hardware": null,
+  "expected_hardware_contains": null,
+  "remote_artifacts": {
+    "provider": "kaggle_kernel",
+    "kernel": "boinhbo/dce-tier1-data-v1",
+    "kernel_version": 1,
+    "manifest": "artifact_manifest.json",
+    "manifest_sha256": "dc6d21b3fd287609ba1c80f052103883dd69c8db19c54a091287c480b1e591be"
+  },
+  "account": "boinhbo"
+}
