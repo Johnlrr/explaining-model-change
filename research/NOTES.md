@@ -16,14 +16,14 @@ Raw observations and unresolved items only. Do not store final results here.
 
 ### Kick-off inconsistencies found while mapping the spec (2026-10-15)
 
-- Spec §9 (G0, G1, G2) and §7 use test points for development checks. Resolved as D-002 (validation), pending confirmation.
+- Spec §9 (G0, G1, G2) and §7 use test points for development checks. Resolved as D-009: the user chose to follow the spec; restrictions in `docs/EVALUATION.md` §6.
 - Spec §12–§13 layout and log path differ from AGENTS.md. Resolved as D-001.
 - Spec §8 H4 tolerance is 1e-3; the proposal used 1e-4. Spec governs (D-005).
 - Spec G0 criterion (Flip_color difference ≥ 0.15 for T1) is not the proposal's sensitivity criterion (S_k difference ≥ 0.20). Spec governs.
 
 ### Repository state observed at kick-off
 
-- `runs/smoke/` contains about 40 folders from earlier topics (e.g. `phase0_*`, `controlled_*`, `exp_011_*`). They are not in Git and are not evidence for this project. Do not cite them. Decide whether to delete them only after the human confirms.
+- `runs/smoke/` held about 40 untracked folders from an earlier, failed topic. Deleted on 2026-10-15 at the user's instruction (only `.gitkeep` remains).
 - `src/` has only `.gitkeep`. `pyproject.toml` packages only `tools*`; add `src/dce` when code starts.
 - `docs/RESEARCH_PROTOCOL.md`, `docs/PROMPTS.md`, and `docs/acceptance/` are generic and were left unchanged.
 - No local GPU. `nvidia-smi` is not available.
@@ -74,7 +74,7 @@ None yet.
 
 - [ ] ESANN 2027 special session and dates (D-004).
 - [ ] Morpho-MNIST: the package installs or the skimage re-implementation is used (spec §4.3; the spec allows either).
-- [ ] Shape-oracle accuracy thresholds on validation images (≥ 98% real, ≥ 95% reconstructions) at G2.
+- [ ] Shape-oracle accuracy thresholds on real images (≥ 98%) and reconstructions (≥ 95%) at G2.
 - [ ] The VAE checkpoint size is below 5 MB (EVALUATION §12).
 
 ---

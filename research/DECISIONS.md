@@ -11,13 +11,14 @@
 | ID | Short title | Status | Date | Related hypotheses | Related experiments |
 |---|---|---|---|---|---|
 | D-001 | Map the delta spec onto the AGENTS.md layout | active | 2026-10-15 | all | — |
-| D-002 | Development gates use validation, not test | active, pending confirmation | 2026-10-15 | H-001–H-003 | G0, G1, G2 |
+| D-002 | Development gates use validation, not test | reversed by D-009 | 2026-10-15 | H-001–H-003 | G0, G1, G2 |
 | D-003 | Contribution type and primary acceptance rule | active | 2026-10-15 | H-001–H-003 | — |
-| D-004 | Venue, dates, and special session taken from the source spec, not verified | active, pending confirmation | 2026-10-15 | — | — |
+| D-004 | Venue, dates, and special session | active, confirmed by the user | 2026-10-15 | — | — |
 | D-005 | The spec supersedes the proposal where they differ | active | 2026-10-15 | H-001–H-006 | — |
 | D-006 | Environment split: Tier L and Tier 0 local CPU; Tier 1 Kaggle GPU | active | 2026-10-15 | H-001–H-003 | exp_TBD |
 | D-007 | Baselines are re-implemented, no external code | active | 2026-10-15 | H-001, H-002 | — |
 | D-008 | Research branch and kick-off commit | active | 2026-10-15 | — | — |
+| D-009 | Gates follow the spec (test split used for gate statistics, with restrictions) | active | 2026-10-15 | H-001–H-003 | G0, G1, G2 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -92,7 +93,7 @@ None.
 ## D-002 — Development gates use validation, not test
 
 ### Status
-active, **pending human confirmation**
+reversed by D-009 (the user chose to follow the spec, 2026-10-15)
 
 ### Context
 The source spec applies several development checks to test data: G0 on 2 000 clean test points (spec §9); G1 pilot with N = 100 points from the test set (§9); G2 shape-oracle accuracy on test images (§9); and the seeds for the evaluation points are drawn from test (§7). `docs/EVALUATION.md` §5–§6 forbids test information from flowing into development, and the spec's own G0 knobs (≤ 2 adjustments) would then be chosen on test.
@@ -154,16 +155,16 @@ None.
 
 ---
 
-## D-004 — Venue, dates, and special session from the source spec, not verified
+## D-004 — Venue, dates, and special session
 
 ### Status
-active, **pending human confirmation**
+active. Confirmed by the user on 2026-10-15: the 6-page limit is real and the target is ESANN 2027. A web check the same day found the special session announced by its organisers, with the conference at 21–23 April 2027 and a submission deadline of 18 November 2026 on esann.org; the session's own call text was not found on the ESANN special-sessions page (which lists only general rules).
 
 ### Context
 The spec states the ESANN 2027 special session "From Understanding Distributional Change to Informed Action", a page budget of 6 pages including figures and references, and dates (internal submission 16/11, hard deadline 18/11/2026). The spec lists these as items to confirm (spec §16: session vs regular track, author registration commitment before 12/02/2027, GPU account and quota, arXiv policy). The proposal lists the page limit and special-session existence as unverified assumptions (proposal §11).
 
 ### Decision
-Treat the dates and the session as project inputs, not verified facts. The research timeline depends on the freeze (17/10) and the internal deadline (16/11). Verification is a blocker for the paper, not for the experiments.
+Use the dates and the 6-page limit as project inputs. The special-session track is the user's choice (spec §16 item 1).
 
 ### Rationale
 These claims were taken from a web reading in the spec and proposal; the repository does not contain the venue guidelines.
@@ -178,7 +179,7 @@ Verify now via web search — deferred to the G-lit step, which covers literatur
 GOAL and CONSTRAINTS use the dates as HARD and mark them unverified.
 
 ### Revisit condition
-When the ESANN 2027 call and author guidelines are read.
+If the ESANN author guidelines differ from the spec when the paper is drafted.
 
 ### Supersedes / superseded by
 None.
@@ -311,6 +312,37 @@ None.
 
 ---
 
+## D-009 — Gates follow the spec
+
+### Status
+active
+
+### Context
+D-002 proposed moving the spec's test-based gates to validation to keep the test split blind. The user decided to follow the spec.
+
+### Decision
+G0, the G1 pilot, and G2 use the splits written in the spec, including the test split. To keep the method comparison honest, `docs/EVALUATION.md` §6 limits what may be read from test before the candidate is locked: aggregate gate statistics only (Flip_k, classifier accuracy and agreement, oracle Spearman and accuracy, found-rate and runtime for the pilot). The pilot's Recovery@r, share, attribution vectors, and per-sample outputs are not inspected, and only the solver-repair options named in the spec (restarts, λ schedule, initialisation from the ordinary CE) may be changed after a failed G1. These two restrictions are additions by the Research Lead; the user may drop them. `r` is calibrated on validation as in the spec.
+
+### Rationale
+The user's instruction. The gate statistics describe the benchmark and solver mechanics, not the Δ-CE versus baseline comparison, so the restrictions keep the comparison metrics unread.
+
+### Evidence
+Spec §7 and §9; `docs/EVALUATION.md` §6.
+
+### Alternatives considered
+D-002 (validation-based gates). Not chosen by the user.
+
+### Consequences
+The test split is not blind with respect to the gate statistics, and the paper states this. Any change motivated by a test method-comparison metric is exploratory (spec §13).
+
+### Revisit condition
+None before the final test.
+
+### Supersedes / superseded by
+Supersedes D-002.
+
+---
+
 ## 4. Status semantics
 
 `active`: in force. `superseded`: replaced by a later decision (name it). `reversed`: the opposite was decided (name it).
@@ -380,4 +412,4 @@ Do not delete decisions. Mark them superseded.
 ## 15. Completion checklist
 
 - [x] Decisions D-001 to D-008 have status, context, decision, rationale.
-- [ ] D-002 and D-004 confirmed by the human.
+- [x] D-002 reversed (D-009) and D-004 confirmed by the human.

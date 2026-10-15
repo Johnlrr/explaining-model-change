@@ -6,7 +6,7 @@
 >
 > This file is the source of truth for whether an experiment is scientifically valid and whether the project has met its success criteria.
 >
-> Source protocol: `docs/source/delta_ce_spec.md` §4–§9. Where this file differs from that source, this file governs. Differences: (a) development gates use the validation split, not the test split (§5, §6 below; decision D-002 in `research/DECISIONS.md`, pending human confirmation).
+> Source protocol: `docs/source/delta_ce_spec.md` §4–§9. Where this file differs from that source, this file governs. The gate procedure (G0–G2) follows the source spec, including its use of the test split for gate checks (§6 below; decision D-009 in `research/DECISIONS.md`).
 
 ---
 
@@ -60,7 +60,7 @@ Secondary metrics (§3) are reported but do not change the acceptance rule.
 
 **Tier 0 — Ellipses renderer (synthetic).** 32×32×3 images from a 5-factor differentiable renderer (aspect, size, colour, background, horizontal position), factors sampled i.i.d. uniform on [0,1]. Label `y = 1[φ1 > 0.5]` with 5% label noise in the training split only. Version: spec §4.2 (renderer v1.0, data seed 1234). Sizes: train 20 000, validation 5 000, test 5 000. Ground-truth factors are exact.
 
-**Tier 1 — Colored MorphoMNIST, 4 vs 9 (real digits, synthetic colour/thickness).** Source: MNIST digits 4 and 9 from torchvision (public download, allowed). Official train split → 90% train / 10% validation (seed 1234). Official test split (digits 4 and 9) → test. Colour and background are sampled; thickness is re-measured on each image (`2 × mean distance-transform on skeleton`). Ground-truth factors: colour φc and background φb (exact, sampled), thickness (measured, the measurement is the ground truth), shape (shape-oracle label). Tier 1 factor values are read through the analytic oracle of spec §5.3, validated at gate G2 on validation images only.
+**Tier 1 — Colored MorphoMNIST, 4 vs 9 (real digits, synthetic colour/thickness).** Source: MNIST digits 4 and 9 from torchvision (public download, allowed). Official train split → 90% train / 10% validation (seed 1234). Official test split (digits 4 and 9) → test. Colour and background are sampled; thickness is re-measured on each image (`2 × mean distance-transform on skeleton`). Ground-truth factors: colour φc and background φb (exact, sampled), thickness (measured, the measurement is the ground truth), shape (shape-oracle label). Tier 1 factor values are read through the analytic oracle of spec §5.3, validated at gate G2 (spec §9).
 
 **Known exclusions.** None beyond the stated filters. Pixels or images are never removed after seeing results.
 
@@ -74,13 +74,12 @@ Train (Tier 0: 20 000; Tier 1: 90% of MNIST 4/9 train):
 - may be inspected during development.
 
 Validation (Tier 0: 5 000; Tier 1: 10% of MNIST 4/9 train):
-- hypothesis selection, gate decisions G0–G2, pilot runs (N = 100), restart/λ schedule checks,
-  calibration of r, shape-oracle qualification, sample-level error analysis, diagnostics.
-- the ≤2 pre-declared G0 adjustments (spec §4.4) are decided on validation only.
+- hypothesis selection, calibration of r, restart/λ schedule checks, sample-level error analysis, diagnostics.
 
 Test (Tier 0: 5 000 renderer samples; Tier 1: official MNIST 4/9 test split):
-- evaluated ONLY once per locked candidate, through the final procedure in §19.
-- must not be used for any gate, tuning, diagnostics, hypothesis generation, or implementation decision.
+- gate checks listed in §6 (aggregate statistics only);
+- the final evaluation in §19, once per locked candidate;
+- no sample-level inspection, no tuning, and no method-comparison metric (Recovery@r, share, AUROC) before the candidate is locked.
 ```
 
 Adaptation sets (10 000 Tier 0 / 8 000 Tier 1) are drawn from the training split and are not used for evaluation.
@@ -91,17 +90,21 @@ Adaptation sets (10 000 Tier 0 / 8 000 Tier 1) are drawn from the training split
 
 The test set is blind only if the evaluated method was developed without any information derived from it. Forbidden flows are as listed in the template: aggregate test metrics, per-sample test predictions, subgroup test performance, test-failure inspection, and any method or hyperparameter change motivated by test results.
 
-**Project-specific clarification (D-002).** The source spec applies some gates to test samples (G0 on 2 000 test points, G1 pilot on test points, G2 shape-oracle accuracy on test images). Under this file those checks use **validation** samples instead:
+**Project-specific rule (D-009).** The source spec applies the gates to test samples. This project follows the spec. The test split may therefore be read for the benchmark-qualification and solver-mechanics checks below, and only for the aggregate statistics named there:
 
-| Gate or step | Split used |
-|---|---|
-| G0 (phenomenon check, Flip_k, accuracy on clean data) | validation |
-| G1 (H4 check, pilot with N = 100, runtime) | Tier L synthetic; pilot points from validation |
-| G2 (oracle correlation, shape-oracle accuracy, G0-Tier 1) | validation images |
-| r calibration | validation (T1 seed 0, 300 points) |
-| H1–H4 and P-tie tests | test (final procedure only) |
+| Gate or step | Split | Statistics that may be read |
+|---|---|---|
+| G0 (phenomenon check) | test, 2 000 clean points (spec §9) | Flip_k, classifier accuracy, agreement f_new = f_old |
+| G1 (H4 check) | Tier L synthetic | H4 tolerances |
+| G1 (pilot, seed 0, N = 100, all methods) | test points, spec §7 sampling | found-rate and runtime only |
+| G2 (oracle correlation, shape-oracle accuracy, G0-Tier 1) | test images (spec §9) | Spearman, accuracy, agreement, Flip_k |
+| σ_k normalisation of φ̃ (Tier 1) | clean test images (spec §5.3) | σ_k |
+| r calibration | validation, T1 seed 0, 300 points | median CE distance |
+| H1–H4 and P-tie tests | test, final procedure only | all |
 
-Consequence: a test-set result may be reported only once per locked candidate. If a test result is later used to change a method, the test set is no longer blind for that method (see §6 "Reusing the same test set").
+Restrictions that keep the comparison honest: the pilot's Recovery@r, share, attribution vectors, and per-sample outputs are not inspected, and only the solver-repair options named in spec §9 (restarts, λ schedule, initialisation from the ordinary CE) may be changed after a failed G1. The ≤ 2 pre-declared G0 adjustments (spec §4.4) are decided on the G0 statistics above. The paper reports that gates used the test split.
+
+Consequence: the gate statistics are test-derived information about the benchmark and solver, not about the method comparison. Any change motivated by a method-comparison metric on test voids blindness for the changed method (see §6 "Reusing the same test set").
 
 ### Reusing the same test set for a later method
 
@@ -137,7 +140,7 @@ Shared controls for all methods: same dataset/split, same classifiers, same poin
 ```text
 1. Select a locked experiment commit and configuration (configs/experiments/exp_NNNN.yaml).
 2. Verify the data version: Tier 0 renderer hash + data seed 1234; Tier 1 MNIST source and digit filter.
-3. Verify split usage: test access only if the run kind is "final" (§19); otherwise validation.
+3. Verify split usage: test access only for the gate statistics in §6 and for run kind "final" (§19); validation otherwise.
 4. Build the classifier pairs (f_old^(s), f_new^(pair)); verify clean accuracy ≥ 95% (Tier 0) / ≥ 97% (Tier 1) on validation.
 5. For each pair: sample N valid points (§3.2 of spec: both margins ≥ κ, label matches) with seed 5000 + pair_id.
 6. Run every method (Δ-CE N, Δ-CE O where specified, B1, B1-det, B3, B4, ablations) on the same points.
@@ -240,7 +243,7 @@ Permitted information: sample IDs, factor values, predictions, margins, witness 
 Purpose: identify failure modes (e.g. restarts, λ schedule, not-found cases) and generate hypotheses.
 ```
 
-Diagnostic results must not be used to choose individual points, and improvement on inspected validation points is not evidence of general improvement.
+Diagnostic results must not be used to choose individual points, and improvement on inspected validation points is not evidence of general improvement. Test-split gate statistics (§6) are aggregate only; no sample-level test inspection is permitted.
 
 ### Confirmation evaluation
 
@@ -264,7 +267,7 @@ A candidate is promoted only if it satisfies §15 on the test split. Validation 
 
 ```text
 Dataset/split: identical per pair and per tier for all methods.
-Preprocessing: identical factor normalisation φ̃ = φ̂ / σ_k (Tier 0: σ_k = 1; Tier 1: σ_k from clean test images of D(μ(x)), see spec §5.3 — σ_k is computed on validation to keep test blind).
+Preprocessing: identical factor normalisation φ̃ = φ̂ / σ_k (Tier 0: σ_k = 1; Tier 1: σ_k from clean test images of D(μ(x)), spec §5.3, D-009).
 Model initialisation: same f_old and f_new for all methods of a pair.
 Training budget: fixed per spec §5.1 and §4.4.
 Evaluation budget: same R = 5, T = 400, lr = 0.05, λ0 = 1.0, σ = 0.05 for Δ-CE and CE searches; B3 is closed-form.
@@ -311,7 +314,7 @@ Required uncertainty/statistical condition:
 Constraint checks:
   - compute budget (docs/CONSTRAINTS.md §2): cumulative GPU-hours ≤ 10;
   - runtime per pair ≤ 5 minutes for Δ-CE (G1 requirement, reported);
-  - no test-set use before the candidate is locked (§6, §19).
+  - test-set use limited to the §6 gate statistics before the candidate is locked (§6, §19).
 
 Route consequences (spec §10, mirrored in research/DECISIONS.md):
   Route A — conditions (1) and (2) hold: claim the Δ-CE method with the benchmark.
@@ -329,7 +332,7 @@ A single favourable run or a single tier is not sufficient.
 A result is scientifically valid only if all applicable requirements hold.
 
 - [ ] Correct benchmark and version (Tier 0 renderer hash, data seed 1234; Tier 1 MNIST 4/9 filter).
-- [ ] Correct split: test only in the final procedure; validation otherwise.
+- [ ] Correct split: test only for the §6 gate statistics and the final procedure; validation otherwise.
 - [ ] Test-set blindness preserved (§6).
 - [ ] Expected pair count and point count completed (17 × 300 for Tier 0; 11 × 200 for Tier 1).
 - [ ] Intended config used (hash in run metadata).
@@ -341,7 +344,7 @@ A result is scientifically valid only if all applicable requirements hold.
 - [ ] No result-dependent change of r, κ, λ schedule, split, or benchmark.
 - [ ] No seed, checkpoint, or point cherry-picking.
 - [ ] Clean accuracy thresholds met (≥ 95% Tier 0, ≥ 97% Tier 1) on validation.
-- [ ] For Tier 1: shape oracle accuracy ≥ 98% on real validation images and ≥ 95% on reconstructions (gate G2).
+- [ ] For Tier 1: shape oracle accuracy ≥ 98% on real images and ≥ 95% on reconstructions (gate G2).
 
 A completed remote job is not automatically a valid research result.
 
@@ -352,7 +355,7 @@ A completed remote job is not automatically a valid research result.
 An experiment is invalid evidence if, for example:
 
 - a method or config was changed after its test result was seen;
-- test samples were used for a gate, diagnostic, or implementation choice;
+- test samples were used for a sample-level diagnostic, or a gate statistic beyond those listed in §6;
 - r, κ, or the λ schedule were changed after results;
 - the Kaggle job was cut at the hard timeout before all pairs completed;
 - a checkpoint hash does not match the manifest;
@@ -438,7 +441,7 @@ The reproduction step in the source spec (§15, 9–12/11) is part of this proce
 - [x] Reuse rule for the test set explicit.
 - [x] Diagnostic access policy defined (validation only).
 - [x] Confirmation procedure and promotion criterion predefined.
-- [x] Test data excluded from development diagnostics and gates (D-002, pending confirmation).
+- [x] Test use for gates limited to the aggregate statistics in §6 (D-009); no sample-level test diagnostics.
 - [x] Baseline reproduction/evaluation defined (B1 primary, B3 secondary).
 - [x] Seeds and repetitions defined.
 - [x] Aggregation rules fixed.

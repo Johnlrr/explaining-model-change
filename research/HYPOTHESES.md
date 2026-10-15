@@ -70,7 +70,7 @@ Classifiers, points, r, φ̃, normalisation, R = 5 restarts, κ = 0.5, λ schedu
 Tier 1, T1 and T3, seeds 0–2, 200 points each, Δ-CE N and B1 and B1-det. Smoke: Tier 1 seed 0, 20 points, same code path.
 
 ### Confirmation procedure
-Validation pilot at G2 (validation split, N = 100), then the final test procedure (EVALUATION §19) once for the locked candidate.
+G1 pilot per EVALUATION §6 (found-rate and runtime only), then the final test procedure (EVALUATION §19) once for the locked candidate.
 
 ### Parent and dependencies
 Depends on H-004 (solver correct) and the G0 gate (drift is real).
@@ -127,10 +127,10 @@ As H-001, B3 closed form.
 Tier 0 T3 seeds 0–2, 300 points; Tier 1 T3 seeds 0–2, 200 points.
 
 ### Confirmation procedure
-Validation diagnostic first; then the final test once per tier.
+Validation diagnostic first; then the final test once per tier (EVALUATION §19).
 
 ### Parent and dependencies
-H-004; G0 (T3 changes the model: test-free check on validation).
+H-004; G0 (T3 changes the model: Flip/accuracy check, EVALUATION §6).
 
 ### Prior-work relation
 Artelt et al. Eq. 14 (B3). Muschalik et al. 2022 (global feature importance, B4).
@@ -285,7 +285,7 @@ As H-001.
 Tier 0, T1 and T4, seeds 0–2.
 
 ### Confirmation procedure
-Validation check at G1 for direction; test once.
+Direction check on validation at G1; test once.
 
 ### Parent and dependencies
 H-001.

@@ -10,12 +10,12 @@
 
 | ID | Title / source | Year | Relevance | Status | Related hypotheses | Code available |
 |---|---|---:|---|---|---|---|
-| L-001 | Artelt, Hinder, Vaquet, Feldhans, Hammer — *Contrastive Explanations for Explaining Model Adaptations* (arXiv:2104.02459) | 2021 | high | discovered | H-001, H-005, H-006 | unknown |
-| L-002 | Artelt et al. — *Contrasting Explanations for Understanding and Regularizing Model Adaptations* (Neural Processing Letters) | 2022 | high | discovered (full text required, G-lit) | H-001, H-002 | unknown |
-| L-003 | Hinder, Hammer — *Counterfactual Explanations of Concept Drift* (arXiv:2006.12822) | 2020 | high | discovered | H-003 | unknown |
-| L-004 | Hammer, Hüllermeier — *Interpretable Machine Learning: On the Problem of Explaining Model Change* | 2021 | medium | discovered (full text required) | H-003 | no |
-| L-005 | Muschalik, Fumagalli, Hammer, Hüllermeier — *Agnostic Explanation of Model Change based on Feature Importance* (KI) | 2022 | medium | discovered | H-002 (B4) | unknown |
-| L-006 | Augustin et al. — *DiG-IN: Diffusion Guidance for Investigating Networks* (CVPR; arXiv:2311.17833) | 2024 | high | discovered | H-006 | unknown |
+| L-001 | Artelt, Hinder, Vaquet, Feldhans, Hammer — *Contrastive Explanations for Explaining Model Adaptations* (arXiv:2104.02459v2; IWANN 2021) | 2021 | high | reviewed (full text, 26 pp.) | H-001, H-005, H-006 | unknown |
+| L-002 | Artelt et al. — *Contrasting Explanations for Understanding and Regularizing Model Adaptations* (Neural Processing Letters) | 2022 | high | follow_up_needed (journal full text paywalled; arXiv version of L-001 read instead) | H-001, H-002 | unknown |
+| L-003 | Hinder, Hammer — *Counterfactual Explanations of Concept Drift* (arXiv:2006.12822) | 2020 | high | screened (abstract and citing search) | H-003 | unknown |
+| L-004 | Hammer, Hüllermeier — *Interpretable Machine Learning: On the Problem of Explaining Model Change* | 2021 | medium | follow_up_needed (not found in search; not read) | H-003 | no |
+| L-005 | Muschalik, Fumagalli, Hammer, Hüllermeier — *Agnostic Explanation of Model Change based on Feature Importance* (KI, DOI 10.1007/s13218-022-00766-6) | 2022 | medium | screened (identified; full text not read) | H-002 (B4) | unknown |
+| L-006 | Augustin et al. — *DiG-IN: Diffusion Guidance for Investigating Networks* (CVPR; arXiv:2311.17833) | 2024 | high | screened (abstract and search result descriptions) | H-006 | unknown |
 | L-007 | Weng et al. — *FastDiME* (ECCV; arXiv:2312.14223) | 2024 | medium | discovered | — | unknown |
 | L-008 | Hamman et al. — *Robust Counterfactual Explanations for Neural Networks With Probabilistic Guarantees* (ICML) | 2023 | medium | discovered | — | unknown |
 | L-009 | *Provably Robust Bayesian Counterfactual Explanations under Model Changes* (PSCE; arXiv:2601.16659) | 2026 | medium | discovered | — | unknown |
@@ -27,6 +27,7 @@
 | L-015 | *Explaining Concept Drift through the Evolution of Group Counterfactuals* (arXiv:2509.09616) | 2025 | low | discovered | — | unknown |
 | L-016 | Wachter, Mittelstadt, Russell — *Counterfactual Explanations without Opening the Black Box* | 2017 | medium | discovered | background | n/a |
 | L-017 | Yan et al. — *Positive-Congruent Training* (CVPR) | 2021 | low | discovered; not re-checked in the proposal | negative flips | unknown |
+| L-019 | Hinder, Vaquet, Brinkrolf, Hammer — *Model Based Explanations of Concept Drift* (arXiv:2303.09331; Neurocomputing 2023) | 2023 | medium | reviewed (arXiv full text, keyword read) | H-003 | no |
 | L-018 | Kaden, Paassen, Hammer, Schubert, Villmann — *Reliable Counterfactuals for Machine Learning Models* (ESANN 2026) | 2026 | low | discovered | venue context | unknown |
 
 Allowed relevance values: high, medium, low.
@@ -44,7 +45,24 @@ Suggested status values: discovered, screened, reviewed, follow_up_needed, not_r
 | 2026-10-15 | Proposal §2.1 web search (Artelt 2021/2022, Hinder & Hammer, Muschalik, DiG-IN, FastDiME, Hamman, PSCE, ECCCo, Geometric view, Group CE) | list L-001–L-015 |
 | 2026-10-15 | Spec §2 (reading of Artelt et al. arXiv:2104.02459v2 §3, Def. 3, Thm 1–2, §4.2, experiments) | recorded in spec; full text check not repeated in this session |
 
-Not yet done (G-lit, due 17/10): full-text reading of L-002, L-004, L-005; citing-paper search (Semantic Scholar) for L-001 and L-006 with terms "explaining model updates", "negative flip explanation", "backward-compatible explanations", "explanation of model differences counterfactual", "disagreement witness".
+| 2026-10-15 | G-lit: arXiv:2104.02459 PDF read (text extracted with pypdf): Section 2–5 and experiments | verified the points in the G-lit result below |
+| 2026-10-15 | G-lit: Springer NPL 2022 page | paywalled (login redirect); journal full text NOT read |
+| 2026-10-15 | G-lit: arXiv:2303.09331 PDF, keyword read (counterfactual, disagree, ground truth, characteristic) | no old-vs-new classifier witness; see L-019 |
+| 2026-10-15 | G-lit: OpenAlex citing lists for Artelt 2021 (7 citers), NPL 2022 (6), DiG-IN (4); Semantic Scholar was rate-limited | no citer defines a disagreement witness; OpenAlex coverage is partial |
+| 2026-10-15 | G-lit: web searches "explaining model updates / negative flips / old vs new classifier disagreement", "explaining model differences counterfactual two classifiers" | closest: DiG-IN (L-006), robust-CE papers (L-008–L-010); no witness-on-disagreement-region paper found |
+| 2026-10-15 | ESANN 2027 special session query | session found via an organiser's post; conference 21–23 Apr 2027, deadline 18 Nov 2026 per esann.org (see DECISIONS D-004) |
+
+### G-lit result (2026-10-15)
+
+Verified in the full text of arXiv:2104.02459 (L-001):
+
+- Section 3 states that an "obvious approach" is to explain the region {x | h(x) ≠ h'(x)}, but "this set might be small and its characterization not meaningful", so they explain generalisation rules via a comparison of contrastive explanations instead (footnote 8 calls the disagreement region "an obvious and reasonable starting point"). The spec's claim C2 is correct.
+- Definition 3 compares the counterfactuals of the two models at a point; Ψ is a distance or a cosine form (Eq. 12–13). The interest function is i(x,h,h') = Ψ(CF(x,h), CF(x,h')) (Eq. 11), and Eq. 14 gives the gradient approximation CF(x,h) ≈ x − η h(x) ∇f(x). Matches B1 and B3 in the spec.
+- Theorem 1 and 2 are for linear sign(w^T x) classifiers with ‖w‖ = 1 and no bias (Eq. 8). Matches spec §2.
+- Experiments (Gaussian blobs, Boston housing, German credit, loan approval, coffee hyperspectral, human activity recognition; GNB, linear regression, decision tree) are judged by plotting the mean counterfactual differences. In Gaussian blobs and house prices the changed feature is known and checked by eye; for HAR the text says "we do not really know the ground truth". No quantitative recovery metric, no image data, no null pairs.
+- Adaptation setup (Eq. 1) requires new and old model to agree on the labelled samples, which is why disagreement sets are small.
+
+Not verified (limits of this G-lit): the journal text of L-002 (paywalled); L-004 (Hammer & Hüllermeier 2021; not found); L-005 full text; the citing-paper lists are from OpenAlex only. Gate status: **passed provisionally**; no witness-on-disagreement-region work or ground-truth model-change benchmark was found in what could be read. The L-002 journal text remains the main residual risk (§11).
 
 ---
 
@@ -88,7 +106,7 @@ Use the template in the earlier version of this file (git history). Full entries
 | Benchmark with exact or analytic ground truth for model change | candidate | none found in the proposal search |
 | Predicted tie on local drift (P-tie) | candidate | a prediction, not a result |
 
-Novelty values follow the template: candidate | supported | uncertain | not_novel. **No claim of novelty is made until G-lit is complete.**
+Novelty values follow the template: candidate | supported | uncertain | not_novel. **G-lit passed provisionally (see §2); novelty statuses stay `candidate` until the remaining reads in §12 are done.**
 
 ---
 
@@ -120,8 +138,8 @@ H-001 to H-003 are taken from the gaps in §8. H-005 comes from Proposition 4 (A
 
 ## 11. Novelty threats
 
-- **Artelt et al. NPL 2022** may already define a disagreement-based explanation in its "persistent explanations" section. The spec states that Artelt et al. set disagreement regions aside (spec §2, citing §3 of arXiv:2104.02459). This must be checked in full text. **If a disagreement witness with a ground-truth benchmark exists, the project moves to Route B′ or Stop (spec §10).**
-- **Hinder et al. (model-based explanations of concept drift)** is listed in the spec's G-lit. Not yet read.
+- **Artelt et al. NPL 2022 (journal version)** was not readable (paywall). The arXiv/IWANN version confirms that disagreement regions are set aside (see G-lit result) and its "persistent explanations" section (Section 5) constrains the adapted model so that chosen local explanations stay valid; it does not search for disagreement witnesses. The journal version adds a region-finding method; if it contains a disagreement witness with a ground-truth benchmark, the project moves to Route B′ or Stop (spec §10). Re-check if full text becomes available (author preprint or institutional access).
+- **Hinder et al. (L-019)** explains data drift by training models that separate the data before/after drift and applying explainers (feature importance, prototypes, counterfactuals). It does not compare an old and a new classifier. Low threat.
 - **Muschalik et al. 2022** may include a local variant. To be checked.
 
 ---
@@ -130,12 +148,13 @@ H-001 to H-003 are taken from the gaps in §8. H-005 comes from Proposition 4 (A
 
 Full-text reading for G-lit (due 17/10):
 
-1. L-002 Artelt et al. NPL 2022: the persistent-explanations section and theorems.
-2. L-004 Hammer & Hüllermeier 2021.
-3. L-005 Muschalik et al. 2022.
-4. Hinder et al., "Model-based explanations of concept drift".
-5. Citing papers of L-001 and L-006 (Semantic Scholar).
-6. Keyword searches listed in §2.
+Remaining after G-lit:
+
+1. L-002 journal full text (paywalled) — try the Bielefeld repository record or an author preprint.
+2. L-004 Hammer & Hüllermeier 2021 — locate.
+3. L-005 Muschalik et al. 2022 — read the KI article.
+4. Re-run the citing-paper search with Semantic Scholar when the rate limit allows.
+5. Verify arXiv identifiers and years in §1 before citation.
 
 ---
 
@@ -153,7 +172,7 @@ Record the query and date in §2 for each search that influences a decision.
 
 ## 15. Novelty review before contribution claim
 
-No contribution claim is written into the paper until §6 is updated after G-lit, and the L-002 full text has been read.
+No contribution claim is written into the paper until §6 is updated and the remaining items in §12 are closed or accepted as residual risk by the human.
 
 ---
 
@@ -180,6 +199,7 @@ Update the index, the search history, and the novelty map together.
 - [x] Index with IDs and statuses.
 - [x] Search history recorded.
 - [x] Novelty map with status values.
-- [ ] Full-text reading of L-002, L-004, L-005, and Hinder et al. (G-lit).
-- [ ] Citing-paper search done.
+- [x] G-lit performed (provisional pass); arXiv version of L-001 read in full.
+- [ ] L-002 journal text, L-004, L-005 full texts (remaining residual risk).
+- [ ] Citing-paper search repeated on Semantic Scholar.
 - [ ] arXiv identifiers verified.

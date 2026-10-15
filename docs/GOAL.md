@@ -118,4 +118,4 @@ Secondary objectives must not replace the primary objective.
 - [x] Exact evaluation details are delegated to `docs/EVALUATION.md`.
 - [x] Out-of-scope boundaries are explicit.
 - [x] Non-goals prevent obvious shortcuts or misleading success claims.
-- [ ] Human confirmation of the open items in `research/DECISIONS.md` (D-002, D-004) — required before the G-lit gate closes.
+- [x] Human confirmation of D-004 (venue and 6-page limit verified by the user) and of the spec-based gate procedure (D-009), 2026-10-15.

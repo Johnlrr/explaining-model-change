@@ -144,7 +144,7 @@ Other: Not allowed: diffusion or inpainting models in the search space (spec sco
 ## 9. Forbidden resources and actions
 
 ```text
-- Using test-split samples for any development decision (EVALUATION §6).
+- Using test-split samples beyond the aggregate gate statistics and the final procedure (EVALUATION §6).
 - Editing docs/ during autonomous research (AGENTS.md).
 - Committing credentials; Kaggle tokens stay in the private accounts directory (README "Connected Kaggle accounts").
 - Running any experiment on a Kaggle account other than the ones connected through the repository harness.
@@ -172,7 +172,7 @@ Other: Not allowed: diffusion or inpainting models in the search space (spec sco
 - r is calibrated once (2 × median CE distance of f_new on 300 T1-seed-0 validation points), then frozen.
 - Architecture is fixed: the classifier in spec §5.1 (≈ 60k parameters) and the VAE in spec §5.2 (latent dim 16).
 - Allowed knobs for G0 only, at most two adjustments per condition, all declared in spec §4.4. Any other tuning is forbidden.
-- The method must not use the label of a test example, a test margin, or a test witness to choose any setting.
+- The method must not use the label of a test example, a test margin, or a test witness to choose any setting; test gate statistics are aggregate only (EVALUATION §6).
 ```
 
 ---

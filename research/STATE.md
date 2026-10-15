@@ -23,7 +23,7 @@ Current branch: research/delta-ce (from main)
 
 Test whether Δ-CE (minimal on-manifold witnesses on which exactly one model changes its decision) recovers the injected factor of a known model change, and separates drift from null pairs, better than CE differencing (B1) and gradient difference (B3). Acceptance rule: `docs/EVALUATION.md` §15.
 
-Next gate: G-lit (17/10/2026). Spec freeze: 17/10/2026 23:59 ICT.
+Next gate: G0 (20/10/2026). Spec freeze: 17/10/2026 23:59 ICT.
 
 ---
 
@@ -84,9 +84,9 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 
 ## 8. Next action
 
-1. **G-lit (by 17/10):** read full texts listed in `research/LITERATURE.md` §12 (Artelt et al. NPL 2022 persistent explanations; Hammer & Hüllermeier 2021; Muschalik et al. 2022; Hinder et al. model-based drift explanations; citing papers of Artelt 2021 and DiG-IN). Record each in `research/LITERATURE.md`. Decide: continue, narrow to benchmark + H3, or Stop.
-2. **Human confirmation** of D-002 (gates on validation, not test; before G0) and D-004 (venue and dates; before the paper) — see `research/DECISIONS.md`.
-3. **G0 (by 20/10):** build Tier 0 renderer, drift data, classifiers (`src/dce/`), and the flip-sensitivity check on validation. CPU only.
+1. **G-lit: done 2026-10-15, passed provisionally** (`research/LITERATURE.md` §2). Close the remaining reads when texts are available; decision to continue is Route A planning.
+2. **Kaggle smoke** (kaggle-gpu and kaggle-prep): record observed hardware; accounts and quota already verified.
+3. **G0 (by 20/10):** build Tier 0 renderer, drift data, classifiers (`src/dce/`), and the Flip_k / accuracy check on 2 000 clean test points as the spec says (aggregate statistics only, EVALUATION §6). CPU only.
 4. Then G1 (H4 + pilot), G2 (Tier 1 on Kaggle), G3.
 
 ---
@@ -117,7 +117,7 @@ Status rule: a test split becomes `evaluated` only in the final procedure (EVALU
 
 ```text
 GPU budget (HARD, 10 GPU-hours): used 0.0 / 10
-Kaggle accounts: not verified (kaggle-gpu status: unverified)
+Kaggle accounts: 3 connected; quota query OK (86.4 GPU-hours remaining in total on 2026-10-15); hardware not yet observed (kaggle-gpu: unverified)
 Local compute: 16 CPU cores, no GPU; Tier 0 and Tier L run on CPU
 Tier 1 Kaggle jobs used: 0 / 4
 ```
@@ -126,16 +126,14 @@ Tier 1 Kaggle jobs used: 0 / 4
 
 ## 12. Current blockers
 
-1. Human confirmation of D-002 (validation-based gates) is needed before G0 (20/10). The agent works with the conservative reading (validation-based gates) until then. D-004 (venue, deadlines) is needed before the paper, not before the experiments.
-2. Kaggle GPU has not been verified on the connected account (smoke required before Tier 1).
-3. ESANN 2027 special-session name and dates are taken from the source spec and not verified.
+1. Kaggle smoke with observed hardware has not been run yet (accounts and quota are verified).
+2. Residual G-lit risk: journal text of Artelt NPL 2022, Hammer & Hüllermeier 2021 and Muschalik 2022 not read (`research/LITERATURE.md` §12).
 
 ---
 
 ## 13. Immediate queue
 
-- [ ] G-lit: full-text reading and `research/LITERATURE.md` update (by 17/10)
-- [ ] Human decisions D-002, D-004
+- [x] G-lit (provisional pass, 2026-10-15)
 - [ ] `src/dce/` package skeleton; add it to `pyproject.toml` packages when code starts
 - [ ] Tier L test `tests/unit/test_linear_theory.py` (H-004)
 - [ ] Tier 0 renderer, drift builder, classifier (G0)
@@ -145,7 +143,7 @@ Tier 1 Kaggle jobs used: 0 / 4
 
 ## 14. Current research phase summary
 
-Phase: W0 (15–17/10): literature and kick-off. Specification and research memory are in place; no code or experiments yet.
+Phase: W0 (15–17/10): kick-off and G-lit done (provisional pass); Kaggle smoke next; no code or experiments yet.
 
 ---
 
