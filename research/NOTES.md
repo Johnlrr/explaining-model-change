@@ -97,6 +97,25 @@ T3 diagnosis (validation):
 - **A decisive-margin version of the accuracy criterion does not rescue seed 2:** accuracy on subgroup points with |m_n| ≥ κ is 0.934 / 0.896 / 0.779.
 - Accuracy kept rising slowly from 5 to 10 epochs only for seed 2 (0.586 → 0.754); seeds 0/1 were flat (0.87 → 0.87, 0.82 → 0.81).
 
+Resolved by the author: option (A) with an added exclusivity condition, amendment v1.3 (D-020).
+
+### exp_0004 — G0 re-evaluation under amendment v1.3 (no training), 2026-10-15
+
+Saved checkpoints (f_old, N0, N1 from exp_0002; T1, T3, T4 from exp_0003), all hash-verified; recomputed numbers match the source runs exactly (max |diff| = 0). **G0-Tier 0 passes: 17/17 pairs, all f_old ≥ 0.95.**
+
+T3 under C1 (seeds 0/1/2):
+
+| | s0 | s1 | s2 | threshold |
+|---|---|---|---|---|
+| (i) ΔFlip_size | 0.3235 | 0.3170 | 0.3190 | ≥ 0.15 |
+| (ii) max_{k≠size} \|ΔFlip_k\| | 0.0170 (posx 0.015) | **0.0465 (aspect)** | 0.0300 (posx) | ≤ 0.05 |
+| (iii) DD outside subgroup | 0.0280 | 0.0100 | 0.0427 | ≤ 0.05 |
+| C2: subgroup acc, raw (v1.2) | 0.866 | 0.814 | 0.754 | was ≥ 0.85 |
+| C2: subgroup acc, \|m_n\| ≥ κ | 0.934 (n=412) | 0.896 (n=384) | 0.779 (n=402) | — |
+
+- (ii) is tight on seed 1: ΔFlip_aspect = −0.0465, 0.0035 below the limit. Aspect is the task factor; f_new becomes less sensitive to it because the subgroup's labels no longer follow aspect. This is a side effect of the T3 design, not a second drift, but it means C1 (ii) can bind on Tier 1 T3 (thick > q85), where the task factor is the digit shape.
+- Other conditions unchanged from exp_0002/exp_0003: T1 ΔFlip_color 0.200 / 0.161 / 0.221; T4 band acc 0.910 / 0.995 / 0.862; N0 and N1 DD = 0 on every seed, max |ΔFlip| ≤ 0.0115.
+
 Options for the user (resolved: author chose c.1 + c.2 and replaced c.3 by the DD criterion; amendment v1.2, D-018):
 
 - (a) Stop, as spec §9 allows.

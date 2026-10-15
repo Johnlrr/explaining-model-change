@@ -1,0 +1,672 @@
+{
+  "f_old": {
+    "0": {
+      "val_accuracy": 0.9812,
+      "meets_95": true,
+      "flip": {
+        "aspect": 0.486,
+        "size": 0.021,
+        "color": 0.007,
+        "bg": 0.0105,
+        "posx": 0.014
+      },
+      "source": "runs/experiments/exp_0002"
+    },
+    "1": {
+      "val_accuracy": 0.9822,
+      "meets_95": true,
+      "flip": {
+        "aspect": 0.488,
+        "size": 0.022,
+        "color": 0.0045,
+        "bg": 0.007,
+        "posx": 0.018
+      },
+      "source": "runs/experiments/exp_0002"
+    },
+    "2": {
+      "val_accuracy": 0.9796,
+      "meets_95": true,
+      "flip": {
+        "aspect": 0.486,
+        "size": 0.0265,
+        "color": 0.0055,
+        "bg": 0.0055,
+        "posx": 0.0125
+      },
+      "source": "runs/experiments/exp_0002"
+    },
+    "3": {
+      "val_accuracy": 0.9824,
+      "meets_95": true,
+      "flip": {
+        "aspect": 0.4885,
+        "size": 0.0175,
+        "color": 0.009,
+        "bg": 0.0105,
+        "posx": 0.0135
+      },
+      "source": "runs/experiments/exp_0002"
+    },
+    "4": {
+      "val_accuracy": 0.9748,
+      "meets_95": true,
+      "flip": {
+        "aspect": 0.4925,
+        "size": 0.028,
+        "color": 0.006,
+        "bg": 0.0065,
+        "posx": 0.012
+      },
+      "source": "runs/experiments/exp_0002"
+    }
+  },
+  "pairs": [
+    {
+      "pair_id": 0,
+      "condition": "T1",
+      "seed": 0,
+      "k_star": 2,
+      "source": "runs/experiments/exp_0003",
+      "f_new_val_accuracy_clean_labels": 0.8392,
+      "flip_old": {
+        "aspect": 0.486,
+        "size": 0.021,
+        "color": 0.007,
+        "bg": 0.0105,
+        "posx": 0.014
+      },
+      "flip_new": {
+        "aspect": 0.4365,
+        "size": 0.0315,
+        "color": 0.207,
+        "bg": 0.012,
+        "posx": 0.0195
+      },
+      "agreement_all": 0.8425,
+      "decisive_disagreement_all": 0.092,
+      "delta_flip": [
+        -0.04949999999999999,
+        0.010499999999999999,
+        0.19999999999999998,
+        0.0014999999999999996,
+        0.0055
+      ],
+      "delta_flip_color": 0.19999999999999998,
+      "pass": true
+    },
+    {
+      "pair_id": 1,
+      "condition": "T1",
+      "seed": 1,
+      "k_star": 2,
+      "source": "runs/experiments/exp_0003",
+      "f_new_val_accuracy_clean_labels": 0.8648,
+      "flip_old": {
+        "aspect": 0.488,
+        "size": 0.022,
+        "color": 0.0045,
+        "bg": 0.007,
+        "posx": 0.018
+      },
+      "flip_new": {
+        "aspect": 0.4455,
+        "size": 0.0345,
+        "color": 0.1655,
+        "bg": 0.0095,
+        "posx": 0.0215
+      },
+      "agreement_all": 0.8715,
+      "decisive_disagreement_all": 0.0685,
+      "delta_flip": [
+        -0.04249999999999998,
+        0.012500000000000004,
+        0.161,
+        0.0024999999999999996,
+        0.0034999999999999996
+      ],
+      "delta_flip_color": 0.161,
+      "pass": true
+    },
+    {
+      "pair_id": 2,
+      "condition": "T1",
+      "seed": 2,
+      "k_star": 2,
+      "source": "runs/experiments/exp_0003",
+      "f_new_val_accuracy_clean_labels": 0.8212,
+      "flip_old": {
+        "aspect": 0.486,
+        "size": 0.0265,
+        "color": 0.0055,
+        "bg": 0.0055,
+        "posx": 0.0125
+      },
+      "flip_new": {
+        "aspect": 0.421,
+        "size": 0.032,
+        "color": 0.2265,
+        "bg": 0.006,
+        "posx": 0.016
+      },
+      "agreement_all": 0.8215,
+      "decisive_disagreement_all": 0.096,
+      "delta_flip": [
+        -0.065,
+        0.005500000000000001,
+        0.221,
+        0.0005000000000000004,
+        0.0034999999999999996
+      ],
+      "delta_flip_color": 0.221,
+      "pass": true
+    },
+    {
+      "pair_id": 3,
+      "condition": "T3",
+      "seed": 0,
+      "k_star": 1,
+      "source": "runs/experiments/exp_0003",
+      "f_new_val_accuracy_clean_labels": 0.731,
+      "flip_old": {
+        "aspect": 0.486,
+        "size": 0.021,
+        "color": 0.007,
+        "bg": 0.0105,
+        "posx": 0.014
+      },
+      "flip_new": {
+        "aspect": 0.469,
+        "size": 0.3445,
+        "color": 0.004,
+        "bg": 0.019,
+        "posx": 0.029
+      },
+      "agreement_all": 0.7175,
+      "decisive_disagreement_all": 0.2075,
+      "delta_flip": [
+        -0.017000000000000015,
+        0.32349999999999995,
+        -0.003,
+        0.008499999999999999,
+        0.015000000000000001
+      ],
+      "n_subgroup": 500,
+      "acc_new_labels_subgroup": 0.866,
+      "agreement_outside_subgroup": 0.9106666666666666,
+      "dd_outside_subgroup": 0.028,
+      "n_subgroup_decisive": 412,
+      "acc_new_labels_subgroup_decisive": 0.9344660194174758,
+      "delta_flip_k_star": 0.32349999999999995,
+      "max_abs_delta_flip_other": 0.017000000000000015,
+      "t3_criteria": "v1.3",
+      "pass_v1_2": true,
+      "pass_v1_3": true,
+      "pass": true
+    },
+    {
+      "pair_id": 4,
+      "condition": "T3",
+      "seed": 1,
+      "k_star": 1,
+      "source": "runs/experiments/exp_0003",
+      "f_new_val_accuracy_clean_labels": 0.7402,
+      "flip_old": {
+        "aspect": 0.488,
+        "size": 0.022,
+        "color": 0.0045,
+        "bg": 0.007,
+        "posx": 0.018
+      },
+      "flip_new": {
+        "aspect": 0.4415,
+        "size": 0.339,
+        "color": 0.0035,
+        "bg": 0.0145,
+        "posx": 0.053
+      },
+      "agreement_all": 0.747,
+      "decisive_disagreement_all": 0.1775,
+      "delta_flip": [
+        -0.046499999999999986,
+        0.317,
+        -0.0009999999999999996,
+        0.007500000000000001,
+        0.035
+      ],
+      "n_subgroup": 500,
+      "acc_new_labels_subgroup": 0.814,
+      "agreement_outside_subgroup": 0.9346666666666666,
+      "dd_outside_subgroup": 0.01,
+      "n_subgroup_decisive": 384,
+      "acc_new_labels_subgroup_decisive": 0.8958333333333334,
+      "delta_flip_k_star": 0.317,
+      "max_abs_delta_flip_other": 0.046499999999999986,
+      "t3_criteria": "v1.3",
+      "pass_v1_2": false,
+      "pass_v1_3": true,
+      "pass": true
+    },
+    {
+      "pair_id": 5,
+      "condition": "T3",
+      "seed": 2,
+      "k_star": 1,
+      "source": "runs/experiments/exp_0003",
+      "f_new_val_accuracy_clean_labels": 0.7292,
+      "flip_old": {
+        "aspect": 0.486,
+        "size": 0.0265,
+        "color": 0.0055,
+        "bg": 0.0055,
+        "posx": 0.0125
+      },
+      "flip_new": {
+        "aspect": 0.493,
+        "size": 0.3455,
+        "color": 0.008,
+        "bg": 0.0155,
+        "posx": 0.0425
+      },
+      "agreement_all": 0.7265,
+      "decisive_disagreement_all": 0.184,
+      "delta_flip": [
+        0.007000000000000006,
+        0.31899999999999995,
+        0.0025000000000000005,
+        0.01,
+        0.030000000000000002
+      ],
+      "n_subgroup": 500,
+      "acc_new_labels_subgroup": 0.754,
+      "agreement_outside_subgroup": 0.886,
+      "dd_outside_subgroup": 0.042666666666666665,
+      "n_subgroup_decisive": 402,
+      "acc_new_labels_subgroup_decisive": 0.7786069651741293,
+      "delta_flip_k_star": 0.31899999999999995,
+      "max_abs_delta_flip_other": 0.030000000000000002,
+      "t3_criteria": "v1.3",
+      "pass_v1_2": false,
+      "pass_v1_3": true,
+      "pass": true
+    },
+    {
+      "pair_id": 6,
+      "condition": "T4",
+      "seed": 0,
+      "k_star": 0,
+      "source": "runs/experiments/exp_0003",
+      "f_new_val_accuracy_clean_labels": 0.905,
+      "flip_old": {
+        "aspect": 0.486,
+        "size": 0.021,
+        "color": 0.007,
+        "bg": 0.0105,
+        "posx": 0.014
+      },
+      "flip_new": {
+        "aspect": 0.4875,
+        "size": 0.0225,
+        "color": 0.007,
+        "bg": 0.0075,
+        "posx": 0.0165
+      },
+      "agreement_all": 0.897,
+      "decisive_disagreement_all": 0.0345,
+      "delta_flip": [
+        0.0015000000000000013,
+        0.0014999999999999979,
+        0.0,
+        -0.003000000000000001,
+        0.0025000000000000005
+      ],
+      "n_band": 188,
+      "acc_new_labels_band": 0.9095744680851063,
+      "pass": true
+    },
+    {
+      "pair_id": 7,
+      "condition": "T4",
+      "seed": 1,
+      "k_star": 0,
+      "source": "runs/experiments/exp_0003",
+      "f_new_val_accuracy_clean_labels": 0.8834,
+      "flip_old": {
+        "aspect": 0.488,
+        "size": 0.022,
+        "color": 0.0045,
+        "bg": 0.007,
+        "posx": 0.018
+      },
+      "flip_new": {
+        "aspect": 0.472,
+        "size": 0.022,
+        "color": 0.005,
+        "bg": 0.0075,
+        "posx": 0.0115
+      },
+      "agreement_all": 0.8835,
+      "decisive_disagreement_all": 0.041,
+      "delta_flip": [
+        -0.016000000000000014,
+        0.0,
+        0.0005000000000000004,
+        0.0004999999999999996,
+        -0.006499999999999999
+      ],
+      "n_band": 188,
+      "acc_new_labels_band": 0.9946808510638298,
+      "pass": true
+    },
+    {
+      "pair_id": 8,
+      "condition": "T4",
+      "seed": 2,
+      "k_star": 0,
+      "source": "runs/experiments/exp_0003",
+      "f_new_val_accuracy_clean_labels": 0.912,
+      "flip_old": {
+        "aspect": 0.486,
+        "size": 0.0265,
+        "color": 0.0055,
+        "bg": 0.0055,
+        "posx": 0.0125
+      },
+      "flip_new": {
+        "aspect": 0.4895,
+        "size": 0.0225,
+        "color": 0.0095,
+        "bg": 0.007,
+        "posx": 0.0115
+      },
+      "agreement_all": 0.904,
+      "decisive_disagreement_all": 0.0285,
+      "delta_flip": [
+        0.003500000000000003,
+        -0.004,
+        0.004,
+        0.0015000000000000005,
+        -0.0010000000000000009
+      ],
+      "n_band": 188,
+      "acc_new_labels_band": 0.8617021276595744,
+      "pass": true
+    },
+    {
+      "pair_id": 9,
+      "condition": "N0",
+      "seed": 0,
+      "k_star": null,
+      "source": "runs/experiments/exp_0002",
+      "f_new_val_accuracy_clean_labels": 0.9842,
+      "flip_old": {
+        "aspect": 0.486,
+        "size": 0.021,
+        "color": 0.007,
+        "bg": 0.0105,
+        "posx": 0.014
+      },
+      "flip_new": {
+        "aspect": 0.486,
+        "size": 0.019,
+        "color": 0.012,
+        "bg": 0.0045,
+        "posx": 0.011
+      },
+      "agreement_all": 0.985,
+      "decisive_disagreement_all": 0.0,
+      "delta_flip": [
+        0.0,
+        -0.0020000000000000018,
+        0.005,
+        -0.006000000000000001,
+        -0.003000000000000001
+      ],
+      "max_abs_delta_flip": 0.006000000000000001,
+      "pass": true
+    },
+    {
+      "pair_id": 10,
+      "condition": "N0",
+      "seed": 1,
+      "k_star": null,
+      "source": "runs/experiments/exp_0002",
+      "f_new_val_accuracy_clean_labels": 0.969,
+      "flip_old": {
+        "aspect": 0.488,
+        "size": 0.022,
+        "color": 0.0045,
+        "bg": 0.007,
+        "posx": 0.018
+      },
+      "flip_new": {
+        "aspect": 0.492,
+        "size": 0.0315,
+        "color": 0.0055,
+        "bg": 0.0055,
+        "posx": 0.0115
+      },
+      "agreement_all": 0.968,
+      "decisive_disagreement_all": 0.0,
+      "delta_flip": [
+        0.0040000000000000036,
+        0.009500000000000001,
+        0.001,
+        -0.0015000000000000005,
+        -0.006499999999999999
+      ],
+      "max_abs_delta_flip": 0.009500000000000001,
+      "pass": true
+    },
+    {
+      "pair_id": 11,
+      "condition": "N0",
+      "seed": 2,
+      "k_star": null,
+      "source": "runs/experiments/exp_0002",
+      "f_new_val_accuracy_clean_labels": 0.9816,
+      "flip_old": {
+        "aspect": 0.486,
+        "size": 0.0265,
+        "color": 0.0055,
+        "bg": 0.0055,
+        "posx": 0.0125
+      },
+      "flip_new": {
+        "aspect": 0.488,
+        "size": 0.019,
+        "color": 0.003,
+        "bg": 0.0085,
+        "posx": 0.0095
+      },
+      "agreement_all": 0.992,
+      "decisive_disagreement_all": 0.0,
+      "delta_flip": [
+        0.0020000000000000018,
+        -0.0075,
+        -0.0024999999999999996,
+        0.003000000000000001,
+        -0.003000000000000001
+      ],
+      "max_abs_delta_flip": 0.0075,
+      "pass": true
+    },
+    {
+      "pair_id": 12,
+      "condition": "N0",
+      "seed": 3,
+      "k_star": null,
+      "source": "runs/experiments/exp_0002",
+      "f_new_val_accuracy_clean_labels": 0.975,
+      "flip_old": {
+        "aspect": 0.4885,
+        "size": 0.0175,
+        "color": 0.009,
+        "bg": 0.0105,
+        "posx": 0.0135
+      },
+      "flip_new": {
+        "aspect": 0.49,
+        "size": 0.022,
+        "color": 0.0095,
+        "bg": 0.005,
+        "posx": 0.013
+      },
+      "agreement_all": 0.9825,
+      "decisive_disagreement_all": 0.0,
+      "delta_flip": [
+        0.0015000000000000013,
+        0.004499999999999997,
+        0.0005000000000000004,
+        -0.0055000000000000005,
+        -0.0005000000000000004
+      ],
+      "max_abs_delta_flip": 0.0055000000000000005,
+      "pass": true
+    },
+    {
+      "pair_id": 13,
+      "condition": "N0",
+      "seed": 4,
+      "k_star": null,
+      "source": "runs/experiments/exp_0002",
+      "f_new_val_accuracy_clean_labels": 0.9734,
+      "flip_old": {
+        "aspect": 0.4925,
+        "size": 0.028,
+        "color": 0.006,
+        "bg": 0.0065,
+        "posx": 0.012
+      },
+      "flip_new": {
+        "aspect": 0.492,
+        "size": 0.0345,
+        "color": 0.012,
+        "bg": 0.0095,
+        "posx": 0.0115
+      },
+      "agreement_all": 0.991,
+      "decisive_disagreement_all": 0.0,
+      "delta_flip": [
+        -0.0005000000000000004,
+        0.006500000000000002,
+        0.006,
+        0.003,
+        -0.0005000000000000004
+      ],
+      "max_abs_delta_flip": 0.006500000000000002,
+      "pass": true
+    },
+    {
+      "pair_id": 14,
+      "condition": "N1",
+      "seed": 0,
+      "k_star": null,
+      "source": "runs/experiments/exp_0002",
+      "f_new_val_accuracy_clean_labels": 0.984,
+      "flip_old": {
+        "aspect": 0.486,
+        "size": 0.021,
+        "color": 0.007,
+        "bg": 0.0105,
+        "posx": 0.014
+      },
+      "flip_new": {
+        "aspect": 0.4875,
+        "size": 0.0185,
+        "color": 0.006,
+        "bg": 0.0045,
+        "posx": 0.014
+      },
+      "agreement_all": 0.99,
+      "decisive_disagreement_all": 0.0,
+      "delta_flip": [
+        0.0015000000000000013,
+        -0.0025000000000000022,
+        -0.001,
+        -0.006000000000000001,
+        0.0
+      ],
+      "max_abs_delta_flip": 0.006000000000000001,
+      "pass": true
+    },
+    {
+      "pair_id": 15,
+      "condition": "N1",
+      "seed": 1,
+      "k_star": null,
+      "source": "runs/experiments/exp_0002",
+      "f_new_val_accuracy_clean_labels": 0.976,
+      "flip_old": {
+        "aspect": 0.488,
+        "size": 0.022,
+        "color": 0.0045,
+        "bg": 0.007,
+        "posx": 0.018
+      },
+      "flip_new": {
+        "aspect": 0.4905,
+        "size": 0.033,
+        "color": 0.006,
+        "bg": 0.0055,
+        "posx": 0.0145
+      },
+      "agreement_all": 0.9785,
+      "decisive_disagreement_all": 0.0,
+      "delta_flip": [
+        0.0025000000000000022,
+        0.011000000000000003,
+        0.0015000000000000005,
+        -0.0015000000000000005,
+        -0.003499999999999998
+      ],
+      "max_abs_delta_flip": 0.011000000000000003,
+      "pass": true
+    },
+    {
+      "pair_id": 16,
+      "condition": "N1",
+      "seed": 2,
+      "k_star": null,
+      "source": "runs/experiments/exp_0002",
+      "f_new_val_accuracy_clean_labels": 0.9772,
+      "flip_old": {
+        "aspect": 0.486,
+        "size": 0.0265,
+        "color": 0.0055,
+        "bg": 0.0055,
+        "posx": 0.0125
+      },
+      "flip_new": {
+        "aspect": 0.4905,
+        "size": 0.025,
+        "color": 0.017,
+        "bg": 0.007,
+        "posx": 0.015
+      },
+      "agreement_all": 0.983,
+      "decisive_disagreement_all": 0.0,
+      "delta_flip": [
+        0.004500000000000004,
+        -0.0014999999999999979,
+        0.011500000000000002,
+        0.0015000000000000005,
+        0.0024999999999999988
+      ],
+      "max_abs_delta_flip": 0.011500000000000002,
+      "pass": true
+    }
+  ],
+  "condition_pass": {
+    "T1": true,
+    "T3": true,
+    "T4": true,
+    "N0": true,
+    "N1": true
+  },
+  "f_old_all_meet_95": true,
+  "g0_pass": true,
+  "n_g0_points": 2000,
+  "split": "validation",
+  "t3_criteria": "v1.3"
+}

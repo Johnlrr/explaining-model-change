@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "f_old_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s0.pt",
+      "sha256": "b54fdbc57708d958ffbc0f1e54a7e476ec6b51db4213eee4edd28dda64d7d0c5"
+    },
+    {
+      "name": "f_old_s1",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s1.pt",
+      "sha256": "b65ed1e696119fb8f9a825c26c9bcc65a5dc9cd36a9cb8627e9e1808414883fc"
+    },
+    {
+      "name": "f_old_s2",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s2.pt",
+      "sha256": "b6f462719d1aa0e38a682b907674ff90ea524e35f9119a5aa29e28079acff330"
+    },
+    {
+      "name": "f_old_s3",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s3.pt",
+      "sha256": "ed4494b8a5035258c1b6a65d6644585a0d455ea0633e016ec7889b04ce23e558"
+    },
+    {
+      "name": "f_old_s4",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s4.pt",
+      "sha256": "232a09c0e7d6b01426ac83bb96756db861693f363595fd5cda32a07925186084"
+    },
+    {
+      "name": "f_new_p00_T1_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0003/artifacts/models/f_new_p00_T1_s0.pt",
+      "sha256": "67bfc56712068ff880352f103b79e52cc8c4434fb509becc68a29cbd32938fb0"
+    },
+    {
+      "name": "f_new_p01_T1_s1",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0003/artifacts/models/f_new_p01_T1_s1.pt",
+      "sha256": "47c4b4b25887b0f20b7df2aa0430f84deb3c861973a70346cde5ed94346358bb"
+    },
+    {
+      "name": "f_new_p02_T1_s2",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0003/artifacts/models/f_new_p02_T1_s2.pt",
+      "sha256": "6cb27b896bdd451b6a5cf9a6117c21705fe0d8d93feb15d26035f57748ae7282"
+    },
+    {
+      "name": "f_new_p03_T3_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0003/artifacts/models/f_new_p03_T3_s0.pt",
+      "sha256": "0427ae45ac48a683387898112cdc1e4f5e3c15d3533c520e873e77144b0a6df2"
+    },
+    {
+      "name": "f_new_p04_T3_s1",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0003/artifacts/models/f_new_p04_T3_s1.pt",
+      "sha256": "d4fea5ba2307a3f5d33cacd405f71c224cea37b52d21d7293537491d0577b6fc"
+    },
+    {
+      "name": "f_new_p05_T3_s2",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0003/artifacts/models/f_new_p05_T3_s2.pt",
+      "sha256": "af71645995dfd21f5a86ae0e837425d1753ce9365bab9bbc81a496c2994b62f1"
+    },
+    {
+      "name": "f_new_p06_T4_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0003/artifacts/models/f_new_p06_T4_s0.pt",
+      "sha256": "56c7960d228169f1302d500a77f67ca31b7e0ec26dfad015b730f507eff162cf"
+    },
+    {
+      "name": "f_new_p07_T4_s1",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0003/artifacts/models/f_new_p07_T4_s1.pt",
+      "sha256": "87aa1c6bc73e134a08085b71269836c76c70f0e948a9c0a70deb55115e214fca"
+    },
+    {
+      "name": "f_new_p08_T4_s2",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0003/artifacts/models/f_new_p08_T4_s2.pt",
+      "sha256": "60c3a9c0576698341af2eea2b445fe133f8fe2d404c0036440a474e63bc9f71e"
+    },
+    {
+      "name": "f_new_p09_N0_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_new_p09_N0_s0.pt",
+      "sha256": "b652e302249ddb9b8938cf3985aa3c29514fc7010eb6a6d99ef1f7088be6586e"
+    },
+    {
+      "name": "f_new_p10_N0_s1",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_new_p10_N0_s1.pt",
+      "sha256": "14aee0e8ec0383799120f7adeb6649efdfe97814ae76a0ead6c9cf9155ca5f7e"
+    },
+    {
+      "name": "f_new_p11_N0_s2",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_new_p11_N0_s2.pt",
+      "sha256": "a2e9ab58cbd7b16dea0e5a62670ea9f33a7bf4a5f1d0ad26d0c40431b3ebacc5"
+    },
+    {
+      "name": "f_new_p12_N0_s3",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_new_p12_N0_s3.pt",
+      "sha256": "b8f87d09ffb313d54d84952aac13b276dd58d3ce6e0d1e7eedbd5e0595ade781"
+    },
+    {
+      "name": "f_new_p13_N0_s4",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_new_p13_N0_s4.pt",
+      "sha256": "ea28f9da017b9118c11a4d752b1b46eb52232e74217d8c03b9e58ec2e0aaae76"
+    },
+    {
+      "name": "f_new_p14_N1_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_new_p14_N1_s0.pt",
+      "sha256": "3c03129a0abf9c537787d30e3419c76b0d2b7c164308e224d027d647d3c8bf71"
+    },
+    {
+      "name": "f_new_p15_N1_s1",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_new_p15_N1_s1.pt",
+      "sha256": "81cf765549b9e44b79a2e14a46ab3a05debd5b1c59853b7889223a1a11cbfdb6"
+    },
+    {
+      "name": "f_new_p16_N1_s2",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_new_p16_N1_s2.pt",
+      "sha256": "c1a551f8f1c5dafec0375768c627749768b7793a7e4c70beea74fb0fd72995e1"
+    }
+  ]
+}

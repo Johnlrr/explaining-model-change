@@ -1,0 +1,18 @@
+pair  0 T1 s0: pass=True
+pair  1 T1 s1: pass=True
+pair  2 T1 s2: pass=True
+pair  3 T3 s0: pass=True
+pair  4 T3 s1: pass=True
+pair  5 T3 s2: pass=True
+pair  6 T4 s0: pass=True
+pair  7 T4 s1: pass=True
+pair  8 T4 s2: pass=True
+pair  9 N0 s0: pass=True
+pair 10 N0 s1: pass=True
+pair 11 N0 s2: pass=True
+pair 12 N0 s3: pass=True
+pair 13 N0 s4: pass=True
+pair 14 N1 s0: pass=True
+pair 15 N1 s1: pass=True
+pair 16 N1 s2: pass=True
+{"g0_pass": true, "condition_pass": {"T1": true, "T3": true, "T4": true, "N0": true, "N1": true}, "f_old_all_meet_95": true}

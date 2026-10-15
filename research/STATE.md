@@ -11,7 +11,7 @@
 ## 1. Project status
 
 ```text
-Status: initializing
+Status: G0-Tier 0 passed (exp_0004); next gate G1
 Last updated: 2026-10-15
 Current commit: see `git log -1` (kick-off commit on research/delta-ce)
 Current branch: research/delta-ce (from main)
@@ -23,7 +23,7 @@ Current branch: research/delta-ce (from main)
 
 Test whether Δ-CE (minimal on-manifold witnesses on which exactly one model changes its decision) recovers *which* factor a known model change affected, better than CE differencing (B1) and gradient difference (B3), with DIG-style (B5) and DeepXplore-style (A1) searches reported alongside. Detection (H3) is descriptive. Acceptance: Route A = H4 ∧ (H1 ∨ H2a ∨ H2b), `docs/EVALUATION.md` §15.
 
-Next gate: G0 (20/10/2026). Spec freeze: 17/10/2026 23:59 ICT.
+G0-Tier 0 closed 2026-10-15 (deadline was 20/10). Next gate: G1 (H4 + solver + pilot, validation). Spec frozen 2026-10-15 (D-016); amendments v1.2 and v1.3 are post-G0-result gate changes, v1.3 is the last G0 criterion change.
 
 ---
 
@@ -64,14 +64,14 @@ Why this hypothesis is active: it is the first gate (G1). Without it no result c
 ## 6. Latest experiment
 
 ```text
-Experiment ID: exp_0003 (gate G0, Tier 0 drift pairs, validation; f_old from exp_0002, hash-verified; commit 8d02f3d)
-Run type: gate run (CPU, 270 s)
-Result: T1 and T4 pass; T3 fails (subgroup accuracy 0.866 / 0.814 / 0.754 < 0.85) with no knob left
-Validity: valid
-Primary observation: T3's change is real and size-specific (ΔFlip_size +0.32 on all seeds, others ≤ 0.05),
-  but the learned size boundary is soft and seed-shifted, so accuracy w.r.t. the new labels stays below 0.85
-Conclusion: G0 blocked on T3 only; back to the author (v1.2 B5)
-Relevant run evidence: runs/experiments/exp_0003/ ; research/NOTES.md §3
+Experiment ID: exp_0004 (gate G0, Tier 0, validation; re-evaluation only under amendment v1.3; commit aeb327a)
+Run type: gate re-evaluation (CPU, 122 s), no training; checkpoints from exp_0002 (f_old, N0, N1) and exp_0003 (T1, T3, T4), hash-verified
+Result: G0-Tier 0 PASSES — 17/17 pairs, f_old 0.975–0.982
+  T3 (C1): ΔFlip_size 0.324 / 0.317 / 0.319; max other |ΔFlip| 0.017 / 0.0465 / 0.030; DD outside 0.028 / 0.010 / 0.043
+  T3 (C2, reported): subgroup acc raw 0.866 / 0.814 / 0.754, decisive 0.934 / 0.896 / 0.779
+Validity: valid; numbers identical to the source runs (max |diff| 0)
+Caveat: C1 (ii) is tight on seed 1 (aspect −0.0465); the same condition may bind on Tier 1 T3
+Relevant run evidence: runs/experiments/exp_0004/ ; research/NOTES.md §3 ; D-020
 ```
 
 ## 7. Strongest current observations
@@ -89,12 +89,9 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 
 ## 8. Next action
 
-1. **G-lit: done 2026-10-15 (two rounds), passed.** Definition-level novelty downgraded to `uncertain` (DIG, DeepXplore); benchmark, margin-κ witness for updates, and theory remain `candidate` (`research/LITERATURE.md` §2, §6).
-2. **Kaggle smoke: done** (smoke_0001 prep, smoke_0002 T4 GPU). Nothing further before G2.
-3. **G0 (by 20/10):** build Tier 0 renderer, drift data, classifiers (`src/dce/`), and the Flip_k / accuracy check on 2 000 clean validation points (D-011). CPU only.
-4. Then G1 (H4 + pilot), G2 (Tier 1 on Kaggle), G3.
-
----
+1. G-lit, Kaggle smoke, G0-Tier 0: done (G0 closed by exp_0004 under v1.3, D-020).
+2. **G1 (validation only):** Tier L linear-theory test (H-004, `tests/unit/test_linear_theory.py`), Δ-CE solver (`src/dce/solvers/`), ordinary CE, `r` calibration, pilot on validation (found-rate and runtime only).
+3. Then G2 (Tier 1 on Kaggle; T3-Tier1 uses C1 from the start, fallback bg > q85, then drop — v1.3 C3), G3.
 
 ## 9. In-flight remote jobs
 
@@ -131,7 +128,7 @@ Tier 1 Kaggle jobs used: 0 / 4
 
 ## 12. Current blockers
 
-1. **G0 blocked on T3 only** (exp_0003): no knob left; v1.2 B5 says Stop or back to the author. f_old, T1, T4, N0, N1 pass (exp_0002 + exp_0003, same f_old checkpoints).
+1. None. (G0 T3 blocker resolved by the author with amendment v1.3, D-020.)
 2. None from the user: spec amendment v1.1 (A1–A6) applied on 2026-10-15 (D-011–D-015).
 3. Residual G-lit risk: NPL 2022 journal text and Muschalik 2022 not readable (access blocked); arXiv v2 of Artelt covers the same scope.
 
@@ -150,12 +147,12 @@ Plan to G0 (deadline 20/10), Tier 0, local CPU:
 - [x] Amendment v1.2 implemented (cosine f_old, noisy adaptation sets, DD, per-condition recipe); smoke_0004 passed the pipeline.
 - [x] exp_0002: f_old, N0, N1 pass; T1, T3, T4 fail.
 - [x] exp_0003: T1 (knob 1) and T4 (knob 2) pass; T3 fails with no knob left → waiting for the author.
-- [ ] If a condition fails: apply the pre-declared knob (spec §4.4) in a new experiment (exp_0002), max 2 per condition.
+- [x] Amendment v1.3 (T3 criterion C1) and exp_0004 re-evaluation: G0-Tier 0 passes.
 - [ ] Then G1: Tier L test (H4), Δ-CE solver, ordinary CE, r calibration, pilot (validation).
 
 ## 14. Current research phase summary
 
-Phase: W1: spec frozen 2026-10-15; G0 implementation done, full G0 run (exp_0001) next.
+Phase: W1: spec frozen 2026-10-15; G0-Tier 0 passed (exp_0004); G1 next.
 
 ---
 
