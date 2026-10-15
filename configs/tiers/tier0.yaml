@@ -34,5 +34,5 @@ solver:                    # amendments v1.4 E1 + v1.5 F1–F2 (Tier 0: box boun
   slsqp_maxiter: 100
   slsqp_ftol: 1.0e-10
   slsqp_tighten: 1.0e-4
-  n_workers: 16
+  n_workers: 8               # 8 cores from 2026-10-15 23:01 (shared machine; the user's request)
 r: 0.5412657260894775      # FROZEN: spec §6.3, exp_0008 (2 × median CE(f_new) distance, 300/300 found, validation T1 s0)

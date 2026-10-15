@@ -199,6 +199,10 @@ Kernel `boinhbo/dce-tier1-data-v1` (immutable), CPU, 42 s; smoke_0008 first (att
 - **The thickness measurement has a floor of 2.0** (a one-pixel stroke has distance 1 on its skeleton), so ≥ 15% of images sit exactly at 2.0 and the distribution is lumpy. Not a problem for T3 (q85 ≈ 4.4 is well above the floor), but it may weigh on the G2 criterion Spearman(thick) ≥ 0.8 (ties) and on σ_thick. To check at G2, not assumed.
 - Median |chosen − target| = 0.34 px.
 
+### exp_0009 in flight — CPU cap, 2026-10-15 23:01
+
+At the user's request the running pilot was capped from 16 to 8 logical cores (taskset on the main process and its workers, cores 0–7). Pairs 0 (T1), 3 (T3), 6 (T4) had finished on 16 cores; pairs 9 (N0) and 14 (N1) run on 8. Results do not depend on the number of cores (phase 1 noise is drawn once, points are independent; test `test_parallel_phase2_equals_sequential`), only runtime does. Runtime rows are labelled by core count. Later runs use `n_workers: 8` (tier0.yaml).
+
 ## 4. Questions
 
 1. Does the tie in Proposition 4 also hold for the constrained solver when λ is decayed? (H-005)
