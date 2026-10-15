@@ -21,7 +21,7 @@ Current branch: research/delta-ce (from main)
 
 ## 2. Current objective
 
-Test whether Δ-CE (minimal on-manifold witnesses on which exactly one model changes its decision) recovers the injected factor of a known model change, and separates drift from null pairs, better than CE differencing (B1) and gradient difference (B3). Acceptance rule: `docs/EVALUATION.md` §15.
+Test whether Δ-CE (minimal on-manifold witnesses on which exactly one model changes its decision) recovers *which* factor a known model change affected, better than CE differencing (B1) and gradient difference (B3), with DIG-style (B5) and DeepXplore-style (A1) searches reported alongside. Detection (H3) is descriptive. Acceptance: Route A = H4 ∧ (H1 ∨ H2a ∨ H2b), `docs/EVALUATION.md` §15.
 
 Next gate: G0 (20/10/2026). Spec freeze: 17/10/2026 23:59 ICT.
 
@@ -86,7 +86,7 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 
 1. **G-lit: done 2026-10-15 (two rounds), passed.** Definition-level novelty downgraded to `uncertain` (DIG, DeepXplore); benchmark, margin-κ witness for updates, and theory remain `candidate` (`research/LITERATURE.md` §2, §6).
 2. **Kaggle smoke: done** (smoke_0001 prep, smoke_0002 T4 GPU). Nothing further before G2.
-3. **G0 (by 20/10):** build Tier 0 renderer, drift data, classifiers (`src/dce/`), and the Flip_k / accuracy check on 2 000 clean test points as the spec says (aggregate statistics only, EVALUATION §6). CPU only.
+3. **G0 (by 20/10):** build Tier 0 renderer, drift data, classifiers (`src/dce/`), and the Flip_k / accuracy check on 2 000 clean validation points (D-011). CPU only.
 4. Then G1 (H4 + pilot), G2 (Tier 1 on Kaggle), G3.
 
 ---
@@ -127,7 +127,7 @@ Tier 1 Kaggle jobs used: 0 / 4
 ## 12. Current blockers
 
 1. None.
-2. Awaiting the user before the freeze (17/10): correction of D-009 (pilot and G2 split), a B0 disagreement-rate baseline for H3, and the positioning against DIG/DeepXplore (`research/NOTES.md` §2).
+2. None from the user: spec amendment v1.1 (A1–A6) applied on 2026-10-15 (D-011–D-015).
 3. Residual G-lit risk: NPL 2022 journal text and Muschalik 2022 not readable (access blocked); arXiv v2 of Artelt covers the same scope.
 
 ---

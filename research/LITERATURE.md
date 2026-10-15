@@ -61,6 +61,7 @@ Suggested status values: discovered, screened, reviewed, follow_up_needed, not_r
 | 2026-10-15 | G-lit round 2: Hammer & Hüllermeier 2021 full text (KIT proceedings PDF) | defines semantic model difference as the volume of the discrepancy region; suggests showing queries the new model gets right and the old gets wrong; no method |
 | 2026-10-15 | G-lit round 2: NPL 2022 journal text via Springer PDF and the Bielefeld repository | both blocked (Springer login redirect; Bielefeld bot challenge, not bypassed). arXiv v2 already contains the regularisation section matching the journal title |
 | 2026-10-15 | G-lit round 2: "model differencing", "DeltaXplainer", "prediction discrepancies", "differential testing", "negative flips + counterfactual" | new: L-020–L-026; DIG (L-022) and DeepXplore (L-023) are the closest prior art to the Δ-CE definition |
+| 2026-10-15 | A6: search for an author-hosted copy of NPL 2022 | none found; only Springer and the Bielefeld repository (bot challenge, not bypassed). DBLP dates the issue 55(5):5273–5297 (2023). Residual risk accepted (D-015) |
 | 2026-10-15 | Semantic Scholar citing lists: only DIG (14 citers) returned; others rate-limited | no citer of DIG defines a margin-based witness for model updates |
 
 ### G-lit result (2026-10-15)
@@ -127,7 +128,7 @@ Use the template in the earlier version of this file (git history). Full entries
 |---|---|---|
 | Δ-CE as the closest input on which two models disagree | uncertain | DIG/DIG-CV (L-022) return the closest discrepancy intervals, including in a VAE latent space; DeepXplore (L-023) optimises one-sided disagreement from a seed input. Cite as adaptation |
 | Margin-κ one-sided minimal witness as an explanation of a model update, within budget r | candidate | not found; differs from L-022/L-023 by margin, minimality, update setting, and attribution |
-| Pair-level detection score (H3) | uncertain | the discrepancy volume of L-004 is the natural baseline; not included in the spec |
+| Pair-level detection score (H3) | not claimed | descriptive only since D-012; the discrepancy volume of L-004 (B0) is reported next to it |
 | Band containment lemma (any witness has |h| ≥ m_o + κ) | candidate | elementary; still checked against L-002 |
 | Null certificate (Proposition 2) | candidate | Lipschitz form; not certified for deep networks |
 | Linear direction recovery (Proposition 4) | not_novel | Artelt Theorems 1–2 cover the direction case (no bias); Proposition 4 reproduces it and is cited, not claimed |

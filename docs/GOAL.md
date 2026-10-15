@@ -4,7 +4,7 @@
 >
 > Ownership: Project specification. Treat this file as read-only during autonomous research unless the user explicitly requests a change.
 >
-> Detailed protocol source: `docs/source/delta_ce_spec.md` (spec v1.0, freeze 17/10/2026). Where that file and `docs/EVALUATION.md` differ, `docs/EVALUATION.md` governs, and the difference is recorded in `research/DECISIONS.md`.
+> Detailed protocol source: `docs/source/delta_ce_spec.md` (spec v1.0) as amended by `docs/source/delta_ce_spec_amendment_v1.1.md` (freeze 17/10/2026). Where that file and `docs/EVALUATION.md` differ, `docs/EVALUATION.md` governs, and the difference is recorded in `research/DECISIONS.md`.
 
 ---
 
@@ -26,9 +26,9 @@ Produce a validated methodological contribution with three parts:
 
 1. a formal definition of Δ-CE with the proven results in the spec (band containment, null certificate, linear closed form, linear direction recovery with its stated limits);
 2. a solver and a ground-truth benchmark (Tier 0 renderer, Tier 1 colored MorphoMNIST with analytic oracles) with injected drifts T1, T3, T4 and null pairs N0, N1;
-3. an empirical answer, on that benchmark, to the hypotheses H1–H4 in `docs/EVALUATION.md`, reported honestly under the route rules in §10 of the spec (Route A, B, B′, or stop).
+3. an empirical answer, on that benchmark, to the hypotheses H1, H2a, H2b, H4 in `docs/EVALUATION.md`, with descriptive pair-level detection (H3, next to the disagreement-rate baseline B0), reported under the routes of `docs/EVALUATION.md` §15 (Route A, Route B, or Stop).
 
-A negative or partly negative answer is an acceptable outcome if the protocol is followed (Route B or B′).
+A negative or partly negative answer is an acceptable outcome if the protocol is followed (Route B: benchmark + analysis paper).
 
 ---
 
@@ -52,24 +52,30 @@ Why this is the primary baseline: it is the closest published method that explai
               counterfactuals, so H1 is defined against it.
 ```
 
-Secondary baselines: B1-det (deterministic B1), B3 (gradient difference, Artelt Eq. 14), B4 (global permutation-importance difference; Tier 0 only). The baseline is reproduced under the same benchmark, splits, budget `r`, and metrics before any Δ-CE result is judged (see `docs/EVALUATION.md` §7).
+Secondary baselines: B1-det (deterministic B1), B3 (gradient difference, Artelt Eq. 14), B4 (global permutation-importance difference; Tier 0 only), B5 (DIG-style line search to the nearest training points), A1 (DeepXplore-style, no proximity), and B0 (disagreement rate, for descriptive detection only). The baseline is reproduced under the same benchmark, splits, budget `r`, and metrics before any Δ-CE result is judged (see `docs/EVALUATION.md` §7).
 
 ---
 
 ## Target contribution
 
-**Contribution type: methodological** (new formulation of model-change witnesses, with theory, solver, and a ground-truth benchmark). Routine tuning of `κ`, `λ`, `r`, or learning rates is supporting work only and does not satisfy this goal. Novelty is not assumed: the candidate contribution status is recorded as `candidate` in `research/LITERATURE.md` and must be re-checked after the G-lit gate.
+**Contribution type: methodological and evaluation methodology.** Routine tuning of `κ`, `λ`, `r`, or learning rates is supporting work only and does not satisfy this goal. The contributions, in order of how secure they are (amendment A5):
+
+1. a benchmark with ground truth for explaining model adaptation (injected drifts T1, T3, T4; null and virtual-drift pairs; exact or analytic factor oracles);
+2. a controlled comparison of explanation families — CE differencing (B1), gradient difference (B3), DIG-style disagreement search (B5), DeepXplore-style search (A1), and witnesses (Δ-CE) — with the theory-predicted ties (P-tie);
+3. the margin-κ one-sided witness for model updates, presented as an adaptation of DIG and DeepXplore, with L1, P2, P3 (bias and margin). P4 cites Artelt et al. Theorem 1 and is not claimed.
+
+Novelty statuses are tracked in `research/LITERATURE.md` §6.
 
 Claims that are permitted and not permitted are listed in `research/LITERATURE.md` §6 and in the proposal's §2.2. In short:
 
-- permitted: a distance-based null certificate (for the idealised case), the linear closed form for the constrained problem, behaviour-level detection of changes, and a benchmark with ground truth;
-- not permitted: "first to explain model change with counterfactuals"; "Δ-CE recovers the change direction better than CE differencing in general" (false in the linear case, Proposition 4); a certified null for deep networks.
+- permitted: a distance-based null certificate (for the idealised case), the linear closed form for the constrained problem with bias and margin, factor-level recovery of behaviour changes, and a benchmark with ground truth;
+- not permitted: "first to explain model change with counterfactuals"; "first to search for the closest input where models disagree" (DIG, DeepXplore); a solver advantage when B5 is within 0.10 of Δ-CE on T3 in both tiers (EVALUATION §15); "Δ-CE recovers the change direction better than CE differencing in general" (false in the linear case, Proposition 4); a certified null for deep networks.
 
 ---
 
 ## Success criteria
 
-The project is successful only if the primary decision rule in `docs/EVALUATION.md` §15 is satisfied on the held-out test split, after the candidate is locked, and if final verification (`docs/EVALUATION.md` §20) passes. In plain terms: Δ-CE must (a) detect real drift versus null pairs with high AUROC on both tiers, and (b) beat the baseline on at least one predeclared drift comparison with a confidence interval excluding zero.
+The project is successful (Route A) only if the primary decision rule in `docs/EVALUATION.md` §15 is satisfied on the held-out test split, after the candidate is locked, and if final verification (`docs/EVALUATION.md` §20) passes. In plain terms: the solver must pass the linear check (H4), and Δ-CE must recover the injected factor better than B1 or B3 on at least one predeclared comparison, with a confidence interval excluding zero. Detecting *whether* a model changed is not a success criterion; the claim is about *what* and *where*.
 
 Exact thresholds, seeds, and statistical rules are in `docs/EVALUATION.md`, not here.
 
@@ -118,4 +124,4 @@ Secondary objectives must not replace the primary objective.
 - [x] Exact evaluation details are delegated to `docs/EVALUATION.md`.
 - [x] Out-of-scope boundaries are explicit.
 - [x] Non-goals prevent obvious shortcuts or misleading success claims.
-- [x] Human confirmation of D-004 (venue and 6-page limit verified by the user) and of the spec-based gate procedure (D-009), 2026-10-15.
+- [x] Human confirmation of D-004 (venue and 6-page limit verified by the user) and spec amendment v1.1 (D-011–D-015), 2026-10-15.

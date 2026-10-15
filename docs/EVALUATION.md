@@ -6,13 +6,15 @@
 >
 > This file is the source of truth for whether an experiment is scientifically valid and whether the project has met its success criteria.
 >
-> Source protocol: `docs/source/delta_ce_spec.md` §4–§9. Where this file differs from that source, this file governs. The gate procedure (G0–G2) follows the source spec, including its use of the test split for gate checks (§6 below; decision D-009 in `research/DECISIONS.md`).
+> Source protocol: `docs/source/delta_ce_spec.md` §4–§9 as amended by `docs/source/delta_ce_spec_amendment_v1.1.md` (A1–A6). Where this file differs from those sources, this file governs. All gates run on validation; the test split is touched once, in the final procedure (§6, D-011).
 
 ---
 
 ## 1. Evaluation objective
 
-Measure whether a Δ-CE witness, found within a fixed distance budget `r`, identifies the factor that was changed by a known, injected model update (drift), and whether it separates drift pairs from null pairs at the level of model pairs. Also measure whether it does this better than CE differencing (B1) and gradient difference (B3) on the same points.
+Measure whether a Δ-CE witness, found within a fixed distance budget `r`, identifies **which factor** a known, injected model update (drift) changed, and **where**, better than CE differencing (B1) and gradient difference (B3) on the same points. Non-local search baselines (B5, DIG-style; A1, DeepXplore-style) are reported alongside for context.
+
+Pair-level detection of *whether* a model changed (H3) is reported descriptively, next to the disagreement-rate baseline B0, and is not part of the acceptance rule (amendment A2).
 
 The property is **decision-behaviour change on the data manifold**, not change of internal rules. Pairs whose internal rules changed without any decision change are outside the scope of the primary measure (see GOAL.md, behaviour-vs-mechanism limit).
 
@@ -32,7 +34,7 @@ Evaluation population: N = 300 (Tier 0) or N = 200 (Tier 1) valid points per mod
              drawn from the TEST split with seed 5000 + pair_id, using the same points for all methods of a pair.
 ```
 
-Primary decision rule (single, unambiguous): the project is successful iff the **acceptance rule in §15** holds. Recovery@r is the primary metric; the rule is written over H1, H2a, H2b (differences in Recovery@r) and H3 (AUROC of the pair-level score).
+Primary decision rule (single, unambiguous): the **acceptance rule in §15** (Route A) is written over H4 and H1, H2a, H2b (differences in Recovery@r). H3 is descriptive.
 
 ### Multi-objective projects
 
@@ -46,7 +48,9 @@ Secondary metrics (§3) are reported but do not change the acceptance rule.
 |---|---|---|---|
 | Found-rate | report | fraction | share of points with a valid witness within `r`; needed to interpret Recovery@r |
 | Share of k* | maximize | fraction | `mean_{i: v_i=1} |Δφ̃_ik*| / Σ_k |Δφ̃_ik|`; magnitude of attribution |
-| Pair-level score S | report | scalar | Δ-CE: found-rate (N ∪ O directions); B1, B1-det, B3: median ‖Δφ̃_i‖₂. Used for H3 |
+| Pair-level score S | report | scalar | Δ-CE: found-rate (N ∪ O directions); B1, B1-det, B3: median ‖Δφ̃_i‖₂; B0: disagreement rate (below). Used for descriptive H3 |
+| B0 disagreement rate | report | fraction | Monte Carlo estimate of the discrepancy volume (Hammer & Hüllermeier 2021): share of **all** test samples of the tier (unfiltered) where argmax f_old ≠ argmax f_new. The filtered evaluation points cannot be used, since both models agree on them by construction (D-012) |
+| AUROC(S) per method (H3) | report | scalar | drift vs null pairs, for Δ-CE, B0, B1, B3; labelled "conditional on G0-qualified pairs" |
 | SAR (systematic attribution rate) | report | fraction of null pairs | share of N0/N1 pairs with `max_k mean_{v_i=1} share_ik ≥ 0.5` and found-rate ≥ 0.2 |
 | Plausibility (Tier 1) | report | fraction, distance | shape-oracle confidence ≥ 0.9 on decoded witnesses; 5-NN distance in shape-oracle feature space to real test images |
 | Runtime | report | seconds per point, device stated | efficiency; CPU or GPU recorded per run |
@@ -73,13 +77,15 @@ Train (Tier 0: 20 000; Tier 1: 90% of MNIST 4/9 train):
 - fits f_old and the VAE (Tier 1) and generates adaptation data for f_new.
 - may be inspected during development.
 
-Validation (Tier 0: 5 000; Tier 1: 10% of MNIST 4/9 train):
-- hypothesis selection, calibration of r, restart/λ schedule checks, sample-level error analysis, diagnostics.
+Validation (Tier 0: 5 000; Tier 1: 10% of MNIST 4/9 train, ≈ 1 180 images):
+- all gates: G0 (Tier 0: 2 000 clean validation points; Tier 1: the whole validation split), G1 pilot, G2;
+- σ_k normalisation (Tier 1), calibration of r, classifier accuracy requirements;
+- hypothesis selection, restart/λ schedule checks, sample-level error analysis, diagnostics;
+- the ≤ 2 pre-declared G0 adjustments (spec §4.4) are decided on validation only.
 
 Test (Tier 0: 5 000 renderer samples; Tier 1: official MNIST 4/9 test split):
-- gate checks listed in §6 (aggregate statistics only);
-- the final evaluation in §19, once per locked candidate;
-- no sample-level inspection, no tuning, and no method-comparison metric (Recovery@r, share, AUROC) before the candidate is locked.
+- evaluated ONLY once per locked candidate, in the final procedure (§19);
+- not used for any gate, tuning, diagnostic, hypothesis generation, or implementation decision.
 ```
 
 Adaptation sets (10 000 Tier 0 / 8 000 Tier 1) are drawn from the training split and are not used for evaluation.
@@ -90,21 +96,19 @@ Adaptation sets (10 000 Tier 0 / 8 000 Tier 1) are drawn from the training split
 
 The test set is blind only if the evaluated method was developed without any information derived from it. Forbidden flows are as listed in the template: aggregate test metrics, per-sample test predictions, subgroup test performance, test-failure inspection, and any method or hyperparameter change motivated by test results.
 
-**Project-specific rule (D-009).** The source spec applies the gates to test samples. This project follows the spec. The test split may therefore be read for the benchmark-qualification and solver-mechanics checks below, and only for the aggregate statistics named there:
+**Project-specific rule (D-011, amendment A1).** Every gate and calibration uses validation:
 
-| Gate or step | Split | Statistics that may be read |
-|---|---|---|
-| G0 (phenomenon check) | test, 2 000 clean points (spec §9) | Flip_k, classifier accuracy, agreement f_new = f_old |
-| G1 (H4 check) | Tier L synthetic | H4 tolerances |
-| G1 (pilot, seed 0, N = 100, all methods) | test points, spec §7 sampling | found-rate and runtime only |
-| G2 (oracle correlation, shape-oracle accuracy, G0-Tier 1) | test images (spec §9) | Spearman, accuracy, agreement, Flip_k |
-| σ_k normalisation of φ̃ (Tier 1) | clean test images (spec §5.3) | σ_k |
-| r calibration | validation, T1 seed 0, 300 points | median CE distance |
-| H1–H4 and P-tie tests | test, final procedure only | all |
+| Gate or step | Split |
+|---|---|
+| G0 (Flip_k, classifier accuracy, agreement f_new = f_old) | validation (Tier 0: 2 000 clean points; Tier 1: whole validation split) |
+| G1 (H4 check) | Tier L synthetic |
+| G1 (pilot, seed 0, N = 100, all methods) | validation points, sampled with seed 5000 + pair_id |
+| G2 (oracle correlation, shape-oracle accuracy, G0-Tier 1) | validation images |
+| σ_k normalisation of φ̃ (Tier 1) | clean validation images, D(μ(x)) |
+| r calibration | validation, T1 seed 0, 300 points |
+| H1–H4, P-tie, descriptive H3, B0, B5, ablations | test, final procedure only |
 
-Restrictions that keep the comparison honest: the pilot's Recovery@r, share, attribution vectors, and per-sample outputs are not inspected, and only the solver-repair options named in spec §9 (restarts, λ schedule, initialisation from the ordinary CE) may be changed after a failed G1. The ≤ 2 pre-declared G0 adjustments (spec §4.4) are decided on the G0 statistics above. The paper reports that gates used the test split.
-
-Consequence: the gate statistics are test-derived information about the benchmark and solver, not about the method comparison. Any change motivated by a method-comparison metric on test voids blindness for the changed method (see §6 "Reusing the same test set").
+Pilot discipline (restrictions of D-009 kept, applied to validation; amendment A1): only the pilot's found-rate and runtime are read. Its Recovery@r, share, attribution vectors, and per-sample outputs are not inspected. After a failed G1, only the solver-repair options named in spec §9 (restarts, λ schedule, initialisation from the ordinary CE) may be changed.
 
 ### Reusing the same test set for a later method
 
@@ -129,6 +133,16 @@ Required reproduction conditions:
   - B1-det (R = 1, no noise) reported alongside.
 Secondary baselines: B3 (gradient difference, Eq. 14 of Artelt), B4 (Tier 0 only, global permutation importance,
   2 000 test points, 5 permutations).
+
+Non-local search baselines (amendment A4; in the main table, NOT in the Holm family):
+  B5 (DIG-style, after Renard et al.): from z0, a line search along the straight segments z0 → z_k for the
+      K = 20 nearest training points z_k in the same space Z with metric d (Tier 0: factor vectors of the training
+      split; Tier 1: μ(x) of training images), 50 equally spaced steps per segment. Returns the point in F^N_κ with the
+      smallest d(z0, ·), if ≤ r; otherwise NOT_FOUND. Δφ̃ = φ̃(D(z)) − φ̃(D(z0)).
+  A1 "DeepXplore-style" (λ = 0, after Pei et al.): one-sided disagreement without proximity; reported next to B5.
+
+Detection baseline for descriptive H3 (amendment A2):
+  B0 — disagreement rate (Hammer & Hüllermeier 2021), see §3.
 ```
 
 Shared controls for all methods: same dataset/split, same classifiers, same point set per pair, same `r`, same metric code, same φ̃ normalisation.
@@ -140,12 +154,12 @@ Shared controls for all methods: same dataset/split, same classifiers, same poin
 ```text
 1. Select a locked experiment commit and configuration (configs/experiments/exp_NNNN.yaml).
 2. Verify the data version: Tier 0 renderer hash + data seed 1234; Tier 1 MNIST source and digit filter.
-3. Verify split usage: test access only for the gate statistics in §6 and for run kind "final" (§19); validation otherwise.
-4. Build the classifier pairs (f_old^(s), f_new^(pair)); verify clean accuracy ≥ 95% (Tier 0) / ≥ 97% (Tier 1) on validation.
+3. Verify split usage: test access only for run kind "final" (§19); validation otherwise.
+4. Build the classifier pairs (f_old^(s), f_new^(pair)); verify clean accuracy ≥ 95% (Tier 0) / ≥ 97% (Tier 1) on validation (spec §5.1 "test sạch" → validation, A1).
 5. For each pair: sample N valid points (§3.2 of spec: both margins ≥ κ, label matches) with seed 5000 + pair_id.
-6. Run every method (Δ-CE N, Δ-CE O where specified, B1, B1-det, B3, B4, ablations) on the same points.
+6. Run every method (Δ-CE N, Δ-CE O where specified, B1, B1-det, B3, B4, B5, ablations incl. A1) on the same points; compute B0 on the unfiltered test split.
 7. Confirm expected counts: 17 pairs × 300 points (Tier 0); 11 pairs × 200 points (Tier 1).
-8. Compute Recovery@r, found-rate, share, S, SAR, plausibility, runtime.
+8. Compute Recovery@r, found-rate, share, S, B0, descriptive AUROC(S), SAR, plausibility, runtime.
 9. Compute the statistics in §11 on the test split (final run only).
 10. Apply the acceptance rule in §15.
 11. Write the reporting record (§18) and the per-seed table.
@@ -183,7 +197,8 @@ Reported dispersion: 95% percentile CI (paired bootstrap), and the per-seed diff
 Seed consistency: for H1, the difference averaged over the (T1_s, T3_s) pair of each seed s must be positive for s = 0, 1, 2.
 Invalid runs: any pair that fails validity (§16) is reported and excluded only if the exclusion is recorded before
   the test run; otherwise the run is invalid and the experiment is rerun from the same commit.
-AUROC (H3): computed on pair-level scores S: Tier 0 9 drift vs 8 null pairs; Tier 1 6 vs 5. Exact values reported.
+AUROC (descriptive H3): computed on pair-level scores S for Δ-CE, B0, B1, B3: Tier 0 9 drift vs 8 null pairs;
+  Tier 1 6 vs 5. Exact values reported, labelled "conditional on G0-qualified pairs".
 ```
 
 ---
@@ -243,7 +258,7 @@ Permitted information: sample IDs, factor values, predictions, margins, witness 
 Purpose: identify failure modes (e.g. restarts, λ schedule, not-found cases) and generate hypotheses.
 ```
 
-Diagnostic results must not be used to choose individual points, and improvement on inspected validation points is not evidence of general improvement. Test-split gate statistics (§6) are aggregate only; no sample-level test inspection is permitted.
+Diagnostic results must not be used to choose individual points, and improvement on inspected validation points is not evidence of general improvement. No test-split information of any kind is used before §19.
 
 ### Confirmation evaluation
 
@@ -252,7 +267,7 @@ Confirmation data, split, or procedure: a new predefined pair set on validation 
   hypothesis derived from validation diagnostics, and then the final test procedure (§19) for the claim.
 Sample-level access allowed: none on test; full on validation.
 Permitted information: aggregate metrics on test only in §19.
-Aggregate metric(s): Recovery@r (primary), S-based AUROC, found-rate.
+Aggregate metric(s): Recovery@r (primary), found-rate; S-based AUROC descriptive.
 Seeds/repeats: as §9.
 Candidate-promotion criterion: §15 acceptance rule, applied to the test split once.
 ```
@@ -267,10 +282,11 @@ A candidate is promoted only if it satisfies §15 on the test split. Validation 
 
 ```text
 Dataset/split: identical per pair and per tier for all methods.
-Preprocessing: identical factor normalisation φ̃ = φ̂ / σ_k (Tier 0: σ_k = 1; Tier 1: σ_k from clean test images of D(μ(x)), spec §5.3, D-009).
+Preprocessing: identical factor normalisation φ̃ = φ̂ / σ_k (Tier 0: σ_k = 1; Tier 1: σ_k from clean validation images of D(μ(x)), A1, D-011).
 Model initialisation: same f_old and f_new for all methods of a pair.
 Training budget: fixed per spec §5.1 and §4.4.
-Evaluation budget: same R = 5, T = 400, lr = 0.05, λ0 = 1.0, σ = 0.05 for Δ-CE and CE searches; B3 is closed-form.
+Evaluation budget: same R = 5, T = 400, lr = 0.05, λ0 = 1.0, σ = 0.05 for Δ-CE and CE searches; B3 is closed-form;
+  B5 uses K = 20 segments × 50 steps and the same r and κ.
 Attack parameters: not applicable.
 Random seeds: as §9.
 Hardware: Tier L and Tier 0 on local CPU; Tier 1 on Kaggle GPU. Runtime comparisons are only within the same device class and are labelled.
@@ -288,38 +304,40 @@ Intentional differences (e.g. CPU vs GPU runtime) are documented in `research/DE
 ## 15. Exact acceptance criteria
 
 ```text
-Primary condition:
-  (1) H3: AUROC of pair-level score S (Δ-CE) ≥ 0.90 on Tier 0 (9 drift vs 8 null pairs) AND
-      ≥ 0.90 on Tier 1 (6 drift vs 5 null pairs); AND
-  (2) at least one of the following holds:
+Primary condition (Route A):
+  H4 passes (implementation check), AND at least one of:
       H1 (Tier 1, pooled T1 + T3 pairs): Recovery@r(Δ-CE) − Recovery@r(B1) has 95% CI > 0 after Holm,
           and is positive for seeds 0, 1, 2;
       H2a (Tier 0, T3 pairs): Recovery@r(Δ-CE) − Recovery@r(B3) has 95% CI > 0 after Holm,
           and is positive for seeds 0, 1, 2;
       H2b (Tier 1, T3 pairs): same as H2a with B3 on Tier 1.
-  (3) H4 passes (implementation check; a failure is a bug, not a result).
 
-Required secondary conditions:
+Required secondary conditions (reported, not part of the decision):
   - all pairs in §9 are completed and valid (§16);
-  - the predicted tie (P-tie) is reported for T1 and T4 (Tier 0): |Recovery(Δ-CE) − Recovery(B3)| and
-    |Recovery(Δ-CE) − Recovery(B1-det)| are reported; a value > 0.10 is reported as a contradiction of Proposition 4;
-  - SAR and found-rate on N0/N1 are reported.
+  - P-tie for T1 and T4 (Tier 0): |Recovery(Δ-CE) − Recovery(B3)| and |Recovery(Δ-CE) − Recovery(B1-det)|;
+    a value > 0.10 is reported as a contradiction of Proposition 4;
+  - descriptive H3: AUROC(S) for Δ-CE, B0, B1, B3, "conditional on G0-qualified pairs";
+  - B5 and A1 (DeepXplore-style) Recovery@r in the main table;
+  - SAR and found-rate on N0/N1.
+
+Pre-declared claim rule for B5 (amendment A4):
+  if |Recovery@r(Δ-CE) − Recovery@r(B5)| ≤ 0.10 on T3 in BOTH tiers, the paper does not claim a better solver;
+  the claim rests on the theory (L1, P2, P3 with bias and margin) and the benchmark.
 
 Required repetitions:
   3 classifier seeds for drift pairs; 5 for N0; 3 for N1 (§9).
 
 Required uncertainty/statistical condition:
-  paired bootstrap 10 000 resamples, 95% CI, Holm over H1, H2a, H2b (§11).
+  paired bootstrap 10 000 resamples, 95% CI, Holm over H1, H2a, H2b only (§11).
 
 Constraint checks:
   - compute budget (docs/CONSTRAINTS.md §2): cumulative GPU-hours ≤ 10;
   - runtime per pair ≤ 5 minutes for Δ-CE (G1 requirement, reported);
-  - test-set use limited to the §6 gate statistics before the candidate is locked (§6, §19).
+  - no test-set use before the candidate is locked (§6, §19).
 
-Route consequences (spec §10, mirrored in research/DECISIONS.md):
-  Route A — conditions (1) and (2) hold: claim the Δ-CE method with the benchmark.
-  Route B — H4 holds; H1, H2a, H2b all fail; H3 holds: report theory plus evidence that B1/B3 suffice for local changes.
-  Route B′ — H3 fails: report the benchmark and negative controls only.
+Route consequences (spec §10 as amended by A3):
+  Route A — H4 ∧ (H1 ∨ H2a ∨ H2b): Δ-CE witness paper with the benchmark (claims limited by the B5 rule).
+  Route B — H4 ∧ ¬(H1 ∨ H2a ∨ H2b): benchmark + analysis paper (former B′ merged here).
   Stop — G0 fails after the 2 pre-declared adjustments.
 ```
 
@@ -332,7 +350,7 @@ A single favourable run or a single tier is not sufficient.
 A result is scientifically valid only if all applicable requirements hold.
 
 - [ ] Correct benchmark and version (Tier 0 renderer hash, data seed 1234; Tier 1 MNIST 4/9 filter).
-- [ ] Correct split: test only for the §6 gate statistics and the final procedure; validation otherwise.
+- [ ] Correct split: test only in the final procedure; validation for every gate and calibration.
 - [ ] Test-set blindness preserved (§6).
 - [ ] Expected pair count and point count completed (17 × 300 for Tier 0; 11 × 200 for Tier 1).
 - [ ] Intended config used (hash in run metadata).
@@ -355,7 +373,7 @@ A completed remote job is not automatically a valid research result.
 An experiment is invalid evidence if, for example:
 
 - a method or config was changed after its test result was seen;
-- test samples were used for a sample-level diagnostic, or a gate statistic beyond those listed in §6;
+- test samples were used for any gate, calibration, diagnostic, or implementation choice;
 - r, κ, or the λ schedule were changed after results;
 - the Kaggle job was cut at the hard timeout before all pairs completed;
 - a checkpoint hash does not match the manifest;
@@ -376,7 +394,7 @@ Configuration: configs/experiments/exp_NNNN.yaml (hash)
 Dataset/split: tier, split name, data version
 Seed(s): per §9
 Primary metric: Recovery@r per pair and per condition
-Secondary metrics: found-rate, share, S, SAR, plausibility, runtime
+Secondary metrics: found-rate, share, S, B0, descriptive AUROC(S), SAR, plausibility, runtime; B5 and A1 in the main table
 Aggregation: §10
 Uncertainty: §11 (CI, Holm, per-seed table)
 Requested hardware: (e.g. Kaggle T4 / RTX)
@@ -419,7 +437,7 @@ Before declaring success (route A):
 identify winning commit/config
 → reproduce from a clean checkout (fresh environment, same config hash)
 → rerun one drift pair and one null pair from scratch and compare Recovery@r within the bootstrap CI
-→ verify B1 and B3 are reproduced with the same code path
+→ verify B1, B3 and B5 are reproduced with the same code path
 → verify test-set independence (§6 provenance)
 → verify benchmark integrity (renderer and MNIST hashes)
 → check leakage and cherry-picking (§16)
@@ -433,7 +451,7 @@ The reproduction step in the source spec (§15, 9–12/11) is part of this proce
 
 ## 21. Completion checklist
 
-- [x] Exactly one primary metric (Recovery@r) and one unambiguous acceptance rule (§15).
+- [x] Exactly one primary metric (Recovery@r) and one unambiguous acceptance rule (§15, Route A = H4 ∧ (H1 ∨ H2a ∨ H2b)).
 - [x] Metric direction and computation are explicit.
 - [x] Benchmark/dataset versions identified.
 - [x] Train/validation/test usage explicit.
@@ -441,8 +459,8 @@ The reproduction step in the source spec (§15, 9–12/11) is part of this proce
 - [x] Reuse rule for the test set explicit.
 - [x] Diagnostic access policy defined (validation only).
 - [x] Confirmation procedure and promotion criterion predefined.
-- [x] Test use for gates limited to the aggregate statistics in §6 (D-009); no sample-level test diagnostics.
-- [x] Baseline reproduction/evaluation defined (B1 primary, B3 secondary).
+- [x] Test data excluded from every gate, calibration, and diagnostic (D-011).
+- [x] Baseline reproduction/evaluation defined (B1 primary; B3, B5, A1, B0 secondary).
 - [x] Seeds and repetitions defined.
 - [x] Aggregation rules fixed.
 - [x] Statistical testing required (paired bootstrap, Holm).

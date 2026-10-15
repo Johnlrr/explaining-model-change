@@ -18,8 +18,13 @@
 | D-006 | Environment split: Tier L and Tier 0 local CPU; Tier 1 Kaggle GPU | active | 2026-10-15 | H-001–H-003 | exp_TBD |
 | D-007 | Baselines are re-implemented, no external code | active | 2026-10-15 | H-001, H-002 | — |
 | D-008 | Research branch and kick-off commit | active | 2026-10-15 | — | — |
-| D-009 | Gates follow the spec (test split used for gate statistics, with restrictions) | active | 2026-10-15 | H-001–H-003 | G0, G1, G2 |
+| D-009 | Gates follow the spec (test split used for gate statistics, with restrictions) | superseded by D-011 | 2026-10-15 | H-001–H-003 | G0, G1, G2 |
 | D-010 | Tier 1 runs on Kaggle T4; RTX not used | active | 2026-10-15 | H-001–H-003 | smoke_0001, smoke_0002 |
+| D-011 | All gates and calibrations on validation; test once (amendment A1) | active | 2026-10-15 | H-001–H-003 | G0, G1, G2 |
+| D-012 | H3 descriptive with B0; acceptance Route A = H4 ∧ (H1 ∨ H2a ∨ H2b); B′ merged into B (A2, A3) | active | 2026-10-15 | H-001–H-004 | — |
+| D-013 | Non-local baselines B5 (DIG-style) and A1 (DeepXplore-style), outside Holm, with a pre-declared claim rule (A4) | active | 2026-10-15 | H-002, H-006, H-007 | — |
+| D-014 | Positioning and contribution order (A5) | active | 2026-10-15 | — | — |
+| D-015 | NPL 2022 residual risk accepted (A6) | active | 2026-10-15 | — | — |
 
 Allowed status values: active, superseded, reversed.
 
@@ -316,7 +321,7 @@ None.
 ## D-009 — Gates follow the spec
 
 ### Status
-active
+superseded by D-011 (spec amendment v1.1, 2026-10-15)
 
 ### Context
 D-002 proposed moving the spec's test-based gates to validation to keep the test split blind. The user decided to follow the spec.
@@ -372,6 +377,130 @@ A permitted RTX context becomes available.
 
 ### Supersedes / superseded by
 None.
+
+---
+
+## D-011 — All gates and calibrations on validation; test once
+
+### Status
+active (spec amendment v1.1, A1; author's decision)
+
+### Context
+The author states that the test-based gates in spec v1.0 were a writing error, not a design intent. Nothing has run and the spec is not frozen.
+
+### Decision
+G0 (Tier 0: 2 000 clean validation points; Tier 1: the whole validation split, ≈ 1 180 images), the G1 pilot, G2, σ_k, the classifier accuracy requirements, and r calibration all use validation. The test split is used only in the final procedure. The pilot read restrictions of D-009 are kept, applied to validation (only found-rate and runtime are read).
+
+### Rationale
+Removes any blindness caveat from the paper at no cost.
+
+### Evidence
+`docs/source/delta_ce_spec_amendment_v1.1.md` A1; `docs/EVALUATION.md` §5–§6.
+
+### Alternatives considered
+D-009 (gates on test). Withdrawn by the author.
+
+### Consequences
+`docs/EVALUATION.md` §6 has no test exceptions. The spec's "test sạch" in §5.1, §5.3 and §9 reads as validation.
+
+### Revisit condition
+None.
+
+### Supersedes / superseded by
+Supersedes D-009; returns to the intent of D-002.
+
+---
+
+## D-012 — H3 descriptive with B0; acceptance Route A = H4 ∧ (H1 ∨ H2a ∨ H2b)
+
+### Status
+active (amendments A2, A3)
+
+### Context
+H3 holds almost by construction: G0 keeps null pairs with agreement ≥ 0.98, while drift pairs have disagreement regions of about 10%. Δ-CE found-rate is a local estimator of the discrepancy volume (Hammer & Hüllermeier 2021).
+
+### Decision
+- H3 becomes descriptive: report AUROC(S) for Δ-CE, B0, B1, B3, labelled "conditional on G0-qualified pairs".
+- B0 = Monte Carlo disagreement rate. **Implementation clarification by the Research Lead:** B0 is computed on the whole test split of the tier (unfiltered), not on the evaluation points, because the evaluation points are filtered so that both models agree with margin ≥ κ, which makes the disagreement rate on them 0 by construction.
+- Route A = H4 ∧ (H1 ∨ H2a ∨ H2b), Holm over H1, H2a, H2b as before. Route B = H4 ∧ ¬(H1 ∨ H2a ∨ H2b): benchmark + analysis paper; B′ merged into B. Stop unchanged.
+
+### Rationale
+The value of Δ-CE is in *what* and *where*, not *whether*.
+
+### Evidence
+Amendment A2, A3; `research/LITERATURE.md` L-004.
+
+### Alternatives considered
+Keep H3 in the rule and add B0 as a comparator — rejected: H3 would remain near-tautological.
+
+### Consequences
+`docs/EVALUATION.md` §1–§3, §10, §15; `research/HYPOTHESES.md` H-003.
+
+### Revisit condition
+None.
+
+### Supersedes / superseded by
+Supersedes the H3 part of D-003.
+
+---
+
+## D-013 — Non-local baselines B5 and A1, outside Holm, with a claim rule
+
+### Status
+active (amendment A4)
+
+### Context
+Comparing Δ-CE only against B3 on T3 could be read as a straw-man comparison, since B3 cannot see non-local change by design. DIG and DeepXplore are the closest prior art.
+
+### Decision
+- B5 (DIG-style): from z0, line search along segments z0 → z_k for the K = 20 nearest training points in Z (metric d), 50 steps per segment; return the point in F^N_κ with the smallest d ≤ r, else NOT_FOUND.
+- A1 is renamed "DeepXplore-style" (λ = 0) and reported next to B5.
+- Both appear in the main table and are not in the Holm family; the acceptance rule is unchanged.
+- Pre-declared: if |Recovery@r(Δ-CE) − Recovery@r(B5)| ≤ 0.10 on T3 in both tiers, the paper does not claim a better solver; the claim rests on theory (L1, P2, P3) and the benchmark.
+
+### Rationale
+Answers "how does it compare with DIG?" before a reviewer asks.
+
+### Evidence
+Amendment A4; `research/LITERATURE.md` L-022, L-023.
+
+### Alternatives considered
+Re-implementing DIG's full graph method — not chosen: B5 keeps the same space Z and budget r.
+
+### Consequences
+`docs/EVALUATION.md` §7, §8, §14, §15; `research/HYPOTHESES.md` H-006, H-007.
+
+### Revisit condition
+None before results.
+
+### Supersedes / superseded by
+None.
+
+---
+
+## D-014 — Positioning and contribution order
+
+### Status
+active (amendment A5)
+
+### Decision
+Δ-CE is presented as an adaptation of DIG (L-022) and DeepXplore (L-023). P4 cites Artelt et al. Theorem 1 and is not claimed. Contributions in order: (1) the ground-truth benchmark, (2) the controlled comparison of explanation families with P-tie, (3) the margin-κ witness with L1, P2, P3.
+
+### Evidence
+Amendment A5; `docs/GOAL.md` "Target contribution".
+
+### Consequences
+Route B remains a submittable paper.
+
+---
+
+## D-015 — NPL 2022 residual risk accepted
+
+### Status
+active (amendment A6)
+
+### Decision
+The journal text of Artelt et al. NPL 2022 is not required to proceed. Try the author's page before 17/10; it does not block G0. The arXiv v2 already contains the regularisation section that matches the journal title.
 
 ---
 

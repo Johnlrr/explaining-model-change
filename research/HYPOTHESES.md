@@ -12,10 +12,11 @@
 |---|---|---|---|---|---|---|---|
 | H-001 | Δ-CE beats CE differencing on Tier 1 drift (paper H1) | contribution | proposed | high | — | exp_TBD (Tier 1, T1+T3, 3 seeds) | candidate |
 | H-002 | Δ-CE beats gradient difference on non-local drift T3 (paper H2a/H2b) | contribution | proposed | high | — | exp_TBD (Tier 0 and Tier 1, T3) | candidate |
-| H-003 | Δ-CE detects drift versus null at pair level (paper H3, AUROC ≥ 0.90) | contribution | proposed | high | — | exp_TBD (Tier 0 and Tier 1, all pairs) | candidate |
+| H-003 | Pair-level detection of drift versus null (paper H3; descriptive since D-012) | other (descriptive) | proposed | low | — | exp_TBD (Tier 0 and Tier 1, all pairs) | not claimed |
 | H-004 | Solver reproduces linear closed forms (paper H4) | other | proposed | high (gate G1) | — | exp_TBD (Tier L, 1000 pairs) | not applicable |
 | H-005 | Local drifts give a predicted tie (Proposition 4; paper P-tie) | mechanistic | proposed | medium | H-001 | exp_TBD (Tier 0, T1 and T4) | candidate |
-| H-006 | Proximity term is needed for locality (ablation A1) | ablation | proposed | medium | H-001 | exp_TBD (Tier 0, A1) | not applicable |
+| H-006 | Proximity term is needed for locality (A1, DeepXplore-style) | ablation | proposed | medium | H-001 | exp_TBD (Tier 0, A1) | not applicable |
+| H-007 | Minimal-witness search versus DIG-style line search (B5) on T3 | other (descriptive, pre-declared claim rule) | proposed | medium | H-002 | exp_TBD (Tier 0 and Tier 1, T3) | uncertain |
 
 Allowed type values: contribution, mechanistic, tuning, ablation, reproduction, other.
 
@@ -33,7 +34,7 @@ Use the status definitions in the template (`proposed`, `queued`, `testing`, `su
 
 ## 3. Priority policy
 
-H-004 is the first hypothesis: its result gates all later work (G1). H-001 to H-003 form the acceptance rule (EVALUATION §15). H-005 and H-006 explain results and are reported regardless of direction.
+H-004 is the first hypothesis: its result gates all later work (G1). H-001 and H-002 (H1, H2a, H2b) with H-004 form the acceptance rule (EVALUATION §15, D-012). H-003, H-005, H-006, H-007 are reported regardless of direction.
 
 ---
 
@@ -145,14 +146,14 @@ None yet.
 None yet.
 
 ### Follow-up
-If supported on both tiers: strongest claim (Route A). If one tier only: report the tier that supports it. If none: Route B.
+If supported on both tiers: strongest claim (Route A). If one tier only: report the tier that supports it. If none: Route B. In all cases the solver claim is limited by H-007 (B5 rule).
 
 ---
 
-## H-003 — Δ-CE detects drift versus null at pair level
+## H-003 — Pair-level detection of drift versus null (descriptive)
 
 ### Status
-proposed
+proposed — **descriptive since D-012** (amendment A2). Not part of the acceptance rule. Reported next to B0 (disagreement rate on the unfiltered test split), B1 and B3, labelled "conditional on G0-qualified pairs". Expected: B0 reaches AUROC ≈ 1.0, because G0 selects null pairs by agreement ≥ 0.98. The predictions below are kept for reporting.
 
 ### Origin
 Spec §1 (C5): H3 replaced SAR by AUROC because SAR depends on a magnitude threshold.
@@ -307,7 +308,7 @@ Report as prediction and outcome, regardless of direction.
 
 ---
 
-## H-006 — Proximity term is needed for locality
+## H-006 — Proximity term is needed for locality (A1, DeepXplore-style)
 
 ### Status
 proposed
@@ -356,6 +357,55 @@ None yet.
 
 ### Follow-up
 Reported as an ablation.
+
+---
+
+## H-007 — Minimal-witness search versus DIG-style line search (B5)
+
+### Status
+proposed (D-013, amendment A4). Outside Holm; reported in the main table.
+
+### Origin
+G-lit round 2: DIG returns the closest discrepancy intervals along segments between training points (L-022).
+
+### Contribution quality
+Determines whether a solver claim is allowed. Not an acceptance criterion.
+
+### Hypothesis
+On T3 (both tiers), the gradient-based minimal witness (Δ-CE) recovers the injected factor more often than a line search along segments to the K = 20 nearest training points (B5) within the same budget r.
+
+### Predictions
+Recovery@r(Δ-CE) − Recovery@r(B5) > 0.10 on T3 in at least one tier.
+
+### Falsification signals
+|Recovery@r(Δ-CE) − Recovery@r(B5)| ≤ 0.10 on T3 in both tiers. Pre-declared consequence: no solver claim; the paper's claim rests on theory (L1, P2, P3) and the benchmark.
+
+### Controlled variables
+Same points, r, κ, space Z, metric d, φ̃.
+
+### Minimal experiment
+B5 on all T3 pairs, both tiers, in the same runs as H-002.
+
+### Confirmation procedure
+Final test procedure only.
+
+### Parent and dependencies
+H-002, H-004.
+
+### Prior-work relation
+DIG / DIG-CV (L-022).
+
+### Experiments
+None yet.
+
+### Results
+None yet.
+
+### Conclusion
+None yet.
+
+### Follow-up
+Report with H-002.
 
 ---
 
