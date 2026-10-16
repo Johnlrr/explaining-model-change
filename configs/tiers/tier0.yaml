@@ -6,6 +6,7 @@ label_noise: 0.05          # training split
 adapt_label_noise: 0.05    # v1.2 B2: same 5% symmetric noise on every adaptation set
 f_old_cosine: true         # v1.2 B1: Adam lr 1e-3 with cosine decay to 0
 kappa: 0.5
+factors: [aspect, size, color, bg, posx]   # column order of Δφ̃ and of k* (D-028); equals renderer.FACTOR_NAMES
 training:
   f_old_lr: 1.0e-3
   finetune_lr: 3.0e-4
