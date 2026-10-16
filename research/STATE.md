@@ -107,12 +107,30 @@ If a Kaggle job is recorded here as in flight, resume by waiting on it with the 
 ## 10. Test-set state
 
 ```text
-Tier 0 test (5 000 renderer samples): untouched
-Tier 1 test (MNIST 4/9 official test): untouched
+Tier 0 test (5 000 renderer samples): untouched — NOT YET LOCKED (waiting for the author's decision on D-032, which must precede the lock)
+Tier 1 test (MNIST 4/9 official test): untouched; Tier 1 dropped (v1.8 I6). Used only if D-032 (exploratory N0) is approved.
 Status rule: a test split becomes `evaluated` only in the final procedure (EVALUATION §19), once per locked candidate.
 ```
 
----
+### Pre-lock checklist (Tier 0), 2026-10-16
+
+| # | Item | Status |
+|---|---|---|
+| 1 | EVALUATION/GOAL follow the Tier 1 drop | done, dcf3420 |
+| 2 | Wiring + final program: MethodOutput, B0 on the unfiltered split, runtime split by witness, schema-only tests, run/analyze stages | done, 6e4fe41 (records) + 24b7651 (final program); smoke on validation 2 pairs × 3 points |
+| 3 | Tie rule + zero-vector test (T4, k* = 0) | done, `tests/unit/test_eval_metrics.py::test_zero_vector_and_ties_have_no_top_factor_and_score_zero` |
+| 4 | Bootstrap seeds in the config | done, `configs/experiments/exp_0017.yaml` (`bootstrap_seeds`, checked against the code) |
+| 5 | r frozen | `configs/tiers/tier0.yaml` r = 0.5412657260894775 (exp_0008) |
+| 6 | Lock record (commit, config sha256, EVALUATION sha256) | pending D-032 |
+| 7 | §20 reproduction plan | below |
+
+### §20 reproduction plan (declared before the final run)
+
+After the final run and analysis: from a clean checkout of the lock commit, in a fresh environment, rerun pair 3 (T3 seed 0, drift) and pair 9 (N0 seed 0, null) with the same config (`run_kind: final`, `pair_ids` restricted to the pair), and compare their pair-level Recovery@r (pair 3) and found-rate (both) with the final run; they must agree within the pair's paired-bootstrap 95% CI (they are expected to be identical: the pipeline is deterministic on CPU). Also check B1, B3 and B5 come from the same code path (they do: one program) and the checkpoint hashes (load_pair verifies them).
+
+### Launch plan
+
+`setsid nohup uv run python -m dce.cli.final_tier0 run --config configs/experiments/exp_0017.yaml --out runs/experiments/exp_0017 --final` (survives the session; resumable per pair), then `analyze`. Expected ≈ 16.5 h on 8 threads. No metric is printed during the run.
 
 ## 11. Resource state
 
