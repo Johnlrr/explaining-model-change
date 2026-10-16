@@ -1,0 +1,275 @@
+{
+  "schema_version": 1,
+  "kind": "tier1_train",
+  "python": "3.13.15",
+  "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+  "torch": "2.11.0+cu128",
+  "device": "cuda",
+  "observed_hardware": [
+    "Tesla T4",
+    "Tesla T4"
+  ],
+  "bundle_tree_hash": "825655d4aedb1c6f90c0cca1ba7759d1bafb80b0913ea86777f93f6ffc3fa64a",
+  "data_sha256": "e74fe388e9208615c4997cd85d85f2e5489eb0c879e572e2e1a6c89c90c8f118",
+  "n_train": 600,
+  "n_val": 600,
+  "params": {
+    "tier": 1,
+    "kappa": 0.5,
+    "factors": [
+      "shape",
+      "color",
+      "bg",
+      "thick"
+    ],
+    "label_noise": 0.05,
+    "training": {
+      "f_old_lr": 0.001,
+      "f_old_cosine": true,
+      "finetune_lr": 0.0003,
+      "vae_lr": 0.001,
+      "oracle_lr": 0.001,
+      "batch_size": 256
+    },
+    "seeds": {
+      "init_base": 0,
+      "order_base": 100,
+      "adapt_data_base": 2000,
+      "adapt_order_base": 3000,
+      "points_base": 5000,
+      "restart_base": 10000,
+      "label_noise": 1240,
+      "vae": 1300,
+      "oracle": 1400,
+      "oracle_order": 1401
+    },
+    "scale": {
+      "vae_epochs": 1,
+      "oracle_epochs": 1,
+      "f_old_epochs": 1,
+      "n_adapt": 400,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "pair_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "limit": 600
+    },
+    "finetune": {
+      "T1": {
+        "epochs": 1,
+        "lr": 0.0003
+      },
+      "T3": {
+        "epochs": 1,
+        "lr": 0.0003
+      },
+      "N0": {
+        "epochs": 1,
+        "lr": 0.0003
+      }
+    },
+    "drift_params": {
+      "t1_correlation": 0.95,
+      "t3_quantile": 0.85,
+      "t3_factor": "thick"
+    },
+    "r": null
+  },
+  "report": {
+    "models": {
+      "vae": {
+        "loss": [
+          1598.9564632161457
+        ]
+      },
+      "shape_oracle": {
+        "loss": [
+          0.6934251721545529
+        ],
+        "n_train": 3292
+      },
+      "f_old_s0": {
+        "loss": [
+          0.6941841173171998
+        ],
+        "val_accuracy_clean_labels": 0.495
+      },
+      "f_old_s1": {
+        "loss": [
+          0.6950769702593486
+        ],
+        "val_accuracy_clean_labels": 0.48
+      },
+      "f_old_s2": {
+        "loss": [
+          0.6942343839009603
+        ],
+        "val_accuracy_clean_labels": 0.5083333333333333
+      },
+      "f_old_s3": {
+        "loss": [
+          0.6950711750984192
+        ],
+        "val_accuracy_clean_labels": 0.52
+      },
+      "f_old_s4": {
+        "loss": [
+          0.697964096069336
+        ],
+        "val_accuracy_clean_labels": 0.48
+      },
+      "f_new_p00_T1_s0": {
+        "pair_id": 0,
+        "condition": "T1",
+        "seed": 0,
+        "k_star": 1,
+        "epochs": 1,
+        "lr": 0.0003,
+        "loss": [
+          0.6927367210388183
+        ],
+        "val_accuracy_clean_labels": 0.5033333333333333
+      },
+      "f_new_p01_T1_s1": {
+        "pair_id": 1,
+        "condition": "T1",
+        "seed": 1,
+        "k_star": 1,
+        "epochs": 1,
+        "lr": 0.0003,
+        "loss": [
+          0.6962432479858398
+        ],
+        "val_accuracy_clean_labels": 0.48
+      },
+      "f_new_p02_T1_s2": {
+        "pair_id": 2,
+        "condition": "T1",
+        "seed": 2,
+        "k_star": 1,
+        "epochs": 1,
+        "lr": 0.0003,
+        "loss": [
+          0.6933994960784912
+        ],
+        "val_accuracy_clean_labels": 0.49
+      },
+      "f_new_p03_T3_s0": {
+        "pair_id": 3,
+        "condition": "T3",
+        "seed": 0,
+        "k_star": 3,
+        "epochs": 1,
+        "lr": 0.0003,
+        "loss": [
+          0.6932517695426941
+        ],
+        "val_accuracy_clean_labels": 0.52
+      },
+      "f_new_p04_T3_s1": {
+        "pair_id": 4,
+        "condition": "T3",
+        "seed": 1,
+        "k_star": 3,
+        "epochs": 1,
+        "lr": 0.0003,
+        "loss": [
+          0.6977071070671081
+        ],
+        "val_accuracy_clean_labels": 0.48
+      },
+      "f_new_p05_T3_s2": {
+        "pair_id": 5,
+        "condition": "T3",
+        "seed": 2,
+        "k_star": 3,
+        "epochs": 1,
+        "lr": 0.0003,
+        "loss": [
+          0.6924928212165833
+        ],
+        "val_accuracy_clean_labels": 0.525
+      },
+      "f_new_p06_N0_s0": {
+        "pair_id": 6,
+        "condition": "N0",
+        "seed": 0,
+        "k_star": null,
+        "epochs": 1,
+        "lr": 0.0003,
+        "loss": [
+          0.6934733152389526
+        ],
+        "val_accuracy_clean_labels": 0.5166666666666667
+      },
+      "f_new_p07_N0_s1": {
+        "pair_id": 7,
+        "condition": "N0",
+        "seed": 1,
+        "k_star": null,
+        "epochs": 1,
+        "lr": 0.0003,
+        "loss": [
+          0.6960573101043701
+        ],
+        "val_accuracy_clean_labels": 0.48
+      },
+      "f_new_p08_N0_s2": {
+        "pair_id": 8,
+        "condition": "N0",
+        "seed": 2,
+        "k_star": null,
+        "epochs": 1,
+        "lr": 0.0003,
+        "loss": [
+          0.6925131630897522
+        ],
+        "val_accuracy_clean_labels": 0.5233333333333333
+      },
+      "f_new_p09_N0_s3": {
+        "pair_id": 9,
+        "condition": "N0",
+        "seed": 3,
+        "k_star": null,
+        "epochs": 1,
+        "lr": 0.0003,
+        "loss": [
+          0.69291015625
+        ],
+        "val_accuracy_clean_labels": 0.52
+      },
+      "f_new_p10_N0_s4": {
+        "pair_id": 10,
+        "condition": "N0",
+        "seed": 4,
+        "k_star": null,
+        "epochs": 1,
+        "lr": 0.0003,
+        "loss": [
+          0.696933069229126
+        ],
+        "val_accuracy_clean_labels": 0.48
+      }
+    }
+  },
+  "seconds": 7.5,
+  "work": {
+    "processed": 18
+  }
+}

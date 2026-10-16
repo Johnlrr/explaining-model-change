@@ -362,3 +362,9 @@ Before ending a session: move resolved items out, update `research/STATE.md` §8
 - [x] Kick-off inconsistencies recorded.
 - [x] Repository observations recorded.
 - [ ] Items in §8 verified.
+
+### Kaggle fetch behaviour seen at G2 (2026-10-16)
+
+- `kaggle kernels output` lists at most 20 files per call: a 21st file is silently "missing" (fetching it alone works). Tier 1 training jobs therefore write ≤ 20 files (device logits live in `result.json`).
+- Large outputs (`vae.pt`, ≈ 6.7 MB) were truncated or hung in three consecutive fetches (smoke_0011 `IncompleteRead`, smoke_0012 `IncompleteRead`, exp_0012 600 s timeout); small files arrived intact. The manifest SHA256 check caught every truncation. The harness now retries a failed fetch (3 attempts); records of the failed attempts stay as evidence.
+- Remote results were fine each time (T4 observed, data hash verified, 18 models, ≈ 56 s of compute for the full job).

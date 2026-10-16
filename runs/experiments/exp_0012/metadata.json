@@ -1,0 +1,185 @@
+{
+  "run_id": "exp_0012",
+  "status": "ERROR",
+  "executor": "kaggle",
+  "kernel": "boinhbo/dce-tier1-train-v1",
+  "git_commit": "1a8968a96fbbc7eebf8afcdfbc7d052d44898fde",
+  "requested_hardware": "NvidiaTeslaT4",
+  "internet": false,
+  "started_at": "2026-10-16T07:06:05.459073+00:00",
+  "finished_at": "2026-10-16T07:18:33.786526+00:00",
+  "git_dirty": true,
+  "submitted_code_sha256": "089e4f4b4c6aacc35f47bff4158d7a211601db40da61c177844fd3beb3572b9f",
+  "source_dir": "/home/toska/code/research/Agent-auto-Research",
+  "source_path": "/home/toska/code/research/Agent-auto-Research/src/dce/remote/bundles/tier1_train.py",
+  "source_sha256": "52b719b09fa530dc1782851ba7ac535dbaab15beb1dd872e309a31dc10c3fbe3",
+  "source_git_tracked": true,
+  "config": {
+    "id": "boinhbo/dce-tier1-train-v1",
+    "title": "dce-tier1-train-v1",
+    "code_file": "src/dce/remote/bundles/tier1_train.py",
+    "kernel_type": "script",
+    "language": "python",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": false,
+    "machine_shape": "NvidiaTeslaT4",
+    "expected_hardware_contains": "T4",
+    "dataset_sources": [],
+    "competition_sources": [],
+    "kernel_sources": [
+      "boinhbo/dce-tier1-data-v1"
+    ],
+    "model_sources": [],
+    "timeout_seconds": 3600,
+    "wait_timeout_seconds": 4200,
+    "poll_interval_seconds": 30,
+    "immutable_kernel": true,
+    "kernel_source_expectations": [
+      {
+        "kernel": "boinhbo/dce-tier1-data-v1",
+        "version": 1,
+        "manifest": "artifact_manifest.json",
+        "manifest_sha256": "dc6d21b3fd287609ba1c80f052103883dd69c8db19c54a091287c480b1e591be"
+      }
+    ],
+    "fetch_files": [
+      "vae.pt",
+      "shape_oracle.pt",
+      "f_old_s0.pt",
+      "f_old_s1.pt",
+      "f_old_s2.pt",
+      "f_old_s3.pt",
+      "f_old_s4.pt",
+      "f_new_p00_T1_s0.pt",
+      "f_new_p01_T1_s1.pt",
+      "f_new_p02_T1_s2.pt",
+      "f_new_p03_T3_s0.pt",
+      "f_new_p04_T3_s1.pt",
+      "f_new_p05_T3_s2.pt",
+      "f_new_p06_N0_s0.pt",
+      "f_new_p07_N0_s1.pt",
+      "f_new_p08_N0_s2.pt",
+      "f_new_p09_N0_s3.pt",
+      "f_new_p10_N0_s4.pt",
+      "result.json",
+      "artifact_manifest.json"
+    ],
+    "required_outputs": [
+      "vae.pt",
+      "shape_oracle.pt",
+      "f_old_s0.pt",
+      "f_old_s1.pt",
+      "f_old_s2.pt",
+      "f_old_s3.pt",
+      "f_old_s4.pt",
+      "f_new_p00_T1_s0.pt",
+      "f_new_p01_T1_s1.pt",
+      "f_new_p02_T1_s2.pt",
+      "f_new_p03_T3_s0.pt",
+      "f_new_p04_T3_s1.pt",
+      "f_new_p05_T3_s2.pt",
+      "f_new_p06_N0_s0.pt",
+      "f_new_p07_N0_s1.pt",
+      "f_new_p08_N0_s2.pt",
+      "f_new_p09_N0_s3.pt",
+      "f_new_p10_N0_s4.pt",
+      "result.json",
+      "artifact_manifest.json"
+    ],
+    "metrics_file": "result.json",
+    "json_checks": [
+      {
+        "path": "work.processed",
+        "op": "gte",
+        "value": 18
+      }
+    ],
+    "parameters": {
+      "tier": 1,
+      "kappa": 0.5,
+      "factors": [
+        "shape",
+        "color",
+        "bg",
+        "thick"
+      ],
+      "label_noise": 0.05,
+      "training": {
+        "f_old_lr": 0.001,
+        "f_old_cosine": true,
+        "finetune_lr": 0.0003,
+        "vae_lr": 0.001,
+        "oracle_lr": 0.001,
+        "batch_size": 256
+      },
+      "seeds": {
+        "init_base": 0,
+        "order_base": 100,
+        "adapt_data_base": 2000,
+        "adapt_order_base": 3000,
+        "points_base": 5000,
+        "restart_base": 10000,
+        "label_noise": 1240,
+        "vae": 1300,
+        "oracle": 1400,
+        "oracle_order": 1401
+      },
+      "scale": {
+        "vae_epochs": 30,
+        "oracle_epochs": 10,
+        "f_old_epochs": 10,
+        "n_adapt": 8000,
+        "seeds": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "pair_ids": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "limit": null
+      },
+      "finetune": {
+        "T1": {
+          "epochs": 3,
+          "lr": 0.0003
+        },
+        "T3": {
+          "epochs": 3,
+          "lr": 0.0003
+        },
+        "N0": {
+          "epochs": 3,
+          "lr": 0.0003
+        }
+      },
+      "drift_params": {
+        "t1_correlation": 0.95,
+        "t3_quantile": 0.85,
+        "t3_factor": "thick"
+      },
+      "r": null
+    }
+  },
+  "error": "Kaggle fetch failed: Kaggle CLI command timed out after 600 seconds: kaggle kernels output boinhbo/dce-tier1-train-v1 --path runs/experiments/exp_0012/artifacts --force --file-pattern \\A(?:vae\\.pt|shape_oracle\\.pt|f_old_s0\\.pt|f_old_s1\\.pt|f_old_s2\\.pt|f_old_s3\\.pt|f_old_s4\\.pt|f_new_p00_T1_s0\\.pt|f_new_p01_T1_s1\\.pt|f_new_p02_T1_s2\\.pt|f_new_p03_T3_s0\\.pt|f_new_p04_T3_s1\\.pt|f_new_p05_T3_s2\\.pt|f_new_p06_N0_s0\\.pt|f_new_p07_N0_s1\\.pt|f_new_p08_N0_s2\\.pt|f_new_p09_N0_s3\\.pt|f_new_p10_N0_s4\\.pt|result\\.json|artifact_manifest\\.json)\\Z",
+  "kernel_version": 1,
+  "remote_status": "KernelWorkerStatus.COMPLETE",
+  "remote_failure_message": null,
+  "observed_hardware": null,
+  "expected_hardware_contains": "T4",
+  "remote_artifacts": null,
+  "account": "boinhbo"
+}
