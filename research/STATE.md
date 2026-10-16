@@ -12,7 +12,7 @@
 
 ```text
 Status: G1 PASSED (H4 exp_0007; found-rate exp_0009/0011; runtime projections exp_0011). Next: evaluation code + G2 (Tier 1)
-Last updated: 2026-10-15
+Last updated: 2026-10-16
 Current commit: see `git log -1` (kick-off commit on research/delta-ce)
 Current branch: research/delta-ce (from main)
 ```
@@ -54,9 +54,9 @@ None yet
 ```text
 Hypothesis ID: H-004 (solver correctness; a verification step, not a scientific claim)
 Short statement: the Δ-CE solver reproduces the linear closed form of Proposition 3 and the cos-alignment of Proposition 4 on Tier L.
-Status: proposed
-Current experiment ID: none
-Why this hypothesis is active: it is the first gate (G1). Without it no result can be trusted.
+Status: supported (exp_0007; see research/HYPOTHESES.md H-004)
+Current experiment ID: exp_0007
+Why this hypothesis is active: it was the first gate (G1), now passed. Without it no result can be trusted.
 ```
 
 ---
@@ -87,7 +87,8 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 ## 8. Next action
 
 1. G-lit, Kaggle smoke, G0-Tier 0, G1: done (G1 passed 2026-10-16, exp_0007/0009/0011).
-2. **Evaluation code** (EVALUATION §8 step 8, §11, §15; D-021): Recovery@r, share, found-rate, S, B0, AUROC(S), SAR, Recovery|reach, runtime split; paired bootstrap + Holm. Must be fixed before the final run (§19). Unit-tested on synthetic inputs only.
+2. **Evaluation code — written 2026-10-16, uncommitted** (D-028): `src/dce/eval/{metrics,stats,rules}.py`; 26 synthetic tests (`tests/unit/test_eval_metrics.py`, `test_eval_rules.py`): null coverage 94.5%, planted 0.15 detected, hand-worked metrics, Holm and B5/Route rules on constructed cases. Full unit suite 133 passed. Still to do before the lock: runtime split, B0 on unfiltered split, A1/B5 wiring, and the bootstrap RNG seed in the config. Lock = commit hash recorded here at candidate lock (§19).
+   - **No exception** to §19: the Tier 0 full run waits for G2, the code lock, and the candidate lock (Research Lead, 2026-10-16).
 3. **G2 (24/10), Tier 1:** Kaggle T4 trains VAE, shape oracle, f_old (5 seeds), f_new (11 pairs) via a D-026 bundle with `tier1_data.npz` (exp_0010) as kernel source; local CPU: oracle checks, σ_k, G0-Tier 1 (C1 for T3 from the start, v1.3 C3), r calibration Tier 1, GPU-vs-CPU logit gap.
 4. **Final run (§19)** only after G2 passes and the candidate is locked: Tier 0 test ≈ 16.5 h, Tier 1 test ≈ 6–19 h, local 8 cores.
 

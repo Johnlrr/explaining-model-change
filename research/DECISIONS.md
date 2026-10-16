@@ -37,6 +37,7 @@
 | D-025 | Tier 1 data preparation: morphology ladder with measured thickness, clean splits and factors (prep kernel, CPU) | active | 2026-10-15 | — | smoke_0008, exp_0010 |
 | D-026 | Kaggle packaging: generated single-file bundles of src/dce, checked against src by a unit test | active | 2026-10-15 | — | smoke_0009 |
 | D-027 | Amendment v1.6 after the G1 pilot: projected-runtime criterion (36 h / 36 h / 10 GPU-h), Tier 1 evaluation local CPU, runtime split by witness, (B) only after (A), (A) bit-identical | active | 2026-10-16 | — | exp_0009 |
+| D-028 | Evaluation code before the final run: Holm and bootstrap readings, per-seed rule, share/zero-sum, B5 outcome labels; no Tier 0 test exception | active | 2026-10-16 | — | synthetic tests only |
 
 Allowed status values: active, superseded, reversed.
 
@@ -839,6 +840,40 @@ D-007 above.
 ## 11. Research-direction decisions
 
 D-003 above.
+
+---
+
+## D-028 — Evaluation code before the final run: readings, no test exception
+
+### Status
+active (Research Lead, 2026-10-16). **Declared before any Tier 0 or Tier 1 metric is computed on any split.** The code was checked only on synthetic inputs with known answers (tests/unit/test_eval_metrics.py, test_eval_rules.py, test_eval_records.py: 36 tests). No spec file under `docs/` is changed.
+
+### Decision
+1. **No exception to EVALUATION §19.** The Tier 0 full run is not started before G2 passes, the evaluation code is fixed, and the candidate is locked. Order: this evaluation code → G2 (Tier 1 on Kaggle T4 for training, local CPU for checks) → lock (code commit hash and candidate config hash in STATE "Test-set state") → final test run.
+2. **Holm reading (§11 "CI > 0 after Holm").** Accepted by the Research Lead 2026-10-16: a hypothesis is supported iff Holm-adjusted p < 0.05, the pair-averaged difference is > 0, and the difference is > 0 for seeds 0, 1, 2. The 95% percentile CI is reported unadjusted. The two-sided p comes from the bootstrap distribution itself: p = 2·min(P(d* ≤ 0), P(d* ≥ 0)). The family is H1, H2a, H2b; if one is dropped, Holm runs over the remaining two (tested).
+3. **Bootstrap p.** p = 2·min(P*(stat ≤ 0), P*(stat ≥ 0)), floored at 1/B. Statistic = mean over pairs of the per-pair mean difference. Resampling is stratified by pair with the same indices for both methods. B = 10 000; the RNG seed is fixed in the config at lock.
+4. **Per-seed sign rule (§10, §15).** H1: the pair-averaged difference of the (T1_s, T3_s) pairs is > 0 for s = 0, 1, 2. H2a, H2b: the difference of the T3_s pair is > 0 for s = 0, 1, 2.
+5. **Pair scores.** S for Δ-CE = found-rate pooled over the N and O directions (where O is run). S for B1, B1-det, B3 = median ‖Δφ̃‖ over found points. B0 is computed on the unfiltered test split, as §3 states.
+6. **SAR** is evaluated for Δ-CE: found-rate ≥ 0.2 and max over k of the mean share ≥ 0.5, where the mean is over found points.
+7. **Share.** Points with zero Σ_k |Δφ̃_ik| are excluded from the share mean. This is not stated in §3; it is declared here. Not-found points count as 0 for Recovery, not for share.
+8. **B5 rule (§15, A4/A7).** Uses the unadjusted 95% CI. Outcomes are computed per tier and overall: claim_allowed only if both tiers satisfy (a); report_b5_better if any tier satisfies (c); otherwise no_solver_claim. Per-tier results are always reported.
+9. **Recovery|reach (D-021 D2)** is computed on the Δ-CE found set, for every method on the same subset, and is descriptive only.
+10. **Tie rule (Research Lead, 2026-10-16, declared before any number).** If max_k |Δφ̃_ik| is attained at more than one factor (difference ≤ 1e-12) or the vector is zero, top_i is undefined and the point scores 0. A zero vector is never credited to column 0 (Tier 0 T4: k* = index 0). Factor order is the `factors` list of the tier config (Tier 0: aspect, size, color, bg, posx), not a hard-coded list.
+11. **Bootstrap seeds:** 6000 + index with H1 = 0, H2a = 1, H2b = 2, B5-T0 = 3, B5-T1 = 4; one generator per comparison (`rules.BOOTSTRAP_SEEDS`).
+12. **Wiring** (`src/dce/eval/records.py`): Δφ̃ = φ̃(z_new) − φ̃(z_ref) (Δ-CE, B5: z0; B1: CE of f_old), B3 direction as is, not-found rows zeroed, B0 on the unfiltered split, runtime with the phase-2 split by witness, count checks 17 × 300 / 11 × 200. Integration tests assert schema, counts and finiteness only; no Recovery, share or attribution value is printed before the lock.
+
+### Synthetic checks (before any data)
+- Zero true difference: 95% CI contains 0 in 94.5% of 200 replications; two-sided p < 0.05 in 5.5% (B = 1000, 6 pairs × 300 points).
+- Planted difference 0.15: detected, CI > 0, p < 0.001.
+- Hand-worked metric example (N = 10): Recovery 0.5, found-rate 0.8, share and SAR as computed by hand.
+- Holm and the decision rules tested on constructed cases (including a seed-sign failure and a Holm-marginal case).
+
+### Rationale
+The final run is blind only if its code is fixed before it sees test data (§6, §19). Points 2–9 are choices or readings of text that the spec leaves open; declaring them now means they cannot be chosen after the result is known.
+
+### Consequences
+- `src/dce/eval/{metrics,stats,rules}.py` is the evaluation code. `src/dce/remote/bundles/bundle_smoke.py` was regenerated (D-026 rule: any change under `src/dce` rebuilds the bundles).
+- Committed 2026-10-16 as an ordinary commit, not the lock. The lock is the commit hash recorded in STATE at candidate lock (§19); any later edit to `src/dce/eval/` before the lock is logged here.
 
 ---
 
