@@ -1,0 +1,8 @@
+# exp_0013 — G2 checks on Tier 1, local CPU, validation only (D-029). Evaluates the checkpoints of exp_0012
+# after verifying their SHA256 against the job's manifest; reads no test arrays.
+experiment_id: exp_0013
+tier_config: configs/tiers/tier1.yaml
+source_run: runs/experiments/exp_0012
+data: .work/tier1/tier1_data.npz
+data_sha256: e74fe388e9208615c4997cd85d85f2e5489eb0c879e572e2e1a6c89c90c8f118   # = exp_0010 manifest
+threads: 8

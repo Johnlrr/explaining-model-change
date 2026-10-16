@@ -118,7 +118,7 @@ def main(argv=None) -> int:
     results["sigma_k"] = sig
 
     # classifiers: accuracy, G0-Tier 1, device gap
-    dev = np.load(Path(cfg["source_run"]) / "artifacts" / "val_logits_device.npz")
+    dev = {k: np.asarray(v) for k, v in json.loads((src / "result.json").read_text())["val_logits"].items()}
     drift = T1Params(**tier["drift_params"])
     pairs = tier1_pairs()
     models, logits, gaps = {}, {}, {}

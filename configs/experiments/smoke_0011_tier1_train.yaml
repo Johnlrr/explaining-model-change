@@ -105,7 +105,6 @@ kernel:
   - f_new_p08_N0_s2.pt
   - f_new_p09_N0_s3.pt
   - f_new_p10_N0_s4.pt
-  - val_logits_device.npz
   - result.json
   - artifact_manifest.json
   metrics_file: result.json

@@ -168,9 +168,10 @@ def test_training_entry_end_to_end_at_smoke_scale(npz, tmp_path):
     for a in manifest:
         assert hashlib.sha256((out / a["path"]).read_bytes()).hexdigest() == a["sha256"]
     assert res["work"]["processed"] == len(names) and res["observed_hardware"] == ["cpu"]
-    logits_dump = np.load(out / "val_logits_device.npz")
-    assert set(logits_dump.files) == names - {"vae", "shape_oracle"}
-    assert all(np.isfinite(logits_dump[k]).all() and logits_dump[k].shape == (24, 2) for k in logits_dump.files)
+    dump = res["val_logits"]
+    assert set(dump) == names - {"vae", "shape_oracle"}
+    assert all(np.isfinite(dump[k]).all() and np.asarray(dump[k]).shape == (24, 2) for k in dump)
+    assert len(list(out.iterdir())) <= 20  # Kaggle lists at most 20 output files per call
 
 
 def test_kaggle_configs_carry_the_tier_parameters_verbatim():
@@ -181,4 +182,4 @@ def test_kaggle_configs_carry_the_tier_parameters_verbatim():
     smoke = yaml.safe_load(Path("configs/experiments/smoke_0011_tier1_train.yaml").read_text())["kernel"]
     assert {k: v for k, v in smoke["parameters"].items() if k not in ("scale", "finetune")} == \
         {k: v for k, v in TIER1.items() if k not in ("scale", "finetune")}
-    assert smoke["required_outputs"] == full["required_outputs"] and len(full["required_outputs"]) == 21
+    assert smoke["required_outputs"] == full["required_outputs"] and len(full["required_outputs"]) == 20

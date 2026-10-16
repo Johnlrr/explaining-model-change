@@ -3,7 +3,8 @@
 Trains, on the TRAIN split only (the test arrays are never read): the VAE (clean images), the shape oracle
 (α of every valid ladder level), f_old for seeds 0–4 (5% symmetric label noise on the train labels, B2 reading),
 and f_new for the 11 pairs (fine-tune of f_old on an adaptation set with 5% noise). Writes flat checkpoints,
-a SHA256 manifest, the logits of every classifier on validation (device-gap check), and result.json.
+a SHA256 manifest, and result.json (which carries the logits of every classifier on validation for the
+device-gap check; Kaggle's output listing returns at most 20 files per call, so the job writes exactly 20).
 
 `run(params, data_path, out_dir, device)` is the only code path: the local smoke and the full job differ in
 `params` only (scale, epochs).
@@ -142,13 +143,13 @@ def run(params: dict, data_path: Path, out: Path, device: torch.device, data_sha
                                   "val_accuracy_clean_labels": float((lg.argmax(1) == val.y).mean())}
         print(f"{name} done ({time.time() - start:.0f}s)", flush=True)
 
-    np.savez_compressed(out / "val_logits_device.npz", **logits_dump)
     gpus = [torch.cuda.get_device_name(i) for i in range(torch.cuda.device_count())]
     result = {"schema_version": 1, "kind": "tier1_train", "python": sys.version.split()[0],
               "platform": platform.platform(), "torch": torch.__version__, "device": str(device),
               "observed_hardware": gpus or ["cpu"], "bundle_tree_hash": os.environ.get("DCE_BUNDLE_TREE_HASH"),
               "data_sha256": data_sha, "n_train": train_split.n, "n_val": val.n, "params": params,
-              "report": report, "seconds": round(time.time() - start, 1),
+              "report": report, "val_logits": {k: v.tolist() for k, v in logits_dump.items()},
+              "seconds": round(time.time() - start, 1),
               "work": {"processed": len(report["models"])}}
     (out / "artifact_manifest.json").write_text(json.dumps({"schema_version": 1, "artifacts": manifest}, indent=2))
     (out / "result.json").write_text(json.dumps(result, indent=2))
