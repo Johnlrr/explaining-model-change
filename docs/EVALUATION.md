@@ -210,6 +210,8 @@ Statistical test required: yes
 Reason: the acceptance rule depends on confidence intervals of paired differences.
 Method: paired bootstrap, 10 000 resamples of points, stratified by pair; per-pair means averaged across pairs.
 Confidence level / alpha: 95% two-sided percentile CI; family of three tests (H1, H2a, H2b) controlled by Holm (α = 0.05).
+Holm reading (D-028): the two-sided p of each test comes from its own bootstrap distribution, p = 2·min(P(d* ≤ 0), P(d* ≥ 0)); a hypothesis passes Holm iff its adjusted p < 0.05. The 95% CI is reported unadjusted. If a test is dropped, Holm runs over the remaining ones.
+Bootstrap RNG seeds: 6000 + index (H1 = 0, H2a = 1, H2b = 2, B5-T0 = 3, B5-T1 = 4), one generator per comparison.
 Uncertainty reporting: CI for every difference; per-seed table; AUROC without CI (pair counts are too small).
 ```
 
@@ -289,10 +291,10 @@ Evaluation budget: same R = 5, T = 400, lr = 0.05, λ0 = 1.0, σ = 0.05 for Δ-C
   B5 uses K = 20 segments × 50 steps and the same r and κ.
 Attack parameters: not applicable.
 Random seeds: as §9.
-Hardware: Tier L and Tier 0 on local CPU; Tier 1 on Kaggle GPU. Runtime comparisons are only within the same device class and are labelled.
-Batch size: 300 points per batch on GPU; CPU runs are unbatched or batched by the same code path.
+Hardware: Tier L and Tier 0 on local CPU; Tier 1 training (VAE, shape oracle, f_old, f_new) on Kaggle T4; every Tier 1 solver and baseline runs on local CPU from downloaded, hash-checked checkpoints, so all methods share one device (v1.6 G2). Runtime comparisons are only within the same device class and are labelled.
+Batch size: all N points of a pair per batch (CPU); the solver uses one code path for every method.
 Precision: float32.
-Runtime measurement procedure: wall-clock per point, averaged over the N points of one pair, device recorded.
+Runtime measurement procedure: wall-clock and CPU time per point, averaged over the N points of one pair, device recorded; phase-2 CPU time reported separately for points with and without a witness (v1.6 G3).
 Dependency versions: recorded in the run metadata (lock file hash).
 Other: r is calibrated once on T1 seed 0 validation points (2 × median CE distance of f_new) and then frozen in the config.
 ```
@@ -306,9 +308,9 @@ Intentional differences (e.g. CPU vs GPU runtime) are documented in `research/DE
 ```text
 Primary condition (Route A):
   H4 passes (implementation check), AND at least one of:
-      H1 (Tier 1, pooled T1 + T3 pairs): Recovery@r(Δ-CE) − Recovery@r(B1) has 95% CI > 0 after Holm,
+      H1 (Tier 1, pooled T1 + T3 pairs): Recovery@r(Δ-CE) − Recovery@r(B1) is > 0 after Holm (adjusted p < 0.05, §11),
           and is positive for seeds 0, 1, 2;
-      H2a (Tier 0, T3 pairs): Recovery@r(Δ-CE) − Recovery@r(B3) has 95% CI > 0 after Holm,
+      H2a (Tier 0, T3 pairs): Recovery@r(Δ-CE) − Recovery@r(B3) is > 0 after Holm (adjusted p < 0.05, §11),
           and is positive for seeds 0, 1, 2;
       H2b (Tier 1, T3 pairs): same as H2a with B3 on Tier 1.
 
@@ -338,7 +340,7 @@ Required uncertainty/statistical condition:
 
 Constraint checks:
   - compute budget (docs/CONSTRAINTS.md §2): cumulative GPU-hours ≤ 10;
-  - runtime per pair ≤ 5 minutes for Δ-CE (G1 requirement, reported);
+  - runtime by projection (v1.6 G1): Tier 0 final run ≤ 36 h and Tier 1 evaluation ≤ 36 h wall-clock locally, measured at G1 and reported; actual runtime reported per method, split by points with and without a witness (G3);
   - no test-set use before the candidate is locked (§6, §19).
 
 Route consequences (spec §10 as amended by A3):

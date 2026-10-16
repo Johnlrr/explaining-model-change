@@ -873,6 +873,7 @@ The final run is blind only if its code is fixed before it sees test data (§6, 
 
 ### Consequences
 - `src/dce/eval/{metrics,stats,rules}.py` is the evaluation code. `src/dce/remote/bundles/bundle_smoke.py` was regenerated (D-026 rule: any change under `src/dce` rebuilds the bundles).
+- `docs/EVALUATION.md` §11 (Holm reading, bootstrap seeds), §14 (hardware, batch, runtime split) and §15 (Holm wording, runtime by projection) edited on the Research Lead's instruction of 2026-10-16 to follow v1.6 and D-028. No threshold, metric, split or acceptance structure changed.
 - Committed 2026-10-16 as an ordinary commit, not the lock. The lock is the commit hash recorded in STATE at candidate lock (§19); any later edit to `src/dce/eval/` before the lock is logged here.
 
 ---
