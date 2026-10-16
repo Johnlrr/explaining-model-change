@@ -40,6 +40,7 @@
 | D-028 | Evaluation code before the final run: Holm and bootstrap readings, per-seed rule, share/zero-sum, B5 outcome labels; no Tier 0 test exception | active | 2026-10-16 | — | synthetic tests only |
 | D-029 | G2 Tier 1: training job (VAE, shape oracle, f_old, f_new on Kaggle T4), local checks, readings (train label noise, shape-oracle data, adaptation sets) and fixed knob order | active | 2026-10-16 | — | smoke_0011, exp_0012, exp_0013 |
 | D-030 | Amendment v1.7 after G2: f_old 60 epochs and threshold 0.95 (post-result), diagnostics D1–D3 with pre-declared branches (a)/(b), four T3 variants, Tier 1 drop rule (22/10) | active | 2026-10-16 | — | exp_0013, exp_0014 |
+| D-031 | Amendment v1.8: G2 round two (final): data v2 without erosion, VAE β selection (spec G2 + valid-point yield + self-imposed 0.90), two-tier failure rule (Tier 1 / T3 per v1.3 C3), CPU training | active | 2026-10-16 | — | exp_0016 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -919,6 +920,26 @@ active (author's decision, 2026-10-16, on the Research Lead's proposal). **Made 
 
 ### Consequences
 exp_0012 f_old/f_new/shape-oracle checkpoints are superseded (not used for any claim); its G0 T1/N0 passes lapse with the old f_old. D-029 item 3 (f_old threshold) is superseded by this decision; items 5 and 9 are extended by H3 and H4.
+
+---
+
+## D-031 — Amendment v1.8: G2 round two (final), data v2 without erosion, β selection, two-tier failure rule, CPU training
+
+### Status
+active (author's decision, 2026-10-16, on the Research Lead's proposal with the executor's conditions). **Made after seeing exp_0013–exp_0015 on validation; declared before round two runs.** Test untouched, no Recovery read. Text: `docs/source/delta_ce_spec_amendment_v1.8.md` (I1–I7).
+
+### Decision
+- **Data v2:** ladder levels {0, +1, +2, +3}, t ~ U[2.5, 6.5], nearest valid level; derived deterministically from the hash-verified exp_0010 file (seeds 2235/2236/2237 for t only; everything else unchanged). Implementation: erosion levels are marked invalid in the derived file, so every level choice (clean factors and Flip_thick re-sampling) uses the same rule; the target range is stored in the file. EVALUATION §4 updated.
+- **β selection:** VAE 100 epochs, β ∈ {0.1, 0.05, 0.02}; largest β meeting (i) the spec G2 criteria, (ii) valid_rate_val × 1 991 ≥ 300 for every pair (T1, N0, and the chosen T3 variant), (iii) f_old seed 0 on D(μ(x)) ≥ 0.90. **(iii) is a self-imposed threshold, not a spec criterion,** kept against selection bias. It replaces v1.7 H3's 0.95.
+- **Valid rate:** per pair (including the chosen T3 variant), validation images whose decoded D(μ(x)) has m_o ≥ κ and m_n ≥ κ for the clean label (spec §3.2). From the test split only the count 1 991 is used.
+- **f_old:** 60 epochs cosine, threshold 0.95, fixed whatever the result.
+- **Variants in one run:** T1 default → knob 1 → knob 2 (D-029 item 9, cumulative); T3 default → knob 1 → knob 2 → bg fallback (D-030); first variant passing G0 at all three seeds.
+- **Device:** all Tier 1 training on the local CPU; D-027 / v1.6 G2 amended; no Kaggle job.
+- **Two-tier failure rule:** Tier level = β found ∧ all f_old ≥ 0.95 ∧ G0 T1 and N0 pass; failing → Tier 1 dropped (H6: Route A = H4 ∧ H2a, Holm m = 1, no B5 claim), no round three. T3 level = a T3 variant passes C1; failing → only T3-Tier 1 dropped (v1.3 C3: H2b untested, H1 on T1 only, Holm m = 2, no B5 claim); bg fallback passing → H2b with k* = bg, stated in the paper.
+- **Reported:** new thickness distribution and q85, std of μ(x), per-pair validation valid counts, shape-oracle accuracy on reconstructions per β.
+
+### Order of the run (fixed)
+data v2 → f_old × 5 → all f_new variants → G0 on real validation images → choose T1/T3 variants → for each β: VAE, shape oracle, criteria (i)–(iii) with the chosen variants → choose β → apply the two-tier rule. One program (`dce.cli.g2_round2`), one run (exp_0016).
 
 ---
 
