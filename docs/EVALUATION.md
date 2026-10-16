@@ -64,7 +64,7 @@ Secondary metrics (§3) are reported but do not change the acceptance rule.
 
 **Tier 0 — Ellipses renderer (synthetic).** 32×32×3 images from a 5-factor differentiable renderer (aspect, size, colour, background, horizontal position), factors sampled i.i.d. uniform on [0,1]. Label `y = 1[φ1 > 0.5]` with 5% label noise in the training split only. Version: spec §4.2 (renderer v1.0, data seed 1234). Sizes: train 20 000, validation 5 000, test 5 000. Ground-truth factors are exact.
 
-**Tier 1 — Colored MorphoMNIST, 4 vs 9 (real digits, synthetic colour/thickness).** Source: MNIST digits 4 and 9 from torchvision (public download, allowed). Official train split → 90% train / 10% validation (seed 1234). Official test split (digits 4 and 9) → test. **Thickness since amendment v1.8 (data v2):** morphology ladder levels {0, +1, +2, +3} only (no erosion), t ~ U[2.5, 6.5], nearest valid level; derived deterministically from the exp_0010 data (seeds 2235/2236/2237 for t; images, labels, splits, φc, φb unchanged; derived-file hash recorded). Colour and background are sampled; thickness is re-measured on each image (`2 × mean distance-transform on skeleton`). Ground-truth factors: colour φc and background φb (exact, sampled), thickness (measured, the measurement is the ground truth), shape (shape-oracle label). Tier 1 factor values are read through the analytic oracle of spec §5.3, validated at gate G2 (spec §9).
+**Tier 1 — Colored MorphoMNIST, 4 vs 9 (real digits, synthetic colour/thickness). DROPPED from evaluation (amendment v1.8 I6, exp_0016: G0-Tier 1 T1 failed in every declared variant); the description is kept for the record.** Source: MNIST digits 4 and 9 from torchvision (public download, allowed). Official train split → 90% train / 10% validation (seed 1234). Official test split (digits 4 and 9) → test. **Thickness since amendment v1.8 (data v2):** morphology ladder levels {0, +1, +2, +3} only (no erosion), t ~ U[2.5, 6.5], nearest valid level; derived deterministically from the exp_0010 data (seeds 2235/2236/2237 for t; images, labels, splits, φc, φb unchanged; derived-file hash recorded). Colour and background are sampled; thickness is re-measured on each image (`2 × mean distance-transform on skeleton`). Ground-truth factors: colour φc and background φb (exact, sampled), thickness (measured, the measurement is the ground truth), shape (shape-oracle label). Tier 1 factor values are read through the analytic oracle of spec §5.3, validated at gate G2 (spec §9).
 
 **Known exclusions.** None beyond the stated filters. Pixels or images are never removed after seeing results.
 
@@ -177,7 +177,7 @@ Tier 0 classifier seeds s ∈ {0,…,4}: one f_old^(s) per seed, shared by all c
   - T1, T3, T4: seeds 0–2 (3 pairs each).
   - N0: seeds 0–4 (5 pairs). Different data order from f_old, same clean distribution.
   - N1: seeds 0–2 (3 pairs). φ2 ~ U[0.5, 1], labelling rule unchanged.
-Tier 1 seeds: T1 and T3 seeds 0–2 (3 pairs each); N0 seeds 0–4 (5 pairs). Ablations: seed 0 only.
+Tier 1 seeds: T1 and T3 seeds 0–2 (3 pairs each); N0 seeds 0–4 (5 pairs). Ablations: seed 0 only. Tier 1 dropped (v1.8 I6, exp_0016): not evaluated.
 Point sampling: seed 5000 + pair_id. Solver restarts: seed_restart = 10 000 + pair_id.
 What is re-seeded: classifier initialisation, data order, adaptation sampling, point sampling, restart noise.
 What remains fixed: renderer, labels, split membership, κ, r, λ schedule, T, R.
@@ -209,9 +209,10 @@ AUROC (descriptive H3): computed on pair-level scores S for Δ-CE, B0, B1, B3: T
 Statistical test required: yes
 Reason: the acceptance rule depends on confidence intervals of paired differences.
 Method: paired bootstrap, 10 000 resamples of points, stratified by pair; per-pair means averaged across pairs.
-Confidence level / alpha: 95% two-sided percentile CI; family of three tests (H1, H2a, H2b) controlled by Holm (α = 0.05).
+Confidence level / alpha: 95% two-sided percentile CI; Holm (α = 0.05) over the tests in force. Originally H1, H2a, H2b; since v1.8 I6 (Tier 1 dropped) H2a only, m = 1.
 Holm reading (D-028): the two-sided p of each test comes from its own bootstrap distribution, p = 2·min(P(d* ≤ 0), P(d* ≥ 0)); a hypothesis passes Holm iff its adjusted p < 0.05. The 95% CI is reported unadjusted. If a test is dropped, Holm runs over the remaining ones.
 Bootstrap RNG seeds: 6000 + index (H1 = 0, H2a = 1, H2b = 2, B5-T0 = 3, B5-T1 = 4), one generator per comparison.
+Tie rule (D-028): top_i is undefined, and the point scores 0, when max_k |Δφ̃_ik| is attained by more than one factor (within 1e-12) or Δφ̃_i = 0. Factor order comes from the tier config.
 Uncertainty reporting: CI for every difference; per-seed table; AUROC without CI (pair counts are too small).
 ```
 
@@ -291,7 +292,7 @@ Evaluation budget: same R = 5, T = 400, lr = 0.05, λ0 = 1.0, σ = 0.05 for Δ-C
   B5 uses K = 20 segments × 50 steps and the same r and κ.
 Attack parameters: not applicable.
 Random seeds: as §9.
-Hardware: Tier L and Tier 0 on local CPU; Tier 1 training (VAE, shape oracle, f_old, f_new) on Kaggle T4; every Tier 1 solver and baseline runs on local CPU from downloaded, hash-checked checkpoints, so all methods share one device (v1.6 G2). Runtime comparisons are only within the same device class and are labelled.
+Hardware: Tier L and Tier 0 on local CPU (8 cores). Tier 1 is dropped (v1.8 I6); its G2 training ran on the local CPU (v1.8 I5). Runtime comparisons are only within the same device class and are labelled.
 Batch size: all N points of a pair per batch (CPU); the solver uses one code path for every method.
 Precision: float32.
 Runtime measurement procedure: wall-clock and CPU time per point, averaged over the N points of one pair, device recorded; phase-2 CPU time reported separately for points with and without a witness (v1.6 G3).
@@ -306,13 +307,17 @@ Intentional differences (e.g. CPU vs GPU runtime) are documented in `research/DE
 ## 15. Exact acceptance criteria
 
 ```text
+TIER 1 IS DROPPED (amendment v1.8 I6 / v1.7 H6; exp_0016, G0-Tier 1 T1 failed in every declared variant).
+H1 and H2b are not tested. The rule in force is:
+
 Primary condition (Route A):
-  H4 passes (implementation check), AND at least one of:
-      H1 (Tier 1, pooled T1 + T3 pairs): Recovery@r(Δ-CE) − Recovery@r(B1) is > 0 after Holm (adjusted p < 0.05, §11),
-          and is positive for seeds 0, 1, 2;
-      H2a (Tier 0, T3 pairs): Recovery@r(Δ-CE) − Recovery@r(B3) is > 0 after Holm (adjusted p < 0.05, §11),
-          and is positive for seeds 0, 1, 2;
-      H2b (Tier 1, T3 pairs): same as H2a with B3 on Tier 1.
+  H4 passes (implementation check), AND
+      H2a (Tier 0, T3 pairs): Recovery@r(Δ-CE) − Recovery@r(B3) has Holm-adjusted p < 0.05 with a family of ONE test
+          (i.e. the ordinary two-sided bootstrap p < 0.05, §11), the pair-averaged difference is > 0,
+          and it is positive for seeds 0, 1, 2.
+
+Original rule (kept for the record, no longer applicable): H4 ∧ (H1 ∨ H2a ∨ H2b), with
+  H1 (Tier 1, pooled T1 + T3 pairs, Δ-CE vs B1) and H2b (Tier 1, T3 pairs, Δ-CE vs B3), Holm over H1, H2a, H2b.
 
 Required secondary conditions (reported, not part of the decision):
   - all pairs in §9 are completed and valid (§16);
@@ -331,21 +336,23 @@ Solver claim rule versus B5 (amendment A4 as revised by A7; outside Holm; does n
   (c) If in ANY tier d_t < −0.10 AND CI_t < 0: state explicitly in the results and the discussion that B5 is better.
       This must not be omitted or moved to a footnote.
   (d) Tier-specific outcomes are reported as they are, per tier.
+  With Tier 1 dropped: (a) cannot be met, so (b) holds (no solver claim); (c) still applies to Tier 0 and must be
+  reported if met; (d) reports Tier 0.
 
 Required repetitions:
   3 classifier seeds for drift pairs; 5 for N0; 3 for N1 (§9).
 
 Required uncertainty/statistical condition:
-  paired bootstrap 10 000 resamples, 95% CI, Holm over H1, H2a, H2b only (§11).
+  paired bootstrap 10 000 resamples, 95% CI; Holm over the tests in force: H2a only since v1.8 I6 (m = 1) (§11).
 
 Constraint checks:
   - compute budget (docs/CONSTRAINTS.md §2): cumulative GPU-hours ≤ 10;
-  - runtime by projection (v1.6 G1): Tier 0 final run ≤ 36 h and Tier 1 evaluation ≤ 36 h wall-clock locally, measured at G1 and reported; actual runtime reported per method, split by points with and without a witness (G3);
+  - runtime by projection (v1.6 G1, replaces "≤ 5 minutes per pair"): Tier 0 final run ≤ 36 h wall-clock locally (Tier 1 dropped), measured at G1 and reported; actual runtime reported per method, split by points with and without a witness (G3);
   - no test-set use before the candidate is locked (§6, §19).
 
 Route consequences (spec §10 as amended by A3):
-  Route A — H4 ∧ (H1 ∨ H2a ∨ H2b): Δ-CE witness paper with the benchmark (claims limited by the B5 rule).
-  Route B — H4 ∧ ¬(H1 ∨ H2a ∨ H2b): benchmark + analysis paper (former B′ merged here).
+  Route A — H4 ∧ H2a (since v1.8 I6): Δ-CE witness paper with the benchmark (no solver claim versus B5).
+  Route B — H4 ∧ ¬H2a: benchmark + analysis paper (former B′ merged here).
   Stop — G0 fails after the 2 pre-declared adjustments.
 ```
 
@@ -360,7 +367,7 @@ A result is scientifically valid only if all applicable requirements hold.
 - [ ] Correct benchmark and version (Tier 0 renderer hash, data seed 1234; Tier 1 MNIST 4/9 filter).
 - [ ] Correct split: test only in the final procedure; validation for every gate and calibration.
 - [ ] Test-set blindness preserved (§6).
-- [ ] Expected pair count and point count completed (17 × 300 for Tier 0; 11 × 200 for Tier 1).
+- [ ] Expected pair count and point count completed (17 × 300 for Tier 0; Tier 1 dropped, v1.8 I6).
 - [ ] Intended config used (hash in run metadata).
 - [ ] Run corresponds to the intended Git commit.
 - [ ] Seeds §9 completed; no seed dropped after results.
@@ -370,7 +377,7 @@ A result is scientifically valid only if all applicable requirements hold.
 - [ ] No result-dependent change of r, κ, λ schedule, split, or benchmark.
 - [ ] No seed, checkpoint, or point cherry-picking.
 - [ ] Clean accuracy thresholds met (≥ 95% Tier 0, ≥ 95% Tier 1 since amendment v1.7) on validation.
-- [ ] For Tier 1: shape oracle accuracy ≥ 98% on real images and ≥ 95% on reconstructions (gate G2).
+- [ ] For Tier 1: shape oracle accuracy ≥ 98% on real images and ≥ 95% on reconstructions (gate G2). Not applicable since v1.8 I6 (Tier 1 dropped).
 
 A completed remote job is not automatically a valid research result.
 

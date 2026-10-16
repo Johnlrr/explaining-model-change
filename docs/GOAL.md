@@ -79,6 +79,8 @@ The project is successful (Route A) only if the primary decision rule in `docs/E
 
 Exact thresholds, seeds, and statistical rules are in `docs/EVALUATION.md`, not here.
 
+Note (2026-10-16): Tier 1 was dropped by the pre-declared rule of amendment v1.8 I6 (exp_0016); the primary objective is evaluated on Tier 0 only (Route A = H4 ∧ H2a). See `docs/EVALUATION.md` §15.
+
 ---
 
 ## Secondary objectives
