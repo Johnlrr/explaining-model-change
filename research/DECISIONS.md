@@ -39,6 +39,7 @@
 | D-027 | Amendment v1.6 after the G1 pilot: projected-runtime criterion (36 h / 36 h / 10 GPU-h), Tier 1 evaluation local CPU, runtime split by witness, (B) only after (A), (A) bit-identical | active | 2026-10-16 | — | exp_0009 |
 | D-028 | Evaluation code before the final run: Holm and bootstrap readings, per-seed rule, share/zero-sum, B5 outcome labels; no Tier 0 test exception | active | 2026-10-16 | — | synthetic tests only |
 | D-029 | G2 Tier 1: training job (VAE, shape oracle, f_old, f_new on Kaggle T4), local checks, readings (train label noise, shape-oracle data, adaptation sets) and fixed knob order | active | 2026-10-16 | — | smoke_0011, exp_0012, exp_0013 |
+| D-030 | Amendment v1.7 after G2: f_old 60 epochs and threshold 0.95 (post-result), diagnostics D1–D3 with pre-declared branches (a)/(b), four T3 variants, Tier 1 drop rule (22/10) | active | 2026-10-16 | — | exp_0013, exp_0014 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -899,6 +900,25 @@ active (Research Lead, 2026-10-16). **Declared before any Tier 1 model exists.**
 
 ### Consequences
 `src/dce/{data/tier1,models/oracle,eval/g0_tier1,remote/tier1_train,cli/g2_tier1}.py`, `configs/tiers/tier1.yaml`, `configs/experiments/{smoke_0011,exp_0012}_*.yaml`; bundle `tier1_train`. r for Tier 1 is calibrated after G2 on validation (T1 seed 0), not in this step.
+
+---
+
+## D-030 — Amendment v1.7 after G2 (exp_0013): f_old recipe and threshold, diagnostics, decision rules, T3 variants, drop rule
+
+### Status
+active (author's decision, 2026-10-16, on the Research Lead's proposal). **Made after seeing the G2 result on validation** (exp_0013); the test split is untouched. The decision rules are declared **before** the diagnostics D1–D3 are run. The text is `docs/source/delta_ce_spec_amendment_v1.7.md` (H1–H7).
+
+### Decision
+- f_old Tier 1: 60 epochs, cosine; threshold 0.97 → 0.95 (equal to Tier 0). A post-result threshold change, stated as such; any seed below 0.95 goes back to the author. EVALUATION §8 step 4 and §16 edited accordingly.
+- Diagnostics (CPU, validation): D1 f_old on real and on D(μ(x)); D2 linear probe on μ(x) and a 32-image grid; D3 errors of f_old and the shape oracle by ladder level and thickness bin.
+- Branch (a): probe ≥ 0.95 and f_old on D(μ(x)) ≥ 0.90 → keep the VAE, retrain the shape oracle on α̂(real) + α̂(D(μ(x))). Branch (b): otherwise VAE β ∈ {1, 0.5, 0.1}, the largest β with f_old on D(μ(x)) ≥ 0.95 and the three Spearman criteria; latent stays 16.
+- T3: four variants in one job (default, knob 1, knob 2, bg > q85 fallback), first one passing C1 in that order. **Reading added by the Research Lead:** the proposal listed three variants; knob 2 (10 epochs) is included because v1.3 C3 and D-029 item 9 put it before the fallback, so skipping it would use the fallback early.
+- All f_new retrained on the new f_old; one job (2/4).
+- Drop rule (deadline 22/10): if Tier 1 still fails G2, Route A = H4 ∧ H2a, Holm family of 1, no B5 solver claim, H1/H2b untested.
+- Training device for Tier 1: the author chooses after the CPU-hours estimate (possible amendment of D-027 G2).
+
+### Consequences
+exp_0012 f_old/f_new/shape-oracle checkpoints are superseded (not used for any claim); its G0 T1/N0 passes lapse with the old f_old. D-029 item 3 (f_old threshold) is superseded by this decision; items 5 and 9 are extended by H3 and H4.
 
 ---
 

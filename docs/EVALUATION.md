@@ -155,7 +155,7 @@ Shared controls for all methods: same dataset/split, same classifiers, same poin
 1. Select a locked experiment commit and configuration (configs/experiments/exp_NNNN.yaml).
 2. Verify the data version: Tier 0 renderer hash + data seed 1234; Tier 1 MNIST source and digit filter.
 3. Verify split usage: test access only for run kind "final" (§19); validation otherwise.
-4. Build the classifier pairs (f_old^(s), f_new^(pair)); verify clean accuracy ≥ 95% (Tier 0) / ≥ 97% (Tier 1) on validation (spec §5.1 "test sạch" → validation, A1).
+4. Build the classifier pairs (f_old^(s), f_new^(pair)); verify clean accuracy ≥ 95% (Tier 0) / ≥ 95% (Tier 1, amendment v1.7 H1; was 97%) on validation (spec §5.1 "test sạch" → validation, A1).
 5. For each pair: sample N valid points (§3.2 of spec: both margins ≥ κ, label matches) with seed 5000 + pair_id.
 6. Run every method (Δ-CE N, Δ-CE O where specified, B1, B1-det, B3, B4, B5, ablations incl. A1) on the same points; compute B0 on the unfiltered test split.
 7. Confirm expected counts: 17 pairs × 300 points (Tier 0); 11 pairs × 200 points (Tier 1).
@@ -369,7 +369,7 @@ A result is scientifically valid only if all applicable requirements hold.
 - [ ] No leakage between adaptation data and evaluation points.
 - [ ] No result-dependent change of r, κ, λ schedule, split, or benchmark.
 - [ ] No seed, checkpoint, or point cherry-picking.
-- [ ] Clean accuracy thresholds met (≥ 95% Tier 0, ≥ 97% Tier 1) on validation.
+- [ ] Clean accuracy thresholds met (≥ 95% Tier 0, ≥ 95% Tier 1 since amendment v1.7) on validation.
 - [ ] For Tier 1: shape oracle accuracy ≥ 98% on real images and ≥ 95% on reconstructions (gate G2).
 
 A completed remote job is not automatically a valid research result.
