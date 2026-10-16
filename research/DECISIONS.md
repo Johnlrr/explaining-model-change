@@ -36,6 +36,7 @@
 | D-024 | Pre-pilot declarations (G1): parallel phase 2, wall+CPU time, r calibration over found CEs, float64 model check, pilot readings | active | 2026-10-15 | — | exp_0008, exp_0009 |
 | D-025 | Tier 1 data preparation: morphology ladder with measured thickness, clean splits and factors (prep kernel, CPU) | active | 2026-10-15 | — | smoke_0008, exp_0010 |
 | D-026 | Kaggle packaging: generated single-file bundles of src/dce, checked against src by a unit test | active | 2026-10-15 | — | smoke_0009 |
+| D-027 | Amendment v1.6 after the G1 pilot: projected-runtime criterion (36 h / 36 h / 10 GPU-h), Tier 1 evaluation local CPU, runtime split by witness, (B) only after (A), (A) bit-identical | active | 2026-10-16 | — | exp_0009 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -237,7 +238,7 @@ Supersedes: `research/proposals/delta_ce_proposal_v1.md` (for the listed items).
 ## D-006 — Environment split: Tier L and Tier 0 local CPU; Tier 1 Kaggle GPU
 
 ### Status
-active
+partially superseded by D-027 (amendment v1.6 G2): Tier 1 evaluation (solvers, baselines) runs on local CPU; Kaggle T4 only trains. Original text: active
 
 ### Context
 The local machine has 16 CPU cores and 15 GB RAM, with no NVIDIA GPU detected. The spec assigns Tier L and Tier 0 to CPU and Tier 1 (VAE, classifiers, oracle) to GPU with ≤ 4 Kaggle jobs.
@@ -363,7 +364,7 @@ Supersedes D-002.
 ## D-010 — Tier 1 runs on Kaggle T4; RTX not used
 
 ### Status
-active
+partially superseded by D-027 (amendment v1.6 G2): Tier 1 evaluation (solvers, baselines) runs on local CPU; Kaggle T4 only trains. Original text: active
 
 ### Context
 The repository's RTX PRO 6000 example attaches the competition `arc-prize-2026-arc-agi-3`, and its comments allow it only when the account and project are permitted to use that context. This project has no such permission. Smoke runs on account `boinhbo` (smoke_0001 prep, smoke_0002 GPU) succeeded: offline kernel, `kernel_sources` hash verified, two Tesla T4 devices observed.
@@ -771,6 +772,25 @@ The Kaggle harness stages exactly one tracked code file under `src/`. Tier 1 GPU
 
 ### Consequences
 Bundles are ≈ 60 kB of base64 in Git per job; the source of truth remains `src/dce`. A Tier 1 run is identified by its git commit and its bundle tree hash.
+
+## D-027 — Amendment v1.6: runtime criterion by projection; Tier 1 evaluation on local CPU
+
+### Status
+active (author's decision, 2026-10-16; after the G1 pilot exp_0009, **before** any measurement of the speed-up (A)). No change to the algorithm or to maxiter.
+
+### Decision
+`docs/source/delta_ce_spec_amendment_v1.6.md` G1–G5:
+- G1: "≤ 5 min per pair" is replaced by projections from the runtime measured after (A) × points × pairs × methods: (i) Tier 0 final run ≤ 36 h wall on the local machine; (ii) Tier 1 evaluation ≤ 36 h wall locally; (iii) cumulative GPU-hours ≤ 10. All three → G1 passes on runtime.
+- G2: Kaggle T4 only trains (VAE, shape oracle, f_old, f_new on Tier 1); every solver and baseline on Tier 1 runs locally on CPU from downloaded, hash-checked checkpoints. D-006 and D-010 are amended accordingly.
+- G3: runtime is a secondary metric, wall and CPU time per point per method, split by points with and without a witness, with the note that Δ-CE's cost is concluding "no witness within budget".
+- G4: (B), early stopping of SLSQP, only if G1 fails after (A); its rule must have a reason independent of the pilot data, logged here before running; accepted only if per-pair found-rates and the set of point IDs with a witness match the current solver on the pilot pairs (no attribution vectors read).
+- G5: (A) must reproduce the current solver bit for bit on the pilot pairs; otherwise a purely numerical cause must be shown and the set of point IDs with a witness must be unchanged.
+
+### Research Lead's readings (declared before measuring (A))
+1. **Projection basis = 8 cores**: the machine is shared and capped at 8 logical cores (the user's request, 2026-10-15). Projections use runtimes measured on 8 cores.
+2. **Projection model:** per pair, wall time = Σ over methods of (measured wall per point after (A), from the pilot pair of the same condition) × N, with N = 300 (Tier 0) / 200 (Tier 1); summed over all pairs of the tier (Tier 0: 17; Tier 1: 11). Methods = those of the final run: Δ-CE N (+ O on null pairs), B1, B1-det, B3, B4, B5, A1, A2 (no m_o ≥ κ), A3 (κ ∈ {0, 1.0}; κ = 0.5 is Δ-CE). Ablations on Tier 1 for seed 0 only (CONSTRAINTS §4). Conditions without a pilot pair are costed at the most expensive measured condition.
+3. **Tier 1 evaluation cost** before real weights: decoder + CNN at the spec architectures with random weights, float64 forward/backward on CPU (the cost does not depend on the weight values); the Tier 1 projection scales the Tier 0 per-point solver cost by the measured ratio of per-evaluation cost (Tier 1 / Tier 0) and by the dimension (16 / 5) for phase 1 where relevant. Labelled as an estimate until G2.
+4. **Device consistency (G2):** Tier 1 f_old/f_new are trained on Kaggle (torch 2.11, GPU) and evaluated locally (torch 2.14, CPU). Every evaluation quantity (valid points, margins, G0-Tier 1 numbers used by the benchmark) is recomputed locally from the downloaded checkpoints; max |logit_GPU − logit_CPU| on validation is measured and recorded.
 
 ---
 
