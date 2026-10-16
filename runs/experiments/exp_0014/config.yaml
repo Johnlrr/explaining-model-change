@@ -1,0 +1,7 @@
+experiment_id: exp_0014
+tier_config: configs/tiers/tier1.yaml
+source_run: runs/experiments/exp_0012
+data: .work/tier1/tier1_data.npz
+data_sha256: e74fe388e9208615c4997cd85d85f2e5489eb0c879e572e2e1a6c89c90c8f118
+f_old_epochs: 60
+threads: 8

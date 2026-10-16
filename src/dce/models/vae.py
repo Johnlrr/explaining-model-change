@@ -47,15 +47,16 @@ class VAE(nn.Module):
         return self.decoder(z), mu, logvar
 
 
-def vae_loss(x, recon, mu, logvar):
+def vae_loss(x, recon, mu, logvar, beta: float = 1.0):
     bce = nn.functional.binary_cross_entropy(recon, x, reduction="sum") / len(x)
     kl = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp()) / len(x)
-    return bce + kl
+    return bce + beta * kl
 
 
 def train_vae(model: VAE, images: torch.Tensor, *, epochs: int = 30, lr: float = 1e-3, batch_size: int = 256,
-              seed: int = 0, device: torch.device | str | None = None) -> list[float]:
-    """Adam on the ELBO (BCE + KL, β = 1) over clean images (spec §5.2). Returns the mean loss per epoch."""
+              seed: int = 0, device: torch.device | str | None = None, beta: float = 1.0) -> list[float]:
+    """Adam on BCE + β·KL over clean images (spec §5.2: β = 1; other β only by amendment v1.7 H3 (b)).
+    Returns the mean loss per epoch."""
     dev = torch.device(device) if device is not None else torch.device("cpu")
     model.to(dev).train()
     opt = torch.optim.Adam(model.parameters(), lr=lr)
@@ -68,7 +69,7 @@ def train_vae(model: VAE, images: torch.Tensor, *, epochs: int = 30, lr: float =
         for start in range(0, len(perm), batch_size):
             x = images[perm[start : start + batch_size]].to(dev)
             recon, mu, logvar = model(x)
-            loss = vae_loss(x, recon, mu, logvar)
+            loss = vae_loss(x, recon, mu, logvar, beta)
             opt.zero_grad()
             loss.backward()
             opt.step()

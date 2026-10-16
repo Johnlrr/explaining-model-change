@@ -1,0 +1,13 @@
+{
+  "experiment": "exp_0014",
+  "gate": "G2 diagnostics",
+  "git": {
+    "commit": "4174c203e6431cc7bfbd3136c63c699a6d345cb7",
+    "dirty": false
+  },
+  "torch": "2.14.1+cpu",
+  "checkpoint_sha256": {
+    "f_old_diag_s0": "cd359025e479509b9492f72ece008bf2bd4f68c4ad9dce9865c910ce590713a8"
+  },
+  "seconds": 180.3
+}
