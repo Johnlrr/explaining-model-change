@@ -41,6 +41,7 @@
 | D-029 | G2 Tier 1: training job (VAE, shape oracle, f_old, f_new on Kaggle T4), local checks, readings (train label noise, shape-oracle data, adaptation sets) and fixed knob order | active | 2026-10-16 | — | smoke_0011, exp_0012, exp_0013 |
 | D-030 | Amendment v1.7 after G2: f_old 60 epochs and threshold 0.95 (post-result), diagnostics D1–D3 with pre-declared branches (a)/(b), four T3 variants, Tier 1 drop rule (22/10) | active | 2026-10-16 | — | exp_0013, exp_0014 |
 | D-031 | Amendment v1.8: G2 round two (final): data v2 without erosion, VAE β selection (spec G2 + valid-point yield + self-imposed 0.90), two-tier failure rule (Tier 1 / T3 per v1.3 C3), CPU training | active | 2026-10-16 | — | exp_0016 |
+| D-032 | Tier 1 N0 exploratory null analysis (Δ-CE N+O, B1, A3 κ=0; found-rate, SAR, S, B0), after the Tier 0 final run; r_Tier1 from N0 seed 0 validation | active | 2026-10-16 | — | — |
 
 Allowed status values: active, superseded, reversed.
 
@@ -940,6 +941,21 @@ active (author's decision, 2026-10-16, on the Research Lead's proposal with the 
 
 ### Order of the run (fixed)
 data v2 → f_old × 5 → all f_new variants → G0 on real validation images → choose T1/T3 variants → for each β: VAE, shape oracle, criteria (i)–(iii) with the chosen variants → choose β → apply the two-tier rule. One program (`dce.cli.g2_round2`), one run (exp_0016).
+
+---
+
+## D-032 — Tier 1 N0 as an exploratory null analysis (outside acceptance and Holm)
+
+### Status
+active (author's decision, 2026-10-16, on the Research Lead's proposal). **Declared before the Tier 0 candidate lock and before any Tier 1 test access.** Exploratory: it changes neither Route A (H4 ∧ H2a) nor any Holm family; the paper labels it "exploratory".
+
+### Decision
+- Pairs: the 5 N0 pairs of exp_0016 (checkpoints hash-checked against its manifest), VAE β = 0.1 and its shape oracle; σ_k from clean validation D(μ(x)).
+- r_Tier1 = 2 × median d(z0, CE(f_new)) over the 300 valid validation points of N0 seed 0 (pair 6), with the v1.5 solver; the T1 seed-0 pair cannot be used (it failed G0). Computed once and frozen in the config before the Tier 1 test is touched.
+- Methods: Δ-CE N and O, B1, A3 (κ = 0). N = 200 valid test points per pair, sampled with seed 5000 + pair_id (spec §3.2 on D(μ(x))).
+- Reported: found-rate, SAR, S, and B0 on the unfiltered Tier 1 test split. No Recovery (no k*).
+- Runs AFTER the Tier 0 final run is complete (the 8 CPU cores are shared); the Tier 1 test split is touched once.
+- Code (Tier 1 margins through the decoder, r calibration, the exploratory run) is written after the Tier 0 lock and does not touch the locked Tier 0 code path.
 
 ---
 
