@@ -1,0 +1,12 @@
+# exp_0017 — FINAL Tier 0 procedure (EVALUATION §8, §19). Test split, once, after the candidate lock.
+# Route A = H4 ∧ H2a (v1.8 I6). Solver, κ, r, λ schedule, T, R, seeds: configs/tiers/tier0.yaml (frozen).
+experiment_id: exp_0017
+tier_config: configs/tiers/tier0.yaml
+run_kind: final
+n_points: 300                      # EVALUATION §2
+pair_ids: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+b4_points: 2000                    # EVALUATION §7: first 2 000 points of the split
+bootstrap_resamples: 10000         # §11
+bootstrap_seeds: {H2a: 6001, B5-T0: 6003}   # 6000 + index (D-028); must equal dce.eval.rules.BOOTSTRAP_SEEDS
+h4_pass: true                      # H-004 supported, exp_0007
+threads: 8
