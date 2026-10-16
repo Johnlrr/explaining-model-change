@@ -29,6 +29,7 @@ class T1Split:
     y: np.ndarray         # (N,) 1 = digit 9
     phi_c: np.ndarray
     phi_b: np.ndarray
+    target_range: tuple[float, float] = TARGET_RANGE  # thickness targets of this data version (v1.8: 2.5–6.5)
 
     @property
     def n(self) -> int:
@@ -50,15 +51,41 @@ class T1Split:
         if n is None or n >= self.n:
             return self
         return T1Split(self.name, self.ladder[:n], self.thick_all[:n], self.level[:n], self.y[:n],
-                       self.phi_c[:n], self.phi_b[:n])
+                       self.phi_c[:n], self.phi_b[:n], self.target_range)
 
 
 def load_split(path: str | Path, name: str, allow_test: bool = False) -> T1Split:
     if name == "test" and not allow_test:
         raise PermissionError("the Tier 1 test split is read only in the final procedure (EVALUATION §19)")
     z = np.load(path)
+    rng = tuple(float(v) for v in z["target_range"]) if "target_range" in z.files else TARGET_RANGE
     return T1Split(name, z[f"{name}_ladder"], z[f"{name}_thick"], z[f"{name}_level"], z[f"{name}_y"],
-                   z[f"{name}_phi_c"], z[f"{name}_phi_b"])
+                   z[f"{name}_phi_c"], z[f"{name}_phi_b"], rng)
+
+
+V2_LEVELS = (0, 1, 2, 3)            # amendment v1.8 I1: no erosion
+V2_TARGET = (2.5, 6.5)
+V2_SEEDS = {"train": 2235, "val": 2236, "test": 2237}
+
+
+def derive_v2(src: str | Path, dst: str | Path) -> None:
+    """Data v2 (amendment v1.8 I1): from the exp_0010 file, mark the erosion levels invalid (thickness NaN) and
+    re-draw t ~ U[2.5, 6.5] per image (seeds 2235/2236/2237), choosing the nearest valid level. Images, labels,
+    splits, φc and φb are unchanged. Every split is transformed the same way; no statistic of any split is used."""
+    z = np.load(src)
+    levels = [int(v) for v in z["levels"]]
+    drop = [i for i, lv in enumerate(levels) if lv not in V2_LEVELS]
+    out = {k: z[k] for k in z.files}
+    for name, seed in V2_SEEDS.items():
+        if f"{name}_thick" not in z.files:
+            continue
+        thick = z[f"{name}_thick"].astype(float).copy()
+        thick[:, drop] = np.nan
+        target = np.random.default_rng(seed).uniform(*V2_TARGET, len(thick))
+        out[f"{name}_thick"], out[f"{name}_target"] = thick, target
+        out[f"{name}_level"] = choose_levels(thick, target)
+    out["target_range"] = np.array(V2_TARGET)
+    np.savez_compressed(dst, **out)
 
 
 def tier1_pairs() -> list[dict]:
@@ -109,7 +136,7 @@ def adaptation_set(condition: str, train: T1Split, seed: int, params: T1Params |
     rng = np.random.default_rng(seed)
     idx = rng.choice(train.n, size=min(n, train.n), replace=False)
     sub = T1Split("adapt", train.ladder[idx], train.thick_all[idx], train.level[idx], train.y[idx],
-                  train.phi_c[idx].copy(), train.phi_b[idx])
+                  train.phi_c[idx].copy(), train.phi_b[idx], train.target_range)
     y = sub.y.copy()
     phi_c = sub.phi_c
     if condition == "T1":
@@ -133,7 +160,7 @@ def new_labels(condition: str, split: T1Split, params: T1Params, threshold: floa
 
 def resample_factor(split: T1Split, factor: str, seed: int | None = None) -> np.ndarray:
     """Images of `split` with one factor re-drawn (all others fixed): color/bg ~ U[0, 1]; thick: a new target
-    t ~ U[1.5, 5.0] and the nearest valid ladder level. The same seed gives the same draw for f_old and f_new."""
+    t ~ U[target_range] (v1: 1.5–5.0; v2: 2.5–6.5) and the nearest valid ladder level. The same seed gives the same draw for f_old and f_new."""
     k = RESAMPLE[factor]
     rng = np.random.default_rng(FLIP_SEED_BASE + k if seed is None else seed)
     alpha, phi_c, phi_b = split.alpha, split.phi_c, split.phi_b
@@ -142,6 +169,6 @@ def resample_factor(split: T1Split, factor: str, seed: int | None = None) -> np.
     elif factor == "bg":
         phi_b = rng.uniform(0.0, 1.0, split.n)
     else:
-        level = choose_levels(split.thick_all, rng.uniform(*TARGET_RANGE, split.n))
+        level = choose_levels(split.thick_all, rng.uniform(*split.target_range, split.n))
         alpha = split.ladder[np.arange(split.n), level].astype(np.float32) / 255.0
     return colorize(alpha, phi_c, phi_b)

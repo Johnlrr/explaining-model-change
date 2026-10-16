@@ -183,3 +183,46 @@ def test_kaggle_configs_carry_the_tier_parameters_verbatim():
     assert {k: v for k, v in smoke["parameters"].items() if k not in ("scale", "finetune")} == \
         {k: v for k, v in TIER1.items() if k not in ("scale", "finetune")}
     assert smoke["required_outputs"] == full["required_outputs"] and len(full["required_outputs"]) == 20
+
+
+def test_derive_v2_drops_erosion_and_keeps_everything_else(npz, tmp_path):
+    from dce.data.tier1 import V2_TARGET, derive_v2
+
+    dst = tmp_path / "v2.npz"
+    derive_v2(npz, dst)
+    v1, v2 = np.load(npz), np.load(dst)
+    for name in ("train", "val"):
+        s1, s2 = load_split(npz, name), load_split(dst, name)
+        assert (s2.ladder == s1.ladder).all() and (s2.y == s1.y).all()
+        assert np.allclose(s2.phi_c, s1.phi_c) and np.allclose(s2.phi_b, s1.phi_b)
+        assert np.isnan(s2.thick_all[:, :2]).all()                       # levels −2, −1 invalid
+        assert (s2.level >= 2).all()                                     # never an erosion level
+        assert s2.target_range == V2_TARGET and s1.target_range == (1.5, 5.0)
+        th = resample_factor(s2, "thick")
+        assert (alpha_hat(th) >= 0).all()
+    derive_v2(npz, tmp_path / "again.npz")
+    assert (np.load(tmp_path / "again.npz")["val_level"] == v2["val_level"]).all()  # deterministic
+    assert set(v1.files) <= set(v2.files)
+
+
+def test_round_two_program_end_to_end_at_smoke_scale(npz, tmp_path):
+    from dce.cli.g0_tier0 import sha256
+    from dce.cli.g2_round2 import main
+
+    cfg = {"experiment_id": "t", "tier_config": "configs/tiers/tier1.yaml", "data_v1": str(npz),
+           "data_v1_sha256": sha256(npz), "data_v2": str(tmp_path / "v2.npz"), "betas": [0.1, 0.02], "threads": 2,
+           "scale": {"limit": None, "seeds": [0, 1, 2, 3, 4], "pair_ids": list(range(11)), "f_old_epochs": 1,
+                     "finetune_epochs": 1, "n_adapt": 30, "vae_epochs": 1, "oracle_epochs": 1}}
+    (tmp_path / "c.yaml").write_text(yaml.safe_dump(cfg))
+    out = tmp_path / "run"
+    assert main(["--config", str(tmp_path / "c.yaml"), "--out", str(out)]) == 0
+    m = json.loads((out / "metrics.json").read_text())
+    assert {r["beta"] for r in m["beta_rows"]} == {0.1, 0.02}
+    assert len(m["g0"]) == 3 * 3 + 3 * 4 + 5                               # every variant trained and judged
+    assert set(m["decision"]) >= {"tier_level", "tier1_kept", "t3_variant", "consequence"}
+    for r in m["beta_rows"]:
+        assert set(r["criteria"]) == {"spec_spearman", "spec_shape_oracle", "valid_yield_all_pairs",
+                                      "f_old_on_decoded_ge_090"} and len(r["mu_std_per_dim"]) == 16
+    manifest = json.loads((out / "artifacts" / "artifact_manifest.json").read_text())["artifacts"]
+    assert all(hashlib.sha256((out / "artifacts" / a["path"]).read_bytes()).hexdigest() == a["sha256"] for a in manifest)
+    assert main(["--config", str(tmp_path / "c.yaml"), "--out", str(out)]) == 2   # completed runs are not overwritten

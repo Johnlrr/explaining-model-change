@@ -1,0 +1,17 @@
+# exp_0016 — G2 round two, final (amendment v1.8, D-031). Local CPU, train + validation only; no test, no Recovery.
+# Data v2 is derived from the exp_0010 file; its hash is written into metrics.json and metadata.json.
+experiment_id: exp_0016
+tier_config: configs/tiers/tier1.yaml        # shared seeds, κ, learning rates, label noise
+data_v1: .work/tier1/tier1_data.npz
+data_v1_sha256: e74fe388e9208615c4997cd85d85f2e5489eb0c879e572e2e1a6c89c90c8f118
+data_v2: .work/tier1/tier1_data_v2.npz
+betas: [0.1, 0.05, 0.02]                     # v1.8 I2; the largest one meeting (i)–(iii) is selected
+threads: 8
+scale:
+  limit: null
+  seeds: [0, 1, 2, 3, 4]
+  pair_ids: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  f_old_epochs: 60                           # v1.7 H1
+  n_adapt: 8000
+  vae_epochs: 100                            # v1.8 I2
+  oracle_epochs: 20                          # v1.7 H3
