@@ -226,6 +226,24 @@ Runtime of Δ-CE per pair at N = 100 (measured): T1 4.9 min, T3 4.8 min, T4 9.6 
 - Descriptive (found-rate only, allowed): Δ-CE returns no witness on both null pairs (N and O), while B1 and A2 "explain" ≈ 100% of null points; A3 with κ = 0 finds 0.73 / 0.96 on nulls, i.e. the margin κ is what removes threshold jitter (Lemma 1). These are pilot observations on validation, not results.
 - Full-run cost if nothing changes: the pilot (5 pairs × N = 100, every method) took 3.4 h; 17 pairs × N = 300 scales to the order of 1.5–2 days of CPU on 8 cores.
 
+### Speed-up (A) and Tier 1 cost estimate (v1.6, D-027), 2026-10-16
+
+**(A)**: SLSQP evaluates constraint *values* at every line-search point (≈ 480 per run on witness-less points) but needs the *Jacobian* only at accepted iterates (≈ 100). The old code built the Jacobian (two backward passes) at every evaluation; now values come from a forward pass without grad and the Jacobian is computed only on request (`slsqp_lazy_jac`, commit e9f8e15).
+
+G5 check (`.work/g5_check.py`, not a run record): 16 points of each pilot pair, phase 2 old vs new from the **same** phase-1 starts, outputs compared bit for bit.
+
+| pair | Δ-CE N | Δ-CE O | CE(f_new) |
+|---|---|---|---|
+| T1 | identical, 1.66× | — | identical, 1.21× |
+| T3 | identical, 1.77× | — | identical, 1.24× |
+| T4 | identical, 1.69× | — | identical, 1.12× |
+| N0 | identical, 1.94× | identical, 1.91× | identical, 1.00× |
+| N1 | identical, 1.96× | identical, 2.15× | identical, 1.29× |
+
+Per-evaluation cost, float64, 1 thread, two classifiers (random weights for Tier 1, D-027 reading 3): Tier 0 renderer + 2 CNN 1.91 ms (values) / 6.05 ms (values + Jacobian); Tier 1 decoder + 2 CNN 2.57 / 7.04 ms → ratio ≈ 1.35 / 1.16. Not unusually high. The extra unknown on Tier 1 is the number of SLSQP iterations in 16 dimensions.
+
+exp_0011 (pilot rerun after (A), 8 cores) started from e9f8e15; it gives the measured per-method runtimes for the projections and the found-rate/ID check against exp_0009.
+
 ## 4. Questions
 
 1. Does the tie in Proposition 4 also hold for the constrained solver when λ is decayed? (H-005)

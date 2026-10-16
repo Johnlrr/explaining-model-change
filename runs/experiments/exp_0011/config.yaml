@@ -1,0 +1,64 @@
+tier: 0
+data_seed: 1234
+label_noise: 0.05
+adapt_label_noise: 0.05
+f_old_cosine: true
+kappa: 0.5
+training: &id001
+  f_old_lr: 0.001
+  finetune_lr: 0.0003
+  batch_size: 256
+seeds: &id002
+  init_base: 0
+  order_base: 100
+  noise_base: 200
+  adapt_data_base: 2000
+  adapt_order_base: 3000
+  adapt_noise_base: 4000
+  points_base: 5000
+  restart_base: 10000
+threads: 8
+solver: &id003
+  R: 5
+  T: 400
+  lr: 0.05
+  lam0: 1.0
+  mu: 0.0
+  sigma: 0.05
+  clamp:
+  - 0.0
+  - 1.0
+  lam_schedule: halve_every
+  n_lam_steps: 8
+  polish: true
+  slsqp_maxiter: 100
+  slsqp_ftol: 1.0e-10
+  slsqp_tighten: 0.0001
+  n_workers: 8
+r: 0.5412657260894775
+experiment_id: exp_0011
+tier_config: configs/tiers/tier0.yaml
+pair_ids:
+- 0
+- 3
+- 6
+- 9
+- 14
+n_points: 100
+f5:
+  pair_id: 0
+  n_points: 50
+  n_starts: 50
+  seed: 20000
+_tier:
+  tier: 0
+  data_seed: 1234
+  label_noise: 0.05
+  adapt_label_noise: 0.05
+  f_old_cosine: true
+  kappa: 0.5
+  training: *id001
+  seeds: *id002
+  threads: 8
+  solver: *id003
+  r: 0.5412657260894775

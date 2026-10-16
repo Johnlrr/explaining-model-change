@@ -11,7 +11,7 @@
 ## 1. Project status
 
 ```text
-Status: G1 — H4 passed, r frozen, pilot done (exp_0009): found-rate passes, RUNTIME FAILS; awaiting the author
+Status: G1 — runtime criterion replaced by projections (v1.6, D-027); (A) done (bit-identical); exp_0011 running for the projection
 Last updated: 2026-10-15
 Current commit: see `git log -1` (kick-off commit on research/delta-ce)
 Current branch: research/delta-ce (from main)
@@ -100,7 +100,8 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 ## 9. In-flight remote jobs
 
 ```text
-None.
+None on Kaggle. Local: exp_0011 (G1 pilot rerun after (A), 8 cores, commit e9f8e15), log .work/exp_0011.log.
+If interrupted: delete runs/experiments/exp_0011 (if no metrics.json) and rerun the same command.
 ```
 
 ### Resume rule
@@ -132,7 +133,7 @@ Tier 1 Kaggle jobs used: 0 / 4
 
 ## 12. Current blockers
 
-1. **G1 runtime criterion fails** (exp_0009): SLSQP on witness-less points dominates; D-024 says report, do not lower maxiter. Needs the author.
+1. None. (G1 runtime: v1.6 replaces the 5-min rule by 36 h / 36 h / 10 GPU-h projections; decided by exp_0011.)
 2. None from the user: spec amendment v1.1 (A1–A6) applied on 2026-10-15 (D-011–D-015).
 3. Residual G-lit risk: NPL 2022 journal text and Muschalik 2022 not readable (access blocked); arXiv v2 of Artelt covers the same scope.
 
