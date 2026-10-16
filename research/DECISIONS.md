@@ -38,6 +38,7 @@
 | D-026 | Kaggle packaging: generated single-file bundles of src/dce, checked against src by a unit test | active | 2026-10-15 | — | smoke_0009 |
 | D-027 | Amendment v1.6 after the G1 pilot: projected-runtime criterion (36 h / 36 h / 10 GPU-h), Tier 1 evaluation local CPU, runtime split by witness, (B) only after (A), (A) bit-identical | active | 2026-10-16 | — | exp_0009 |
 | D-028 | Evaluation code before the final run: Holm and bootstrap readings, per-seed rule, share/zero-sum, B5 outcome labels; no Tier 0 test exception | active | 2026-10-16 | — | synthetic tests only |
+| D-029 | G2 Tier 1: training job (VAE, shape oracle, f_old, f_new on Kaggle T4), local checks, readings (train label noise, shape-oracle data, adaptation sets) and fixed knob order | active | 2026-10-16 | — | smoke_0011, exp_0012, exp_0013 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -875,6 +876,29 @@ The final run is blind only if its code is fixed before it sees test data (§6, 
 - `src/dce/eval/{metrics,stats,rules}.py` is the evaluation code. `src/dce/remote/bundles/bundle_smoke.py` was regenerated (D-026 rule: any change under `src/dce` rebuilds the bundles).
 - `docs/EVALUATION.md` §11 (Holm reading, bootstrap seeds), §14 (hardware, batch, runtime split) and §15 (Holm wording, runtime by projection) edited on the Research Lead's instruction of 2026-10-16 to follow v1.6 and D-028. No threshold, metric, split or acceptance structure changed.
 - Committed 2026-10-16 as an ordinary commit, not the lock. The lock is the commit hash recorded in STATE at candidate lock (§19); any later edit to `src/dce/eval/` before the lock is logged here.
+
+---
+
+## D-029 — G2 (Tier 1): training job, local checks, readings and knob order
+
+### Status
+active (Research Lead, 2026-10-16). **Declared before any Tier 1 model exists.** Spec text is unchanged; these are readings where it is silent. Items 1, 2, 5 are flagged for the author's confirmation but do not block the job: no result exists to be influenced.
+
+### Decision
+1. **Jobs.** Kaggle T4, offline, `kernel_sources` = the immutable prep kernel `boinhbo/dce-tier1-data-v1` v1 (manifest hash pinned in the config; the job re-hashes `tier1_data.npz`). One training job `boinhbo/dce-tier1-train-v1` (exp_0012) trains VAE, shape oracle, f_old × 5, f_new × 11 (1 of the 4 Tier 1 jobs); `smoke_0011` is an infrastructure smoke of the same entry at smoke scale. A knob retry would be job 2 on a new slug. Every check runs locally on CPU (exp_0013) from the downloaded checkpoints after their SHA256 is verified; the test split is never read (`load_split` refuses it).
+2. **Train labels carry 5% symmetric noise** (seed 1240, one fixed vector shared by all f_old). The spec is silent for Tier 1; v1.2 B2 requires adaptation sets to carry the noise "of the train set" so N0 differs from f_old only in data order. The accuracy requirement is measured against clean labels.
+3. **f_old:** 10 epochs (spec §5.1 Tier 1), Adam 1e-3, cosine decay to 0 (v1.2 B1), batch 256, no pixel noise, final epoch. A seed below 97% on validation fails G2 and goes back to the author (no self-repair, as B1).
+4. **VAE:** 30 epochs, Adam 1e-3, batch 256, β = 1, clean (coloured) train images, final epoch, latent 16.
+5. **Shape oracle:** the §5.1 classifier on one channel, trained on α of every valid ladder level of the train images ("mọi độ dày", ≈ 6× data), clean labels, 10 epochs, Adam 1e-3, final epoch. No augmentation toward reconstructions: the criterion ≥ 95% on reconstructions is measured as the spec states it.
+6. **Adaptation sets** (8 000, without replacement from the train split, 5% noise): T1 = with probability 0.95, φc ~ U[0.5, 1] if y = 1 else U[0, 0.5]; there is no ambiguous-region component on Tier 1. T3 = labels flipped where thickness exceeds the train quantile 0.85 (fallback: φb, k* = bg). N0 = a clean draw with its own order.
+7. **Flip_k** on the whole validation split for {color, bg, thick}; thickness is re-sampled by drawing t ~ U[1.5, 5.0] and taking the nearest valid ladder level; seed 7000 + k, shared by f_old and f_new. T3 DD-outside uses the subgroup of the train threshold.
+8. **G2 numbers** exactly as spec §9: Spearman of φ̂ on D(μ(x)) against the true factor (thick against the measured thickness of the chosen level) ≥ 0.9 / 0.9 / 0.8; shape oracle ≥ 98% real and ≥ 95% reconstructed; G0-Tier 1 by v1.2 B3, v1.3 C1/C4. Undefined oracle estimates (NaN) are excluded from Spearman and their share is reported. σ_k = std of φ̂_k on D(μ(x)) of validation (A1).
+9. **Knob order** (≤ 2 per condition, fixed now): T1: knob 1 = correlation 0.95 → 0.99, knob 2 = epochs 3 → 5. T3: knob 1 = epochs 5 and lr 1e-3 together, knob 2 = epochs 10 (v1.2 B4, applied to Tier 1 by v1.3 C3). The quantile knob (0.85 → 0.80) and the bg fallback are used only after both T3 knobs fail, and only on the author's go; N0 has no knob. Anything else stops the run and is reported.
+10. **GPU-vs-CPU:** the job saves each classifier's validation logits; exp_0013 reports max |logit_device − logit_CPU| (D-027 reading 4).
+11. **Accounting:** GPU-hours and job count are recorded in STATE after each job.
+
+### Consequences
+`src/dce/{data/tier1,models/oracle,eval/g0_tier1,remote/tier1_train,cli/g2_tier1}.py`, `configs/tiers/tier1.yaml`, `configs/experiments/{smoke_0011,exp_0012}_*.yaml`; bundle `tier1_train`. r for Tier 1 is calibrated after G2 on validation (T1 seed 0), not in this step.
 
 ---
 

@@ -1,0 +1,41 @@
+# Tier 1 shared parameters (spec §4.3–§5.3, §9 G2; amendments v1.2 B2, v1.3 C3, v1.6 G2; D-029).
+# Declared before any Tier 1 model exists. Training runs on Kaggle T4; every check and solver runs locally.
+tier: 1
+kappa: 0.5
+factors: [shape, color, bg, thick]   # column order of Δφ̃ and of k* (T1: color, T3: thick, fallback bg)
+label_noise: 0.05                    # train labels (B2 reading, D-029) and every adaptation set
+training:
+  f_old_lr: 1.0e-3
+  f_old_cosine: true                 # v1.2 B1
+  finetune_lr: 3.0e-4
+  vae_lr: 1.0e-3
+  oracle_lr: 1.0e-3
+  batch_size: 256
+seeds:
+  init_base: 0
+  order_base: 100
+  adapt_data_base: 2000
+  adapt_order_base: 3000
+  points_base: 5000
+  restart_base: 10000
+  label_noise: 1240
+  vae: 1300
+  oracle: 1400
+  oracle_order: 1401
+scale:
+  vae_epochs: 30                     # spec §5.2
+  oracle_epochs: 10
+  f_old_epochs: 10                   # spec §5.1 (Tier 1), cosine decay from v1.2 B1
+  n_adapt: 8000
+  seeds: [0, 1, 2, 3, 4]
+  pair_ids: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  limit: null
+finetune:                            # spec §4.4 defaults; G0 knobs only if a pair fails (≤ 2 per condition)
+  T1: {epochs: 3, lr: 3.0e-4}
+  T3: {epochs: 3, lr: 3.0e-4}
+  N0: {epochs: 3, lr: 3.0e-4}
+drift_params:
+  t1_correlation: 0.95
+  t3_quantile: 0.85
+  t3_factor: thick
+r: null                              # calibrated once at G2 on validation (T1 seed 0), then frozen

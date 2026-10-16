@@ -51,3 +51,28 @@ def vae_loss(x, recon, mu, logvar):
     bce = nn.functional.binary_cross_entropy(recon, x, reduction="sum") / len(x)
     kl = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp()) / len(x)
     return bce + kl
+
+
+def train_vae(model: VAE, images: torch.Tensor, *, epochs: int = 30, lr: float = 1e-3, batch_size: int = 256,
+              seed: int = 0, device: torch.device | str | None = None) -> list[float]:
+    """Adam on the ELBO (BCE + KL, β = 1) over clean images (spec §5.2). Returns the mean loss per epoch."""
+    dev = torch.device(device) if device is not None else torch.device("cpu")
+    model.to(dev).train()
+    opt = torch.optim.Adam(model.parameters(), lr=lr)
+    gen = torch.Generator().manual_seed(seed)
+    torch.manual_seed(seed)  # reparameterisation noise
+    losses = []
+    for _ in range(epochs):
+        perm = torch.randperm(len(images), generator=gen)
+        total = 0.0
+        for start in range(0, len(perm), batch_size):
+            x = images[perm[start : start + batch_size]].to(dev)
+            recon, mu, logvar = model(x)
+            loss = vae_loss(x, recon, mu, logvar)
+            opt.zero_grad()
+            loss.backward()
+            opt.step()
+            total += loss.item() * len(x)
+        losses.append(total / len(images))
+    model.eval()
+    return losses
