@@ -89,14 +89,13 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 1. G-lit, Kaggle smoke, G0-Tier 0, G1: done (G1 passed 2026-10-16, exp_0007/0009/0011).
 2. **Evaluation code — written and committed 2026-10-16 (6e4fe41)** (D-028): `src/dce/eval/{metrics,stats,rules}.py`; 26 synthetic tests (`tests/unit/test_eval_metrics.py`, `test_eval_rules.py`): null coverage 94.5%, planted 0.15 detected, hand-worked metrics, Holm and B5/Route rules on constructed cases. Full unit suite 133 passed. Still to do before the lock: runtime split, B0 on unfiltered split, A1/B5 wiring, and the bootstrap RNG seed in the config. Lock = commit hash recorded here at candidate lock (§19).
    - **No exception** to §19: the Tier 0 full run waits for G2, the code lock, and the candidate lock (Research Lead, 2026-10-16).
-3. **G2 (24/10), Tier 1 — IN PROGRESS (D-029).** exp_0012 trained remotely; BLOCKED on downloading vae.pt (see §9, §12); exp_0013 (local checks) is configured and runs once vae.pt is verified. Plan:  Kaggle T4 trains VAE, shape oracle, f_old (5 seeds), f_new (11 pairs) via a D-026 bundle with `tier1_data.npz` (exp_0010) as kernel source; local CPU: oracle checks, σ_k, G0-Tier 1 (C1 for T3 from the start, v1.3 C3), r calibration Tier 1, GPU-vs-CPU logit gap.
+3. **G2 (24/10), Tier 1 — FIRST RESULT FAILED (exp_0012 + exp_0013, see §12).** Awaiting the author's decision on f_old epochs/architecture, the shape oracle and the T3 knobs. Original plan:  Kaggle T4 trains VAE, shape oracle, f_old (5 seeds), f_new (11 pairs) via a D-026 bundle with `tier1_data.npz` (exp_0010) as kernel source; local CPU: oracle checks, σ_k, G0-Tier 1 (C1 for T3 from the start, v1.3 C3), r calibration Tier 1, GPU-vs-CPU logit gap.
 4. **Final run (§19)** only after G2 passes and the candidate is locked: Tier 0 test ≈ 16.5 h, Tier 1 test ≈ 6–19 h, local 8 cores.
 
 ## 9. In-flight remote jobs
 
 ```text
-None running. exp_0012 (Tier 1 training, kernel boinhbo/dce-tier1-train-v1, v1, commit 1a8968a) finished remotely: T4, 56 s compute, 18 models, data hash verified.
-LOCAL FETCH INCOMPLETE: vae.pt (≈ 6.7 MB, expected sha256 405ba091…7dd4) could not be downloaded intact; runs/experiments/exp_0012/artifacts/vae.pt is 0 bytes. The other 17 checkpoints, result.json and artifact_manifest.json are present and hash-verified.
+None. exp_0012 (Tier 1 training) finished and all 18 checkpoints are local and hash-verified (vae.pt recovered by the author as vae.zip, renamed). exp_0013 (local G2 checks) done.
 ```
 
 ### Resume rule
@@ -128,7 +127,7 @@ Tier 1 Kaggle jobs used: 1 / 4 (exp_0012; smoke_0011/0012 are infrastructure smo
 
 ## 12. Current blockers
 
-1. **vae.pt download (G2).** Kaggle output downloads of the 6.7 MB VAE checkpoint truncated or hung in 9 consecutive attempts (3 harness runs + 6 timed retries over 20 min); files < 1 MB arrive intact. Retry budget for this failure class is spent. Options in NOTES.md; needs a decision.
+1. **G2 not passed (exp_0013, validation), back to the author per D-029 item 3.** f_old accuracy 0.84–0.91 (< 0.97, 10 epochs = 420 steps), shape oracle 0.975 real / 0.551 reconstructed (needs 0.98 / 0.95), G0-Tier 1 T3 fails (ΔFlip_thick ≤ 0.04). Passing: oracle Spearman (0.978 / 0.999 / 0.807), G0 T1 and N0, device gap 2.4e-6. Details and the epochs diagnostic: NOTES.md. No change of recipe, epochs or knob has been made.
 2. None from the user: spec amendment v1.1 (A1–A6) applied on 2026-10-15 (D-011–D-015).
 3. Residual G-lit risk: NPL 2022 journal text and Muschalik 2022 not readable (access blocked); arXiv v2 of Artelt covers the same scope.
 

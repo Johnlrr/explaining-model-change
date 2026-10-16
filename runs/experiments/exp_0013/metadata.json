@@ -1,0 +1,74 @@
+{
+  "experiment": "exp_0013",
+  "gate": "G2",
+  "tier": 1,
+  "git": {
+    "commit": "07d43e0549ec4132d8857a1b6ed1997442cdd1c2",
+    "dirty": false
+  },
+  "source_run": "runs/experiments/exp_0012",
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "numpy": "2.5.4",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "device": "cpu",
+  "data_sha256": "e74fe388e9208615c4997cd85d85f2e5489eb0c879e572e2e1a6c89c90c8f118",
+  "status": "SUCCESS",
+  "checkpoints": [
+    {
+      "vae": "405ba091db8af29aee484870fd52653eee5e6e1e4bd9761e10e9d320848d7dd4"
+    },
+    {
+      "shape_oracle": "9e667551dadaeaefcbb9bb4f9286bcbb01e3eaf487a346c77161ac71e4555cf6"
+    },
+    {
+      "f_old_s0": "999c92e3f2fae28015e9d2242df355f4371b24e4ad78d7978e478b7a78b16872"
+    },
+    {
+      "f_old_s1": "4a3b98994eeb48fe1b67cbfa728b7100209ec49d2f5bbc3ef3f21b59455545f9"
+    },
+    {
+      "f_old_s2": "c8f609150a2d214d0bbc82d764d45673176e9e8effede5f4b14e58204357c23b"
+    },
+    {
+      "f_old_s3": "8387840d4bb319fa68942f4555c21580406e6ec943827e8702841f318deb53ef"
+    },
+    {
+      "f_old_s4": "62a8fafd6ca7e55ca289e54f6f9b0afe1e9a5e4a5a1970ce688319f099bc740d"
+    },
+    {
+      "f_new_p00_T1_s0": "f2bb256695eb99b45453fe954f48aaabad60ca4a0c459e117305c25a3c812b54"
+    },
+    {
+      "f_new_p01_T1_s1": "af83804c2ccf7cc94f8b45d30cb8c42911d158e7bab7cd59a330577874c11471"
+    },
+    {
+      "f_new_p02_T1_s2": "dbcb7c9f881b103e325577429a441a68fc10d307b453bbc1344c87eda0fad119"
+    },
+    {
+      "f_new_p03_T3_s0": "21557221e5869a32785fab748efafb73e7a95210c9bfdd3fa15a12e8052da406"
+    },
+    {
+      "f_new_p04_T3_s1": "3aaef25fe70d8e057edbebf43f6c8524e563b8e38df4ad06af3a847c20558852"
+    },
+    {
+      "f_new_p05_T3_s2": "a18fa451d637edc9a13d176445a6ff7366cc455707840044528f96273c526e1b"
+    },
+    {
+      "f_new_p06_N0_s0": "2f049f40e8ca12b9cec95fc11e6035f91ad7f3dd2503d042f205a58aa3c89275"
+    },
+    {
+      "f_new_p07_N0_s1": "98d454013cd843a699b3fa6fcdb13549bc80ae2e7069ad651bee5f9a1305fe3c"
+    },
+    {
+      "f_new_p08_N0_s2": "6f0303379711c3db04e434745b643a519de10a4a6b2913a27a280cbc3baeb0bc"
+    },
+    {
+      "f_new_p09_N0_s3": "65efa5ed1217f833871bab998b85f8f6a4e010fb0011719d6096bf4abdd20f29"
+    },
+    {
+      "f_new_p10_N0_s4": "949dd8e62af0e33889fc0e43336b0707d437aa49675acfefbb455710d855d254"
+    }
+  ],
+  "seconds": 20.9
+}

@@ -368,3 +368,20 @@ Before ending a session: move resolved items out, update `research/STATE.md` §8
 - `kaggle kernels output` lists at most 20 files per call: a 21st file is silently "missing" (fetching it alone works). Tier 1 training jobs therefore write ≤ 20 files (device logits live in `result.json`).
 - Large outputs (`vae.pt`, ≈ 6.7 MB) were truncated or hung in three consecutive fetches (smoke_0011 `IncompleteRead`, smoke_0012 `IncompleteRead`, exp_0012 600 s timeout); small files arrived intact. The manifest SHA256 check caught every truncation. The harness now retries a failed fetch (3 attempts); records of the failed attempts stay as evidence.
 - Remote results were fine each time (T4 observed, data hash verified, 18 models, ≈ 56 s of compute for the full job).
+
+### G2 first result: exp_0012 checkpoints, exp_0013 checks (validation only), 2026-10-16
+
+`vae.pt` was recovered by the author from the Kaggle web page, which names it `vae.zip` (a `torch.save` file is itself a zip archive); its SHA256 and size equal the job manifest, so it was renamed to `vae.pt` unchanged. All 18 checkpoints then verified.
+
+exp_0013 (CPU, validation; device gap max |logit| = 2.4e-6):
+
+| Check | Result | Required |
+|---|---|---|
+| Spearman φ̂ on D(μ(x)): color / bg / thick | 0.978 / 0.999 / 0.807 | 0.9 / 0.9 / 0.8 — pass (thick margin 0.007; 21.9% of thick estimates undefined, color 6.4%) |
+| Shape oracle, real / reconstructed | 0.975 / 0.551 | 0.98 / 0.95 — **fail** |
+| f_old accuracy, seeds 0–4 | 0.914 / 0.853 / 0.887 / 0.891 / 0.836 | ≥ 0.97 — **fail** (D-029 item 3: back to the author) |
+| G0-Tier 1 T1 (ΔFlip_color 0.154 / 0.256 / 0.180) | pass | ≥ 0.15 |
+| G0-Tier 1 N0 (5 pairs) | pass | DD ≤ 0.02, |ΔFlip| ≤ 0.05 |
+| G0-Tier 1 T3 (ΔFlip_thick 0.00 / 0.00 / −0.01…0.04; subgroup accuracy on new labels 0.06–0.08; DD outside 0) | **fail**, all 3 seeds | ΔFlip_thick ≥ 0.15 |
+
+Diagnostic (validation, local, not a repair): f_old seed 0 on CPU with the declared recipe gives 0.911 at 10 epochs (420 steps; the GPU run gave 0.914), 0.960 at 30 epochs, 0.9635 at 60 epochs. The shortfall is mostly too few optimisation steps (10 612 images / 256 = 42 steps per epoch, versus 78 for Tier 0), but even 60 epochs stays below 0.97. T3's failure sits on top of an under-trained f_old; its declared knob 1 (5 epochs, lr 1e-3) has not been used, because judging the knobs on an invalid f_old would waste one of the two allowed adjustments. The shape oracle (10 epochs on α of all ladder levels) is also probably under-trained, and it was never trained on blurry reconstructions (D-029 item 5).
