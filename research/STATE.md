@@ -95,7 +95,9 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 ## 9. In-flight remote jobs
 
 ```text
-None. exp_0012 (Tier 1 training) finished and all 18 checkpoints are local and hash-verified (vae.pt recovered by the author as vae.zip, renamed). exp_0013 (local G2 checks) done.
+No Kaggle job. LOCAL final run exp_0017 (Tier 0 test, 17 pairs × 300 points, 8 threads, ≈ 16.5 h), started 2026-10-16 from the lock commit,
+detached (setsid nohup). Progress: runs/experiments/exp_0017/run.log and the count of pairs/*.json (of 17). Do NOT open pair files.
+Resume after an interruption: rerun the same `final_tier0 run --final` command (finished pairs are skipped). Then `analyze` once 17/17.
 ```
 
 ### Resume rule
@@ -107,8 +109,13 @@ If a Kaggle job is recorded here as in flight, resume by waiting on it with the 
 ## 10. Test-set state
 
 ```text
-Tier 0 test (5 000 renderer samples): untouched — NOT YET LOCKED (waiting for the author's decision on D-032, which must precede the lock)
-Tier 1 test (MNIST 4/9 official test): untouched; Tier 1 dropped (v1.8 I6). Used only if D-032 (exploratory N0) is approved.
+Tier 0 test (5 000 renderer samples): LOCKED, NOT EVALUATED (2026-10-16)
+  candidate / code commit: ede7374efc36c30c3c9816af61c18679f4aeaec6 (final program 24b7651; evaluation code 6e4fe41)
+  configs/experiments/exp_0017.yaml sha256 80c34f2e2b52a7573865bc47a425b781b70c78645478b101f660b3ba72462bae
+  configs/tiers/tier0.yaml          sha256 35ea879391bd66749d51083d394e8f9c9d573f69cdbf21b0cb0a45e7b4e231a4
+  docs/EVALUATION.md                sha256 c4af3580ac59967523c547500a576b1f0e165bdaf888085b73236838e69bc7ac
+  run: exp_0017 (final), 8 threads; any later change to src/, configs/ or docs/EVALUATION.md before analysis voids the lock
+Tier 1 test (MNIST 4/9 official test): untouched; Tier 1 dropped (v1.8 I6). Touched once by the D-032 exploratory N0 analysis, after the Tier 0 final run.
 Status rule: a test split becomes `evaluated` only in the final procedure (EVALUATION §19), once per locked candidate.
 ```
 
@@ -121,7 +128,7 @@ Status rule: a test split becomes `evaluated` only in the final procedure (EVALU
 | 3 | Tie rule + zero-vector test (T4, k* = 0) | done, `tests/unit/test_eval_metrics.py::test_zero_vector_and_ties_have_no_top_factor_and_score_zero` |
 | 4 | Bootstrap seeds in the config | done, `configs/experiments/exp_0017.yaml` (`bootstrap_seeds`, checked against the code) |
 | 5 | r frozen | `configs/tiers/tier0.yaml` r = 0.5412657260894775 (exp_0008) |
-| 6 | Lock record (commit, config sha256, EVALUATION sha256) | pending D-032 |
+| 6 | Lock record (commit, config sha256, EVALUATION sha256) | done, see above (D-032 declared first, ede7374) |
 | 7 | §20 reproduction plan | below |
 
 ### §20 reproduction plan (declared before the final run)
