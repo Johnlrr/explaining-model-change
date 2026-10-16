@@ -11,7 +11,7 @@
 ## 1. Project status
 
 ```text
-Status: G1 — runtime criterion replaced by projections (v1.6, D-027); (A) done (bit-identical); exp_0011 running for the projection
+Status: G1 PASSED (H4 exp_0007; found-rate exp_0009/0011; runtime projections exp_0011). Next: evaluation code + G2 (Tier 1)
 Last updated: 2026-10-15
 Current commit: see `git log -1` (kick-off commit on research/delta-ce)
 Current branch: research/delta-ce (from main)
@@ -64,12 +64,11 @@ Why this hypothesis is active: it is the first gate (G1). Without it no result c
 ## 6. Latest experiment
 
 ```text
-Experiment ID: exp_0009 (G1 pilot, Tier 0 validation, seed-0 pairs, N = 100, every method; commit 7c6401a)
-Result: Δ-CE found-rate T1 0.81 (≥ 0.6, pass); runtime per pair at N = 100: T1 4.9, T3 4.8, T4 9.6 min (16 cores),
-  N0 25.5, N1 24.9 min (8 cores) → runtime ≤ 5 min FAILS. F5: standard solver misses no witness within r.
-Cause: SLSQP runs to maxiter (≈ 480 evaluations) on points without a witness (nulls, much of T4)
-Relevant run evidence: runs/experiments/exp_0009/ ; research/NOTES.md §3
-Previous: exp_0010 (Tier 1 data), exp_0008 (r = 0.5413), exp_0007 (H4 passes)
+Experiment ID: exp_0011 (G1 pilot rerun after speed-up (A), 8 cores; commit e9f8e15)
+Result: found-rates identical to exp_0009 for every pair and method; 1.7 h wall (was 3.4 h)
+Projections (v1.6 G1): Tier 0 final 16.5 h ≤ 36; Tier 1 evaluation 5.8 h (conservative 18.6 h) ≤ 36; GPU ≪ 10 h
+Conclusion: G1 passes. Runtime split: Δ-CE phase-2 CPU 4.5–5.3 s/point with a witness, 16–20 s without
+Relevant run evidence: runs/experiments/exp_0011/ ; research/NOTES.md §3 ; D-027
 ```
 
 ## 7. Strongest current observations
@@ -87,21 +86,15 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 
 ## 8. Next action
 
-1. G-lit, Kaggle smoke, G0-Tier 0: done (G0 closed by exp_0004 under v1.3, D-020).
-2. **Done for G1 so far:** r = 0.5413 frozen (exp_0008, 300/300 CE found, float64 gap 1.5e-6); pilot exp_0009 running.
-   Tier 1 data prepared (exp_0010, `boinhbo/dce-tier1-data-v1`, D-025).
-   **Open infra question for G2:** Tier 1 GPU jobs need the whole `dce` package, but the harness stages one file.
-   Options: install from GitHub at a pinned commit (needs a push, the author's call) or a generated single-file bundle.
-   **G1 pilot plan (validation only):** Tier 0 margin wrappers (float32 model for evaluation, float64 copy for SLSQP); `r` calibration (spec §6.3: 2 × median CE(f_new) distance, 300 validation points of T1 seed 0, then frozen); baselines B1, B1-det, B3, B4, B5, A1 (`src/dce/baselines/`); pilot seed 0, N = 100, all methods — read only found-rate (per condition) and runtime (≤ 5 min per pair); F5 completeness check. H4 done (exp_0007).
-   Pilot adds the F5 completeness check (v1.5, D-023): 50 points of T1 seed 0, standard solver vs SLSQP from 50 random box starts.
-   Pre-declared before G1 (D-021): Flip_k only for re-sampleable factors; Recovery|reach reported (descriptive). Pilot reads found-rate per condition; a low T3 found-rate does not justify changing `r`.
-3. Then G2 (Tier 1 on Kaggle; T3-Tier1 uses C1 from the start, fallback bg > q85, then drop — v1.3 C3), G3.
+1. G-lit, Kaggle smoke, G0-Tier 0, G1: done (G1 passed 2026-10-16, exp_0007/0009/0011).
+2. **Evaluation code** (EVALUATION §8 step 8, §11, §15; D-021): Recovery@r, share, found-rate, S, B0, AUROC(S), SAR, Recovery|reach, runtime split; paired bootstrap + Holm. Must be fixed before the final run (§19). Unit-tested on synthetic inputs only.
+3. **G2 (24/10), Tier 1:** Kaggle T4 trains VAE, shape oracle, f_old (5 seeds), f_new (11 pairs) via a D-026 bundle with `tier1_data.npz` (exp_0010) as kernel source; local CPU: oracle checks, σ_k, G0-Tier 1 (C1 for T3 from the start, v1.3 C3), r calibration Tier 1, GPU-vs-CPU logit gap.
+4. **Final run (§19)** only after G2 passes and the candidate is locked: Tier 0 test ≈ 16.5 h, Tier 1 test ≈ 6–19 h, local 8 cores.
 
 ## 9. In-flight remote jobs
 
 ```text
-None on Kaggle. Local: exp_0011 (G1 pilot rerun after (A), 8 cores, commit e9f8e15), log .work/exp_0011.log.
-If interrupted: delete runs/experiments/exp_0011 (if no metrics.json) and rerun the same command.
+None.
 ```
 
 ### Resume rule
@@ -133,7 +126,7 @@ Tier 1 Kaggle jobs used: 0 / 4
 
 ## 12. Current blockers
 
-1. None. (G1 runtime: v1.6 replaces the 5-min rule by 36 h / 36 h / 10 GPU-h projections; decided by exp_0011.)
+1. None.
 2. None from the user: spec amendment v1.1 (A1–A6) applied on 2026-10-15 (D-011–D-015).
 3. Residual G-lit risk: NPL 2022 journal text and Muschalik 2022 not readable (access blocked); arXiv v2 of Artelt covers the same scope.
 
@@ -157,7 +150,7 @@ Plan to G0 (deadline 20/10), Tier 0, local CPU:
 
 ## 14. Current research phase summary
 
-Phase: W1: G0-Tier 0 passed (exp_0004); G1 H4 passed (exp_0007, v1.5); G1 pilot next.
+Phase: W1 → W2: G0-Tier 0 and G1 passed; evaluation code and G2 (Tier 1) next.
 
 ---
 

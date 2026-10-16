@@ -244,6 +244,29 @@ Per-evaluation cost, float64, 1 thread, two classifiers (random weights for Tier
 
 exp_0011 (pilot rerun after (A), 8 cores) started from e9f8e15; it gives the measured per-method runtimes for the projections and the found-rate/ID check against exp_0009.
 
+### exp_0011 — G1 pilot rerun after (A), 8 cores; runtime projections (v1.6 G1), 2026-10-16
+
+Commit e9f8e15, 1.7 h wall (exp_0009: 3.4 h). **Every per-pair, per-method found-rate equals exp_0009** (0 mismatches over 5 pairs × 10–12 methods). Found-ID sets are recorded from this run on; exp_0009 did not store them, so the ID check (G5) rests on the bit-identity check on 16 points per pair plus equal found-rates on all 100.
+
+Wall per point (s, 8 cores, N = 100):
+
+| pair | Δ-CE N | Δ-CE O | B1 | B1-det | B5 | A1 | A2 | A3 κ0 | A3 κ1 | B4 (total) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| T1 | 1.32 | — | 1.26 | 0.36 | 0.47 | 0.63 | 0.65 | 1.30 | 1.39 | 26 s |
+| T3 | 1.48 | — | 1.29 | 0.36 | 0.49 | 0.67 | 0.68 | 1.41 | 1.97 | 27 s |
+| T4 | 2.48 | — | 1.37 | 0.39 | 0.48 | 0.67 | 0.65 | 2.33 | 2.86 | 25 s |
+| N0 | 3.05 | 3.04 | 1.34 | 0.40 | 0.50 | 0.65 | 0.69 | 1.66 | 3.10 | 24 s |
+| N1 | 3.23 | 3.21 | 1.38 | 0.39 | 0.50 | 0.67 | 0.65 | 1.51 | 3.11 | 26 s |
+
+Runtime split (v1.6 G3), Δ-CE N: phase 1 ≈ 61–69 s per pair (100 points, 8 workers); phase-2 CPU per point **with a witness 4.5–5.3 s, without a witness 15.9–19.7 s** (T1 6.1 s: its witness-less points are few and mostly "found but beyond r"). Ordinary CE (A2) phase 2: 2.1–3.1 s per point either way. Δ-CE's cost is concluding "no witness within budget".
+
+**Projections (D-027 readings 2–3; `runs/experiments/exp_0011/projection.txt`)**
+- (i) Tier 0 final run (17 pairs × 300 points, every method incl. A1–A3): **16.5 h** ≤ 36 h. Per pair 37 (T1) – 74 (N1) min.
+- (ii) Tier 1 evaluation (11 pairs × 200 points; ablations on seed 0 only; Tier 0 per-point costs × 1.35 per-evaluation ratio): **5.8 h**; conservative (× 16/5 more for dimension): **18.6 h** ≤ 36 h.
+- (iii) GPU-hours: 0.01 used; Tier 1 training only (VAE, shape oracle, 5 f_old, 11 f_new, ≈ 56k–200k-parameter models on ≈ 10.6k images) is estimated well under 2 GPU-h ≤ 10. Estimate, to be measured at G2.
+
+**G1 passes**: H4 (exp_0007), Δ-CE found-rate on T1 0.81 ≥ 0.6 (exp_0009 = exp_0011), runtime by projection (v1.6 G1 i–iii). (B) is not considered (v1.6 G4).
+
 ## 4. Questions
 
 1. Does the tie in Proposition 4 also hold for the constrained solver when λ is decayed? (H-005)
