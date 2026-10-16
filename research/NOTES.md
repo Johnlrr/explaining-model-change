@@ -385,3 +385,23 @@ exp_0013 (CPU, validation; device gap max |logit| = 2.4e-6):
 | G0-Tier 1 T3 (ΔFlip_thick 0.00 / 0.00 / −0.01…0.04; subgroup accuracy on new labels 0.06–0.08; DD outside 0) | **fail**, all 3 seeds | ΔFlip_thick ≥ 0.15 |
 
 Diagnostic (validation, local, not a repair): f_old seed 0 on CPU with the declared recipe gives 0.911 at 10 epochs (420 steps; the GPU run gave 0.914), 0.960 at 30 epochs, 0.9635 at 60 epochs. The shortfall is mostly too few optimisation steps (10 612 images / 256 = 42 steps per epoch, versus 78 for Tier 0), but even 60 epochs stays below 0.97. T3's failure sits on top of an under-trained f_old; its declared knob 1 (5 epochs, lr 1e-3) has not been used, because judging the knobs on an invalid f_old would waste one of the two allowed adjustments. The shape oracle (10 epochs on α of all ladder levels) is also probably under-trained, and it was never trained on blurry reconstructions (D-029 item 5).
+
+### G2 repair, diagnostics and β trials (amendment v1.7, D-030), 2026-10-16 — validation only
+
+**exp_0014 (D1–D3, exp_0012 VAE and shape oracle; f_old seed 0 with the v1.7 recipe, 60 epochs).**
+- D1: f_old accuracy 0.9635 on real validation images (≥ 0.95 reached) but **0.649 on D(μ(x))**.
+- D2: linear probe on μ(x): 0.802 train / 0.800 validation. Grid (`runs/experiments/exp_0014/grid_orig_over_recon.png`): reconstructions are blurred and many 4s are decoded as 9s, so the latent does not keep the digit identity; the loss is in the VAE, not an oracle domain shift.
+- D3: errors of f_old concentrate on thin strokes: ladder level 0 (erosion, 605 of 1 179 images valid) 0.774, bin 2.0–2.5 (453 images, 38% of validation; the thickness floor) 0.923; bins ≥ 2.5 are ≥ 0.98. The shape oracle shows the same pattern (level 0: 0.861; bin 2.0–2.5: 0.951).
+- Branch rule (declared before running): probe ≥ 0.95 and f_old on decoded ≥ 0.90 → both fail → **branch (b)**.
+
+**exp_0015 (branch (b): VAE β trials, CPU, 30 epochs, latent 16; f_old = the exp_0014 checkpoint).**
+
+| β | recon MSE | f_old on D(μ(x)) | Spearman color / bg / thick | probe (descr.) |
+|---|---|---|---|---|
+| 1 (exp_0012 VAE) | 0.00407 | 0.649 | 0.978 / 0.999 / 0.807 | 0.800 |
+| 0.5 | 0.00422 | 0.623 | 0.966 / 0.999 / 0.844 | 0.624 |
+| 0.1 | 0.00231 | 0.891 | 0.991 / 0.999 / 0.915 | 0.875 |
+
+No β meets "f_old on D(μ(x)) ≥ 0.95 and the three Spearman criteria": the rule sends it back to the author. β = 0.1 is closest (0.891). Observations, not decisions: the VAE also gets only 420 optimisation steps at 30 epochs (the same under-training as f_old); the trend in β is not monotone (0.5 is worse than 1); and 0.95 on decoded images is close to f_old's own ceiling on real images (0.9635), so the criterion needs near-lossless reconstruction.
+
+**Estimate D: training all of Tier 1 on the local CPU (8 threads).** Measured: f_old 60 epochs 177 s, VAE 30 epochs ≈ 72 s, ≈ 3 600 training samples/s for the CNN. Projected: 5 f_old 885 s + VAE 72 s + shape oracle (63k + 10.6k samples × 20 epochs) ≈ 410 s + 11 f_new with the four T3 variants ≈ 190 s ≈ **0.43 h wall (≈ 3.5 core-hours)**. A VAE trial costs ≈ 1.2 min. A Kaggle job would take minutes of compute but cost one of the 4 jobs and has had unreliable downloads of the 6.7 MB VAE.

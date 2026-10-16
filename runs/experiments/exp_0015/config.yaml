@@ -1,0 +1,10 @@
+experiment_id: exp_0015
+tier_config: configs/tiers/tier1.yaml
+data: .work/tier1/tier1_data.npz
+data_sha256: e74fe388e9208615c4997cd85d85f2e5489eb0c879e572e2e1a6c89c90c8f118
+f_old_checkpoint: runs/experiments/exp_0014/artifacts/f_old_diag_s0.pt
+f_old_sha256: cd359025e479509b9492f72ece008bf2bd4f68c4ad9dce9865c910ce590713a8
+betas:
+- 0.5
+- 0.1
+threads: 8

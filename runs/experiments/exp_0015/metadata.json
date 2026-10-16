@@ -1,0 +1,9 @@
+{
+  "experiment": "exp_0015",
+  "git": {
+    "commit": "070c8a0b312f5ddd962bdcf26212ea18e4521d22",
+    "dirty": false
+  },
+  "torch": "2.14.1+cpu",
+  "seconds": 144.1
+}

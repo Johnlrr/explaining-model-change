@@ -1,0 +1,74 @@
+{
+  "split": "validation",
+  "rows": [
+    {
+      "beta": 0.5,
+      "train_seconds": 72.8,
+      "final_loss": 1381.1967440769442,
+      "recon_mse": 0.004220561124384403,
+      "f_old_on_decoded": 0.6225614927905004,
+      "spearman": {
+        "color": {
+          "spearman": 0.9660850536636436,
+          "n": 1130,
+          "invalid_share": 0.04156064461407971,
+          "threshold": 0.9,
+          "pass": true
+        },
+        "bg": {
+          "spearman": 0.9993039686265275,
+          "n": 1179,
+          "invalid_share": 0.0,
+          "threshold": 0.9,
+          "pass": true
+        },
+        "thick": {
+          "spearman": 0.8440426732350942,
+          "n": 944,
+          "invalid_share": 0.19932145886344355,
+          "threshold": 0.8,
+          "pass": true
+        }
+      },
+      "probe_val_acc": 0.6242578456318915,
+      "checkpoint_sha256": "8bd9816a02fa02e95c52a1365a472761951d59734a8c27c04034d46577f233e3",
+      "meets_rule": false
+    },
+    {
+      "beta": 0.1,
+      "train_seconds": 70.5,
+      "final_loss": 1364.0994458477137,
+      "recon_mse": 0.0023106331937015057,
+      "f_old_on_decoded": 0.8914334181509754,
+      "spearman": {
+        "color": {
+          "spearman": 0.9912909786881139,
+          "n": 1137,
+          "invalid_share": 0.03562340966921118,
+          "threshold": 0.9,
+          "pass": true
+        },
+        "bg": {
+          "spearman": 0.9993430470780016,
+          "n": 1179,
+          "invalid_share": 0.0,
+          "threshold": 0.9,
+          "pass": true
+        },
+        "thick": {
+          "spearman": 0.9151533269600418,
+          "n": 1005,
+          "invalid_share": 0.1475826972010178,
+          "threshold": 0.8,
+          "pass": true
+        }
+      },
+      "probe_val_acc": 0.8753180661577609,
+      "checkpoint_sha256": "e8a7fce34ba88c676e72d344e3b2c7b27ef826ec4f4fe2d5eeab30a204343306",
+      "meets_rule": false
+    }
+  ],
+  "beta_beta1_note": "\u03b2 = 1: exp_0012 VAE, f_old on decoded 0.649 (exp_0014)",
+  "selected_beta": null,
+  "none_meets_rule": true
+}
