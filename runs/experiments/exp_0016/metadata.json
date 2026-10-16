@@ -1,0 +1,17 @@
+{
+  "experiment": "exp_0016",
+  "gate": "G2 round two (final)",
+  "tier": 1,
+  "git": {
+    "commit": "3a5bc96ee9d0d3bd1805cb307287e064cbb59b81",
+    "dirty": false
+  },
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "device": "cpu",
+  "data_v1_sha256": "e74fe388e9208615c4997cd85d85f2e5489eb0c879e572e2e1a6c89c90c8f118",
+  "data_v2_sha256": "7269fa4ff87caeae1b5f33e96b379bf14b8f9823036baeb773bdd8b1b0ab258e",
+  "status": "SUCCESS",
+  "seconds": 2153.5
+}

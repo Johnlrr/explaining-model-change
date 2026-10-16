@@ -1,0 +1,34 @@
+experiment_id: exp_0016
+tier_config: configs/tiers/tier1.yaml
+data_v1: .work/tier1/tier1_data.npz
+data_v1_sha256: e74fe388e9208615c4997cd85d85f2e5489eb0c879e572e2e1a6c89c90c8f118
+data_v2: .work/tier1/tier1_data_v2.npz
+betas:
+- 0.1
+- 0.05
+- 0.02
+threads: 8
+scale:
+  limit: null
+  seeds:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  pair_ids:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  f_old_epochs: 60
+  n_adapt: 8000
+  vae_epochs: 100
+  oracle_epochs: 20

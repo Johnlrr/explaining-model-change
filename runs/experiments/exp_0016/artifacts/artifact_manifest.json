@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "f_old_s0",
+      "path": "f_old_s0.pt",
+      "sha256": "30fa82e19e3d91f70218569012c2270677f5de99225f83f0e2b3be00b162cc1e"
+    },
+    {
+      "name": "f_old_s1",
+      "path": "f_old_s1.pt",
+      "sha256": "eb745625d37fdf25b0ea393c9f15c401f2094089542949ea49dbbe3e9c93c35b"
+    },
+    {
+      "name": "f_old_s2",
+      "path": "f_old_s2.pt",
+      "sha256": "8d5cfa292afa592f4aec285fb5744c92b0521bf6c88b57b628d9381f240b0457"
+    },
+    {
+      "name": "f_old_s3",
+      "path": "f_old_s3.pt",
+      "sha256": "f7f10ec17f22b33fca441771c7313f05a7c1430b75a8f7913885ca4bfcdb25db"
+    },
+    {
+      "name": "f_old_s4",
+      "path": "f_old_s4.pt",
+      "sha256": "26db21b2d6181a771b16317788e8ff679544c5bae2f3a94f255a1776d2954741"
+    },
+    {
+      "name": "f_new_p00_T1_s0_default",
+      "path": "f_new_p00_T1_s0_default.pt",
+      "sha256": "2b8cf7cee858b7e09c5984c5658d38e2c37b356226cb29e09abfd5158c642825"
+    },
+    {
+      "name": "f_new_p00_T1_s0_knob1",
+      "path": "f_new_p00_T1_s0_knob1.pt",
+      "sha256": "16bb57e172fb3183188079ea83f2658b7932cc067ef8a71bce654743df41bba3"
+    },
+    {
+      "name": "f_new_p00_T1_s0_knob2",
+      "path": "f_new_p00_T1_s0_knob2.pt",
+      "sha256": "54b42d1621206b4bf289532daddb20618154c4f80874d92d76061c423c8df276"
+    },
+    {
+      "name": "f_new_p01_T1_s1_default",
+      "path": "f_new_p01_T1_s1_default.pt",
+      "sha256": "db97d2c836611f1ebb81c9e0b37394d708304bce8d0ce5fcb4a9117002a67415"
+    },
+    {
+      "name": "f_new_p01_T1_s1_knob1",
+      "path": "f_new_p01_T1_s1_knob1.pt",
+      "sha256": "0ec5c2165021bf6427660241a0ee3070477a52b4850e2ae6bbb8ce03c9832cc0"
+    },
+    {
+      "name": "f_new_p01_T1_s1_knob2",
+      "path": "f_new_p01_T1_s1_knob2.pt",
+      "sha256": "e0eb4d8eec5cdf29e1c2eabc75a0ae8e3b4b66e1f48cd73ca02c6c89488aca0a"
+    },
+    {
+      "name": "f_new_p02_T1_s2_default",
+      "path": "f_new_p02_T1_s2_default.pt",
+      "sha256": "9abdb1e5b61cf76de95f9a6051a7f18e3382013eece8a0c252f0c41dd6107452"
+    },
+    {
+      "name": "f_new_p02_T1_s2_knob1",
+      "path": "f_new_p02_T1_s2_knob1.pt",
+      "sha256": "0c1a8652d0b23c5f3fb89fd5df025b9aadbf7724a00b85a39c5210cde7a6930c"
+    },
+    {
+      "name": "f_new_p02_T1_s2_knob2",
+      "path": "f_new_p02_T1_s2_knob2.pt",
+      "sha256": "70cb5a561145fbca686277511678dcecbf436ba65f24ddddfefcadde9c42a457"
+    },
+    {
+      "name": "f_new_p03_T3_s0_default",
+      "path": "f_new_p03_T3_s0_default.pt",
+      "sha256": "1484c1e7a7fa86de873ba3c03f6b45c12c39f5567b575fb416dcb0d1b7900ca8"
+    },
+    {
+      "name": "f_new_p03_T3_s0_knob1",
+      "path": "f_new_p03_T3_s0_knob1.pt",
+      "sha256": "423d729a02cc5d606e80655cca18ecc18dd7588893390678e9a4f75e3274ba43"
+    },
+    {
+      "name": "f_new_p03_T3_s0_knob2",
+      "path": "f_new_p03_T3_s0_knob2.pt",
+      "sha256": "349fede57b65ba4674f5656103ae0b4b422b828b286226eba062088eb8710470"
+    },
+    {
+      "name": "f_new_p03_T3_s0_bg",
+      "path": "f_new_p03_T3_s0_bg.pt",
+      "sha256": "a2971b8748bc3f1ea0b79b083081da90c6af5d490788b4e5de55dc77a9c3b688"
+    },
+    {
+      "name": "f_new_p04_T3_s1_default",
+      "path": "f_new_p04_T3_s1_default.pt",
+      "sha256": "2dcbf5df2787c22a6475012621870ff484949a17bdd0f017543cc9ca5de3078d"
+    },
+    {
+      "name": "f_new_p04_T3_s1_knob1",
+      "path": "f_new_p04_T3_s1_knob1.pt",
+      "sha256": "e6b78c5bc07d704c003a3813140ff7797a347bffa03b8e441848e7d8e3d37291"
+    },
+    {
+      "name": "f_new_p04_T3_s1_knob2",
+      "path": "f_new_p04_T3_s1_knob2.pt",
+      "sha256": "356a3c6866ed19661354c11920ebe56b7360e770b47718f51517252dbdfbce20"
+    },
+    {
+      "name": "f_new_p04_T3_s1_bg",
+      "path": "f_new_p04_T3_s1_bg.pt",
+      "sha256": "a0b42216ac779b72d53e3467abaa6ed5df97dcfd8c40f20551bb7db70c356d1e"
+    },
+    {
+      "name": "f_new_p05_T3_s2_default",
+      "path": "f_new_p05_T3_s2_default.pt",
+      "sha256": "ffe103220749cbbfb3872394cca5b55922e8d0c70d98357e80f3e676a4b8db49"
+    },
+    {
+      "name": "f_new_p05_T3_s2_knob1",
+      "path": "f_new_p05_T3_s2_knob1.pt",
+      "sha256": "0fb0af23222a4b6acd87fac012e4b3f52458d9a8bc67eab372c3f10feca7d317"
+    },
+    {
+      "name": "f_new_p05_T3_s2_knob2",
+      "path": "f_new_p05_T3_s2_knob2.pt",
+      "sha256": "c115d0ecba4b9e7024faf0272162f859d44840a07475ba03eca265d80fe5f86e"
+    },
+    {
+      "name": "f_new_p05_T3_s2_bg",
+      "path": "f_new_p05_T3_s2_bg.pt",
+      "sha256": "e59dfbf2fc886023ad6c0f3f7458a2d2ea66b7db33e3634f573cc361cf949d54"
+    },
+    {
+      "name": "f_new_p06_N0_s0_default",
+      "path": "f_new_p06_N0_s0_default.pt",
+      "sha256": "cc21ecb9c0752422ccad328dac0a07a80e8900f35cb8be81a4f5f18fccd9d9e8"
+    },
+    {
+      "name": "f_new_p07_N0_s1_default",
+      "path": "f_new_p07_N0_s1_default.pt",
+      "sha256": "226cfd3ef18bbe141642796b76ebc2d824832f5d940e7cacaadf9ea9e3789bbc"
+    },
+    {
+      "name": "f_new_p08_N0_s2_default",
+      "path": "f_new_p08_N0_s2_default.pt",
+      "sha256": "a55ddb5bfe1117b57b89b72bfb1356894c5c4e427ed857de13261ad2774d4dbe"
+    },
+    {
+      "name": "f_new_p09_N0_s3_default",
+      "path": "f_new_p09_N0_s3_default.pt",
+      "sha256": "6bb1164a2e3fad8b18a33819d5d36e49212499d5cb0b54816d5bb2e2ccb362c9"
+    },
+    {
+      "name": "f_new_p10_N0_s4_default",
+      "path": "f_new_p10_N0_s4_default.pt",
+      "sha256": "4c9b9a284c69891f5c98708d8463fecd946d13f3e9a2eb20a13cc5ac17dca4d8"
+    },
+    {
+      "name": "vae_beta0.1",
+      "path": "vae_beta0.1.pt",
+      "sha256": "e466fea3de9fab839dea8a38ca9799a56afe2253c88d2fa2ee433f86855a4bb8"
+    },
+    {
+      "name": "shape_oracle_beta0.1",
+      "path": "shape_oracle_beta0.1.pt",
+      "sha256": "f4d5571cf9df80177c0084f25a6a72f00847308a3af6285f40cb34a3470a7d89"
+    },
+    {
+      "name": "vae_beta0.05",
+      "path": "vae_beta0.05.pt",
+      "sha256": "a17b682ba75aa925c7fe86e62f68dd584b9af5b0696b628dc70e96f634b49569"
+    },
+    {
+      "name": "shape_oracle_beta0.05",
+      "path": "shape_oracle_beta0.05.pt",
+      "sha256": "1cf547740d8d8358f83d13d9a2bd85aa7723439f9518d2d8b9ed4cf52581e719"
+    },
+    {
+      "name": "vae_beta0.02",
+      "path": "vae_beta0.02.pt",
+      "sha256": "52f0b1171f59a0ef2b07f54d4696f42682c3f65513b96d8861c12a926918ed09"
+    },
+    {
+      "name": "shape_oracle_beta0.02",
+      "path": "shape_oracle_beta0.02.pt",
+      "sha256": "9daa8324dfdb166ca458142f9a137170e55b217d51ee57065d79a958afedd3ba"
+    }
+  ]
+}

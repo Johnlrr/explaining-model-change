@@ -405,3 +405,23 @@ Diagnostic (validation, local, not a repair): f_old seed 0 on CPU with the decla
 No β meets "f_old on D(μ(x)) ≥ 0.95 and the three Spearman criteria": the rule sends it back to the author. β = 0.1 is closest (0.891). Observations, not decisions: the VAE also gets only 420 optimisation steps at 30 epochs (the same under-training as f_old); the trend in β is not monotone (0.5 is worse than 1); and 0.95 on decoded images is close to f_old's own ceiling on real images (0.9635), so the criterion needs near-lossless reconstruction.
 
 **Estimate D: training all of Tier 1 on the local CPU (8 threads).** Measured: f_old 60 epochs 177 s, VAE 30 epochs ≈ 72 s, ≈ 3 600 training samples/s for the CNN. Projected: 5 f_old 885 s + VAE 72 s + shape oracle (63k + 10.6k samples × 20 epochs) ≈ 410 s + 11 f_new with the four T3 variants ≈ 190 s ≈ **0.43 h wall (≈ 3.5 core-hours)**. A VAE trial costs ≈ 1.2 min. A Kaggle job would take minutes of compute but cost one of the 4 jobs and has had unreliable downloads of the 6.7 MB VAE.
+
+### G2 round two (final), exp_0016 — amendment v1.8, D-031, 2026-10-16. Validation only, local CPU, 36 min
+
+**Data v2** (sha256 7269fa4f…; derived from exp_0010): measured thickness, train quantiles 0/5/15/50/85/95/100% = 2.00 / 2.37 / 2.99 / 4.32 / 5.83 / 6.60 / 8.65 (validation alike); chosen levels 0/+1/+2/+3 = 3 118 / 5 062 / 2 330 / 102 (train); T3 q85 (train) = 5.83, bg q85 = 0.851.
+
+**f_old (60 epochs):** 0.9839 / 0.9847 / 0.9864 / 0.9873 / 0.9864, all ≥ 0.95. Flip_k ≤ 0.005 for every factor (shape-driven, colour-blind).
+
+**β selection** (all three β meet (i)–(iii); selected β = 0.1, the largest):
+
+| β | Spearman color / bg / thick | shape oracle real / recon | f_old s0 on D(μ(x)) | mean std of μ(x) | valid (val) N0 pairs |
+|---|---|---|---|---|---|
+| 0.1 | 0.999 / 1.000 / 0.905 | 0.9898 / 0.9746 | 0.9712 | 0.972 | 1 097–1 123 of 1 179 (proj. test 1 853–1 896) |
+| 0.05 | 0.999 / 1.000 / 0.916 | 0.9881 / 0.9779 | 0.9729 | 1.071 | 1 089–1 127 |
+| 0.02 | 0.999 / 1.000 / 0.910 | 0.9898 / 0.9771 | 0.9720 | 1.187 | 1 092–1 126 |
+
+**G0-Tier 1:** N0 passes (5/5). **T1 fails in every variant** (ΔFlip_color: default 0.026–0.030, knob 1 0.036–0.062, knob 2 0.053–0.081; needs ≥ 0.15). **T3 fails in every variant** (ΔFlip_thick ≤ 0.05; subgroup accuracy on new labels 0.016 → 0.148 with knob 2; bg fallback ΔFlip_bg ≤ 0.02). Valid counts exist only for N0 (no T1/T3 variant chosen).
+
+**Decision (pre-declared, v1.8 I6):** tier level fails on G0 T1 → **Tier 1 dropped**: Route A = H4 ∧ H2a, Holm m = 1, no B5 claim; no round three.
+
+**Why (diagnosis, not a repair):** not a code fault — the drift signals move in the intended direction and grow with the knobs, but stay far below threshold. The 60-epoch f_old is confident (98.5%) and colour-blind, and a few epochs of fine-tuning on 8 000 images with 5% noise do not make it adopt colour; Tier 1's T1 has no ambiguous-region component (D-029 item 6), which is what makes the colour shortcut useful on Tier 0. In exp_0013, T1 passed only because the under-trained f_old was still malleable. The repairs that made the classifier and the VAE valid made the injected drift too weak. This is worth one sentence in the paper's limitations.
