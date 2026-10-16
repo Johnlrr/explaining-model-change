@@ -1,0 +1,42 @@
+{
+  "experiment": "smoke_0010",
+  "gate": "G1 pilot",
+  "tier": 0,
+  "git": {
+    "commit": "62e3a5c7dc712d4a0f96405f0cc2b5ead1eb7a67",
+    "dirty": true
+  },
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "numpy": "2.5.4",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "device": "cpu (16 logical cores)",
+  "status": "SUCCESS",
+  "checkpoints": [
+    {
+      "name": "f_old_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s0.pt",
+      "sha256": "b54fdbc57708d958ffbc0f1e54a7e476ec6b51db4213eee4edd28dda64d7d0c5"
+    },
+    {
+      "name": "f_new_p00_T1_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0003/artifacts/models/f_new_p00_T1_s0.pt",
+      "sha256": "67bfc56712068ff880352f103b79e52cc8c4434fb509becc68a29cbd32938fb0"
+    },
+    {
+      "name": "f_old_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s0.pt",
+      "sha256": "b54fdbc57708d958ffbc0f1e54a7e476ec6b51db4213eee4edd28dda64d7d0c5"
+    },
+    {
+      "name": "f_new_p09_N0_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_new_p09_N0_s0.pt",
+      "sha256": "b652e302249ddb9b8938cf3985aa3c29514fc7010eb6a6d99ef1f7088be6586e"
+    }
+  ],
+  "seconds": 393.6
+}

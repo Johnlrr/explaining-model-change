@@ -1,7 +1,8 @@
 """G1 pilot on Tier 0 validation (spec §9 G1; EVALUATION §6 pilot discipline; D-024).
 
 Seed-0 pair of every condition, N valid validation points each, every method. Persists ONLY found-rate,
-runtime (wall and CPU per point) and solver counters. No Δφ̃, Recovery, share or per-point output is
+the validation IDs of the points with a witness (v1.6 G4/G5), runtime (wall and CPU per point; phase-2 CPU
+split by points with / without a witness, v1.6 G3) and solver counters. No Δφ̃, Recovery, share or per-point output is
 computed into the record or written anywhere (pilot discipline).
 
 Methods: dce_N (Δ-CE type N), dce_O (N0, N1 only), b1, b1_det, b3, b4, b5, a1 (λ0 = 0, phase 1 only),
@@ -33,10 +34,10 @@ from dce.baselines.b5_line import b5_line
 from dce.cli.calibrate_r import solver_config
 from dce.cli.g0_tier0 import git_state, load_config
 from dce.data.drift import clean_splits
+from dce.data.renderer import render
 from dce.eval.pairs import load_pair
 from dce.eval.tier0_margins import Tier0Margin, float64_gap, valid_points
 from dce.models.cnn import predict_logits
-from dce.data.renderer import render
 from dce.solvers.dce import delta_ce
 from dce.solvers.ordinary_ce import ordinary_ce
 from dce.solvers.search import run_phase2
@@ -51,8 +52,20 @@ class Timer:
         self.wall, self.cpu = time.time() - self.w, time.process_time() - self.c
 
 
-def solver_row(res, timer: Timer, n: int) -> dict:
-    return {"found_rate": float(res.found.float().mean()), "wall_s_per_point": timer.wall / n,
+def split_runtime(res) -> dict:
+    """v1.6 G3: phase-2 CPU per point, split by points with / without a witness within r."""
+    if res.phase2_cpu_per_point is None:
+        return {}
+    c, f = res.phase2_cpu_per_point, res.found
+    mean = lambda x: float(x.mean()) if len(x) else None
+    return {"phase1_wall_s": round(res.phase1_wall, 2),
+            "phase2_cpu_s_per_point_with_witness": mean(c[f]),
+            "phase2_cpu_s_per_point_without_witness": mean(c[~f])}
+
+
+def solver_row(res, timer: Timer, n: int, ids=None) -> dict:
+    return {**split_runtime(res), "found_ids": ids[res.found.numpy()].tolist() if ids is not None else None,
+            "found_rate": float(res.found.float().mean()), "wall_s_per_point": timer.wall / n,
             "cpu_s_per_point": (res.cpu_seconds) / n, "wall_s_total": round(timer.wall, 2),
             "polish_runs": res.n_polish_runs, "polish_feasible": res.n_polished,
             "answers_from_phase2": res.n_from_phase2, "f64_ok_f32_rejected": res.n_f64_ok_f32_rejected}
@@ -135,11 +148,11 @@ def main(argv=None) -> int:
 
         with Timer() as t:
             res_n = delta_ce(z0, m_old, m_new, base, seed, kind="N")
-        M["dce_N"] = solver_row(res_n, t, n)
+        M["dce_N"] = solver_row(res_n, t, n, keep)
         if cond in ("N0", "N1"):
             with Timer() as t:
                 res_o = delta_ce(z0, m_old, m_new, base, seed, kind="O")
-            M["dce_O"] = solver_row(res_o, t, n)
+            M["dce_O"] = solver_row(res_o, t, n, keep)
             M["dce_N_or_O_found_rate"] = float((res_n.found | res_o.found).float().mean())
         for name, det in (("b1", False), ("b1_det", True)):
             with Timer() as t:
@@ -148,31 +161,33 @@ def main(argv=None) -> int:
                        "cpu_s_per_point": (ce_o.cpu_seconds + ce_n.cpu_seconds) / n,
                        "ce_old_found_rate": float(ce_o.found.float().mean()),
                        "ce_new_found_rate": float(ce_n.found.float().mean()),
-                       "f64_ok_f32_rejected": ce_o.n_f64_ok_f32_rejected + ce_n.n_f64_ok_f32_rejected}
+                       "f64_ok_f32_rejected": ce_o.n_f64_ok_f32_rejected + ce_n.n_f64_ok_f32_rejected,
+                       "found_ids": keep[valid.numpy()].tolist()}
             del _
         with Timer() as t:
             valid, _ = b3_grad(z0, m_old, m_new)
         M["b3"] = {"found_rate": float(valid.float().mean()), "wall_s_per_point": t.wall / n}
         del _
         with Timer() as t:
-            pred = lambda f: (lambda phi: predict_logits(f, phi, lambda p: render(torch.as_tensor(p, dtype=torch.float32))).argmax(1).numpy())  # noqa: E731
+            pred = lambda f: (lambda phi: predict_logits(f, phi, lambda p: render(torch.as_tensor(p, dtype=torch.float32))).argmax(1).numpy())
             _ = b4_perm(pred(f_old), pred(f_new), g0_phi, g0_y)
         M["b4"] = {"found_rate": 1.0, "wall_s_total": round(t.wall, 2)}
         del _
         with Timer() as t:
             found, _, _d = b5_line(z0, train_z, m_old, m_new, kappa, r)
-        M["b5"] = {"found_rate": float(found.float().mean()), "wall_s_per_point": t.wall / n}
+        M["b5"] = {"found_rate": float(found.float().mean()), "wall_s_per_point": t.wall / n,
+                   "found_ids": keep[found.numpy()].tolist()}
         del _, _d
         with Timer() as t:
             res = delta_ce(z0, m_old, m_new, replace(base, lam0=0.0, polish=False), seed, kind="N")
-        M["a1"] = solver_row(res, t, n)
+        M["a1"] = solver_row(res, t, n, keep)
         with Timer() as t:
             res = ordinary_ce(z0, m_new, base, seed)
-        M["a2"] = solver_row(res, t, n)
+        M["a2"] = solver_row(res, t, n, keep)
         for name, k in (("a3_k0", 0.0), ("a3_k1", 1.0)):
             with Timer() as t:
                 res = delta_ce(z0, m_old, m_new, replace(base, kappa=k), seed, kind="N")
-            M[name] = solver_row(res, t, n)
+            M[name] = solver_row(res, t, n, keep)
 
         dce_wall = M["dce_N"]["wall_s_total"] + (M["dce_O"]["wall_s_total"] if "dce_O" in M else 0.0)
         row["dce_wall_s_per_pair_at_N"] = round(dce_wall, 1)

@@ -1,0 +1,8 @@
+# exp_0011 — G1 pilot rerun after the speed-up (A) (amendment v1.6, D-027), 8 cores. Same pairs, points,
+# seeds and methods as exp_0009. Checks (G5): per-pair, per-method found-rates equal to exp_0009; records
+# found-ID sets and runtime split by witness (G3). Basis for the G1 runtime projections (v1.6 G1).
+experiment_id: exp_0011
+tier_config: configs/tiers/tier0.yaml
+pair_ids: [0, 3, 6, 9, 14]
+n_points: 100
+f5: {pair_id: 0, n_points: 50, n_starts: 50, seed: 20000}

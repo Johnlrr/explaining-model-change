@@ -49,6 +49,7 @@ class SolverConfig:
     slsqp_maxiter: int = 100
     slsqp_ftol: float = 1e-10
     slsqp_tighten: float = 1e-4         # v1.5 F2: SLSQP targets κ' = κ + 1e-4 (g ≥ 1e-4)
+    slsqp_lazy_jac: bool = True         # (A), D-027: Jacobian only when SLSQP asks; False = pre-(A)
     n_workers: int = 1                  # D-024: phase 2 parallelised over points (fork, 1 thread each)
 
 
@@ -62,7 +63,9 @@ class SearchResult:
     n_polish_runs: int = 0
     n_from_phase2: int = 0     # points whose final answer is a phase-2 output
     n_f64_ok_f32_rejected: int = 0  # D-024: feasible in float64 with κ but rejected by the float32 check
-    cpu_seconds: float = 0.0   # parent + phase-2 workers
+    cpu_seconds: float = 0.0   # parent + phase-1/phase-2 workers
+    phase1_wall: float = 0.0
+    phase2_cpu_per_point: Tensor | None = None  # (B,) CPU s of the SLSQP runs of each point (v1.6 G3)
 
 
 def _restart_noise(z0: Tensor, cfg: SolverConfig, restart_seed: int) -> Tensor:
@@ -168,9 +171,9 @@ def _polish_one(z_start: np.ndarray, z0: Tensor, i: int, constraints: Constraint
     idx = torch.tensor([i], device=device)
     cache: dict = {}
 
-    def cons_eval(x):
+    def full_eval(x):  # values and Jacobian (one forward, one backward per constraint)
         key = x.tobytes()
-        if key not in cache:
+        if key not in cache or cache[key][1] is None:
             z = torch.tensor(x, dtype=dtype, device=device).unsqueeze(0).requires_grad_(True)
             g = constraints(z, idx)[0]
             jac = torch.stack([torch.autograd.grad(g[k], z, retain_graph=k + 1 < len(g))[0][0]
@@ -179,6 +182,20 @@ def _polish_one(z_start: np.ndarray, z0: Tensor, i: int, constraints: Constraint
             cache[key] = (g.detach().cpu().double().numpy() - cfg.slsqp_tighten,
                           jac.detach().cpu().double().numpy())
         return cache[key]
+
+    def value_eval(x):  # (A), D-027: line-search points need values only → forward without grad
+        key = x.tobytes()
+        if key not in cache:
+            with torch.no_grad():
+                g = constraints(torch.tensor(x, dtype=dtype, device=device).unsqueeze(0), idx)[0]
+            cache.clear()
+            cache[key] = (g.cpu().double().numpy() - cfg.slsqp_tighten, None)
+        return cache[key][0]
+
+    if cfg.slsqp_lazy_jac:
+        cons_fun, cons_jac = value_eval, lambda x: full_eval(x)[1]
+    else:  # pre-(A) behaviour: every evaluation also builds the Jacobian
+        cons_fun, cons_jac = (lambda x: full_eval(x)[0]), (lambda x: full_eval(x)[1])
 
     def fun(x):
         u = x - z0_np
@@ -189,8 +206,7 @@ def _polish_one(z_start: np.ndarray, z0: Tensor, i: int, constraints: Constraint
 
     bounds = None if cfg.clamp is None else [cfg.clamp] * len(z0_np)
     res = minimize(fun, z_start, jac=jac, method="SLSQP", bounds=bounds,
-                   constraints=[{"type": "ineq", "fun": lambda x: cons_eval(x)[0],
-                                 "jac": lambda x: cons_eval(x)[1]}],
+                   constraints=[{"type": "ineq", "fun": cons_fun, "jac": cons_jac}],
                    options={"maxiter": cfg.slsqp_maxiter, "ftol": cfg.slsqp_ftol})
     # v1.5 F1: any output is a candidate; feasibility is confirmed by the caller (D-023)
     x = res.x if bounds is None else np.clip(res.x, *cfg.clamp)
@@ -226,7 +242,7 @@ def run_phase2(z0: Tensor, constraints: Constraints, cfg: SolverConfig, starts: 
                 res = pool.map(_phase2_point, range(z0.shape[0]), chunksize=1)
     finally:
         _CTX = None
-    return [o for o, _ in res], sum(c for _, c in res)
+    return [o for o, _ in res], [c for _, c in res]
 
 
 def constrained_search(z0: Tensor, constraints: Constraints, cfg: SolverConfig,
@@ -234,13 +250,17 @@ def constrained_search(z0: Tensor, constraints: Constraints, cfg: SolverConfig,
     start, cpu0 = time.time(), time.process_time()
     z0 = z0.detach()
     B = z0.shape[0]
+    t1 = time.time()
     cand_z, cand_d, last_z, worker_cpu = run_phase1(z0, constraints, cfg, restart_seed)
+    phase1_wall = time.time() - t1
+    p2_cpu = None
 
     n_runs = n_ok = n_mismatch = 0
     from_p2 = torch.zeros(B, dtype=torch.bool, device=z0.device)
     if cfg.polish:
         outs, cpu2 = run_phase2(z0, constraints, cfg, torch.cat([z0.unsqueeze(0), last_z]))
-        worker_cpu += cpu2
+        worker_cpu += sum(cpu2)
+        p2_cpu = torch.tensor(cpu2, dtype=torch.float64)
         xs = torch.tensor(np.stack([x for o in outs for x, _ in o]), dtype=z0.dtype, device=z0.device)
         f64_ok = torch.tensor([ok for o in outs for _, ok in o], device=z0.device)
         n_starts = cfg.R + 1
@@ -267,4 +287,5 @@ def constrained_search(z0: Tensor, constraints: Constraints, cfg: SolverConfig,
     return SearchResult(z=best_z, distance=best_d, found=found, seconds=time.time() - start,
                         n_polished=n_ok, n_polish_runs=n_runs, n_from_phase2=int((from_p2 & found).sum()),
                         n_f64_ok_f32_rejected=n_mismatch,
-                        cpu_seconds=time.process_time() - cpu0 + worker_cpu)
+                        cpu_seconds=time.process_time() - cpu0 + worker_cpu,
+                        phase1_wall=phase1_wall, phase2_cpu_per_point=p2_cpu)
