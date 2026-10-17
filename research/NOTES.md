@@ -438,3 +438,11 @@ Interpretation pending with the Research Lead; HYPOTHESES not yet updated beyond
 
 ### §20 reproduction, exp_0018 (2026-10-18)
 Clean worktree of the lock commit ede7374, fresh `.venv` (uv sync), run kind final, pairs 3 (T3 s0) and 9 (N0 s0). Every saved array (point IDs, found flags, Δφ̃ of every method, distances) is bit-identical to exp_0017 (`np.array_equal`); stronger than the "within the bootstrap CI" requirement. Run times 45.3 / 72.6 min. Checkpoint hashes verified by load_pair. Reproduction passes.
+
+### D-033 exploratory analyses of exp_0017 (computed 2026-10-18, AFTER D-034 was committed) — post hoc, exploratory
+Source: `runs/experiments/exp_0017_posthoc/d033.json`.
+- (a) Recovery|reach (biased towards Δ-CE): T1 Δ-CE 0.45, B1 0.57, B3 0.95; T3 Δ-CE 0.66, B1 0.31, B3 0.67; T4 Δ-CE 1.00, B1 0.85, B3 0.01. Δ-CE reach share: T1 0.84, T3 0.81, T4 0.47.
+- (b) Projected Recovery (unprojected → projected): T1 Δ-CE 0.38 → 0.65, B1 0.54 → 0.67, B3 0.91 → 0.92; T3 Δ-CE 0.53 → 0.65, B3 0.62 → 0.62; T4 every method collapses (Δ-CE 0.47 → 0.06, B3 0.07 → 0.07), as expected when the injected factor is the gradient direction. On T1 the projected gap Δ-CE − B3 is ≈ −0.27, outside ±0.10: this exploratory number does not support the projection explanation of the P-tie failure; D-034 C3 is unchanged and will decide on fresh data.
+- (c) Δ-CE − B1 on T3: +0.213, 95% CI [0.167, 0.258], seeds +0.32 / +0.16 / +0.15 (descriptive, outside Holm).
+- (d) SAR on N0/N1: 0 for B1, B1-det, Δ-CE N and O.
+- (e) Δ-CE NOT_FOUND split (type N): T1 16% feasible-beyond-r, 0% infeasible; T3 17% beyond r, 2% infeasible; **T4 0% beyond r, 53% no feasible point**; null pairs 100% no feasible point (N and O). On T4 the missing witnesses are not a budget effect; a plausible reading (post hoc, unverified): f_new's class-1 region is a subset of f_old's after the threshold shift, so type-N witnesses exist only for one label.
