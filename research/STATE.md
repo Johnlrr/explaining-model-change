@@ -11,7 +11,7 @@
 ## 1. Project status
 
 ```text
-Status: G1 PASSED (H4 exp_0007; found-rate exp_0009/0011; runtime projections exp_0011). Next: evaluation code + G2 (Tier 1)
+Status: TIER 0 FINAL DONE (exp_0017) — H2a NOT supported → Route B (benchmark + analysis). Previously: G1 PASSED (H4 exp_0007; found-rate exp_0009/0011; runtime projections exp_0011). Next: evaluation code + G2 (Tier 1)
 Last updated: 2026-10-16
 Current commit: see `git log -1` (kick-off commit on research/delta-ce)
 Current branch: research/delta-ce (from main)
@@ -95,9 +95,7 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 ## 9. In-flight remote jobs
 
 ```text
-No Kaggle job. LOCAL final run exp_0017 (Tier 0 test, 17 pairs × 300 points, 8 threads, ≈ 16.5 h), started 2026-10-16 from the lock commit,
-detached (setsid nohup). Progress: runs/experiments/exp_0017/run.log and the count of pairs/*.json (of 17). Do NOT open pair files.
-Resume after an interruption: rerun the same `final_tier0 run --final` command (finished pairs are skipped). Then `analyze` once 17/17.
+None. exp_0017 (Tier 0 final) complete: RUN_COMPLETE 17/17 × 300, analyzed (results.json).
 ```
 
 ### Resume rule
@@ -109,7 +107,7 @@ If a Kaggle job is recorded here as in flight, resume by waiting on it with the 
 ## 10. Test-set state
 
 ```text
-Tier 0 test (5 000 renderer samples): LOCKED, NOT EVALUATED (2026-10-16)
+Tier 0 test (5 000 renderer samples): EVALUATED once (exp_0017, 2026-10-17; run 17.05 h from 39753b4 = lock ede7374 + STATE only; analysis 2026-10-17)
   candidate / code commit: ede7374efc36c30c3c9816af61c18679f4aeaec6 (final program 24b7651; evaluation code 6e4fe41)
   configs/experiments/exp_0017.yaml sha256 80c34f2e2b52a7573865bc47a425b781b70c78645478b101f660b3ba72462bae
   configs/tiers/tier0.yaml          sha256 35ea879391bd66749d51083d394e8f9c9d573f69cdbf21b0cb0a45e7b4e231a4

@@ -1,0 +1,87 @@
+{
+  "pair_id": 10,
+  "condition": "N0",
+  "seed": 1,
+  "k_star": null,
+  "n_points": 300,
+  "b0": 0.0276,
+  "runtime": {
+    "dce_N": {
+      "wall_s_per_point": 3.1579275210698445,
+      "cpu_s_per_point": 24.9443747535,
+      "device": "cpu",
+      "phase1_wall_s": 201.0574734210968,
+      "phase2_cpu_s_per_point_with_witness": null,
+      "phase2_cpu_s_per_point_without_witness": 19.665233064413332
+    },
+    "dce_O": {
+      "wall_s_per_point": 3.0787278056144713,
+      "cpu_s_per_point": 24.434138369706663,
+      "device": "cpu",
+      "phase1_wall_s": 192.60020923614502,
+      "phase2_cpu_s_per_point_with_witness": null,
+      "phase2_cpu_s_per_point_without_witness": 19.297399443143334
+    },
+    "b1": {
+      "wall_s_per_point": 1.1331991346677144,
+      "cpu_s_per_point": 8.998724339906673
+    },
+    "b1_det": {
+      "wall_s_per_point": 0.31032049655914307,
+      "cpu_s_per_point": 2.411792749553329
+    },
+    "b3": {
+      "wall_s_per_point": 0.0006446146965026856
+    },
+    "b4": {
+      "wall_s_total": 24.508001565933228
+    },
+    "b5": {
+      "wall_s_per_point": 0.40487310727437337
+    },
+    "a1": {
+      "wall_s_per_point": 0.6199104944864909,
+      "cpu_s_per_point": 4.918103642360001,
+      "device": "cpu"
+    },
+    "a2": {
+      "wall_s_per_point": 0.5484766467412313,
+      "cpu_s_per_point": 4.299766678766669,
+      "device": "cpu",
+      "phase1_wall_s": 94.70512080192566,
+      "phase2_cpu_s_per_point_with_witness": 1.8322458765420875,
+      "phase2_cpu_s_per_point_without_witness": 1.6211406733333316
+    },
+    "a3_k0": {
+      "wall_s_per_point": 2.1431762822469076,
+      "cpu_s_per_point": 16.90143982469333,
+      "device": "cpu",
+      "phase1_wall_s": 190.17395973205566,
+      "phase2_cpu_s_per_point_with_witness": 3.8107599835985915,
+      "phase2_cpu_s_per_point_without_witness": 19.07477890713291
+    },
+    "a3_k1": {
+      "wall_s_per_point": 3.083508622646332,
+      "cpu_s_per_point": 24.45232455039667,
+      "device": "cpu",
+      "phase1_wall_s": 197.33205437660217,
+      "phase2_cpu_s_per_point_with_witness": null,
+      "phase2_cpu_s_per_point_without_witness": 19.252550077633334
+    }
+  },
+  "checkpoints": [
+    {
+      "name": "f_old_s1",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s1.pt",
+      "sha256": "b65ed1e696119fb8f9a825c26c9bcc65a5dc9cd36a9cb8627e9e1808414883fc"
+    },
+    {
+      "name": "f_new_p10_N0_s1",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_new_p10_N0_s1.pt",
+      "sha256": "14aee0e8ec0383799120f7adeb6649efdfe97814ae76a0ead6c9cf9155ca5f7e"
+    }
+  ],
+  "wall_s_pair": 4371.1
+}

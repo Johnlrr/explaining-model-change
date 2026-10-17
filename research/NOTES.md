@@ -425,3 +425,13 @@ No β meets "f_old on D(μ(x)) ≥ 0.95 and the three Spearman criteria": the ru
 **Decision (pre-declared, v1.8 I6):** tier level fails on G0 T1 → **Tier 1 dropped**: Route A = H4 ∧ H2a, Holm m = 1, no B5 claim; no round three.
 
 **Why (diagnosis, not a repair):** not a code fault — the drift signals move in the intended direction and grow with the knobs, but stay far below threshold. The 60-epoch f_old is confident (98.5%) and colour-blind, and a few epochs of fine-tuning on 8 000 images with 5% noise do not make it adopt colour; Tier 1's T1 has no ambiguous-region component (D-029 item 6), which is what makes the colour shortcut useful on Tier 0. In exp_0013, T1 passed only because the under-trained f_old was still malleable. The repairs that made the classifier and the VAE valid made the injected drift too weak. This is worth one sentence in the paper's limitations.
+
+### Tier 0 final result, exp_0017 (test, locked candidate ede7374), 2026-10-17
+
+- **H2a (T3, Δ-CE − B3): −0.091, 95% CI [−0.133, −0.050], p = 1e-4, negative at every seed (−0.087 / −0.123 / −0.063) → not supported; Route A fails → Route B.**
+- B5 rule (T3): Δ-CE − B5 = +0.466, CI [0.433, 0.499]; outcome no_solver_claim (rule (a) needs both tiers; Tier 1 dropped). (c) not triggered.
+- P-tie contradicted in all four comparisons (T1 vs B3 −0.53, vs B1-det −0.17; T4 vs B3 +0.40, vs B1-det −0.29).
+- Null pairs N0/N1: Δ-CE (N and O) found-rate 0.000, B1 ≈ 0.995; SAR 0 for Δ-CE; B4 SAR 0.2 on N0.
+- Descriptive H3 AUROC(S) = 1.0 for Δ-CE, B0, B1, B3 (conditional on G0-qualified pairs).
+- Condition means (found-rate / Recovery): T1 Δ-CE 0.84 / 0.38, B1 0.93 / 0.54, B3 1.0 / 0.91; T3 Δ-CE 0.81 / 0.53, B1 1.0 / 0.32, B3 1.0 / 0.62; T4 Δ-CE 0.47 / 0.47, B1 0.90 / 0.77, B3 1.0 / 0.07, B4 1.0 / 1.0.
+Interpretation pending with the Research Lead; HYPOTHESES not yet updated beyond this record.

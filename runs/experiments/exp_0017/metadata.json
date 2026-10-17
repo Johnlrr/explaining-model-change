@@ -1,0 +1,24 @@
+{
+  "experiment": "exp_0017",
+  "run_kind": "final",
+  "split": "test",
+  "git_runs": [
+    {
+      "git": {
+        "commit": "39753b407f8d2d3aa9369d2573e8111402cc0db6",
+        "dirty": false
+      },
+      "started": "2026-10-16T23:03:23"
+    }
+  ],
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "device": "cpu (8 threads)",
+  "status": "ANALYZED",
+  "run_seconds_last": 61395.1,
+  "analysis_git": {
+    "commit": "39753b407f8d2d3aa9369d2573e8111402cc0db6",
+    "dirty": false
+  }
+}

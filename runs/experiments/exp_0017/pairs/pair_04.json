@@ -1,0 +1,79 @@
+{
+  "pair_id": 4,
+  "condition": "T3",
+  "seed": 1,
+  "k_star": 1,
+  "n_points": 300,
+  "b0": 0.2738,
+  "runtime": {
+    "dce_N": {
+      "wall_s_per_point": 1.887640398343404,
+      "cpu_s_per_point": 14.980311468846663,
+      "device": "cpu",
+      "phase1_wall_s": 199.65485310554504,
+      "phase2_cpu_s_per_point_with_witness": 7.602858297904978,
+      "phase2_cpu_s_per_point_without_witness": 15.347312056518986
+    },
+    "b1": {
+      "wall_s_per_point": 1.1968799010912576,
+      "cpu_s_per_point": 9.42291184188333
+    },
+    "b1_det": {
+      "wall_s_per_point": 0.3282325514157613,
+      "cpu_s_per_point": 2.5512792072766652
+    },
+    "b3": {
+      "wall_s_per_point": 0.0006786561012268066
+    },
+    "b4": {
+      "wall_s_total": 24.997602462768555
+    },
+    "b5": {
+      "wall_s_per_point": 0.40398062944412233
+    },
+    "a1": {
+      "wall_s_per_point": 0.6560211412111918,
+      "cpu_s_per_point": 5.119194069543334,
+      "device": "cpu"
+    },
+    "a2": {
+      "wall_s_per_point": 0.556791037718455,
+      "cpu_s_per_point": 4.437708236853335,
+      "device": "cpu",
+      "phase1_wall_s": 94.4410092830658,
+      "phase2_cpu_s_per_point_with_witness": 1.8900940912000002,
+      "phase2_cpu_s_per_point_without_witness": null
+    },
+    "a3_k0": {
+      "wall_s_per_point": 1.203984986146291,
+      "cpu_s_per_point": 9.517521009520001,
+      "device": "cpu",
+      "phase1_wall_s": 197.2375316619873,
+      "phase2_cpu_s_per_point_with_witness": 4.35420833652,
+      "phase2_cpu_s_per_point_without_witness": null
+    },
+    "a3_k1": {
+      "wall_s_per_point": 2.0301382740338645,
+      "cpu_s_per_point": 16.030326969689998,
+      "device": "cpu",
+      "phase1_wall_s": 207.63126516342163,
+      "phase2_cpu_s_per_point_with_witness": 8.070450279383783,
+      "phase2_cpu_s_per_point_without_witness": 14.58931526167826
+    }
+  },
+  "checkpoints": [
+    {
+      "name": "f_old_s1",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s1.pt",
+      "sha256": "b65ed1e696119fb8f9a825c26c9bcc65a5dc9cd36a9cb8627e9e1808414883fc"
+    },
+    {
+      "name": "f_new_p04_T3_s1",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0003/artifacts/models/f_new_p04_T3_s1.pt",
+      "sha256": "d4fea5ba2307a3f5d33cacd405f71c224cea37b52d21d7293537491d0577b6fc"
+    }
+  ],
+  "wall_s_pair": 2509.7
+}

@@ -1,0 +1,2484 @@
+{
+  "per_pair": {
+    "0": {
+      "condition": "T1",
+      "seed": 0,
+      "k_star": 2,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.8366666666666667,
+          "recovery": 0.35333333333333333,
+          "share_k_star": 0.4335790684509562
+        },
+        "b1": {
+          "found_rate": 0.93,
+          "recovery": 0.5266666666666666,
+          "share_k_star": 0.42960677207080294
+        },
+        "b1_det": {
+          "found_rate": 0.9266666666666666,
+          "recovery": 0.5266666666666666,
+          "share_k_star": 0.425977507376091
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "recovery": 0.9166666666666666,
+          "share_k_star": 0.5324572102584859
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "recovery": 0.0,
+          "share_k_star": 0.08428860418071461
+        },
+        "b5": {
+          "found_rate": 0.06666666666666667,
+          "recovery": 0.013333333333333334,
+          "share_k_star": 0.19097538823502433
+        },
+        "a1": {
+          "found_rate": 0.6466666666666666,
+          "recovery": 0.37666666666666665,
+          "share_k_star": 0.35094973794742357
+        },
+        "a2": {
+          "found_rate": 0.93,
+          "recovery": 0.06,
+          "share_k_star": 0.31674063994446094
+        },
+        "a3_k0": {
+          "found_rate": 0.93,
+          "recovery": 0.3233333333333333,
+          "share_k_star": 0.4013065108302462
+        },
+        "a3_k1": {
+          "found_rate": 0.7133333333333334,
+          "recovery": 0.35333333333333333,
+          "share_k_star": 0.43881574539561263
+        }
+      },
+      "S": {
+        "dce": 0.8366666666666667,
+        "b0": 0.1598,
+        "b1": 0.22468059197881,
+        "b1_det": 0.22716819188364398,
+        "b3": 0.5518414301260564
+      },
+      "recovery_given_reach": {
+        "dce_N": 0.42231075697211157,
+        "b1": 0.5577689243027888,
+        "b1_det": 0.549800796812749,
+        "b3": 0.9561752988047809,
+        "b4": 0.0,
+        "b5": 0.01593625498007968,
+        "a1": 0.450199203187251,
+        "a2": 0.06374501992031872,
+        "a3_k0": 0.2868525896414343,
+        "a3_k1": 0.42231075697211157
+      },
+      "dce_reach_count": 251,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 1.275402873357137,
+          "cpu_s_per_point": 10.019754847123332,
+          "device": "cpu",
+          "phase1_wall_s": 170.92971563339233,
+          "phase2_cpu_s_per_point_with_witness": 5.256523921490039,
+          "phase2_cpu_s_per_point_without_witness": 6.990797753714284
+        },
+        "b1": {
+          "wall_s_per_point": 1.3612769961357116,
+          "cpu_s_per_point": 10.816373365643333
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.4399827806154887,
+          "cpu_s_per_point": 3.4599866372333326
+        },
+        "b3": {
+          "wall_s_per_point": 0.000754853884379069
+        },
+        "b4": {
+          "wall_s_total": 27.882240295410156
+        },
+        "b5": {
+          "wall_s_per_point": 0.4740798497200012
+        },
+        "a1": {
+          "wall_s_per_point": 0.8353758827845256,
+          "cpu_s_per_point": 6.59271631309,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.7138726925849914,
+          "cpu_s_per_point": 5.64558030122,
+          "device": "cpu",
+          "phase1_wall_s": 113.26249766349792,
+          "phase2_cpu_s_per_point_with_witness": 2.5970817621075266,
+          "phase2_cpu_s_per_point_without_witness": 3.167902956047619
+        },
+        "a3_k0": {
+          "wall_s_per_point": 1.5349858935674032,
+          "cpu_s_per_point": 12.200390728933332,
+          "device": "cpu",
+          "phase1_wall_s": 228.05887079238892,
+          "phase2_cpu_s_per_point_with_witness": 6.072752663293907,
+          "phase2_cpu_s_per_point_without_witness": 7.928238366047621
+        },
+        "a3_k1": {
+          "wall_s_per_point": 1.5236043945948283,
+          "cpu_s_per_point": 12.074153874096668,
+          "device": "cpu",
+          "phase1_wall_s": 204.80402779579163,
+          "phase2_cpu_s_per_point_with_witness": 6.278033511060747,
+          "phase2_cpu_s_per_point_without_witness": 7.659985743906978
+        }
+      },
+      "wall_s_pair": 2478.2
+    },
+    "1": {
+      "condition": "T1",
+      "seed": 1,
+      "k_star": 2,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.8466666666666667,
+          "recovery": 0.37666666666666665,
+          "share_k_star": 0.42144449873166007
+        },
+        "b1": {
+          "found_rate": 0.96,
+          "recovery": 0.58,
+          "share_k_star": 0.43424167982194084
+        },
+        "b1_det": {
+          "found_rate": 0.9566666666666667,
+          "recovery": 0.5666666666666667,
+          "share_k_star": 0.42961129103094237
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "recovery": 0.9066666666666666,
+          "share_k_star": 0.5473259151240945
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "recovery": 0.0,
+          "share_k_star": 0.04517271922054987
+        },
+        "b5": {
+          "found_rate": 0.08333333333333333,
+          "recovery": 0.02,
+          "share_k_star": 0.22073188808141478
+        },
+        "a1": {
+          "found_rate": 0.6266666666666667,
+          "recovery": 0.3333333333333333,
+          "share_k_star": 0.323249184697005
+        },
+        "a2": {
+          "found_rate": 0.9633333333333334,
+          "recovery": 0.02666666666666667,
+          "share_k_star": 0.27360117503219744
+        },
+        "a3_k0": {
+          "found_rate": 0.9533333333333334,
+          "recovery": 0.29333333333333333,
+          "share_k_star": 0.3671656846137358
+        },
+        "a3_k1": {
+          "found_rate": 0.7166666666666667,
+          "recovery": 0.4066666666666667,
+          "share_k_star": 0.4406741899147552
+        }
+      },
+      "S": {
+        "dce": 0.8466666666666667,
+        "b0": 0.131,
+        "b1": 0.19696384864470173,
+        "b1_det": 0.20720223422054404,
+        "b3": 0.4629473173119203
+      },
+      "recovery_given_reach": {
+        "dce_N": 0.4448818897637795,
+        "b1": 0.5708661417322834,
+        "b1_det": 0.5708661417322834,
+        "b3": 0.9606299212598425,
+        "b4": 0.0,
+        "b5": 0.023622047244094488,
+        "a1": 0.3937007874015748,
+        "a2": 0.031496062992125984,
+        "a3_k0": 0.24015748031496062,
+        "a3_k1": 0.48031496062992124
+      },
+      "dce_reach_count": 254,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 1.4235005394617717,
+          "cpu_s_per_point": 11.258906006810001,
+          "device": "cpu",
+          "phase1_wall_s": 200.0770652294159,
+          "phase2_cpu_s_per_point_with_witness": 5.725893017527559,
+          "phase2_cpu_s_per_point_without_witness": 7.49047403782609
+        },
+        "b1": {
+          "wall_s_per_point": 1.2594390161832174,
+          "cpu_s_per_point": 9.94407527348
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.33406730731328327,
+          "cpu_s_per_point": 2.613974676573334
+        },
+        "b3": {
+          "wall_s_per_point": 0.0006415239969889322
+        },
+        "b4": {
+          "wall_s_total": 25.539482831954956
+        },
+        "b5": {
+          "wall_s_per_point": 0.43603266954422
+        },
+        "a1": {
+          "wall_s_per_point": 0.6707261379559835,
+          "cpu_s_per_point": 5.288668313196667,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.6207211828231811,
+          "cpu_s_per_point": 4.902978862313332,
+          "device": "cpu",
+          "phase1_wall_s": 100.28881764411926,
+          "phase2_cpu_s_per_point_with_witness": 2.281618350107266,
+          "phase2_cpu_s_per_point_without_witness": 2.509336125727273
+        },
+        "a3_k0": {
+          "wall_s_per_point": 1.2876933646202087,
+          "cpu_s_per_point": 10.13308511106,
+          "device": "cpu",
+          "phase1_wall_s": 189.6999053955078,
+          "phase2_cpu_s_per_point_with_witness": 4.973352705758741,
+          "phase2_cpu_s_per_point_without_witness": 7.5158966575
+        },
+        "a3_k1": {
+          "wall_s_per_point": 1.5329248213768005,
+          "cpu_s_per_point": 12.113828804599999,
+          "device": "cpu",
+          "phase1_wall_s": 205.74804615974426,
+          "phase2_cpu_s_per_point_with_witness": 6.142870378446512,
+          "phase2_cpu_s_per_point_without_witness": 8.04978856724706
+        }
+      },
+      "wall_s_pair": 2297.6
+    },
+    "2": {
+      "condition": "T1",
+      "seed": 2,
+      "k_star": 2,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.8333333333333334,
+          "recovery": 0.39666666666666667,
+          "share_k_star": 0.42014534201559606
+        },
+        "b1": {
+          "found_rate": 0.91,
+          "recovery": 0.52,
+          "share_k_star": 0.4399466930534588
+        },
+        "b1_det": {
+          "found_rate": 0.9066666666666666,
+          "recovery": 0.5366666666666666,
+          "share_k_star": 0.43489225407547283
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "recovery": 0.9033333333333333,
+          "share_k_star": 0.5253680755646316
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "recovery": 0.0,
+          "share_k_star": 0.029960053262317
+        },
+        "b5": {
+          "found_rate": 0.09333333333333334,
+          "recovery": 0.02666666666666667,
+          "share_k_star": 0.18929379895686774
+        },
+        "a1": {
+          "found_rate": 0.6166666666666667,
+          "recovery": 0.32666666666666666,
+          "share_k_star": 0.31683204425283956
+        },
+        "a2": {
+          "found_rate": 0.91,
+          "recovery": 0.12333333333333334,
+          "share_k_star": 0.314602314840595
+        },
+        "a3_k0": {
+          "found_rate": 0.9133333333333333,
+          "recovery": 0.36666666666666664,
+          "share_k_star": 0.38855364264503106
+        },
+        "a3_k1": {
+          "found_rate": 0.7033333333333334,
+          "recovery": 0.3433333333333333,
+          "share_k_star": 0.42468045501464763
+        }
+      },
+      "S": {
+        "dce": 0.8333333333333334,
+        "b0": 0.171,
+        "b1": 0.23008348685903732,
+        "b1_det": 0.239236835343748,
+        "b3": 0.5626079726716956
+      },
+      "recovery_given_reach": {
+        "dce_N": 0.476,
+        "b1": 0.576,
+        "b1_det": 0.592,
+        "b3": 0.936,
+        "b4": 0.0,
+        "b5": 0.032,
+        "a1": 0.392,
+        "a2": 0.14,
+        "a3_k0": 0.364,
+        "a3_k1": 0.412
+      },
+      "dce_reach_count": 250,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 1.5503569388389586,
+          "cpu_s_per_point": 12.277567304993333,
+          "device": "cpu",
+          "phase1_wall_s": 219.9905230998993,
+          "phase2_cpu_s_per_point_with_witness": 6.217934866236,
+          "phase2_cpu_s_per_point_without_witness": 7.386366195979997
+        },
+        "b1": {
+          "wall_s_per_point": 1.3700207408269247,
+          "cpu_s_per_point": 10.756737527376666
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.37544418732325235,
+          "cpu_s_per_point": 2.9717847545899994
+        },
+        "b3": {
+          "wall_s_per_point": 0.0006948033968607585
+        },
+        "b4": {
+          "wall_s_total": 27.380614519119263
+        },
+        "b5": {
+          "wall_s_per_point": 0.42418616692225136
+        },
+        "a1": {
+          "wall_s_per_point": 0.5895400134722392,
+          "cpu_s_per_point": 4.656097845016666,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.6475064484278361,
+          "cpu_s_per_point": 5.023623032616667,
+          "device": "cpu",
+          "phase1_wall_s": 94.71649169921875,
+          "phase2_cpu_s_per_point_with_witness": 2.5507327178608055,
+          "phase2_cpu_s_per_point_without_witness": 2.9746911595555563
+        },
+        "a3_k0": {
+          "wall_s_per_point": 1.30683424949646,
+          "cpu_s_per_point": 10.317028057149999,
+          "device": "cpu",
+          "phase1_wall_s": 182.86096572875977,
+          "phase2_cpu_s_per_point_with_witness": 5.410537191956204,
+          "phase2_cpu_s_per_point_without_witness": 6.236936944615386
+        },
+        "a3_k1": {
+          "wall_s_per_point": 1.4520555289586385,
+          "cpu_s_per_point": 11.456477239163334,
+          "device": "cpu",
+          "phase1_wall_s": 185.87982320785522,
+          "phase2_cpu_s_per_point_with_witness": 6.175830646478674,
+          "phase2_cpu_s_per_point_without_witness": 7.39807773358427
+        }
+      },
+      "wall_s_pair": 2344.5
+    },
+    "3": {
+      "condition": "T3",
+      "seed": 0,
+      "k_star": 1,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.8266666666666667,
+          "recovery": 0.5566666666666666,
+          "share_k_star": 0.4980989582366032
+        },
+        "b1": {
+          "found_rate": 0.9966666666666667,
+          "recovery": 0.23333333333333334,
+          "share_k_star": 0.28957070811318497
+        },
+        "b1_det": {
+          "found_rate": 0.9933333333333333,
+          "recovery": 0.23333333333333334,
+          "share_k_star": 0.291801131802602
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "recovery": 0.6433333333333333,
+          "share_k_star": 0.4098570494779183
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "recovery": 0.0,
+          "share_k_star": 0.0038971161340608
+        },
+        "b5": {
+          "found_rate": 0.12666666666666668,
+          "recovery": 0.08666666666666667,
+          "share_k_star": 0.38903921926880036
+        },
+        "a1": {
+          "found_rate": 0.64,
+          "recovery": 0.3,
+          "share_k_star": 0.26669166016780915
+        },
+        "a2": {
+          "found_rate": 1.0,
+          "recovery": 0.37333333333333335,
+          "share_k_star": 0.33843068265367793
+        },
+        "a3_k0": {
+          "found_rate": 0.9733333333333334,
+          "recovery": 0.48,
+          "share_k_star": 0.3819530937760924
+        },
+        "a3_k1": {
+          "found_rate": 0.7333333333333333,
+          "recovery": 0.62,
+          "share_k_star": 0.5916378656390293
+        }
+      },
+      "S": {
+        "dce": 0.8266666666666667,
+        "b0": 0.2832,
+        "b1": 0.15450493822078126,
+        "b1_det": 0.1535529930015294,
+        "b3": 0.7781481508119281
+      },
+      "recovery_given_reach": {
+        "dce_N": 0.6733870967741935,
+        "b1": 0.22983870967741934,
+        "b1_det": 0.2217741935483871,
+        "b3": 0.6814516129032258,
+        "b4": 0.0,
+        "b5": 0.10483870967741936,
+        "a1": 0.3629032258064516,
+        "a2": 0.45161290322580644,
+        "a3_k0": 0.5604838709677419,
+        "a3_k1": 0.7459677419354839
+      },
+      "dce_reach_count": 248,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 1.6254913131395976,
+          "cpu_s_per_point": 12.748097603583332,
+          "device": "cpu",
+          "phase1_wall_s": 187.84256672859192,
+          "phase2_cpu_s_per_point_with_witness": 5.894258722415321,
+          "phase2_cpu_s_per_point_without_witness": 16.61966448146154
+        },
+        "b1": {
+          "wall_s_per_point": 1.1984372115135193,
+          "cpu_s_per_point": 9.454036883383335
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.3233862328529358,
+          "cpu_s_per_point": 2.6171473607866687
+        },
+        "b3": {
+          "wall_s_per_point": 0.0006230958302815755
+        },
+        "b4": {
+          "wall_s_total": 24.979811906814575
+        },
+        "b5": {
+          "wall_s_per_point": 0.4263422870635986
+        },
+        "a1": {
+          "wall_s_per_point": 0.6364285643895468,
+          "cpu_s_per_point": 5.040716965240001,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.6237122980753581,
+          "cpu_s_per_point": 4.939975342866667,
+          "device": "cpu",
+          "phase1_wall_s": 99.16538310050964,
+          "phase2_cpu_s_per_point_with_witness": 2.345454966376667,
+          "phase2_cpu_s_per_point_without_witness": null
+        },
+        "a3_k0": {
+          "wall_s_per_point": 1.5748421772321066,
+          "cpu_s_per_point": 12.396862830643334,
+          "device": "cpu",
+          "phase1_wall_s": 213.64152717590332,
+          "phase2_cpu_s_per_point_with_witness": 6.507309829664384,
+          "phase2_cpu_s_per_point_without_witness": 15.965973146250004
+        },
+        "a3_k1": {
+          "wall_s_per_point": 1.9169320281346638,
+          "cpu_s_per_point": 15.101747826366667,
+          "device": "cpu",
+          "phase1_wall_s": 207.03243565559387,
+          "phase2_cpu_s_per_point_with_witness": 7.295357160854545,
+          "phase2_cpu_s_per_point_without_witness": 16.141950138424995
+        }
+      },
+      "wall_s_pair": 2525.0
+    },
+    "4": {
+      "condition": "T3",
+      "seed": 1,
+      "k_star": 1,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.7366666666666667,
+          "recovery": 0.5,
+          "share_k_star": 0.5211930403068226
+        },
+        "b1": {
+          "found_rate": 1.0,
+          "recovery": 0.33666666666666667,
+          "share_k_star": 0.31652917190168206
+        },
+        "b1_det": {
+          "found_rate": 0.9933333333333333,
+          "recovery": 0.33666666666666667,
+          "share_k_star": 0.3115860283212606
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "recovery": 0.6233333333333333,
+          "share_k_star": 0.4192722436060431
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "recovery": 0.0,
+          "share_k_star": 0.021126760563380184
+        },
+        "b5": {
+          "found_rate": 0.07333333333333333,
+          "recovery": 0.06,
+          "share_k_star": 0.44204574579516237
+        },
+        "a1": {
+          "found_rate": 0.51,
+          "recovery": 0.2966666666666667,
+          "share_k_star": 0.3032487438997753
+        },
+        "a2": {
+          "found_rate": 1.0,
+          "recovery": 0.29333333333333333,
+          "share_k_star": 0.29225295460285494
+        },
+        "a3_k0": {
+          "found_rate": 1.0,
+          "recovery": 0.3466666666666667,
+          "share_k_star": 0.3399205835019961
+        },
+        "a3_k1": {
+          "found_rate": 0.6166666666666667,
+          "recovery": 0.61,
+          "share_k_star": 0.7387972435140441
+        }
+      },
+      "S": {
+        "dce": 0.7366666666666667,
+        "b0": 0.2738,
+        "b1": 0.13116865255108268,
+        "b1_det": 0.13269400857246638,
+        "b3": 0.4956138647042512
+      },
+      "recovery_given_reach": {
+        "dce_N": 0.6787330316742082,
+        "b1": 0.3031674208144796,
+        "b1_det": 0.2986425339366516,
+        "b3": 0.6923076923076923,
+        "b4": 0.0,
+        "b5": 0.08144796380090498,
+        "a1": 0.40271493212669685,
+        "a2": 0.39819004524886875,
+        "a3_k0": 0.45701357466063347,
+        "a3_k1": 0.8235294117647058
+      },
+      "dce_reach_count": 221,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 1.887640398343404,
+          "cpu_s_per_point": 14.980311468846663,
+          "device": "cpu",
+          "phase1_wall_s": 199.65485310554504,
+          "phase2_cpu_s_per_point_with_witness": 7.602858297904978,
+          "phase2_cpu_s_per_point_without_witness": 15.347312056518986
+        },
+        "b1": {
+          "wall_s_per_point": 1.1968799010912576,
+          "cpu_s_per_point": 9.42291184188333
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.3282325514157613,
+          "cpu_s_per_point": 2.5512792072766652
+        },
+        "b3": {
+          "wall_s_per_point": 0.0006786561012268066
+        },
+        "b4": {
+          "wall_s_total": 24.997602462768555
+        },
+        "b5": {
+          "wall_s_per_point": 0.40398062944412233
+        },
+        "a1": {
+          "wall_s_per_point": 0.6560211412111918,
+          "cpu_s_per_point": 5.119194069543334,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.556791037718455,
+          "cpu_s_per_point": 4.437708236853335,
+          "device": "cpu",
+          "phase1_wall_s": 94.4410092830658,
+          "phase2_cpu_s_per_point_with_witness": 1.8900940912000002,
+          "phase2_cpu_s_per_point_without_witness": null
+        },
+        "a3_k0": {
+          "wall_s_per_point": 1.203984986146291,
+          "cpu_s_per_point": 9.517521009520001,
+          "device": "cpu",
+          "phase1_wall_s": 197.2375316619873,
+          "phase2_cpu_s_per_point_with_witness": 4.35420833652,
+          "phase2_cpu_s_per_point_without_witness": null
+        },
+        "a3_k1": {
+          "wall_s_per_point": 2.0301382740338645,
+          "cpu_s_per_point": 16.030326969689998,
+          "device": "cpu",
+          "phase1_wall_s": 207.63126516342163,
+          "phase2_cpu_s_per_point_with_witness": 8.070450279383783,
+          "phase2_cpu_s_per_point_without_witness": 14.58931526167826
+        }
+      },
+      "wall_s_pair": 2509.7
+    },
+    "5": {
+      "condition": "T3",
+      "seed": 2,
+      "k_star": 1,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.8666666666666667,
+          "recovery": 0.53,
+          "share_k_star": 0.4924645432541723
+        },
+        "b1": {
+          "found_rate": 0.9933333333333333,
+          "recovery": 0.37666666666666665,
+          "share_k_star": 0.3217670857672821
+        },
+        "b1_det": {
+          "found_rate": 0.9933333333333333,
+          "recovery": 0.39,
+          "share_k_star": 0.3285500543357668
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "recovery": 0.5933333333333334,
+          "share_k_star": 0.43395684999997663
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "recovery": 0.0,
+          "share_k_star": 0.003943217665615409
+        },
+        "b5": {
+          "found_rate": 0.10333333333333333,
+          "recovery": 0.043333333333333335,
+          "share_k_star": 0.2996291733290898
+        },
+        "a1": {
+          "found_rate": 0.58,
+          "recovery": 0.28,
+          "share_k_star": 0.30072439325077904
+        },
+        "a2": {
+          "found_rate": 1.0,
+          "recovery": 0.24333333333333335,
+          "share_k_star": 0.3355772344663857
+        },
+        "a3_k0": {
+          "found_rate": 1.0,
+          "recovery": 0.29,
+          "share_k_star": 0.34307248968991577
+        },
+        "a3_k1": {
+          "found_rate": 0.7433333333333333,
+          "recovery": 0.49333333333333335,
+          "share_k_star": 0.5019672448247111
+        }
+      },
+      "S": {
+        "dce": 0.8666666666666667,
+        "b0": 0.2698,
+        "b1": 0.20776218849496073,
+        "b1_det": 0.20246637901913456,
+        "b3": 0.617529655853525
+      },
+      "recovery_given_reach": {
+        "dce_N": 0.6115384615384616,
+        "b1": 0.4,
+        "b1_det": 0.4115384615384615,
+        "b3": 0.6230769230769231,
+        "b4": 0.0,
+        "b5": 0.05,
+        "a1": 0.3230769230769231,
+        "a2": 0.27692307692307694,
+        "a3_k0": 0.33076923076923076,
+        "a3_k1": 0.5692307692307692
+      },
+      "dce_reach_count": 260,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 1.7110411787033082,
+          "cpu_s_per_point": 13.454381882549997,
+          "device": "cpu",
+          "phase1_wall_s": 205.98592448234558,
+          "phase2_cpu_s_per_point_with_witness": 7.139318406080768,
+          "phase2_cpu_s_per_point_without_witness": 13.9326119221
+        },
+        "b1": {
+          "wall_s_per_point": 1.2664881777763366,
+          "cpu_s_per_point": 10.07514747045
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.3480985426902771,
+          "cpu_s_per_point": 2.7390589207233322
+        },
+        "b3": {
+          "wall_s_per_point": 0.000658264954884847
+        },
+        "b4": {
+          "wall_s_total": 25.594293117523193
+        },
+        "b5": {
+          "wall_s_per_point": 0.41517751693725585
+        },
+        "a1": {
+          "wall_s_per_point": 0.6545272088050842,
+          "cpu_s_per_point": 5.110570237196665,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.5664865159988404,
+          "cpu_s_per_point": 4.55009729607,
+          "device": "cpu",
+          "phase1_wall_s": 93.51158356666565,
+          "phase2_cpu_s_per_point_with_witness": 2.0214821568766665,
+          "phase2_cpu_s_per_point_without_witness": null
+        },
+        "a3_k0": {
+          "wall_s_per_point": 1.2301084407170613,
+          "cpu_s_per_point": 9.627835290036664,
+          "device": "cpu",
+          "phase1_wall_s": 195.43834018707275,
+          "phase2_cpu_s_per_point_with_witness": 4.526423290306666,
+          "phase2_cpu_s_per_point_without_witness": null
+        },
+        "a3_k1": {
+          "wall_s_per_point": 1.8216681138674418,
+          "cpu_s_per_point": 14.401324573456662,
+          "device": "cpu",
+          "phase1_wall_s": 197.47618913650513,
+          "phase2_cpu_s_per_point_with_witness": 7.068546273556052,
+          "phase2_cpu_s_per_point_without_witness": 15.059508594727271
+        }
+      },
+      "wall_s_pair": 2432.2
+    },
+    "6": {
+      "condition": "T4",
+      "seed": 0,
+      "k_star": 0,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.4533333333333333,
+          "recovery": 0.45,
+          "share_k_star": 0.7548582084000541
+        },
+        "b1": {
+          "found_rate": 0.8966666666666666,
+          "recovery": 0.73,
+          "share_k_star": 0.4967092534262039
+        },
+        "b1_det": {
+          "found_rate": 0.89,
+          "recovery": 0.7233333333333334,
+          "share_k_star": 0.49831627491570235
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "recovery": 0.05,
+          "share_k_star": 0.13493829839558985
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "recovery": 1.0,
+          "share_k_star": 0.8802631578947366
+        },
+        "b5": {
+          "found_rate": 0.07,
+          "recovery": 0.06666666666666667,
+          "share_k_star": 0.46547041163177766
+        },
+        "a1": {
+          "found_rate": 0.37333333333333335,
+          "recovery": 0.31,
+          "share_k_star": 0.39750573707287346
+        },
+        "a2": {
+          "found_rate": 0.8966666666666666,
+          "recovery": 0.8933333333333333,
+          "share_k_star": 0.7569766687530637
+        },
+        "a3_k0": {
+          "found_rate": 0.4533333333333333,
+          "recovery": 0.45,
+          "share_k_star": 0.7478776439438333
+        },
+        "a3_k1": {
+          "found_rate": 0.28,
+          "recovery": 0.17666666666666667,
+          "share_k_star": 0.4325886152921985
+        }
+      },
+      "S": {
+        "dce": 0.4533333333333333,
+        "b0": 0.1056,
+        "b1": 0.1279828011182629,
+        "b1_det": 0.12999877135596574,
+        "b3": 0.2513681319782472
+      },
+      "recovery_given_reach": {
+        "dce_N": 0.9926470588235294,
+        "b1": 0.8161764705882353,
+        "b1_det": 0.8235294117647058,
+        "b3": 0.022058823529411766,
+        "b4": 1.0,
+        "b5": 0.14705882352941177,
+        "a1": 0.6838235294117647,
+        "a2": 0.9926470588235294,
+        "a3_k0": 0.9926470588235294,
+        "a3_k1": 0.3897058823529412
+      },
+      "dce_reach_count": 136,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 2.209293512503306,
+          "cpu_s_per_point": 17.484839114730004,
+          "device": "cpu",
+          "phase1_wall_s": 195.3788721561432,
+          "phase2_cpu_s_per_point_with_witness": 4.881661651492646,
+          "phase2_cpu_s_per_point_without_witness": 18.37920650664634
+        },
+        "b1": {
+          "wall_s_per_point": 1.2597252535820007,
+          "cpu_s_per_point": 9.913951699139998
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.3551429271697998,
+          "cpu_s_per_point": 2.7857376087133336
+        },
+        "b3": {
+          "wall_s_per_point": 0.0006491589546203613
+        },
+        "b4": {
+          "wall_s_total": 21.98285150527954
+        },
+        "b5": {
+          "wall_s_per_point": 0.43069421450297035
+        },
+        "a1": {
+          "wall_s_per_point": 0.6175779350598654,
+          "cpu_s_per_point": 4.8835408225000005,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.6187999447186788,
+          "cpu_s_per_point": 4.887881355143332,
+          "device": "cpu",
+          "phase1_wall_s": 95.45797419548035,
+          "phase2_cpu_s_per_point_with_witness": 2.336443899918216,
+          "phase2_cpu_s_per_point_without_witness": 3.0024747241290326
+        },
+        "a3_k0": {
+          "wall_s_per_point": 2.162347065607707,
+          "cpu_s_per_point": 17.09178213598333,
+          "device": "cpu",
+          "phase1_wall_s": 188.64449381828308,
+          "phase2_cpu_s_per_point_with_witness": 4.4866502048455885,
+          "phase2_cpu_s_per_point_without_witness": 18.400095315463414
+        },
+        "a3_k1": {
+          "wall_s_per_point": 2.7487554343541465,
+          "cpu_s_per_point": 21.80440931265667,
+          "device": "cpu",
+          "phase1_wall_s": 199.77222847938538,
+          "phase2_cpu_s_per_point_with_witness": 12.870992892369053,
+          "phase2_cpu_s_per_point_without_witness": 18.009612229305553
+        }
+      },
+      "wall_s_pair": 3145.0
+    },
+    "7": {
+      "condition": "T4",
+      "seed": 1,
+      "k_star": 0,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.48,
+          "recovery": 0.48,
+          "share_k_star": 0.7460451807555254
+        },
+        "b1": {
+          "found_rate": 0.91,
+          "recovery": 0.7966666666666666,
+          "share_k_star": 0.5146397774185739
+        },
+        "b1_det": {
+          "found_rate": 0.9066666666666666,
+          "recovery": 0.79,
+          "share_k_star": 0.5188919390434156
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "recovery": 0.07333333333333333,
+          "share_k_star": 0.1460219498502093
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "recovery": 1.0,
+          "share_k_star": 0.9691817215727949
+        },
+        "b5": {
+          "found_rate": 0.10666666666666667,
+          "recovery": 0.09666666666666666,
+          "share_k_star": 0.4371213750194473
+        },
+        "a1": {
+          "found_rate": 0.42333333333333334,
+          "recovery": 0.33,
+          "share_k_star": 0.3746806668880208
+        },
+        "a2": {
+          "found_rate": 0.91,
+          "recovery": 0.91,
+          "share_k_star": 0.7468461276234367
+        },
+        "a3_k0": {
+          "found_rate": 0.48,
+          "recovery": 0.4766666666666667,
+          "share_k_star": 0.7198003566950246
+        },
+        "a3_k1": {
+          "found_rate": 0.3933333333333333,
+          "recovery": 0.33,
+          "share_k_star": 0.5619999279222438
+        }
+      },
+      "S": {
+        "dce": 0.48,
+        "b0": 0.1172,
+        "b1": 0.133384332434318,
+        "b1_det": 0.13383020368961418,
+        "b3": 0.23561269023372683
+      },
+      "recovery_given_reach": {
+        "dce_N": 1.0,
+        "b1": 0.875,
+        "b1_det": 0.8472222222222222,
+        "b3": 0.0,
+        "b4": 1.0,
+        "b5": 0.2013888888888889,
+        "a1": 0.6875,
+        "a2": 1.0,
+        "a3_k0": 0.9930555555555556,
+        "a3_k1": 0.6875
+      },
+      "dce_reach_count": 144,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 2.1552927986780803,
+          "cpu_s_per_point": 17.0137423712,
+          "device": "cpu",
+          "phase1_wall_s": 190.37447309494019,
+          "phase2_cpu_s_per_point_with_witness": 4.066219489840276,
+          "phase2_cpu_s_per_point_without_witness": 19.232487543769228
+        },
+        "b1": {
+          "wall_s_per_point": 1.1818636814753214,
+          "cpu_s_per_point": 9.324452595063335
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.3218414529164632,
+          "cpu_s_per_point": 2.5111157227166663
+        },
+        "b3": {
+          "wall_s_per_point": 0.0006600062052408855
+        },
+        "b4": {
+          "wall_s_total": 21.835367679595947
+        },
+        "b5": {
+          "wall_s_per_point": 0.4273347759246826
+        },
+        "a1": {
+          "wall_s_per_point": 0.6165971295038859,
+          "cpu_s_per_point": 4.888151586020001,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.5789678287506104,
+          "cpu_s_per_point": 4.53456076495333,
+          "device": "cpu",
+          "phase1_wall_s": 95.47831320762634,
+          "phase2_cpu_s_per_point_with_witness": 1.96051943345055,
+          "phase2_cpu_s_per_point_without_witness": 3.0941721469259247
+        },
+        "a3_k0": {
+          "wall_s_per_point": 2.0899519395828245,
+          "cpu_s_per_point": 16.551643234306663,
+          "device": "cpu",
+          "phase1_wall_s": 187.04102158546448,
+          "phase2_cpu_s_per_point_with_witness": 3.484912891833334,
+          "phase2_cpu_s_per_point_without_witness": 19.049479838974356
+        },
+        "a3_k1": {
+          "wall_s_per_point": 2.5333320760726927,
+          "cpu_s_per_point": 20.09996593265,
+          "device": "cpu",
+          "phase1_wall_s": 197.38662910461426,
+          "phase2_cpu_s_per_point_with_witness": 8.842291879245764,
+          "phase2_cpu_s_per_point_without_witness": 18.886402788648354
+        }
+      },
+      "wall_s_pair": 2995.8
+    },
+    "8": {
+      "condition": "T4",
+      "seed": 2,
+      "k_star": 0,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.4666666666666667,
+          "recovery": 0.4666666666666667,
+          "share_k_star": 0.7252910536449598
+        },
+        "b1": {
+          "found_rate": 0.9,
+          "recovery": 0.77,
+          "share_k_star": 0.49505000513414876
+        },
+        "b1_det": {
+          "found_rate": 0.8933333333333333,
+          "recovery": 0.7633333333333333,
+          "share_k_star": 0.50062855949273
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "recovery": 0.08666666666666667,
+          "share_k_star": 0.165957384214271
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "recovery": 1.0,
+          "share_k_star": 0.8595988538681933
+        },
+        "b5": {
+          "found_rate": 0.05333333333333334,
+          "recovery": 0.05,
+          "share_k_star": 0.4883348430190246
+        },
+        "a1": {
+          "found_rate": 0.39666666666666667,
+          "recovery": 0.2833333333333333,
+          "share_k_star": 0.3967394457792458
+        },
+        "a2": {
+          "found_rate": 0.9033333333333333,
+          "recovery": 0.9033333333333333,
+          "share_k_star": 0.7498422948010347
+        },
+        "a3_k0": {
+          "found_rate": 0.4666666666666667,
+          "recovery": 0.4666666666666667,
+          "share_k_star": 0.7483824550272625
+        },
+        "a3_k1": {
+          "found_rate": 0.15,
+          "recovery": 0.08333333333333333,
+          "share_k_star": 0.3664335866827885
+        }
+      },
+      "S": {
+        "dce": 0.4666666666666667,
+        "b0": 0.1022,
+        "b1": 0.12033268996708421,
+        "b1_det": 0.12068131805561766,
+        "b3": 0.23866002147972443
+      },
+      "recovery_given_reach": {
+        "dce_N": 1.0,
+        "b1": 0.8428571428571429,
+        "b1_det": 0.8285714285714286,
+        "b3": 0.014285714285714285,
+        "b4": 1.0,
+        "b5": 0.10714285714285714,
+        "a1": 0.6071428571428571,
+        "a2": 1.0,
+        "a3_k0": 1.0,
+        "a3_k1": 0.17857142857142858
+      },
+      "dce_reach_count": 140,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 2.244470680554708,
+          "cpu_s_per_point": 17.69387957702,
+          "device": "cpu",
+          "phase1_wall_s": 196.11097025871277,
+          "phase2_cpu_s_per_point_with_witness": 4.939791990878571,
+          "phase2_cpu_s_per_point_without_witness": 19.22832903418125
+        },
+        "b1": {
+          "wall_s_per_point": 1.2520261613527934,
+          "cpu_s_per_point": 9.926938027096666
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.3526481294631958,
+          "cpu_s_per_point": 2.763941350529999
+        },
+        "b3": {
+          "wall_s_per_point": 0.0006565435727437337
+        },
+        "b4": {
+          "wall_s_total": 25.20961594581604
+        },
+        "b5": {
+          "wall_s_per_point": 0.4235712154706319
+        },
+        "a1": {
+          "wall_s_per_point": 0.6178890991210938,
+          "cpu_s_per_point": 4.900479558063335,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.6082300782203675,
+          "cpu_s_per_point": 4.811210697069999,
+          "device": "cpu",
+          "phase1_wall_s": 91.55764031410217,
+          "phase2_cpu_s_per_point_with_witness": 2.3095141116642064,
+          "phase2_cpu_s_per_point_without_witness": 2.572616697172415
+        },
+        "a3_k0": {
+          "wall_s_per_point": 2.2081752729415896,
+          "cpu_s_per_point": 17.422836345473332,
+          "device": "cpu",
+          "phase1_wall_s": 190.73570489883423,
+          "phase2_cpu_s_per_point_with_witness": 4.756052600778571,
+          "phase2_cpu_s_per_point_without_witness": 19.005948270225
+        },
+        "a3_k1": {
+          "wall_s_per_point": 2.866575359503428,
+          "cpu_s_per_point": 22.68011075712667,
+          "device": "cpu",
+          "phase1_wall_s": 195.2500364780426,
+          "phase2_cpu_s_per_point_with_witness": 12.556336866488893,
+          "phase2_cpu_s_per_point_without_witness": 18.458044304407846
+        }
+      },
+      "wall_s_pair": 3199.6
+    },
+    "9": {
+      "condition": "N0",
+      "seed": 0,
+      "k_star": null,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "b1": {
+          "found_rate": 0.9933333333333333,
+          "sar": false
+        },
+        "b1_det": {
+          "found_rate": 0.9933333333333333,
+          "sar": false
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b5": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "a1": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "a2": {
+          "found_rate": 0.9966666666666667,
+          "sar": true
+        },
+        "a3_k0": {
+          "found_rate": 0.7633333333333333,
+          "sar": true
+        },
+        "a3_k1": {
+          "found_rate": 0.0,
+          "sar": false
+        }
+      },
+      "S": {
+        "dce": 0.0,
+        "b0": 0.0178,
+        "b1": 0.027356343223900403,
+        "b1_det": 0.03042723465071437,
+        "b3": 0.06232369556482362
+      },
+      "recovery_given_reach": null,
+      "dce_reach_count": 0,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 2.9542628812789915,
+          "cpu_s_per_point": 23.385508775919998,
+          "device": "cpu",
+          "phase1_wall_s": 194.99302172660828,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 18.2766393066
+        },
+        "dce_O": {
+          "wall_s_per_point": 2.964866189956665,
+          "cpu_s_per_point": 23.60528726661667,
+          "device": "cpu",
+          "phase1_wall_s": 189.0196340084076,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 18.565175064126667
+        },
+        "b1": {
+          "wall_s_per_point": 1.2471315534909566,
+          "cpu_s_per_point": 9.791546113736672
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.3441956559816996,
+          "cpu_s_per_point": 2.699073648146668
+        },
+        "b3": {
+          "wall_s_per_point": 0.000599048137664795
+        },
+        "b4": {
+          "wall_s_total": 21.40657615661621
+        },
+        "b5": {
+          "wall_s_per_point": 0.4199654857317607
+        },
+        "a1": {
+          "wall_s_per_point": 0.615024840037028,
+          "cpu_s_per_point": 4.8660205708766675,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.5981662893295288,
+          "cpu_s_per_point": 4.716075496119998,
+          "device": "cpu",
+          "phase1_wall_s": 90.56770300865173,
+          "phase2_cpu_s_per_point_with_witness": 2.271048221210702,
+          "phase2_cpu_s_per_point_without_witness": 1.7068209370000034
+        },
+        "a3_k0": {
+          "wall_s_per_point": 9.780886263052622,
+          "cpu_s_per_point": 11.803423686136671,
+          "device": "cpu",
+          "phase1_wall_s": 187.11774849891663,
+          "phase2_cpu_s_per_point_with_witness": 5.690779075161571,
+          "phase2_cpu_s_per_point_without_witness": 10.543150835267605
+        },
+        "a3_k1": {
+          "wall_s_per_point": 2.803529314994812,
+          "cpu_s_per_point": 22.16627161323667,
+          "device": "cpu",
+          "phase1_wall_s": 168.12637400627136,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 17.744755279423334
+        }
+      },
+      "wall_s_pair": 6542.3
+    },
+    "10": {
+      "condition": "N0",
+      "seed": 1,
+      "k_star": null,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "b1": {
+          "found_rate": 0.99,
+          "sar": false
+        },
+        "b1_det": {
+          "found_rate": 0.99,
+          "sar": false
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b5": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "a1": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "a2": {
+          "found_rate": 0.99,
+          "sar": true
+        },
+        "a3_k0": {
+          "found_rate": 0.47333333333333333,
+          "sar": true
+        },
+        "a3_k1": {
+          "found_rate": 0.0,
+          "sar": false
+        }
+      },
+      "S": {
+        "dce": 0.0,
+        "b0": 0.0276,
+        "b1": 0.04340264084300176,
+        "b1_det": 0.04786598984954405,
+        "b3": 0.06277704523410897
+      },
+      "recovery_given_reach": null,
+      "dce_reach_count": 0,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 3.1579275210698445,
+          "cpu_s_per_point": 24.9443747535,
+          "device": "cpu",
+          "phase1_wall_s": 201.0574734210968,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 19.665233064413332
+        },
+        "dce_O": {
+          "wall_s_per_point": 3.0787278056144713,
+          "cpu_s_per_point": 24.434138369706663,
+          "device": "cpu",
+          "phase1_wall_s": 192.60020923614502,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 19.297399443143334
+        },
+        "b1": {
+          "wall_s_per_point": 1.1331991346677144,
+          "cpu_s_per_point": 8.998724339906673
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.31032049655914307,
+          "cpu_s_per_point": 2.411792749553329
+        },
+        "b3": {
+          "wall_s_per_point": 0.0006446146965026856
+        },
+        "b4": {
+          "wall_s_total": 24.508001565933228
+        },
+        "b5": {
+          "wall_s_per_point": 0.40487310727437337
+        },
+        "a1": {
+          "wall_s_per_point": 0.6199104944864909,
+          "cpu_s_per_point": 4.918103642360001,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.5484766467412313,
+          "cpu_s_per_point": 4.299766678766669,
+          "device": "cpu",
+          "phase1_wall_s": 94.70512080192566,
+          "phase2_cpu_s_per_point_with_witness": 1.8322458765420875,
+          "phase2_cpu_s_per_point_without_witness": 1.6211406733333316
+        },
+        "a3_k0": {
+          "wall_s_per_point": 2.1431762822469076,
+          "cpu_s_per_point": 16.90143982469333,
+          "device": "cpu",
+          "phase1_wall_s": 190.17395973205566,
+          "phase2_cpu_s_per_point_with_witness": 3.8107599835985915,
+          "phase2_cpu_s_per_point_without_witness": 19.07477890713291
+        },
+        "a3_k1": {
+          "wall_s_per_point": 3.083508622646332,
+          "cpu_s_per_point": 24.45232455039667,
+          "device": "cpu",
+          "phase1_wall_s": 197.33205437660217,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 19.252550077633334
+        }
+      },
+      "wall_s_pair": 4371.1
+    },
+    "11": {
+      "condition": "N0",
+      "seed": 2,
+      "k_star": null,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "b1": {
+          "found_rate": 0.9933333333333333,
+          "sar": false
+        },
+        "b1_det": {
+          "found_rate": 0.9933333333333333,
+          "sar": false
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b5": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "a1": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "a2": {
+          "found_rate": 0.9966666666666667,
+          "sar": true
+        },
+        "a3_k0": {
+          "found_rate": 0.9866666666666667,
+          "sar": true
+        },
+        "a3_k1": {
+          "found_rate": 0.0,
+          "sar": false
+        }
+      },
+      "S": {
+        "dce": 0.0,
+        "b0": 0.0066,
+        "b1": 0.011023387966604997,
+        "b1_det": 0.012788858416902651,
+        "b3": 0.08030549147417915
+      },
+      "recovery_given_reach": null,
+      "dce_reach_count": 0,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 3.0015096044540406,
+          "cpu_s_per_point": 23.746212024723338,
+          "device": "cpu",
+          "phase1_wall_s": 196.5030779838562,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 18.594638590853336
+        },
+        "dce_O": {
+          "wall_s_per_point": 3.0548704632123314,
+          "cpu_s_per_point": 24.188156828846665,
+          "device": "cpu",
+          "phase1_wall_s": 192.6403386592865,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 19.065577398823333
+        },
+        "b1": {
+          "wall_s_per_point": 1.2335570406913758,
+          "cpu_s_per_point": 9.769456013159992
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.34571743885676065,
+          "cpu_s_per_point": 2.7220667901099964
+        },
+        "b3": {
+          "wall_s_per_point": 0.0007145166397094727
+        },
+        "b4": {
+          "wall_s_total": 21.992075443267822
+        },
+        "b5": {
+          "wall_s_per_point": 0.42106014013290405
+        },
+        "a1": {
+          "wall_s_per_point": 0.6301714539527893,
+          "cpu_s_per_point": 4.994808361033333,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.5994135459264119,
+          "cpu_s_per_point": 4.719437215916663,
+          "device": "cpu",
+          "phase1_wall_s": 95.46413111686707,
+          "phase2_cpu_s_per_point_with_witness": 2.2205198061371236,
+          "phase2_cpu_s_per_point_without_witness": 4.093609345000004
+        },
+        "a3_k0": {
+          "wall_s_per_point": 1.5712925426165263,
+          "cpu_s_per_point": 12.368643900836672,
+          "device": "cpu",
+          "phase1_wall_s": 193.5387065410614,
+          "phase2_cpu_s_per_point_with_witness": 7.264868441628378,
+          "phase2_cpu_s_per_point_without_witness": 11.470830698750007
+        },
+        "a3_k1": {
+          "wall_s_per_point": 3.1334782648086548,
+          "cpu_s_per_point": 24.924138251036663,
+          "device": "cpu",
+          "phase1_wall_s": 200.4667227268219,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 19.57631193798333
+        }
+      },
+      "wall_s_pair": 4221.8
+    },
+    "12": {
+      "condition": "N0",
+      "seed": 3,
+      "k_star": null,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "b1": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b1_det": {
+          "found_rate": 0.9966666666666667,
+          "sar": false
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "sar": true
+        },
+        "b5": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "a1": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "a2": {
+          "found_rate": 1.0,
+          "sar": true
+        },
+        "a3_k0": {
+          "found_rate": 0.8033333333333333,
+          "sar": true
+        },
+        "a3_k1": {
+          "found_rate": 0.0,
+          "sar": false
+        }
+      },
+      "S": {
+        "dce": 0.0,
+        "b0": 0.016,
+        "b1": 0.029689314527142026,
+        "b1_det": 0.03622197521061328,
+        "b3": 0.08469298710013658
+      },
+      "recovery_given_reach": null,
+      "dce_reach_count": 0,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 3.3102924386660257,
+          "cpu_s_per_point": 26.225087106909996,
+          "device": "cpu",
+          "phase1_wall_s": 220.22207045555115,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 20.37303427736333
+        },
+        "dce_O": {
+          "wall_s_per_point": 3.5467371988296508,
+          "cpu_s_per_point": 28.158341547493333,
+          "device": "cpu",
+          "phase1_wall_s": 223.29561710357666,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 22.293776457950003
+        },
+        "b1": {
+          "wall_s_per_point": 1.4718173511823018,
+          "cpu_s_per_point": 11.604539359806662
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.4001270071665446,
+          "cpu_s_per_point": 3.184607659373337
+        },
+        "b3": {
+          "wall_s_per_point": 0.0007215722401936849
+        },
+        "b4": {
+          "wall_s_total": 25.92712664604187
+        },
+        "b5": {
+          "wall_s_per_point": 0.4349829975763957
+        },
+        "a1": {
+          "wall_s_per_point": 0.6831529259681701,
+          "cpu_s_per_point": 5.475354425166663,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.6754970113436382,
+          "cpu_s_per_point": 5.3118446772999945,
+          "device": "cpu",
+          "phase1_wall_s": 100.797598361969,
+          "phase2_cpu_s_per_point_with_witness": 2.663137859276666,
+          "phase2_cpu_s_per_point_without_witness": null
+        },
+        "a3_k0": {
+          "wall_s_per_point": 1.925806500116984,
+          "cpu_s_per_point": 15.305541988353333,
+          "device": "cpu",
+          "phase1_wall_s": 213.06586241722107,
+          "phase2_cpu_s_per_point_with_witness": 8.143719991,
+          "phase2_cpu_s_per_point_without_witness": 15.831020435898306
+        },
+        "a3_k1": {
+          "wall_s_per_point": 3.411518090565999,
+          "cpu_s_per_point": 27.06900637934333,
+          "device": "cpu",
+          "phase1_wall_s": 246.32271695137024,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 20.572385668959996
+        }
+      },
+      "wall_s_pair": 4786.3
+    },
+    "13": {
+      "condition": "N0",
+      "seed": 4,
+      "k_star": null,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "b1": {
+          "found_rate": 0.9966666666666667,
+          "sar": false
+        },
+        "b1_det": {
+          "found_rate": 0.9966666666666667,
+          "sar": false
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b5": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "a1": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "a2": {
+          "found_rate": 0.9966666666666667,
+          "sar": true
+        },
+        "a3_k0": {
+          "found_rate": 0.97,
+          "sar": true
+        },
+        "a3_k1": {
+          "found_rate": 0.0,
+          "sar": false
+        }
+      },
+      "S": {
+        "dce": 0.0,
+        "b0": 0.0122,
+        "b1": 0.01838915095753857,
+        "b1_det": 0.021736687989664924,
+        "b3": 0.06869503287888068
+      },
+      "recovery_given_reach": null,
+      "dce_reach_count": 0,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 3.1596757968266806,
+          "cpu_s_per_point": 25.00826082679,
+          "device": "cpu",
+          "phase1_wall_s": 212.97224974632263,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 19.368202863019995
+        },
+        "dce_O": {
+          "wall_s_per_point": 3.1231257629394533,
+          "cpu_s_per_point": 24.68496734574333,
+          "device": "cpu",
+          "phase1_wall_s": 213.23073506355286,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 19.075526898236664
+        },
+        "b1": {
+          "wall_s_per_point": 1.32279860496521,
+          "cpu_s_per_point": 10.403154560693332
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.3658413545290629,
+          "cpu_s_per_point": 2.8783707938666647
+        },
+        "b3": {
+          "wall_s_per_point": 0.0006767137845357259
+        },
+        "b4": {
+          "wall_s_total": 26.96468710899353
+        },
+        "b5": {
+          "wall_s_per_point": 0.48454562028249104
+        },
+        "a1": {
+          "wall_s_per_point": 0.7986544156074524,
+          "cpu_s_per_point": 6.303230931340001,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.7239923262596131,
+          "cpu_s_per_point": 5.723803976603327,
+          "device": "cpu",
+          "phase1_wall_s": 123.82425379753113,
+          "phase2_cpu_s_per_point_with_witness": 2.4210448854113715,
+          "phase2_cpu_s_per_point_without_witness": 2.2122956139999985
+        },
+        "a3_k0": {
+          "wall_s_per_point": 1.7372408938407897,
+          "cpu_s_per_point": 13.777186573440003,
+          "device": "cpu",
+          "phase1_wall_s": 225.6753580570221,
+          "phase2_cpu_s_per_point_with_witness": 7.601611092910654,
+          "phase2_cpu_s_per_point_without_witness": 12.978398931555548
+        },
+        "a3_k1": {
+          "wall_s_per_point": 3.238122576077779,
+          "cpu_s_per_point": 25.657787997680003,
+          "device": "cpu",
+          "phase1_wall_s": 229.52638840675354,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 19.629229701543338
+        }
+      },
+      "wall_s_pair": 4515.9
+    },
+    "14": {
+      "condition": "N1",
+      "seed": 0,
+      "k_star": null,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "b1": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b1_det": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b5": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "a1": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "a2": {
+          "found_rate": 1.0,
+          "sar": true
+        },
+        "a3_k0": {
+          "found_rate": 0.9766666666666667,
+          "sar": true
+        },
+        "a3_k1": {
+          "found_rate": 0.0,
+          "sar": false
+        }
+      },
+      "S": {
+        "dce": 0.0,
+        "b0": 0.0108,
+        "b1": 0.023678866770570052,
+        "b1_det": 0.027129992787450985,
+        "b3": 0.13280078174245705
+      },
+      "recovery_given_reach": null,
+      "dce_reach_count": 0,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 3.3005677914619445,
+          "cpu_s_per_point": 26.165900972533333,
+          "device": "cpu",
+          "phase1_wall_s": 223.44262886047363,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 20.230578234836667
+        },
+        "dce_O": {
+          "wall_s_per_point": 3.659537795384725,
+          "cpu_s_per_point": 29.051296110983337,
+          "device": "cpu",
+          "phase1_wall_s": 241.63770389556885,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 22.67604470464333
+        },
+        "b1": {
+          "wall_s_per_point": 1.2986646938323974,
+          "cpu_s_per_point": 10.250621507059996
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.3357586582501729,
+          "cpu_s_per_point": 2.635094645489998
+        },
+        "b3": {
+          "wall_s_per_point": 0.0006267404556274414
+        },
+        "b4": {
+          "wall_s_total": 23.394571542739868
+        },
+        "b5": {
+          "wall_s_per_point": 0.44423258701960244
+        },
+        "a1": {
+          "wall_s_per_point": 0.6034201351801555,
+          "cpu_s_per_point": 4.728585796789997,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.6022941668828329,
+          "cpu_s_per_point": 4.734277271600001,
+          "device": "cpu",
+          "phase1_wall_s": 90.46972346305847,
+          "phase2_cpu_s_per_point_with_witness": 2.30201895331,
+          "phase2_cpu_s_per_point_without_witness": null
+        },
+        "a3_k0": {
+          "wall_s_per_point": 1.4231378038724263,
+          "cpu_s_per_point": 11.259462831146669,
+          "device": "cpu",
+          "phase1_wall_s": 185.78157496452332,
+          "phase2_cpu_s_per_point_with_witness": 6.213724633201367,
+          "phase2_cpu_s_per_point_without_witness": 11.233352024714288
+        },
+        "a3_k1": {
+          "wall_s_per_point": 3.0823655128479004,
+          "cpu_s_per_point": 24.50017099709334,
+          "device": "cpu",
+          "phase1_wall_s": 196.2833161354065,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 19.250415255230003
+        }
+      },
+      "wall_s_pair": 4451.1
+    },
+    "15": {
+      "condition": "N1",
+      "seed": 1,
+      "k_star": null,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "b1": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b1_det": {
+          "found_rate": 0.9966666666666667,
+          "sar": false
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b5": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "a1": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "a2": {
+          "found_rate": 0.9966666666666667,
+          "sar": true
+        },
+        "a3_k0": {
+          "found_rate": 0.73,
+          "sar": true
+        },
+        "a3_k1": {
+          "found_rate": 0.0,
+          "sar": false
+        }
+      },
+      "S": {
+        "dce": 0.0,
+        "b0": 0.0164,
+        "b1": 0.021762573320823042,
+        "b1_det": 0.02629270207479407,
+        "b3": 0.06886184362977238
+      },
+      "recovery_given_reach": null,
+      "dce_reach_count": 0,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 3.0729692649841307,
+          "cpu_s_per_point": 24.404242625660004,
+          "device": "cpu",
+          "phase1_wall_s": 198.40707969665527,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 19.19603912321
+        },
+        "dce_O": {
+          "wall_s_per_point": 3.0802822597821553,
+          "cpu_s_per_point": 24.329508569966663,
+          "device": "cpu",
+          "phase1_wall_s": 207.20501494407654,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 18.95689551148
+        },
+        "b1": {
+          "wall_s_per_point": 1.156803522904714,
+          "cpu_s_per_point": 9.099873232153332
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.3152754807472229,
+          "cpu_s_per_point": 2.449402120306668
+        },
+        "b3": {
+          "wall_s_per_point": 0.0006119545300801595
+        },
+        "b4": {
+          "wall_s_total": 22.700265407562256
+        },
+        "b5": {
+          "wall_s_per_point": 0.4305169129371643
+        },
+        "a1": {
+          "wall_s_per_point": 0.6381865334510803,
+          "cpu_s_per_point": 4.988023168403335,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.5590031011899312,
+          "cpu_s_per_point": 4.378016268503331,
+          "device": "cpu",
+          "phase1_wall_s": 95.07646346092224,
+          "phase2_cpu_s_per_point_with_witness": 1.8866936061003343,
+          "phase2_cpu_s_per_point_without_witness": 3.692208056999995
+        },
+        "a3_k0": {
+          "wall_s_per_point": 2.06768590927124,
+          "cpu_s_per_point": 16.20150691843,
+          "device": "cpu",
+          "phase1_wall_s": 195.68221426010132,
+          "phase2_cpu_s_per_point_with_witness": 8.126513225292237,
+          "phase2_cpu_s_per_point_without_witness": 19.275487068370367
+        },
+        "a3_k1": {
+          "wall_s_per_point": 3.101745714346568,
+          "cpu_s_per_point": 24.53125765263667,
+          "device": "cpu",
+          "phase1_wall_s": 198.33078026771545,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 19.254243427476666
+        }
+      },
+      "wall_s_pair": 4351.9
+    },
+    "16": {
+      "condition": "N1",
+      "seed": 2,
+      "k_star": null,
+      "methods": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "b1": {
+          "found_rate": 0.9866666666666667,
+          "sar": false
+        },
+        "b1_det": {
+          "found_rate": 0.9866666666666667,
+          "sar": false
+        },
+        "b3": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b4": {
+          "found_rate": 1.0,
+          "sar": false
+        },
+        "b5": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "a1": {
+          "found_rate": 0.0,
+          "sar": false
+        },
+        "a2": {
+          "found_rate": 0.99,
+          "sar": true
+        },
+        "a3_k0": {
+          "found_rate": 0.9633333333333334,
+          "sar": true
+        },
+        "a3_k1": {
+          "found_rate": 0.0,
+          "sar": false
+        }
+      },
+      "S": {
+        "dce": 0.0,
+        "b0": 0.0138,
+        "b1": 0.02808022638923821,
+        "b1_det": 0.03206475395441428,
+        "b3": 0.1321518621822773
+      },
+      "recovery_given_reach": null,
+      "dce_reach_count": 0,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 3.019207791487376,
+          "cpu_s_per_point": 23.93618085608667,
+          "device": "cpu",
+          "phase1_wall_s": 196.67163491249084,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 18.734907846633334
+        },
+        "dce_O": {
+          "wall_s_per_point": 3.0620967674255373,
+          "cpu_s_per_point": 24.16873305061666,
+          "device": "cpu",
+          "phase1_wall_s": 204.34737086296082,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 18.88409218001
+        },
+        "b1": {
+          "wall_s_per_point": 1.3228931999206544,
+          "cpu_s_per_point": 10.422496770583336
+        },
+        "b1_det": {
+          "wall_s_per_point": 0.3627842712402344,
+          "cpu_s_per_point": 2.8709846861900044
+        },
+        "b3": {
+          "wall_s_per_point": 0.0007030200958251953
+        },
+        "b4": {
+          "wall_s_total": 22.54647946357727
+        },
+        "b5": {
+          "wall_s_per_point": 0.4421285541852315
+        },
+        "a1": {
+          "wall_s_per_point": 0.664149960676829,
+          "cpu_s_per_point": 5.213707510163337,
+          "device": "cpu"
+        },
+        "a2": {
+          "wall_s_per_point": 0.639115461508433,
+          "cpu_s_per_point": 5.071724686110001,
+          "device": "cpu",
+          "phase1_wall_s": 92.9429190158844,
+          "phase2_cpu_s_per_point_with_witness": 2.5598765330134676,
+          "phase2_cpu_s_per_point_without_witness": 3.0445819683333375
+        },
+        "a3_k0": {
+          "wall_s_per_point": 1.5156432580947876,
+          "cpu_s_per_point": 11.92937088501667,
+          "device": "cpu",
+          "phase1_wall_s": 187.64525866508484,
+          "phase2_cpu_s_per_point_with_witness": 6.8476126248892735,
+          "phase2_cpu_s_per_point_without_witness": 9.759250911909092
+        },
+        "a3_k1": {
+          "wall_s_per_point": 2.9775267545382182,
+          "cpu_s_per_point": 23.61457552708333,
+          "device": "cpu",
+          "phase1_wall_s": 189.17513704299927,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 18.595391859736672
+        }
+      },
+      "wall_s_pair": 4226.8
+    }
+  },
+  "by_condition": {
+    "T1": {
+      "dce_N": {
+        "found_rate": 0.8388888888888889,
+        "recovery": 0.3755555555555556
+      },
+      "b1": {
+        "found_rate": 0.9333333333333335,
+        "recovery": 0.5422222222222222
+      },
+      "b1_det": {
+        "found_rate": 0.93,
+        "recovery": 0.5433333333333333
+      },
+      "b3": {
+        "found_rate": 1.0,
+        "recovery": 0.9088888888888889
+      },
+      "b4": {
+        "found_rate": 1.0,
+        "recovery": 0.0
+      },
+      "b5": {
+        "found_rate": 0.08111111111111112,
+        "recovery": 0.02
+      },
+      "a1": {
+        "found_rate": 0.63,
+        "recovery": 0.34555555555555556
+      },
+      "a2": {
+        "found_rate": 0.9344444444444445,
+        "recovery": 0.07
+      },
+      "a3_k0": {
+        "found_rate": 0.9322222222222223,
+        "recovery": 0.3277777777777778
+      },
+      "a3_k1": {
+        "found_rate": 0.7111111111111112,
+        "recovery": 0.36777777777777776
+      }
+    },
+    "T3": {
+      "dce_N": {
+        "found_rate": 0.81,
+        "recovery": 0.5288888888888889
+      },
+      "b1": {
+        "found_rate": 0.9966666666666666,
+        "recovery": 0.3155555555555556
+      },
+      "b1_det": {
+        "found_rate": 0.9933333333333333,
+        "recovery": 0.32
+      },
+      "b3": {
+        "found_rate": 1.0,
+        "recovery": 0.62
+      },
+      "b4": {
+        "found_rate": 1.0,
+        "recovery": 0.0
+      },
+      "b5": {
+        "found_rate": 0.10111111111111111,
+        "recovery": 0.06333333333333334
+      },
+      "a1": {
+        "found_rate": 0.5766666666666667,
+        "recovery": 0.2922222222222222
+      },
+      "a2": {
+        "found_rate": 1.0,
+        "recovery": 0.3033333333333334
+      },
+      "a3_k0": {
+        "found_rate": 0.9911111111111112,
+        "recovery": 0.37222222222222223
+      },
+      "a3_k1": {
+        "found_rate": 0.6977777777777777,
+        "recovery": 0.5744444444444444
+      }
+    },
+    "T4": {
+      "dce_N": {
+        "found_rate": 0.4666666666666666,
+        "recovery": 0.4655555555555555
+      },
+      "b1": {
+        "found_rate": 0.9022222222222221,
+        "recovery": 0.7655555555555557
+      },
+      "b1_det": {
+        "found_rate": 0.8966666666666666,
+        "recovery": 0.758888888888889
+      },
+      "b3": {
+        "found_rate": 1.0,
+        "recovery": 0.07
+      },
+      "b4": {
+        "found_rate": 1.0,
+        "recovery": 1.0
+      },
+      "b5": {
+        "found_rate": 0.07666666666666667,
+        "recovery": 0.07111111111111111
+      },
+      "a1": {
+        "found_rate": 0.3977777777777778,
+        "recovery": 0.30777777777777776
+      },
+      "a2": {
+        "found_rate": 0.9033333333333333,
+        "recovery": 0.9022222222222221
+      },
+      "a3_k0": {
+        "found_rate": 0.4666666666666666,
+        "recovery": 0.4644444444444445
+      },
+      "a3_k1": {
+        "found_rate": 0.27444444444444444,
+        "recovery": 0.19666666666666668
+      }
+    },
+    "N0": {
+      "dce_N": {
+        "found_rate": 0.0,
+        "sar_share_of_pairs": 0.0
+      },
+      "dce_O": {
+        "found_rate": 0.0,
+        "sar_share_of_pairs": 0.0
+      },
+      "b1": {
+        "found_rate": 0.9946666666666667,
+        "sar_share_of_pairs": 0.0
+      },
+      "b1_det": {
+        "found_rate": 0.994,
+        "sar_share_of_pairs": 0.0
+      },
+      "b3": {
+        "found_rate": 1.0,
+        "sar_share_of_pairs": 0.0
+      },
+      "b4": {
+        "found_rate": 1.0,
+        "sar_share_of_pairs": 0.2
+      },
+      "b5": {
+        "found_rate": 0.0,
+        "sar_share_of_pairs": 0.0
+      },
+      "a1": {
+        "found_rate": 0.0,
+        "sar_share_of_pairs": 0.0
+      },
+      "a2": {
+        "found_rate": 0.9960000000000001,
+        "sar_share_of_pairs": 1.0
+      },
+      "a3_k0": {
+        "found_rate": 0.7993333333333332,
+        "sar_share_of_pairs": 1.0
+      },
+      "a3_k1": {
+        "found_rate": 0.0,
+        "sar_share_of_pairs": 0.0
+      }
+    },
+    "N1": {
+      "dce_N": {
+        "found_rate": 0.0,
+        "sar_share_of_pairs": 0.0
+      },
+      "dce_O": {
+        "found_rate": 0.0,
+        "sar_share_of_pairs": 0.0
+      },
+      "b1": {
+        "found_rate": 0.9955555555555556,
+        "sar_share_of_pairs": 0.0
+      },
+      "b1_det": {
+        "found_rate": 0.9944444444444445,
+        "sar_share_of_pairs": 0.0
+      },
+      "b3": {
+        "found_rate": 1.0,
+        "sar_share_of_pairs": 0.0
+      },
+      "b4": {
+        "found_rate": 1.0,
+        "sar_share_of_pairs": 0.0
+      },
+      "b5": {
+        "found_rate": 0.0,
+        "sar_share_of_pairs": 0.0
+      },
+      "a1": {
+        "found_rate": 0.0,
+        "sar_share_of_pairs": 0.0
+      },
+      "a2": {
+        "found_rate": 0.9955555555555554,
+        "sar_share_of_pairs": 1.0
+      },
+      "a3_k0": {
+        "found_rate": 0.89,
+        "sar_share_of_pairs": 1.0
+      },
+      "a3_k1": {
+        "found_rate": 0.0,
+        "sar_share_of_pairs": 0.0
+      }
+    }
+  },
+  "H2a": {
+    "diff": -0.09111111111111111,
+    "ci95": [
+      -0.13333333333333333,
+      -0.049999999999999996
+    ],
+    "p_two_sided": 0.0001,
+    "holm_m": 1,
+    "seed_diffs": {
+      "0": -0.08666666666666667,
+      "1": -0.1233333333333333,
+      "2": -0.06333333333333335
+    },
+    "supported": false
+  },
+  "route_A": false,
+  "B5_rule": {
+    "diff": 0.4655555555555556,
+    "ci95": [
+      0.4333333333333333,
+      0.49888888888888894
+    ],
+    "per_tier": {
+      "0": "claim"
+    },
+    "outcome": "no_solver_claim",
+    "note": "Tier 1 dropped: (a) cannot be met; (c) applies to Tier 0"
+  },
+  "P_tie": {
+    "T1_vs_b3": {
+      "diff": -0.5333333333333333,
+      "contradicts_prop4": true
+    },
+    "T1_vs_b1_det": {
+      "diff": -0.16777777777777772,
+      "contradicts_prop4": true
+    },
+    "T4_vs_b3": {
+      "diff": 0.3955555555555555,
+      "contradicts_prop4": true
+    },
+    "T4_vs_b1_det": {
+      "diff": -0.2933333333333334,
+      "contradicts_prop4": true
+    }
+  },
+  "H3_auroc_descriptive": {
+    "dce": 1.0,
+    "b0": 1.0,
+    "b1": 1.0,
+    "b3": 1.0
+  },
+  "H3_note": "conditional on G0-qualified pairs; B0 is global, \u0394-CE found-rate is local (A7)",
+  "split": "test"
+}
