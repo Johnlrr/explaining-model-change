@@ -435,3 +435,6 @@ No β meets "f_old on D(μ(x)) ≥ 0.95 and the three Spearman criteria": the ru
 - Descriptive H3 AUROC(S) = 1.0 for Δ-CE, B0, B1, B3 (conditional on G0-qualified pairs).
 - Condition means (found-rate / Recovery): T1 Δ-CE 0.84 / 0.38, B1 0.93 / 0.54, B3 1.0 / 0.91; T3 Δ-CE 0.81 / 0.53, B1 1.0 / 0.32, B3 1.0 / 0.62; T4 Δ-CE 0.47 / 0.47, B1 0.90 / 0.77, B3 1.0 / 0.07, B4 1.0 / 1.0.
 Interpretation pending with the Research Lead; HYPOTHESES not yet updated beyond this record.
+
+### §20 reproduction, exp_0018 (2026-10-18)
+Clean worktree of the lock commit ede7374, fresh `.venv` (uv sync), run kind final, pairs 3 (T3 s0) and 9 (N0 s0). Every saved array (point IDs, found flags, Δφ̃ of every method, distances) is bit-identical to exp_0017 (`np.array_equal`); stronger than the "within the bootstrap CI" requirement. Run times 45.3 / 72.6 min. Checkpoint hashes verified by load_pair. Reproduction passes.

@@ -127,7 +127,7 @@ Status rule: a test split becomes `evaluated` only in the final procedure (EVALU
 | 4 | Bootstrap seeds in the config | done, `configs/experiments/exp_0017.yaml` (`bootstrap_seeds`, checked against the code) |
 | 5 | r frozen | `configs/tiers/tier0.yaml` r = 0.5412657260894775 (exp_0008) |
 | 6 | Lock record (commit, config sha256, EVALUATION sha256) | done, see above (D-032 declared first, ede7374) |
-| 7 | §20 reproduction plan | below |
+| 7 | §20 reproduction | done: exp_0018 bit-identical to exp_0017 on pairs 3 and 9 (2026-10-18) |
 
 ### §20 reproduction plan (declared before the final run)
 

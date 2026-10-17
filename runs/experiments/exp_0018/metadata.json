@@ -1,0 +1,20 @@
+{
+  "experiment": "exp_0018",
+  "run_kind": "final",
+  "split": "test",
+  "git_runs": [
+    {
+      "git": {
+        "commit": "ede7374efc36c30c3c9816af61c18679f4aeaec6",
+        "dirty": false
+      },
+      "started": "2026-10-17T23:26:49"
+    }
+  ],
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "device": "cpu (8 threads)",
+  "status": "RUN_COMPLETE",
+  "run_seconds_last": 7073.6
+}
