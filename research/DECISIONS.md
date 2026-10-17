@@ -43,6 +43,7 @@
 | D-031 | Amendment v1.8: G2 round two (final): data v2 without erosion, VAE β selection (spec G2 + valid-point yield + self-imposed 0.90), two-tier failure rule (Tier 1 / T3 per v1.3 C3), CPU training | active | 2026-10-16 | — | exp_0016 |
 | D-032 | Tier 1 N0 exploratory null analysis (Δ-CE N+O, B1, A3 κ=0; found-rate, SAR, S, B0), after the Tier 0 final run; r_Tier1 from N0 seed 0 validation | active | 2026-10-16 | — | — |
 | D-033 | Exploratory analyses of exp_0017 (reach, projected Recovery, Δ-CE − B1 on T3, SAR of B1, NOT_FOUND split) — declared, not computed until §20 reproduction and the D-034 answer | active | 2026-10-17 | H-002, H-005 | exp_0017 |
+| D-034 | Confirmation on a new Tier 0 test set (seed 2027): C1 (T4, Δ-CE > B3), C2 (null refusal ≤ 0.05 on all 8 pairs), C3 (T1 projected equivalence, TOST ±0.10); Holm m=2 on C1, C3; Route unchanged | active | 2026-10-18 | H-002, H-005 | exp_0019 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -971,6 +972,34 @@ active (Research Lead, 2026-10-17). **Declared after exp_0017's headline results
 (c) Δ-CE − B1 on T3 with the paired bootstrap (§11 procedure, 10 000 resamples, seed 6100), descriptive, outside any Holm family.
 (d) SAR of B1 and B1-det on N0/N1 (already in results.json; reported in the table).
 (e) Δ-CE NOT_FOUND split from the saved distances: "feasible but d > r" (finite distance) versus "no feasible point" (infinite), per condition.
+
+---
+
+## D-034 — Confirmation on a NEW Tier 0 test set (C1, C2, C3; post-hoc hypotheses confirmed on fresh data)
+
+### Status
+active (author's decision, 2026-10-17/18, on the Research Lead's proposal). **Declared after exp_0017 and the §20 reproduction (exp_0018), before computing any D-033 analysis and before generating the new data.** The hypotheses come from observations on exp_0017; they are post-hoc hypotheses taken to confirmation on fresh data, and the paper states that origin. D-034 does not change the Route (Route B stands).
+
+### Design
+- **New test set:** Tier 0 renderer, 5 000 factor vectors from `numpy.random.default_rng(2027)` via `sample_factors`, clean labels `task_label` (no label noise); generated once; sha256 of the factor and label arrays recorded in the run manifest.
+- **Models:** the 17 exp_0017 checkpoints (hash-verified by `load_pair`); κ = 0.5, r = 0.5412657260894775, solver config of `configs/tiers/tier0.yaml`, restart seeds 10000 + pair_id, metric code unchanged.
+- **Scope:** T1 and T4 (pairs 0–2, 6–8) with Δ-CE N, B1-det, B3; N0 and N1 (pairs 9–16) with Δ-CE N and O, and B1. N = 300 valid points per pair (spec §3.2), sampled with seed 8000 + pair_id.
+- **Code lock:** `git diff --stat ede7374 -- src/dce/solvers src/dce/baselines src/dce/eval` must be empty; new code only for data generation, the projection, the CLI and config. Commit and config sha256 recorded in STATE before the run.
+
+### Hypotheses and tests
+| ID | Statement | Test | Passes when |
+|---|---|---|---|
+| C1 | B3 is blind to a bias change: on T4, Recovery@r(Δ-CE) − Recovery@r(B3) > 0 | paired bootstrap as §11, 10 000 resamples, seed 6200, two-sided p | Holm-adjusted p < 0.05, difference > 0, positive at seeds 0, 1, 2 |
+| C2 | Witnesses refuse to explain null updates | deterministic | Δ-CE found-rate of the union N ∪ O (share of points with a witness of either type) ≤ 0.05 on EACH of the 8 N0/N1 pairs |
+| C3 | The T1 P-tie failure comes from the unprojected metric: after projecting Δφ̃ orthogonally to ∇m_o(z0), Δ-CE and B3 are equivalent | TOST with margin ±0.10 on Rec_proj(Δ-CE) − Rec_proj(B3), paired bootstrap 10 000 resamples, seed 6201; p_TOST = max(P*(d* ≤ −0.10), P*(d* ≥ +0.10)), floored at 1/B | 90% percentile CI inside [−0.10, 0.10] and Holm-adjusted p_TOST < 0.05 |
+
+- Holm over C1 and C3 (m = 2). C2 is deterministic and outside Holm.
+- **Projection (C3, = D-033 (b)):** g = ∇_z m_o(z0) of f_old (float32 model, autograd), P = I − g gᵀ/‖g‖², Δφ̃' = P Δφ̃ for every method, top factor by the D-028 tie rule; not-found points stay 0. The unprojected Recovery@r is reported next to it.
+
+### Consequence rules (pre-declared)
+- Route unchanged (Route B). C1–C3 reported as they come out; a failed C retracts the corresponding post-hoc interpretation in the paper, with no switch to another explanation.
+- The new test set is run once; no other test on it. Results are not read during the run.
+- D-033 is computed only after this decision is committed; its results do not modify D-034.
 
 ---
 
