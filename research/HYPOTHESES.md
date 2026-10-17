@@ -10,13 +10,13 @@
 
 | ID | Short name | Type | Status | Priority | Parent | Main experiment | Novelty status |
 |---|---|---|---|---|---|---|---|
-| H-001 | Δ-CE beats CE differencing on Tier 1 drift (paper H1) | contribution | proposed | high | — | exp_TBD (Tier 1, T1+T3, 3 seeds) | candidate |
-| H-002 | Δ-CE beats gradient difference on non-local drift T3 (paper H2a/H2b) | contribution | proposed | high | — | exp_TBD (Tier 0 and Tier 1, T3) | candidate |
-| H-003 | Pair-level detection of drift versus null (paper H3; descriptive since D-012) | other (descriptive) | proposed | low | — | exp_TBD (Tier 0 and Tier 1, all pairs) | not claimed |
+| H-001 | Δ-CE beats CE differencing on Tier 1 drift (paper H1) | contribution | untested (Tier 1 dropped) | high | — | exp_TBD (Tier 1, T1+T3, 3 seeds) | candidate |
+| H-002 | Δ-CE beats gradient difference on non-local drift T3 (paper H2a/H2b) | contribution | rejected (H2a, exp_0017) | high | — | exp_TBD (Tier 0 and Tier 1, T3) | candidate |
+| H-003 | Pair-level detection of drift versus null (paper H3; descriptive since D-012) | other (descriptive) | reported (descriptive) | low | — | exp_TBD (Tier 0 and Tier 1, all pairs) | not claimed |
 | H-004 | Solver reproduces linear closed forms (paper H4) | other | supported (exp_0007) | high (gate G1) | — | exp_0005–exp_0007 (Tier L) | not applicable |
-| H-005 | Local drifts give a predicted tie (Proposition 4; paper P-tie) | mechanistic | proposed | medium | H-001 | exp_TBD (Tier 0, T1 and T4) | candidate |
+| H-005 | Local drifts give a predicted tie (Proposition 4; paper P-tie) | mechanistic | rejected (exp_0017) | medium | H-001 | exp_TBD (Tier 0, T1 and T4) | candidate |
 | H-006 | Proximity term is needed for locality (A1, DeepXplore-style) | ablation | proposed | medium | H-001 | exp_TBD (Tier 0, A1) | not applicable |
-| H-007 | Minimal-witness search versus DIG-style line search (B5) on T3 | other (descriptive, pre-declared claim rule) | proposed | medium | H-002 | exp_TBD (Tier 0 and Tier 1, T3) | uncertain |
+| H-007 | Minimal-witness search versus DIG-style line search (B5) on T3 | other (descriptive, pre-declared claim rule) | reported, no claim | medium | H-002 | exp_TBD (Tier 0 and Tier 1, T3) | uncertain |
 
 Allowed type values: contribution, mechanistic, tuning, ablation, reproduction, other.
 
@@ -41,7 +41,7 @@ H-004 is the first hypothesis: its result gates all later work (G1). H-001 and H
 ## H-001 — Δ-CE beats CE differencing on Tier 1 drift
 
 ### Status
-proposed
+untested — Tier 1 dropped (v1.8 I6, exp_0016)
 
 ### Origin
 Theory: Proposition 4 (both Δ-CE and CE differencing recover span{PΔw} in the linear case), so any advantage must come from the witness property, the budget, and non-uniqueness of CE, not from direction alone. Source: spec §6.4 (B1), §8 (H1).
@@ -83,13 +83,13 @@ Artelt et al. (2021, 2022): B1 is their method. Hinder & Hammer (2020): CE for d
 Tier 1 job (c) in CONSTRAINTS §4, after the classifier job (b).
 
 ### Experiments
-None yet.
+exp_0016 (G2 round two) dropped Tier 1 before any test.
 
 ### Results
-None yet.
+Not tested.
 
 ### Conclusion
-None yet.
+Not testable within this project's pre-declared rules.
 
 ### Follow-up
 If supported: report with H-002, H-003. If rejected: report B1 as sufficient on Tier 1 and go to Route B.
@@ -99,7 +99,7 @@ If supported: report with H-002, H-003. If rejected: report B1 as sufficient on 
 ## H-002 — Δ-CE beats gradient difference on non-local drift
 
 ### Status
-proposed
+rejected for H2a (exp_0017, 2026-10-17); H2b untested (Tier 1 dropped, v1.8 I6)
 
 ### Origin
 Proposal §3.6 and spec §2 point 3: gradient difference at x (Artelt Eq. 14) sees only local change. T3 (label flip on a subgroup, size > 0.75 / thickness > q85) is non-local by construction.
@@ -137,13 +137,13 @@ H-004; G0 (T3 changes the model: Flip/accuracy check, EVALUATION §6).
 Artelt et al. Eq. 14 (B3). Muschalik et al. 2022 (global feature importance, B4).
 
 ### Experiments
-None yet.
+exp_0017 (Tier 0 final, test, locked candidate ede7374). Reproduction §20: exp_0018 (in progress).
 
 ### Results
-None yet.
+H2a: Recovery@r(Δ-CE) − Recovery@r(B3) on T3 = −0.091, 95% CI [−0.133, −0.050], p = 1e-4 (Holm m = 1); seeds −0.087 / −0.123 / −0.063. Δ-CE found-rate on T3 0.81 (falsification signal 2 not triggered).
 
 ### Conclusion
-None yet.
+Rejected: B3 beats Δ-CE on Tier 0 T3. Route A fails → Route B. Any explanation (e.g. T3 less non-local than designed, v1.3 C2) is post hoc and must be labelled so.
 
 ### Follow-up
 If supported on both tiers: strongest claim (Route A). If one tier only: report the tier that supports it. If none: Route B. In all cases the solver claim is limited by H-007 (B5 rule).
@@ -153,7 +153,7 @@ If supported on both tiers: strongest claim (Route A). If one tier only: report 
 ## H-003 — Pair-level detection of drift versus null (descriptive)
 
 ### Status
-proposed — **descriptive since D-012** (amendment A2). Not part of the acceptance rule. Reported next to B0 (disagreement rate on the unfiltered test split), B1 and B3, labelled "conditional on G0-qualified pairs". Expected: B0 reaches AUROC ≈ 1.0, because G0 selects null pairs by agreement ≥ 0.98. The predictions below are kept for reporting.
+reported (descriptive, exp_0017) — **descriptive since D-012** (amendment A2). Not part of the acceptance rule. Reported next to B0 (disagreement rate on the unfiltered test split), B1 and B3, labelled "conditional on G0-qualified pairs". Expected: B0 reaches AUROC ≈ 1.0, because G0 selects null pairs by agreement ≥ 0.98. The predictions below are kept for reporting.
 
 ### Origin
 Spec §1 (C5): H3 replaced SAR by AUROC because SAR depends on a magnitude threshold.
@@ -191,13 +191,13 @@ H-004, G0.
 Hinder & Hammer 2020 and Muschalik 2022 do not produce a pair-level witness score of this kind (to be checked at G-lit).
 
 ### Experiments
-None yet.
+exp_0017.
 
 ### Results
-None yet.
+AUROC(S) = 1.0 for Δ-CE, B0, B1, B3 (conditional on G0-qualified pairs).
 
 ### Conclusion
-None yet.
+Uninformative between methods, as anticipated in amendment A2.
 
 ### Follow-up
 A failure here, with H-001/H-002 supported, is reported as a limitation. A failure with H-001/H-002 also failing means Route B′ is possible.
@@ -263,7 +263,7 @@ Pass → G1 pilot. Fail → fix the solver, not the closed form.
 ## H-005 — Local drifts give a predicted tie
 
 ### Status
-proposed
+rejected — prediction failed (exp_0017)
 
 ### Origin
 Proposition 4 and proposal §5.3.
@@ -299,13 +299,13 @@ H-001.
 Artelt et al. Theorem 1 (linear case).
 
 ### Experiments
-None yet.
+exp_0017.
 
 ### Results
-None yet.
+P-tie |Δ| > 0.10 in all four comparisons: T1 vs B3 −0.53, T1 vs B1-det −0.17, T4 vs B3 +0.40, T4 vs B1-det −0.29.
 
 ### Conclusion
-None yet.
+The predicted tie (Proposition 4) did not hold as operationalised. Post hoc (Research Lead, 2026-10-17): Proposition 4 concerns the direction after projecting out w_o, while Recovery takes the argmax of the unprojected Δφ; the primary metric is NOT changed after seeing results. Exploratory check declared in D-033 (b).
 
 ### Follow-up
 Report as prediction and outcome, regardless of direction.
@@ -367,7 +367,7 @@ Reported as an ablation.
 ## H-007 — Minimal-witness search versus DIG-style line search (B5)
 
 ### Status
-proposed (D-013, amendment A4). Outside Holm; reported in the main table.
+reported (exp_0017): no solver claim (D-013, amendment A4). Outside Holm; reported in the main table.
 
 ### Origin
 G-lit round 2: DIG returns the closest discrepancy intervals along segments between training points (L-022).
@@ -400,13 +400,13 @@ H-002, H-004.
 DIG / DIG-CV (L-022).
 
 ### Experiments
-None yet.
+exp_0017.
 
 ### Results
-None yet.
+Tier 0 T3: Recovery@r(Δ-CE) − Recovery@r(B5) = +0.466, 95% CI [0.433, 0.499]; rule outcome no_solver_claim ((a) needs both tiers; Tier 1 dropped); (c) not triggered.
 
 ### Conclusion
-None yet.
+Report the Tier 0 number per (d); the claim "Δ-CE finds better witnesses than DIG-style search" is NOT allowed.
 
 ### Follow-up
 Report with H-002.

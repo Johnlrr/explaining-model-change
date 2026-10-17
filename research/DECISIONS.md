@@ -42,6 +42,7 @@
 | D-030 | Amendment v1.7 after G2: f_old 60 epochs and threshold 0.95 (post-result), diagnostics D1–D3 with pre-declared branches (a)/(b), four T3 variants, Tier 1 drop rule (22/10) | active | 2026-10-16 | — | exp_0013, exp_0014 |
 | D-031 | Amendment v1.8: G2 round two (final): data v2 without erosion, VAE β selection (spec G2 + valid-point yield + self-imposed 0.90), two-tier failure rule (Tier 1 / T3 per v1.3 C3), CPU training | active | 2026-10-16 | — | exp_0016 |
 | D-032 | Tier 1 N0 exploratory null analysis (Δ-CE N+O, B1, A3 κ=0; found-rate, SAR, S, B0), after the Tier 0 final run; r_Tier1 from N0 seed 0 validation | active | 2026-10-16 | — | — |
+| D-033 | Exploratory analyses of exp_0017 (reach, projected Recovery, Δ-CE − B1 on T3, SAR of B1, NOT_FOUND split) — declared, not computed until §20 reproduction and the D-034 answer | active | 2026-10-17 | H-002, H-005 | exp_0017 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -956,6 +957,20 @@ active (author's decision, 2026-10-16, on the Research Lead's proposal). **Decla
 - Reported: found-rate, SAR, S, and B0 on the unfiltered Tier 1 test split. No Recovery (no k*).
 - Runs AFTER the Tier 0 final run is complete (the 8 CPU cores are shared); the Tier 1 test split is touched once.
 - Code (Tier 1 margins through the decoder, r calibration, the exploratory run) is written after the Tier 0 lock and does not touch the locked Tier 0 code path.
+
+---
+
+## D-033 — Exploratory analyses of exp_0017 (declared, NOT yet computed)
+
+### Status
+active (Research Lead, 2026-10-17). **Declared after exp_0017's headline results, before computing any of the analyses below.** Everything here is exploratory and post hoc: it changes no hypothesis status and no acceptance rule, and the paper labels it so. Computation waits for (i) the §20 reproduction (exp_0018) and (ii) the author's answer on D-034, so that a confirmatory hypothesis is not chosen from these numbers.
+
+### Analyses (per-point outputs of exp_0017 only; no method is rerun)
+(a) Recovery|reach (reach = Δ-CE type N found) and share of k* for every condition × method (D-021 D2 caveat: biased towards Δ-CE).
+(b) "Projected" Recovery: Δφ̃' = Δφ̃ − (Δφ̃·u)u with u = ∇_z m_o(z0) / ‖∇_z m_o(z0)‖ (f_old margin, Tier 0 factor space, the pair's saved z0 and verified checkpoint); top factor by the D-028 tie rule; for every method on T1, T3, T4.
+(c) Δ-CE − B1 on T3 with the paired bootstrap (§11 procedure, 10 000 resamples, seed 6100), descriptive, outside any Holm family.
+(d) SAR of B1 and B1-det on N0/N1 (already in results.json; reported in the table).
+(e) Δ-CE NOT_FOUND split from the saved distances: "feasible but d > r" (finite distance) versus "no feasible point" (infinite), per condition.
 
 ---
 
