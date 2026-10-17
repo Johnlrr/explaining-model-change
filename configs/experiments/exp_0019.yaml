@@ -1,0 +1,13 @@
+# exp_0019 — D-034 confirmation on a NEW Tier 0 test set (post-hoc hypotheses on fresh data). Route unchanged.
+# Models: the 17 exp_0017 checkpoints (hash-verified). κ, r, solver: configs/tiers/tier0.yaml (unchanged since ede7374).
+experiment_id: exp_0019
+tier_config: configs/tiers/tier0.yaml
+run_kind: confirm
+data_seed_new: 2027
+n_samples: 5000
+n_points: 300
+points_seed_base: 8000             # valid points: seed 8000 + pair_id
+pair_ids: [0, 1, 2, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]   # T1, T4, N0, N1
+bootstrap_resamples: 10000
+seeds_confirm: {C1: 6200, C3: 6201}
+threads: 8
