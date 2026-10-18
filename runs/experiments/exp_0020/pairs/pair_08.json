@@ -1,0 +1,41 @@
+{
+  "pair_id": 8,
+  "n_points": 200,
+  "b0": 0.012054244056344032,
+  "runtime": {
+    "dce_N": {
+      "wall_s_per_point": 4.241383898258209,
+      "cpu_s_per_point": 33.54464519418,
+      "device": "cpu",
+      "phase1_wall_s": 156.36617970466614,
+      "phase2_cpu_s_per_point_with_witness": 20.408210341040004,
+      "phase2_cpu_s_per_point_without_witness": 29.613622520393328
+    },
+    "dce_O": {
+      "wall_s_per_point": 4.189577897787094,
+      "cpu_s_per_point": 33.185505913869996,
+      "device": "cpu",
+      "phase1_wall_s": 155.76031684875488,
+      "phase2_cpu_s_per_point_with_witness": 20.705302102999994,
+      "phase2_cpu_s_per_point_without_witness": 28.745719961419354
+    },
+    "a3_k0": {
+      "wall_s_per_point": 3.639148770570755,
+      "cpu_s_per_point": 28.809207019909994,
+      "device": "cpu",
+      "phase1_wall_s": 156.69219422340393,
+      "phase2_cpu_s_per_point_with_witness": 16.891988985312494,
+      "phase2_cpu_s_per_point_without_witness": 27.930927233913458
+    },
+    "b1": {
+      "wall_s_per_point": 2.882213444709778
+    }
+  },
+  "nan_components": {
+    "dce_N": 0,
+    "dce_O": 0,
+    "a3_k0": 0,
+    "b1": 0
+  },
+  "wall_s_pair": 2992.6
+}

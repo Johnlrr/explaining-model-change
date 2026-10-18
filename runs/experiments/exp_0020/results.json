@@ -1,0 +1,147 @@
+{
+  "label": "EXPLORATORY (D-032): Tier 1 N0 null analysis, outside acceptance and Holm",
+  "pairs": {
+    "6": {
+      "found_rate": {
+        "dce_N": 0.0,
+        "dce_O": 0.0,
+        "a3_k0": 0.97,
+        "b1": 0.99
+      },
+      "dce_found_rate_union_N_O": 0.0,
+      "sar": {
+        "dce_N": false,
+        "dce_O": false,
+        "a3_k0": true,
+        "b1": true
+      },
+      "S": {
+        "dce": 0.0,
+        "b1": 0.11236333992053407
+      },
+      "b0": 0.003013561014086008,
+      "nan_components": {
+        "dce_N": 0,
+        "dce_O": 0,
+        "a3_k0": 0,
+        "b1": 0
+      }
+    },
+    "7": {
+      "found_rate": {
+        "dce_N": 0.0,
+        "dce_O": 0.0,
+        "a3_k0": 0.98,
+        "b1": 0.985
+      },
+      "dce_found_rate_union_N_O": 0.0,
+      "sar": {
+        "dce_N": false,
+        "dce_O": false,
+        "a3_k0": true,
+        "b1": true
+      },
+      "S": {
+        "dce": 0.0,
+        "b1": 0.10485650550815197
+      },
+      "b0": 0.004018081352114677,
+      "nan_components": {
+        "dce_N": 0,
+        "dce_O": 0,
+        "a3_k0": 0,
+        "b1": 0
+      }
+    },
+    "8": {
+      "found_rate": {
+        "dce_N": 0.25,
+        "dce_O": 0.225,
+        "a3_k0": 0.48,
+        "b1": 0.98
+      },
+      "dce_found_rate_union_N_O": 0.475,
+      "sar": {
+        "dce_N": false,
+        "dce_O": true,
+        "a3_k0": false,
+        "b1": true
+      },
+      "S": {
+        "dce": 0.2375,
+        "b1": 0.47379518496025336
+      },
+      "b0": 0.012054244056344032,
+      "nan_components": {
+        "dce_N": 0,
+        "dce_O": 0,
+        "a3_k0": 0,
+        "b1": 0
+      }
+    },
+    "9": {
+      "found_rate": {
+        "dce_N": 0.0,
+        "dce_O": 0.0,
+        "a3_k0": 0.775,
+        "b1": 0.99
+      },
+      "dce_found_rate_union_N_O": 0.0,
+      "sar": {
+        "dce_N": false,
+        "dce_O": false,
+        "a3_k0": true,
+        "b1": true
+      },
+      "S": {
+        "dce": 0.0,
+        "b1": 0.18524602306276544
+      },
+      "b0": 0.006027122028172016,
+      "nan_components": {
+        "dce_N": 0,
+        "dce_O": 0,
+        "a3_k0": 0,
+        "b1": 1
+      }
+    },
+    "10": {
+      "found_rate": {
+        "dce_N": 0.0,
+        "dce_O": 0.0,
+        "a3_k0": 0.97,
+        "b1": 0.97
+      },
+      "dce_found_rate_union_N_O": 0.0,
+      "sar": {
+        "dce_N": false,
+        "dce_O": false,
+        "a3_k0": true,
+        "b1": true
+      },
+      "S": {
+        "dce": 0.0,
+        "b1": 0.1518322861390069
+      },
+      "b0": 0.0035158211831003428,
+      "nan_components": {
+        "dce_N": 0,
+        "dce_O": 0,
+        "a3_k0": 0,
+        "b1": 0
+      }
+    }
+  },
+  "means": {
+    "dce_N": 0.05,
+    "dce_O": 0.045,
+    "a3_k0": 0.835,
+    "b1": 0.983
+  },
+  "sar_share_of_pairs": {
+    "dce_N": 0.0,
+    "dce_O": 0.2,
+    "a3_k0": 0.8,
+    "b1": 1.0
+  }
+}

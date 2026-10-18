@@ -452,3 +452,15 @@ Run 7.76 h, one uninterrupted run from 6de264c (= lock 103ab95 + STATE); solvers
 - **C1 PASSES:** T4, Recovery@r(Δ-CE) − Recovery@r(B3) = +0.312, 95% CI [0.273, 0.352], p = 1e-4, Holm-adjusted 2e-4; seeds +0.36 / +0.27 / +0.31. B3's blindness to the T4 threshold (bias) change is confirmed on fresh data.
 - **C2 PASSES:** Δ-CE found-rate (N ∪ O) = 0.000 on all 8 null pairs; B1 found-rate 0.987–1.000 on the same pairs.
 - **C3 FAILS:** T1, projected Recovery Δ-CE − B3 = −0.304, 90% CI [−0.331, −0.278] (outside ±0.10), p_TOST = 1.0; unprojected gap −0.57. Per D-034 the projection explanation of the T1 P-tie failure is **retracted**; no alternative explanation is substituted.
+
+### D-032 exploratory: Tier 1 N0 null analysis, exp_0020 (Tier 1 test, touched once), 2026-10-18 — EXPLORATORY
+r_Tier1 = 2.1215 (frozen before the test). 5 N0 pairs × 200 test points, VAE β = 0.1, 4.0 h.
+| pair (seed) | Δ-CE N | Δ-CE O | Δ-CE N ∪ O | A3 κ=0 | B1 | B0 (unfiltered test) |
+|---|---|---|---|---|---|---|
+| 6 (s0) | 0.000 | 0.000 | 0.000 | 0.970 | 0.990 | 0.0030 |
+| 7 (s1) | 0.000 | 0.000 | 0.000 | 0.980 | 0.985 | 0.0040 |
+| 8 (s2) | 0.250 | 0.225 | 0.475 | 0.480 | 0.980 | 0.0121 |
+| 9 (s3) | 0.000 | 0.000 | 0.000 | 0.775 | 0.990 | 0.0060 |
+| 10 (s4) | 0.000 | 0.000 | 0.000 | 0.970 | 0.970 | 0.0035 |
+SAR (share of the 5 pairs): Δ-CE N 0.0, Δ-CE O 0.2, A3 κ=0 0.8, B1 1.0. One NaN oracle component in 1 B1 point (pair 9).
+Numbers only: on 4 of 5 pairs Δ-CE gives no witness; on pair 8 (the pair with the largest B0) it finds witnesses for 47.5% of points.

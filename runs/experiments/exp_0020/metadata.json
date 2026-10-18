@@ -1,0 +1,22 @@
+{
+  "experiment": "exp_0020",
+  "decision": "D-032 (exploratory)",
+  "split": "tier1 test",
+  "git_runs": [
+    {
+      "git": {
+        "commit": "d5cd728dacdba8f4e1b6971ca34a38ef1bd73497",
+        "dirty": false
+      },
+      "started": "2026-10-18T09:40:01"
+    }
+  ],
+  "sigma_k": {
+    "shape": 0.48656125127141725,
+    "color": 0.28195642259887027,
+    "bg": 0.2897807851435447,
+    "thick": 1.6452723151439264
+  },
+  "torch": "2.14.1+cpu",
+  "status": "ANALYZED"
+}
