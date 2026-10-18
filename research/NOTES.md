@@ -464,3 +464,6 @@ r_Tier1 = 2.1215 (frozen before the test). 5 N0 pairs × 200 test points, VAE β
 | 10 (s4) | 0.000 | 0.000 | 0.000 | 0.970 | 0.970 | 0.0035 |
 SAR (share of the 5 pairs): Δ-CE N 0.0, Δ-CE O 0.2, A3 κ=0 0.8, B1 1.0. One NaN oracle component in 1 B1 point (pair 9).
 Numbers only: on 4 of 5 pairs Δ-CE gives no witness; on pair 8 (the pair with the largest B0) it finds witnesses for 47.5% of points.
+
+### D-035 stops at G0-T5 (exp_0021, validation), 2026-10-18
+Both declared recipes fail G0-T5 at every seed: DD = 0.0000–0.0005 (needs ≥ 0.02); max_{k≠aspect} |ΔFlip_k| ≤ 0.011 (fine). The default fine-tune shifts the share of class-1 predictions from 0.52 to 0.55–0.58, but none of the changed predictions is decisive (|m| ≥ κ for both models); with the knob (10 epochs, lr 1e-3) the share returns to ≈ 0.50–0.53. Per D-035 the second new test set (seed 2028) was not generated and C4, C5, C6 are not tested. Numbers only; no T5 claim can be made.

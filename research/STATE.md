@@ -95,12 +95,7 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 ## 9. In-flight remote jobs
 
 ```text
-No Kaggle job. LOCAL chain (detached, log .work/chain_d035.log):
-  1. exp_0020 (D-032, Tier 1 N0 exploratory, test once) running → then `tier1_null analyze`.
-  2. exp_0021: T5 train + G0-T5 (validation). If G0-T5 fails after one knob, D-035 stops (no test set generated).
-  3. exp_0022: D-035 test run (seed 2028) + analyze. Lock: commit f0da6e04d2bd112cba6234ad1fff9cc714bec093; configs/experiments/exp_0022.yaml sha256 0d87c327c5e9aa166df9b9d4b0b44f9c4df3cb5dc8fbf6665a63f17d36b3395c;
-     solvers/baselines/eval identical to ede7374.
-Resume: rerun the failed stage's command; finished pairs are skipped.
+None. exp_0020 (D-032) analyzed; exp_0021 G0-T5 failed → D-035 stopped (no test set generated). Summary: research/results_summary.md.
 ```
 
 ### Resume rule

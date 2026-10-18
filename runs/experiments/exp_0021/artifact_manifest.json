@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "f_new_p17_T5_s0_default",
+      "path": "models/f_new_p17_T5_s0_default.pt",
+      "sha256": "22aeba64937cd293910045f5e5a2e17c3e117a779f01d2bc7003f9b345c3d820"
+    },
+    {
+      "name": "f_new_p18_T5_s1_default",
+      "path": "models/f_new_p18_T5_s1_default.pt",
+      "sha256": "f674774338c31149f4ae55741bc5ba5239ef0a5a684eab92317cc573da754c6b"
+    },
+    {
+      "name": "f_new_p19_T5_s2_default",
+      "path": "models/f_new_p19_T5_s2_default.pt",
+      "sha256": "86c6206d14d75b8c72dd263fb134cf7c13c56d31197ebf2e87862728782b1cb2"
+    },
+    {
+      "name": "f_new_p17_T5_s0_knob1",
+      "path": "models/f_new_p17_T5_s0_knob1.pt",
+      "sha256": "9ca882cd189869a6eb32c286c5b2aa9cb75986280f3c6349df10f03bc927b3b3"
+    },
+    {
+      "name": "f_new_p18_T5_s1_knob1",
+      "path": "models/f_new_p18_T5_s1_knob1.pt",
+      "sha256": "c15c435c90b39c2c3f96a0608e4c60743e68c54acc8fdbed2b1cfafb7af448a0"
+    },
+    {
+      "name": "f_new_p19_T5_s2_knob1",
+      "path": "models/f_new_p19_T5_s2_knob1.pt",
+      "sha256": "dd532a95b20535e91ec82a65ccf01fc7eff0f1d7a41cdf0e1a04f84b1d0c4731"
+    }
+  ]
+}
