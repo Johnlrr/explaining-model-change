@@ -44,6 +44,7 @@
 | D-032 | Tier 1 N0 exploratory null analysis (Δ-CE N+O, B1, A3 κ=0; found-rate, SAR, S, B0), after the Tier 0 final run; r_Tier1 from N0 seed 0 validation | active | 2026-10-16 | — | — |
 | D-033 | Exploratory analyses of exp_0017 (reach, projected Recovery, Δ-CE − B1 on T3, SAR of B1, NOT_FOUND split) — declared, not computed until §20 reproduction and the D-034 answer | active | 2026-10-17 | H-002, H-005 | exp_0017 |
 | D-034 | Confirmation on a new Tier 0 test set (seed 2027): C1 (T4, Δ-CE > B3), C2 (null refusal ≤ 0.05 on all 8 pairs), C3 (T1 projected equivalence, TOST ±0.10); Holm m=2 on C1, C3; Route unchanged | active | 2026-10-18 | H-002, H-005 | exp_0019 |
+| D-035 | New experiment T5 (label shift, P(y=1)=0.8) on a second new test set (seed 2028): C4 (B1-det > B3), C5 (Δ-CE > B3), Holm m=2; C6 (no witness for y=1, deterministic) | active | 2026-10-18 | — | exp_0021, exp_0022 |
 
 Allowed status values: active, superseded, reversed.
 
@@ -1000,6 +1001,32 @@ active (author's decision, 2026-10-17/18, on the Research Lead's proposal). **De
 - Route unchanged (Route B). C1–C3 reported as they come out; a failed C retracts the corresponding post-hoc interpretation in the paper, with no switch to another explanation.
 - The new test set is run once; no other test on it. Results are not read during the run.
 - D-033 is computed only after this decision is committed; its results do not modify D-034.
+
+---
+
+## D-035 — New experiment: T5 label shift on a second new Tier 0 test set (C4, C5, C6)
+
+### Status
+active (author's decision, 2026-10-18, on the Research Lead's proposal). **Declared before any T5 data is generated or any model trained.** Origin: post hoc, from exp_0017 and the Research Lead's Proposition 5 (P5; the P5 file is not yet in the repository — to be committed verbatim when the author places it). D-034 stays as committed (C1–C3, Holm m = 2). Results are reported as they come out; a failed C retracts the corresponding claim. No r-budget curve is run.
+
+### Design
+- **Condition T5 (label shift), pairs 17, 18, 19 = seeds 0, 1, 2.** Adaptation set of 10 000: clean factor vectors drawn with `default_rng(2000 + pair_id)` (as Tier 0 adaptation sets) and resampled by label so that exactly 8 000 have y = 1 and 2 000 have y = 0 (first draws of each label, then shuffled with the same generator), then 5% symmetric label noise (v1.2 B2). k* = aspect (column 0).
+- f_new = fine-tune of the exp_0017 f_old of the same seed (hash-verified), 3 epochs, Adam lr 3e-4, batch 256, training pixel noise as Tier 0, order seed 3000 + pair_id, noise seed 4000 + pair_id.
+- **G0-T5 (validation, the 2 000 G0 points):** DD ≥ 0.02 and max_{k ≠ aspect} |ΔFlip_k| ≤ 0.05 (Flip seeds 7000 + k), at all three seeds. If it fails: one knob for the condition (10 epochs, lr 1e-3, all seeds). If it still fails: D-035 stops, the test set is not generated, and this is reported.
+- **New test set:** Tier 0 renderer, `default_rng(2028)`, 5 000 samples, clean labels, sha256 recorded. N = 300 valid points per pair (spec §3.2), seed 8100 + pair_id; restart seeds 10000 + pair_id.
+- **Methods:** Δ-CE N, B1-det, B3, B1. κ = 0.5, r = 0.5412657260894775; `git diff --stat ede7374 -- src/dce/solvers src/dce/baselines src/dce/eval` must be empty.
+
+### Tests
+| ID | Statement | Test | Passes when |
+|---|---|---|---|
+| C4 | Recovery@r(B1-det) − Recovery@r(B3) > 0 on T5 | paired bootstrap as §11, 10 000 resamples, seed 6400 | Holm-adjusted p < 0.05, difference > 0, positive at seeds 0, 1, 2 |
+| C5 | Recovery@r(Δ-CE) − Recovery@r(B3) > 0 on T5 | as C4, seed 6401 | as C4 |
+| C6 | P5(a): the class whose margin increases has no witness | deterministic, outside Holm | Δ-CE (type N) found-rate on the y = 1 points ≤ 0.05 in each of the 3 T5 pairs |
+
+Holm over C4 and C5 (m = 2).
+
+### Runs
+exp_0021: T5 training and G0-T5 (validation). exp_0022: test run and analysis (only if G0-T5 passes). Both after exp_0020 finishes (8 cores).
 
 ---
 
