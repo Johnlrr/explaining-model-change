@@ -1,0 +1,14 @@
+# D-035 — T5 label shift. exp_0021 = train + G0-T5 (validation); exp_0022 = test run on a second new test set (seed 2028).
+# Models: f_old of exp_0017 (exp_0002 checkpoints, hash-verified). κ, r, solver: configs/tiers/tier0.yaml (unchanged).
+experiment_id: exp_0022
+train_experiment: exp_0021
+train_run: runs/experiments/exp_0021
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+data_seed_new: 2028
+n_samples: 5000
+n_points: 300
+points_seed_base: 8100
+bootstrap_resamples: 10000
+seeds_confirm: {C4: 6400, C5: 6401}
+threads: 8
