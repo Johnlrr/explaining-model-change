@@ -1,21 +1,23 @@
-"""Figure 1 (paper): T4 (threshold shift, offset-type update) on one pair, from saved outputs only.
+"""Figure 1 (paper): T4 (threshold shift, offset-type update) on one pair. Left panel only.
 
 Pair: T4 seed 0 = pair 6 (exp_0017, Tier 0 final run, test split). Factor plane: x = aspect (k*, changed by the
 update), y = colour (a factor the update does not touch). The other factors (size, bg, posx) are fixed at the
-query point 155's values. Query 155 (class 1) has a Δ-CE witness that moves only aspect (|Δ| = 0.052 on other
-factors ≤ 0.005). Point 278 (class 0) has no feasible witness; its other factors differ from query 155 by ≤ 0.023.
+values of the WITNESS of query 155, so the witness lies exactly on the plane. The query is drawn at its own aspect
+and colour (its other factors differ by ≤ 0.005). Query 155 (class 1) has a Δ-CE witness that moves aspect and, by ≤ 0.005, the other factors.
+Point 278 (class 0) has no feasible witness; its other factors differ from query 155 by ≤ 0.023.
 
-Panels: left, the decision boundaries (logit difference = 0) of f_old (solid) and f_new (dashed), the witness region
-F^N_κ = {m_n ≤ −κ, m_o ≥ κ} (shaded, clean label of the query); right, renders of the query, its Δ-CE witness, the
-ordinary counterfactuals of f_new and of f_old from the same query (single-point runs of the locked ordinary-CE solver,
-r = ∞, restart seeds as in B1: 10 006 + 1 for f_new, 10 006 + 0 for f_old), and the class-0 point.
+Region: F^N_κ = {m_n ≤ −κ, m_o ≥ κ} with the clean label of the query (y = 1), evaluated on a fine grid
+(800 × 500 over aspect 0.3–0.7 × colour 0–1, i.e. ≥ 400 × 400 over aspect 0.4–0.7), with the witness's aspect and
+colour inserted as exact grid lines, so the witness is evaluated exactly, not interpolated. Float32 models as in the solver. Shading is the grid region; lines are the level sets m_n = −κ (dashed) and m_o = κ (solid).
 
-ILLUSTRATIVE, ONE QUERY. The ordinary counterfactuals are recomputed for this one point only, in a one-point batch,
-so restart noise differs from the 300-point batch that produced exp_0017's stored B1 values. They are not results and
-enter no table. No experiment is rerun; the saved outputs and the checkpoints of exp_0002/exp_0003 are used.
+Checks run by this script before drawing (exit with an error if they fail):
+  1. the saved witness of query 155 satisfies both constraints under the float32 models;
+  2. the witness's grid node (exact coordinates on the plane) is shaded, and its grid margins equal the direct
+     evaluation at the witness.
 
-Output: research/figures/fig1_t4.pdf (vector, 7.5 cm wide).
-Run: uv run python research/figures/fig1_t4.py
+Illustrative, one query point, not a result. No experiment is rerun: saved outputs and the checkpoints of
+exp_0002/exp_0003 are used.
+Output: research/figures/fig1_t4.pdf (vector). Run: uv run python research/figures/fig1_t4.py
 """
 
 from __future__ import annotations
@@ -29,95 +31,91 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
-from dce.cli.calibrate_r import solver_config
-from dce.cli.g0_tier0 import load_config
 from dce.data.drift import clean_splits
 from dce.data.renderer import render
 from dce.eval.pairs import load_pair
-from dce.eval.tier0_margins import Tier0Margin
-from dce.solvers.ordinary_ce import ordinary_ce
 
 KAPPA = 0.5
 PAIR = 6
 RUN = Path("runs/experiments/exp_0017")
-QUERY, OTHER = 155, 278       # positions in the valid-point list of pair 6
-ASPECT, COLOUR = 0, 2  # factor columns: aspect, colour (renderer order)
+QUERY, OTHER = 155, 278
+ASPECT, COLOUR = 0, 2  # factor columns in renderer order: aspect, size, colour, bg, posx
+X_RANGE, Y_RANGE = (0.3, 0.7), (0.0, 1.0)
+NX, NY = 800, 500
 OUT = Path(__file__).with_name("fig1_t4.pdf")
 
 
-def logit_diff(model, phi: np.ndarray, y: int) -> np.ndarray:
-    """f_y − f_{1−y} (spec §3.1 margin), float32 as in the solver's evaluation."""
+def margin_y1(model, phi: np.ndarray, batch: int = 4000) -> np.ndarray:
+    """m(z) = f_1(D(z)) − f_0(D(z)) (spec §3.1 with y = 1), float32 as in the solver."""
+    out = []
     with torch.no_grad():
-        lg = model(render(torch.as_tensor(phi, dtype=torch.float32)))
-    return (lg[:, y] - lg[:, 1 - y]).numpy()
+        for i in range(0, len(phi), batch):
+            lg = model(render(torch.as_tensor(phi[i : i + batch], dtype=torch.float32)))
+            out.append((lg[:, 1] - lg[:, 0]).numpy())
+    return np.concatenate(out)
 
 
-def ordinary_counterfactual(model, z0: np.ndarray, y: int, cfg: dict, restart_seed: int) -> np.ndarray | None:
-    """Single-point ordinary CE of `model` for the clean label y (locked solver; r = ∞ for illustration)."""
-    scfg = solver_config(cfg, r=float("inf"))
-    res = ordinary_ce(torch.as_tensor(z0[None], dtype=torch.float32), Tier0Margin(model, np.array([y])), scfg, restart_seed)
-    return res.z[0].numpy().astype(float) if bool(res.found[0]) else None
+def in_region(f_old, f_new, phi: np.ndarray) -> np.ndarray:
+    return (margin_y1(f_new, phi) <= -KAPPA) & (margin_y1(f_old, phi) >= KAPPA)
 
 
 def main() -> None:
     test = clean_splits(seed=1234)["test"]
     z = np.load(RUN / "pairs" / f"pair_{PAIR:02d}.npz")
-    pid, Z, found, dist, D = z["point_ids"], z["z0"], z["dce_N__found"], z["dce_N_distance"], z["dce_N__dphi"]
+    pid, Z, D, found = z["point_ids"], z["z0"], z["dce_N__dphi"], z["dce_N__found"]
     assert np.allclose(test.phi[pid], Z, atol=1e-6), "saved points do not match the test split"
     y = test.y_clean[pid]
     assert y[QUERY] == 1 and found[QUERY] and y[OTHER] == 0 and not found[OTHER]
     _, f_old, f_new, _ = load_pair(PAIR)
-    cfg = load_config(Path("configs/experiments/exp_0017.yaml"))
+
     q, w = Z[QUERY], Z[QUERY] + D[QUERY]
-    seed = cfg["seeds"]["restart_base"] + PAIR           # B1 uses seed + 0 (f_old) and seed + 1 (f_new)
-    ce_new = ordinary_counterfactual(f_new, q, 1, cfg, seed + 1)
-    ce_old = ordinary_counterfactual(f_old, q, 1, cfg, seed + 0)
-    print("CE f_new:", None if ce_new is None else ce_new.round(3), " CE f_old:", None if ce_old is None else ce_old.round(3))
-    # sanity: the saved witness satisfies the constraints under the float32 models
-    m_o_w, m_n_w = logit_diff(f_old, w[None], 1)[0], logit_diff(f_new, w[None], 1)[0]
-    assert m_n_w <= -KAPPA + 1e-3 and m_o_w >= KAPPA - 1e-3, (m_o_w, m_n_w)
+    # check 1: the saved witness satisfies both constraints
+    wp = np.stack([w])
+    assert margin_y1(f_new, wp)[0] <= -KAPPA and margin_y1(f_old, wp)[0] >= KAPPA, "witness violates F^N_κ"
 
-    g = np.linspace(0, 1, 121)
-    A, C = np.meshgrid(g, g)
-    plane = np.tile(q, (A.size, 1))
+    a = np.union1d(np.linspace(*X_RANGE, NX), [w[ASPECT]])
+    c = np.union1d(np.linspace(*Y_RANGE, NY), [w[COLOUR]])
+    A, C = np.meshgrid(a, c)
+    plane = np.tile(w, (A.size, 1))                      # other factors = the witness's own values
     plane[:, ASPECT], plane[:, COLOUR] = A.ravel(), C.ravel()
-    d_old = logit_diff(f_old, plane, 1).reshape(A.shape)
-    d_new = logit_diff(f_new, plane, 1).reshape(A.shape)
-    region = (d_new <= -KAPPA) & (d_old >= KAPPA)
+    mn = margin_y1(f_new, plane).reshape(A.shape)
+    mo = margin_y1(f_old, plane).reshape(A.shape)
+    region = (mn <= -KAPPA) & (mo >= KAPPA)
 
-    plt.rcParams.update({"font.size": 6, "pdf.fonttype": 42, "axes.linewidth": 0.5})
-    fig = plt.figure(figsize=(2.95, 3.3))
-    ax = fig.add_axes([0.14, 0.45, 0.82, 0.52])
-    ax.contourf(A, C, region, levels=[0.5, 1.5], colors=["#c9d9ef"])
-    ax.contour(A, C, d_old, levels=[0.0], colors="#1f4e9a", linewidths=0.7)
-    ax.contour(A, C, d_new, levels=[0.0], colors="#b03a2e", linewidths=0.7, linestyles="--")
-    ax.scatter([q[ASPECT]], [q[COLOUR]], s=12, c="black", zorder=3)
-    ax.annotate("query, class 1", (q[ASPECT], q[COLOUR]), xytext=(4, -9), textcoords="offset points", fontsize=5.5)
-    ax.scatter([w[ASPECT]], [w[COLOUR]], s=16, marker="*", c="#1d7a3a", zorder=3)
-    ax.annotate("Δ-CE witness", (w[ASPECT], w[COLOUR]), xytext=(-42, 5), textcoords="offset points", fontsize=5.5,
+    # check 2: the witness's own node is shaded and its grid margins equal the direct evaluation at the witness
+    i_c = int(np.flatnonzero(c == w[COLOUR])[0])
+    i_a = int(np.flatnonzero(a == w[ASPECT])[0])
+    direct_n, direct_o = float(margin_y1(f_new, wp)[0]), float(margin_y1(f_old, wp)[0])
+    assert abs(mn[i_c, i_a] - direct_n) < 1e-5 and abs(mo[i_c, i_a] - direct_o) < 1e-5, "grid node ≠ direct evaluation"
+    assert region[i_c, i_a], "witness node is not shaded"
+    print(f"checks passed: witness m_n={direct_n:.5f} (≤ {-KAPPA}), m_o={direct_o:.5f} (≥ {KAPPA}); "
+          f"grid node equals direct evaluation; node shaded; shaded cells {int(region.sum())}; "
+          f"grid {A.shape[1]}x{A.shape[0]} (aspect x colour), in aspect 0.4-0.7: {int(((a>=0.4)&(a<=0.7)).sum())} columns")
+
+    plt.rcParams.update({"font.size": 7.5, "pdf.fonttype": 42, "axes.linewidth": 0.6})
+    fig, ax = plt.subplots(figsize=(4.3, 3.7))
+    fig.subplots_adjust(left=0.13, right=0.97, bottom=0.14, top=0.97)
+    ax.contourf(A, C, region.astype(float), levels=[0.5, 1.5], colors=["#c9d9ef"])
+    ax.contour(A, C, mn, levels=[-KAPPA], colors="#b03a2e", linewidths=0.8, linestyles="--")
+    ax.contour(A, C, mo, levels=[KAPPA], colors="#1f4e9a", linewidths=0.8)
+    ax.scatter([q[ASPECT]], [q[COLOUR]], s=16, c="black", zorder=3)
+    ax.annotate("query (class 1)", (q[ASPECT], q[COLOUR]), xytext=(-30, -12), textcoords="offset points", fontsize=6.5)
+    ax.scatter([w[ASPECT]], [w[COLOUR]], s=26, marker="*", c="#1d7a3a", zorder=3)
+    ax.annotate("Δ-CE witness", (w[ASPECT], w[COLOUR]), xytext=(-40, 6), textcoords="offset points", fontsize=6.5,
                 color="#1d7a3a")
     o = Z[OTHER]
-    ax.scatter([o[ASPECT]], [o[COLOUR]], s=14, marker="x", c="#b03a2e", zorder=3)
-    ax.annotate("class 0: no feasible\nwitness", (o[ASPECT], o[COLOUR]), xytext=(-2, -16), textcoords="offset points",
-                fontsize=5.5, color="#b03a2e")
-    ax.set_xlim(0, 1), ax.set_ylim(0, 1)
-    ax.set_xlabel("aspect (k*, changed)")
+    ax.scatter([o[ASPECT]], [o[COLOUR]], s=20, marker="x", c="#b03a2e", zorder=3)
+    ax.annotate("class 0: no feasible\nwitness", (o[ASPECT], o[COLOUR]), xytext=(4, -14), textcoords="offset points",
+                fontsize=6.5, color="#b03a2e")
+    ax.set_xlim(*X_RANGE)
+    ax.set_ylim(*Y_RANGE)
+    ax.set_xlabel("aspect ($k^\\star$, changed)")
     ax.set_ylabel("colour (unchanged)")
-    ax.text(0.02, 0.02, "solid: $f_{old}$ boundary\ndashed: $f_{new}$ boundary\nshaded: $F^N_\\kappa$",
-            va="bottom", fontsize=5, transform=ax.transAxes)
-
-    row = [("query", q), ("witness", w), ("CE $f_{new}$", ce_new), ("CE $f_{old}$", ce_old), ("class 0", o)]
-    row = [(t, p) for t, p in row if p is not None]
-    for k, (title, phi) in enumerate(row):
-        a = fig.add_axes([0.01 + k * 0.198, 0.0, 0.19, 0.25])
-        img = render(torch.as_tensor(phi[None], dtype=torch.float32))[0].permute(1, 2, 0).numpy()
-        a.imshow(np.clip(img, 0, 1))
-        a.set_title(title, fontsize=5, pad=3)
-        a.axis("off")
-    fig.text(0.5, 0.265, "illustrative: one query point, not a result", ha="center", fontsize=4.5, style="italic")
+    ax.text(0.03, 0.03, "shaded: $F^N_{\\kappa}$\ndashed: $m_n=-\\kappa$\nsolid: $m_o=\\kappa$",
+            va="bottom", fontsize=6.5, transform=ax.transAxes)
     fig.savefig(OUT, format="pdf")
-    print(f"wrote {OUT}; pair {PAIR} (T4 s0), query position {QUERY} = point_ids[{QUERY}]={pid[QUERY]}, "
-          f"class-0 position {OTHER} = point_ids[{OTHER}]={pid[OTHER]}; witness distance {dist[QUERY]:.4f}")
+    print(f"wrote {OUT}; pair {PAIR}, query position {QUERY} (point_ids={pid[QUERY]}), "
+          f"class-0 position {OTHER} (point_ids={pid[OTHER]}), witness distance {float(z['dce_N_distance'][QUERY]):.4f}")
 
 
 if __name__ == "__main__":
