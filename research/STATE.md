@@ -95,9 +95,7 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 ## 9. In-flight remote jobs
 
 ```text
-No Kaggle job. LOCAL D-034 confirmation run exp_0019 (new Tier 0 test set, seed 2027; 14 pairs × 300 points; 8 threads; ≈ 6 h), detached.
-Lock: commit 103ab95c694dc91a17e2af8cc44c6fda1a115fde; configs/experiments/exp_0019.yaml sha256 9cded49b76e69b8d16a1493d9678487b6884ef3916844bc071aec4de548441b4; solvers/baselines/eval identical to ede7374.
-Progress: runs/experiments/exp_0019/run.log and pairs/*.json (of 14). Do NOT open pair files. Resume: rerun the same `confirm_tier0 run` (done pairs skipped). Then `analyze`.
+None. exp_0019 (D-034) complete and analyzed: C1 pass, C2 pass, C3 fail. Next: D-032 (Tier 1 N0 exploratory).
 ```
 
 ### Resume rule

@@ -446,3 +446,9 @@ Source: `runs/experiments/exp_0017_posthoc/d033.json`.
 - (c) Δ-CE − B1 on T3: +0.213, 95% CI [0.167, 0.258], seeds +0.32 / +0.16 / +0.15 (descriptive, outside Holm).
 - (d) SAR on N0/N1: 0 for B1, B1-det, Δ-CE N and O.
 - (e) Δ-CE NOT_FOUND split (type N): T1 16% feasible-beyond-r, 0% infeasible; T3 17% beyond r, 2% infeasible; **T4 0% beyond r, 53% no feasible point**; null pairs 100% no feasible point (N and O). On T4 the missing witnesses are not a budget effect; a plausible reading (post hoc, unverified): f_new's class-1 region is a subset of f_old's after the threshold shift, so type-N witnesses exist only for one label.
+
+### D-034 confirmation, exp_0019 (new Tier 0 test set, seed 2027, data sha256 d390d993…), 2026-10-18
+Run 7.76 h, one uninterrupted run from 6de264c (= lock 103ab95 + STATE); solvers/baselines/eval identical to ede7374.
+- **C1 PASSES:** T4, Recovery@r(Δ-CE) − Recovery@r(B3) = +0.312, 95% CI [0.273, 0.352], p = 1e-4, Holm-adjusted 2e-4; seeds +0.36 / +0.27 / +0.31. B3's blindness to the T4 threshold (bias) change is confirmed on fresh data.
+- **C2 PASSES:** Δ-CE found-rate (N ∪ O) = 0.000 on all 8 null pairs; B1 found-rate 0.987–1.000 on the same pairs.
+- **C3 FAILS:** T1, projected Recovery Δ-CE − B3 = −0.304, 90% CI [−0.331, −0.278] (outside ±0.10), p_TOST = 1.0; unprojected gap −0.57. Per D-034 the projection explanation of the T1 P-tie failure is **retracted**; no alternative explanation is substituted.

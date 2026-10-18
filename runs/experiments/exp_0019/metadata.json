@@ -1,0 +1,25 @@
+{
+  "experiment": "exp_0019",
+  "decision": "D-034",
+  "run_kind": "confirm",
+  "data_seed_new": 2027,
+  "data_sha256": "d390d993bcd2e6d627555bb1f4b008444e16e7389a7548d9701c0e695deb855e",
+  "git_runs": [
+    {
+      "git": {
+        "commit": "6de264ccaa19ec6cbc4eae9026de4326556c61db",
+        "dirty": false
+      },
+      "started": "2026-10-18T01:40:18"
+    }
+  ],
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "device": "cpu (8 threads)",
+  "status": "ANALYZED",
+  "analysis_git": {
+    "commit": "6de264ccaa19ec6cbc4eae9026de4326556c61db",
+    "dirty": false
+  }
+}

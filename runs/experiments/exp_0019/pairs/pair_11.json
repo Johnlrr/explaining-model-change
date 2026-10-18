@@ -1,0 +1,43 @@
+{
+  "pair_id": 11,
+  "condition": "N0",
+  "seed": 2,
+  "k_star": null,
+  "n_points": 300,
+  "runtime": {
+    "dce_N": {
+      "wall_s_per_point": 3.0977914293607074,
+      "cpu_s_per_point": 24.505509487486666,
+      "device": "cpu",
+      "phase1_wall_s": 193.1222321987152,
+      "phase2_cpu_s_per_point_with_witness": null,
+      "phase2_cpu_s_per_point_without_witness": 19.46954158818667
+    },
+    "dce_O": {
+      "wall_s_per_point": 3.0963457727432253,
+      "cpu_s_per_point": 24.620878954389998,
+      "device": "cpu",
+      "phase1_wall_s": 190.7738003730774,
+      "phase2_cpu_s_per_point_with_witness": null,
+      "phase2_cpu_s_per_point_without_witness": 19.559953754159995
+    },
+    "b1": {
+      "wall_s_per_point": 1.2812251774470012
+    }
+  },
+  "checkpoints": [
+    {
+      "name": "f_old_s2",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s2.pt",
+      "sha256": "b6f462719d1aa0e38a682b907674ff90ea524e35f9119a5aa29e28079acff330"
+    },
+    {
+      "name": "f_new_p11_N0_s2",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_new_p11_N0_s2.pt",
+      "sha256": "a2e9ab58cbd7b16dea0e5a62670ea9f33a7bf4a5f1d0ad26d0c40431b3ebacc5"
+    }
+  ],
+  "wall_s_pair": 2244.8
+}

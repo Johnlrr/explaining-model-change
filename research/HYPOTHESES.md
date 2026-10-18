@@ -305,7 +305,7 @@ exp_0017.
 P-tie |Δ| > 0.10 in all four comparisons: T1 vs B3 −0.53, T1 vs B1-det −0.17, T4 vs B3 +0.40, T4 vs B1-det −0.29.
 
 ### Conclusion
-The predicted tie (Proposition 4) did not hold as operationalised. Post hoc (Research Lead, 2026-10-17): Proposition 4 concerns the direction after projecting out w_o, while Recovery takes the argmax of the unprojected Δφ; the primary metric is NOT changed after seeing results. Exploratory check declared in D-033 (b).
+The predicted tie (Proposition 4) did not hold as operationalised. Post hoc (Research Lead, 2026-10-17): Proposition 4 concerns the direction after projecting out w_o, while Recovery takes the argmax of the unprojected Δφ; the primary metric is NOT changed after seeing results. Exploratory check declared in D-033 (b). **D-034 C3 (exp_0019, fresh data): FAILED** — projected Δ-CE − B3 on T1 = −0.304, 90% CI [−0.331, −0.278]; the projection explanation is retracted (D-034 consequence rule). D-034 C1 (T4: Δ-CE − B3 = +0.312, CI [0.273, 0.352]) passed: B3 is blind to the T4 bias change.
 
 ### Follow-up
 Report as prediction and outcome, regardless of direction.

@@ -1,0 +1,90 @@
+{
+  "label": "D-034 confirmation (post-hoc hypotheses on fresh data)",
+  "C1": {
+    "diff": 0.31222222222222223,
+    "ci95": [
+      0.2733333333333333,
+      0.35222222222222227
+    ],
+    "p_two_sided": 0.0001,
+    "p_holm": 0.0002,
+    "seed_diffs": {
+      "0": 0.36,
+      "1": 0.27,
+      "2": 0.30666666666666664
+    },
+    "pass": true
+  },
+  "C3": {
+    "diff_projected": -0.30444444444444446,
+    "ci90": [
+      -0.3311111111111111,
+      -0.2777777777777778
+    ],
+    "p_tost": 1.0,
+    "p_holm": 1.0,
+    "seed_diffs_projected": {
+      "0": -0.32333333333333336,
+      "1": -0.31666666666666665,
+      "2": -0.2733333333333333
+    },
+    "diff_unprojected_pair_mean": -0.5700000000000001,
+    "margin": 0.1,
+    "pass": false
+  },
+  "C2": {
+    "pairs": {
+      "9": {
+        "condition": "N0",
+        "seed": 0,
+        "found_rate_union": 0.0,
+        "b1_found_rate": 0.9966666666666667
+      },
+      "10": {
+        "condition": "N0",
+        "seed": 1,
+        "found_rate_union": 0.0,
+        "b1_found_rate": 0.9866666666666667
+      },
+      "11": {
+        "condition": "N0",
+        "seed": 2,
+        "found_rate_union": 0.0,
+        "b1_found_rate": 0.9933333333333333
+      },
+      "12": {
+        "condition": "N0",
+        "seed": 3,
+        "found_rate_union": 0.0,
+        "b1_found_rate": 0.9933333333333333
+      },
+      "13": {
+        "condition": "N0",
+        "seed": 4,
+        "found_rate_union": 0.0,
+        "b1_found_rate": 0.9866666666666667
+      },
+      "14": {
+        "condition": "N1",
+        "seed": 0,
+        "found_rate_union": 0.0,
+        "b1_found_rate": 1.0
+      },
+      "15": {
+        "condition": "N1",
+        "seed": 1,
+        "found_rate_union": 0.0,
+        "b1_found_rate": 0.9933333333333333
+      },
+      "16": {
+        "condition": "N1",
+        "seed": 2,
+        "found_rate_union": 0.0,
+        "b1_found_rate": 1.0
+      }
+    },
+    "max_found_rate_union": 0.0,
+    "pass": true
+  },
+  "holm_m": 2
+}

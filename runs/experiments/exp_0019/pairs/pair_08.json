@@ -1,0 +1,38 @@
+{
+  "pair_id": 8,
+  "condition": "T4",
+  "seed": 2,
+  "k_star": 0,
+  "n_points": 300,
+  "runtime": {
+    "dce_N": {
+      "wall_s_per_point": 2.357205281257629,
+      "cpu_s_per_point": 18.603776703163334,
+      "device": "cpu",
+      "phase1_wall_s": 190.33463406562805,
+      "phase2_cpu_s_per_point_with_witness": 5.103936255082649,
+      "phase2_cpu_s_per_point_without_witness": 19.387977826463686
+    },
+    "b1_det": {
+      "wall_s_per_point": 0.37271998246510823
+    },
+    "b3": {
+      "wall_s_per_point": 0.0007488489151000977
+    }
+  },
+  "checkpoints": [
+    {
+      "name": "f_old_s2",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s2.pt",
+      "sha256": "b6f462719d1aa0e38a682b907674ff90ea524e35f9119a5aa29e28079acff330"
+    },
+    {
+      "name": "f_new_p08_T4_s2",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0003/artifacts/models/f_new_p08_T4_s2.pt",
+      "sha256": "60c3a9c0576698341af2eea2b445fe133f8fe2d404c0036440a474e63bc9f71e"
+    }
+  ],
+  "wall_s_pair": 821.5
+}
