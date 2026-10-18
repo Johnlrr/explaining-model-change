@@ -1,0 +1,22 @@
+# exp_0020 — D-032 Tier 1 N0 exploratory null analysis (outside acceptance and Holm). Local CPU, 8 threads.
+# Stage calibrate (validation, pair 6 = N0 s0) fixes r; r is then frozen below and committed BEFORE the run stage
+# touches the Tier 1 test split (once).
+experiment_id: exp_0020
+models_run: runs/experiments/exp_0016          # checkpoints hash-checked against its artifact_manifest.json
+beta: 0.1
+data_v2: .work/tier1/tier1_data_v2.npz
+data_v2_sha256: 7269fa4ff87caeae1b5f33e96b379bf14b8f9823036baeb773bdd8b1b0ab258e
+kappa: 0.5
+solver: {R: 5, T: 400, lr: 0.05, lam0: 1.0, mu: 0.01, sigma: 0.05, clamp: null, lam_schedule: halve_every,
+         n_lam_steps: 8, polish: true, slsqp_maxiter: 100, slsqp_ftol: 1.0e-10, slsqp_tighten: 1.0e-4, n_workers: 8}
+restart_base: 10000
+points_base: 5000
+calibration_pair: 6
+calibration_points: 300
+pair_ids: [6, 7, 8, 9, 10]
+pair_seed: {6: 0, 7: 1, 8: 2, 9: 3, 10: 4}
+f_new: {6: f_new_p06_N0_s0_default, 7: f_new_p07_N0_s1_default, 8: f_new_p08_N0_s2_default,
+        9: f_new_p09_N0_s3_default, 10: f_new_p10_N0_s4_default}
+n_points: 200
+r: null                                         # frozen after the calibrate stage
+threads: 8
