@@ -1,0 +1,14 @@
+{
+  "split": "validation",
+  "pair": 6,
+  "n": 300,
+  "found_share": 1.0,
+  "median_distance": 1.0607739686965942,
+  "r_tier1": 2.1215479373931885,
+  "wall_s": 341.6,
+  "git": {
+    "commit": "19ef75fdf2da86426d018f9aa010e8f3b32e2d51",
+    "dirty": false
+  },
+  "latent_mu_std_mean_val": 0.9500821828842163
+}

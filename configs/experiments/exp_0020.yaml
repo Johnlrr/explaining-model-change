@@ -18,5 +18,5 @@ pair_seed: {6: 0, 7: 1, 8: 2, 9: 3, 10: 4}
 f_new: {6: f_new_p06_N0_s0_default, 7: f_new_p07_N0_s1_default, 8: f_new_p08_N0_s2_default,
         9: f_new_p09_N0_s3_default, 10: f_new_p10_N0_s4_default}
 n_points: 200
-r: null                                         # frozen after the calibrate stage
+r: 2.1215479373931885                          # FROZEN: exp_0020 calibrate (2 × median CE(f_new) distance, 300/300 found, validation N0 s0)
 threads: 8
