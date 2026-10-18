@@ -467,3 +467,9 @@ Numbers only: on 4 of 5 pairs Δ-CE gives no witness; on pair 8 (the pair with t
 
 ### D-035 stops at G0-T5 (exp_0021, validation), 2026-10-18
 Both declared recipes fail G0-T5 at every seed: DD = 0.0000–0.0005 (needs ≥ 0.02); max_{k≠aspect} |ΔFlip_k| ≤ 0.011 (fine). The default fine-tune shifts the share of class-1 predictions from 0.52 to 0.55–0.58, but none of the changed predictions is decisive (|m| ≥ κ for both models); with the knob (10 epochs, lr 1e-3) the share returns to ≈ 0.50–0.53. Per D-035 the second new test set (seed 2028) was not generated and C4, C5, C6 are not tested. Numbers only; no T5 claim can be made.
+
+### P5 (research/theory/P5_rotation_offset.md) — provenance, 2026-10-18
+- The file is committed verbatim (copied into the repository at 15:44 on 2026-10-18; the commit below is the first version in git).
+- **Timing, as the repository can show it:** the D-034 analysis (exp_0019) was committed at 09:27; the class split of T4 (the P5-iv numbers) was already printed in `results_summary.md`, committed at 12:01. The header of the file says it was written on 18/10 *before* any D-034 result, but the repository cannot verify when the text was written; only the copy time is recorded. The author should check the Project timestamp.
+- **Consequence:** the predictions in §6 of the file cannot be counted as pre-registered in the repository sense. Status per item: P5-i (C1 done; C4 not run, see D-035), P5-iii (C3, already failed in D-034), P5-iv (class split: observed on exp_0017 and exp_0019 before the file entered the repository; post hoc, descriptive), P5-ii and P5-v (descriptive / motivation). Papers should say "formulated after the main experiment".
+- §8 (numerical check of the closed forms on Tier L) is a mathematical verification with no test data; it is not evidence about the benchmark.
