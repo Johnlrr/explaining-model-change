@@ -1,0 +1,5 @@
+/home/toska/code/research/Agent-auto-Research/src/dce/cli/p5_check.py:71: RuntimeWarning: divide by zero encountered in scalar divide
+  u = -d_o * q["wo"] - (d_n - d_o * np.cos(th)) / np.sin(th) * q["v"]
+{"dim": 5, "1_rotation_delta_ce_closed_form": false, "2_b3_and_b1det_algebra": true, "3_factor_aligned_recovery": false, "4_offset": false} (119s)
+{"dim": 20, "1_rotation_delta_ce_closed_form": true, "2_b3_and_b1det_algebra": true, "3_factor_aligned_recovery": true, "4_offset": true} (215s)
+{"all_pass": false}
