@@ -1,8 +1,8 @@
 """Amendment v1.9 §4 (Stage B, D-036): Adult (OpenML 1590, version 2), six numeric features only.
 
-Split 60/20/20 with default_rng(2026).permutation; features standardised with the train mean and standard deviation;
-the search box is the 1–99% percentile range of the standardised train features; D is the identity.
-Label y = 1[class = '>50K'].
+Split 60/20/20 with default_rng(2026).permutation. D-040: every feature is clipped to [p1, p99] of train and min-max
+mapped to [0, 1] on that range (train, val, test alike), so the search space is [0, 1]^6 and the Tier 0 solver
+parameters keep their scale; D (`to_raw`) is the inverse map. Label y = 1[class = '>50K'].
 """
 
 from __future__ import annotations
@@ -23,12 +23,14 @@ LABEL_COLUMN = 14
 
 @dataclass(frozen=True)
 class AdultSplits:
-    x: dict[str, np.ndarray]      # standardised features per split
+    x: dict[str, np.ndarray]      # features in [0, 1]^6 per split
     y: dict[str, np.ndarray]
-    mean: np.ndarray
-    std: np.ndarray
-    box_lo: np.ndarray            # 1% percentile of standardised train
-    box_hi: np.ndarray            # 99% percentile
+    p1: np.ndarray                # 1% percentile of raw train features
+    p99: np.ndarray               # 99% percentile
+
+    def to_raw(self, z: np.ndarray) -> np.ndarray:
+        """D: [0, 1]^6 → raw feature units."""
+        return self.p1 + np.asarray(z) * (self.p99 - self.p1)
 
 
 def load_arff(path: Path) -> tuple[np.ndarray, np.ndarray]:
@@ -49,7 +51,8 @@ def adult_splits(path: Path, seed: int = 2026) -> AdultSplits:
     order = np.random.default_rng(seed).permutation(len(y))
     n_tr, n_va = int(0.6 * len(y)), int(0.2 * len(y))
     idx = {"train": order[:n_tr], "val": order[n_tr:n_tr + n_va], "test": order[n_tr + n_va:]}
-    mean, std = x[idx["train"]].mean(0), x[idx["train"]].std(0)
-    xs = {k: (x[v] - mean) / std for k, v in idx.items()}
-    lo, hi = np.percentile(xs["train"], [1, 99], axis=0)
-    return AdultSplits(xs, {k: y[v] for k, v in idx.items()}, mean, std, lo, hi)
+    p1, p99 = np.percentile(x[idx["train"]], [1, 99], axis=0)
+    if not (p99 > p1).all():
+        raise SystemExit(f"degenerate percentile range: p1 {p1}, p99 {p99}")
+    xs = {k: (np.clip(x[v], p1, p99) - p1) / (p99 - p1) for k, v in idx.items()}
+    return AdultSplits(xs, {k: y[v] for k, v in idx.items()}, p1, p99)

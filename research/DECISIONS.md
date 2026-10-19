@@ -1058,6 +1058,18 @@ Active (Research Lead, 2026-10-19). **Fixed in code (`src/dce/analysis/v19.py`, 
 
 ---
 
+## D-040 — Stage B implementation details (author's decision 2026-10-19, fixed before any Stage B data is seen)
+(The author's text called this "D-039"; D-039 was already taken by the Stage A test statistics, hence D-040.)
+1. **f_old:** MLP 6→64→64→2, ReLU, Adam lr 1e-3, batch 256, 20 epochs, no cosine, seeds 0–4 (torch init seed = s, order seed 100 + s).
+2. **f_new:** fine-tune of f_old on a subset of 10 000 train samples drawn **without replacement** (`default_rng(2000 + s)`), true labels, new order (seed 3000 + s), 3 epochs, Adam lr 3e-4, batch 256 (the N0 recipe). Pair B_s = (f_old s, f_new s).
+3. **r:** spec §6.3 rule — 2 × median CE(f_new) distance with r = ∞ on 300 valid validation points (κ = 0.5, order seed 5000) of the first pair B_0; calibrated once, frozen before test. Run after exp_0026 finishes (no CPU competition), with the Tier 0 solver settings unchanged (n_workers 8).
+4. **Search space (change of the letter of v1.9 §4 "standardised by train"):** every feature is clipped to [p1, p99] of train and min-max mapped to [0, 1] on that range (train, val, test alike); the space is [0, 1]^6 and D is the inverse map. Reason: the Tier 0 solver parameters (R, T, lr, σ, λ, clamp [0, 1]) keep their scale; with a z-score and a skewed box they would not. Solver parameters unchanged.
+5. **"f_old ≥ 0.80"** is validation accuracy; the majority-class rate of validation is reported next to it. Null qualification: DD ≤ 0.02 on the first 2 000 validation points (as the Tier 0 G0 points), κ = 0.5.
+- **Limitation recorded now:** age and education-num are integers treated as continuous; witnesses may fall on non-integer values. H6 counts found-rate only, so it is unaffected; goes to Limitations.
+- Order: implementation + unit tests → train 5 f_old + 5 f_new → qualification → r calibration (validation) → report and STOP. No test set, no H6 until the author confirms.
+
+---
+
 ## 12. Decision conflicts
 
 Conflicts between the spec and the protocol are resolved in favour of `docs/EVALUATION.md` (D-011, spec amendment v1.1) and the layout in AGENTS.md (D-001).
