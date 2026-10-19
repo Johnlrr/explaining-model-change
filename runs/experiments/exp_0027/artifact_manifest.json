@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "f_old_s0",
+      "kind": "checkpoint",
+      "path": "models/f_old_s0.pt",
+      "sha256": "8479def2bae4c4360b7cebc6acfa91ca1a0e8a886ccc62629744a2c0ed682bdb"
+    },
+    {
+      "name": "f_new_B0",
+      "kind": "checkpoint",
+      "path": "models/f_new_B0.pt",
+      "sha256": "b512e4e03d7857c4400197a30a7c9a45453c13707e5de34eca5e917d1530b20e"
+    },
+    {
+      "name": "f_old_s1",
+      "kind": "checkpoint",
+      "path": "models/f_old_s1.pt",
+      "sha256": "1773cedf6f9174aac6ca546fd8d63c6b08bede3b22921072d14e26fadecfddd2"
+    },
+    {
+      "name": "f_new_B1",
+      "kind": "checkpoint",
+      "path": "models/f_new_B1.pt",
+      "sha256": "b45dbf60a60baebff432c85a35708c925180e34a4cf71db859b0157d31393c7f"
+    },
+    {
+      "name": "f_old_s2",
+      "kind": "checkpoint",
+      "path": "models/f_old_s2.pt",
+      "sha256": "705863d1f310324eabca0d9c6824a982ef9d374c49564153e46a48e1fb3a51d1"
+    },
+    {
+      "name": "f_new_B2",
+      "kind": "checkpoint",
+      "path": "models/f_new_B2.pt",
+      "sha256": "37d75de7b1c069898a5d66eb85b9bd5b04b8acbdd3ee7d4842127f109b4c6f19"
+    },
+    {
+      "name": "f_old_s3",
+      "kind": "checkpoint",
+      "path": "models/f_old_s3.pt",
+      "sha256": "d105259db908c3449fd88d0e14f29e955df413b162ddac6bdfba71c005a62abf"
+    },
+    {
+      "name": "f_new_B3",
+      "kind": "checkpoint",
+      "path": "models/f_new_B3.pt",
+      "sha256": "0b21745dcc529e214ac8368b94bf7b3f1c1d1db8ab001f391907b8ccea1be75c"
+    },
+    {
+      "name": "f_old_s4",
+      "kind": "checkpoint",
+      "path": "models/f_old_s4.pt",
+      "sha256": "722f7125a7c0e382fb746884e370806238fac9a73022514ec6e25b852d728766"
+    },
+    {
+      "name": "f_new_B4",
+      "kind": "checkpoint",
+      "path": "models/f_new_B4.pt",
+      "sha256": "d7f2c6c96990255db7b4de5c5c6c04c7df4784dc10dcd4acd313315825c09ce8"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+config sha256 2250c26d9313d1906b2bc329ce2e30c3838a93ea13c7fb4efa20ffdf25073378
+seed 0: f_old loss 0.3777, f_new loss 0.3725
+seed 1: f_old loss 0.3754, f_new loss 0.3723
+seed 2: f_old loss 0.3760, f_new loss 0.3700
+seed 3: f_old loss 0.3761, f_new loss 0.3674
+seed 4: f_old loss 0.3770, f_new loss 0.3734
+config sha256 2250c26d9313d1906b2bc329ce2e30c3838a93ea13c7fb4efa20ffdf25073378
+{"pair": "B0", "seed": 0, "dd": 0.0, "acc_old": 0.8201269451269452, "acc_new": 0.8214578214578214, "disagreement_all_val": 0.015049140049140049, "dd_ok": true, "acc_ok": true, "qualified": true}
+{"pair": "B1", "seed": 1, "dd": 0.0, "acc_old": 0.8237100737100738, "acc_new": 0.822993447993448, "disagreement_all_val": 0.020986895986895987, "dd_ok": true, "acc_ok": true, "qualified": true}
+{"pair": "B2", "seed": 2, "dd": 0.0, "acc_old": 0.821969696969697, "acc_new": 0.8208435708435708, "disagreement_all_val": 0.026515151515151516, "dd_ok": true, "acc_ok": true, "qualified": true}
+{"pair": "B3", "seed": 3, "dd": 0.0, "acc_old": 0.8223791973791974, "acc_new": 0.8207411957411958, "disagreement_all_val": 0.030917280917280916, "dd_ok": true, "acc_ok": true, "qualified": true}
+{"pair": "B4", "seed": 4, "dd": 0.0, "acc_old": 0.8200245700245701, "acc_new": 0.8196150696150696, "disagreement_all_val": 0.034602784602784604, "dd_ok": true, "acc_ok": true, "qualified": true}
+majority-class rate (validation) 0.7532
+
+real	1m25.491s
+user	2m10.795s
+sys	0m3.229s

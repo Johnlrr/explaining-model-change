@@ -1,0 +1,10 @@
+{
+  "experiment": "exp_0027",
+  "decision": "D-036, D-040",
+  "git": {
+    "commit": "e3b8dcee40740d86166f4a9a26283b8bbb9f496f",
+    "dirty": false
+  },
+  "split": "validation",
+  "status": "QUALIFIED; r calibration pending (after exp_0026)"
+}
