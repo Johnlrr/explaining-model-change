@@ -5,6 +5,7 @@ run          — per pair (config order; resumable): test set new_test_set(7000 
                Δ-CE N, B1-det, B3 (+ ∇m_o for the projection), A2 = ordinary CE of f_new (as exp_0017), restarts
                restart_base + pair_id; on the κ-curve pairs also Δ-CE N at κ ∈ {0, 0.25, 1.0} on the same points
                (as A3 in exp_0017). No metric is printed.
+run-reverse  — optional second CPU process on the same config, from the end of the order (see cmd_run_reverse).
 consistency  — v1.9 §5.3 on pairs 26–27 only; written before any H5 statistic is computed.
 analyze      — H5a–H5d (refuses unless consistency passed and all 32 pairs are done) and the descriptive table.
 figure       — v1.9 §5.2 map at the measured (α̂, t̂), from results.json only.
@@ -126,6 +127,36 @@ def cmd_run(cfg, out: Path) -> int:
     return 0
 
 
+def cmd_run_reverse(cfg, out: Path) -> int:
+    """Second CPU process (same config, same computation per pair): takes not-done pairs from the END of the order and
+    stops while at least two not-done pairs still separate it from the forward process's current pair, so the two
+    never start the same pair. It never writes metadata.json (the forward process owns it); its own record goes to
+    metadata_reverse.json."""
+    torch.set_num_threads(cfg.get("threads", 8))
+    meta = {"role": "reverse worker", "git": git_state(), "started": time.strftime("%Y-%m-%dT%H:%M:%S"), "pairs": []}
+    meta_path = out / "metadata_reverse.json"
+    qual, _ = qualification(cfg)
+    by_id = {p["pair_id"]: p for p in grid_pairs()}
+    cache, start = {}, time.time()
+    while True:
+        todo = [p for p in cfg["pair_ids"] if not (out / "pairs" / f"pair_{p}.json").exists()]
+        if len(todo) < 4:      # todo[0] is the forward process's current pair; keep todo[1], todo[2] as a buffer
+            break
+        pid = todo[-1]
+        npz, js = out / "pairs" / f"pair_{pid}.npz", out / "pairs" / f"pair_{pid}.json"
+        with Timer() as t:
+            arrays, row = run_pair(cfg, by_id[pid], qual[pid], cache)
+        np.savez_compressed(npz, **arrays)
+        row["wall_s_pair"] = round(t.wall, 1)
+        js.write_text(json.dumps(row, indent=2))
+        meta["pairs"].append(pid)
+        meta_path.write_text(json.dumps(meta, indent=2))
+        print(f"[reverse] pair {pid} done in {t.wall / 60:.1f} min (total {(time.time() - start) / 3600:.2f} h)", flush=True)
+    meta["finished"] = time.strftime("%Y-%m-%dT%H:%M:%S")
+    meta_path.write_text(json.dumps(meta, indent=2))
+    return 0
+
+
 def load_pairs(out: Path, ids) -> dict:
     pairs = {}
     for pid in ids:
@@ -177,13 +208,13 @@ def cmd_figure(cfg, out: Path) -> int:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("stage", choices=("run", "consistency", "analyze", "figure"))
+    ap.add_argument("stage", choices=("run", "run-reverse", "consistency", "analyze", "figure"))
     ap.add_argument("--config", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
     args = ap.parse_args(argv)
     cfg = load_config(args.config)
     print(f"config sha256 {sha256(args.config)}", flush=True)
-    return {"run": cmd_run, "consistency": cmd_consistency, "analyze": cmd_analyze, "figure": cmd_figure}[args.stage](cfg, args.out)
+    return {"run": cmd_run, "run-reverse": cmd_run_reverse, "consistency": cmd_consistency, "analyze": cmd_analyze, "figure": cmd_figure}[args.stage](cfg, args.out)
 
 
 if __name__ == "__main__":
