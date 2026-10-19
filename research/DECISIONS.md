@@ -1048,6 +1048,16 @@ Active (author's decision, 2026-10-19). **Decided after the qualification exp_00
 
 ---
 
+## D-039 — Execution and test statistics of the v1.9 Stage A test run (exp_0026; implementation reading, declared before the run)
+Active (Research Lead, 2026-10-19). **Fixed in code (`src/dce/analysis/v19.py`, `src/dce/cli/v19_test.py`) before any test set is generated; the author may overrule it before `analyze` is run.** Follows the precedents D-028 (seeds 6000 + index), D-034 (TOST with Holm, labels and projection) and exp_0017 A2/A3.
+- **Data:** per pair `new_test_set(7000 + pair_id, 5 000)`, labels of the original rule y = 1[aspect > 0.5] (as T4 in exp_0019); 300 valid points at κ = 0.5 with order seed `points_base` (5000) + pair_id; restarts 10000 + pair_id.
+- **Methods:** Δ-CE N (κ = 0.5), B1-det, B3, A2 = ordinary CE of f_new (`ordinary_ce`, as exp_0017). κ curve on pairs 20–27 = Δ-CE N with solver κ ∈ {0, 0.25, 1.0} on the same valid points (as A3 in exp_0017). Projection = D-034 C3 (∇ m_o of f_old at z0).
+- **Bootstrap:** 10 000 resamples, points within pair; seeds H5a 6500, H5b 6501, H5c 6502, H5d 6503. Within one cell set and two methods (H5d) indices are shared (paired); between different cells (H5b, H5c) each pair is resampled on its own, since the cells have different test points.
+- **p-values for Holm (m = 4):** H5a one-sided P*(mean ≥ 0.20); H5b two-sided as §11; H5c, H5d TOST max(P*(≤ −0.10), P*(≥ 0.10)). **Pass:** H5a CI95 upper ≤ 0.20 and p_Holm < 0.05; H5b CI95 lower > 0 and p_Holm < 0.05; H5c, H5d CI90 ⊂ [−0.10, 0.10] and p_Holm < 0.05.
+- **§5.3 consistency:** pooled over pairs 26–27: Recovery(B3, aspect) ≤ 0.20 and Δ-CE found-rate ∈ [0.30, 0.65].
+
+---
+
 ## 12. Decision conflicts
 
 Conflicts between the spec and the protocol are resolved in favour of `docs/EVALUATION.md` (D-011, spec amendment v1.1) and the layout in AGENTS.md (D-001).

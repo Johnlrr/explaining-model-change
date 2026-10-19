@@ -1,0 +1,16 @@
+# exp_0026 — D-036 Stage A test run (v1.9 §2.4–§2.5, §3, §5; v1.9.1 §4; D-038; D-039). Local CPU, locked solver.
+# Models: exp_0025 f_new (hash-verified) and exp_0002 f_old. κ, r, solver: configs/tiers/tier0.yaml (unchanged since ede7374).
+# Test data per pair: new_test_set(7000 + pair_id, 5 000). Consistency pairs 26–27 run first and are checked before H5.
+experiment_id: exp_0026
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+models_run: runs/experiments/exp_0025
+data_seed_base: 7000
+n_samples: 5000
+n_points: 300
+pair_ids: [26, 27, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51]
+consistency_pairs: [26, 27]
+kappa_curve_pairs: [20, 21, 22, 23, 24, 25, 26, 27]
+kappa_curve: ["0", "0.25", "1.0"]
+bootstrap_resamples: 10000
+threads: 8

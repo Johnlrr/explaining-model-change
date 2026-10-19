@@ -109,3 +109,45 @@ def test_grid_checks_v191_failures():
     for r in rows[:11]:
         r["accuracy_ok"] = False
     assert grid_checks_v191(rows)["stop_rule_triggered"]
+
+
+def _synthetic_pairs(b3_aspect=0.05, b3_color=0.6, dce_found=0.5):
+    """Constructed per-point outputs on the 32-pair grid (no model)."""
+    rng = np.random.default_rng(3)
+    pairs = {}
+    for p in grid_pairs():
+        n = 300
+        arr = {"y": (np.arange(n) < 150).astype(int), "grad_old": np.tile([1.0, 0, 0, 0, 0], (n, 1))}
+        for m in ("dce_N", "b1_det", "b3", "a2"):
+            d = rng.normal(size=(n, 5)) * 0.01
+            if m == "b3":
+                hit = rng.random(n) < (b3_color if p["alpha"] > 0 else b3_aspect)
+                d[hit, 2 if p["alpha"] > 0 else 0] += 1.0
+                d[~hit, 3] += 1.0       # misses point at bg
+                found = np.ones(n, bool)
+            else:
+                d[:, 2 if p["alpha"] > 0 else 0] += 1.0
+                d[:, 0] += 0.5          # projected away by grad_old = e_aspect
+                found = (arr["y"] == 1) & (rng.random(n) < 2 * dce_found) if m == "dce_N" else np.ones(n, bool)
+            arr[f"{m}__found"], arr[f"{m}__dphi"] = found, np.where(found[:, None], d, 0.0)
+        row = {**p, "alpha_hat": p["alpha"], "t_hat": p["t"]}
+        pairs[p["pair_id"]] = (row, arr)
+    return pairs
+
+
+def test_v19_consistency_and_h5_on_constructed_outputs():
+    from dce.analysis.v19 import consistency, descriptive, h5
+
+    pairs = _synthetic_pairs()
+    con = consistency({k: v for k, v in pairs.items() if k in (26, 27)})
+    assert con["pairs"] == [26, 27] and con["pass"] and con["b3_recovery"] < 0.2
+    excl = {"H5a": [{"pair_id": 22}, {"pair_id": 23}], "H5b": [], "H5c": [], "H5d": []}
+    res = h5(pairs, excl, B=500)
+    assert res["holm_m"] == 4 and res["H5a"]["pairs"] == [24, 25, 26, 27]
+    assert res["H5a"]["pass"]                                    # B3 recovers aspect ≈ 5% < 0.20
+    assert not res["H5b"]["pass"] and abs(res["H5b"]["estimate"]) < 0.15   # same B3 rate at α = 0.1 and 0.5
+    assert res["H5c"]["pass"]                                    # no offset dependence by construction
+    assert res["H5d"]["pairs"] == [36, 37, 44, 45]
+    d = descriptive(pairs)
+    assert all(d["ii_alpha0_witness_only_y1"].values())
+    assert not consistency({k: v for k, v in _synthetic_pairs(b3_aspect=0.5).items() if k in (26, 27)})["pass"]
