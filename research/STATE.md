@@ -14,7 +14,11 @@
 v1.9 (D-036, branch research/delta-ce-v19, 2026-10-19): amendment committed 1997732; code 19d7331.
   Pilot exp_0024 (pair 40: α=0.25, t=0.56, seed 0; validation, qualification only) FAILS §2.3:
   α̂ = 0.233 (ok), accuracy 0.929 (ok), t̂ = 0.630 (|t̂−t| = 0.070 > 0.02). Grid NOT started (v1.9 §6).
-  BLOCKED on the author's decision; no recipe change made. GPU used by v1.9: 0 h.
+  → v1.9.1 (D-037, 67de538): offset checks replace the t̂ tolerance. exp_0025 (679d6a2): 32 pairs fine-tuned and
+  qualified on validation; stop rule 2/32 (pairs 22, 23 fail 2a) → not triggered; null cell DD 0.
+  BLOCKED: author to confirm the qualification table and the (2b) exclusion reading (under "both pairs of a violating
+  step", H5c loses both seeds); and whether the 30 CPU-hour cap is wall-hours or core-hours (step 3 ≈ 12–13 h wall,
+  ≈ 100 core-hours on 8 threads). Test set (seed 7000 + pair_id) NOT generated. GPU used by v1.9: 0 h.
 Status: TIER 0 FINAL DONE (exp_0017) — H2a NOT supported → Route B (benchmark + analysis). Previously: G1 PASSED (H4 exp_0007; found-rate exp_0009/0011; runtime projections exp_0011). Next: evaluation code + G2 (Tier 1)
 Last updated: 2026-10-16
 Current commit: see `git log -1` (kick-off commit on research/delta-ce)
