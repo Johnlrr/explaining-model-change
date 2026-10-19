@@ -1,0 +1,51 @@
+{
+  "split": "validation",
+  "n_points": 1000,
+  "pairs": [
+    {
+      "pair_id": 20,
+      "seed": 0,
+      "share_pred_1_new": 0.425,
+      "alpha": 0.0,
+      "t": 0.5,
+      "dd": 0.04,
+      "qualified": false,
+      "criterion": "null: DD <= 0.02"
+    },
+    {
+      "pair_id": 40,
+      "seed": 0,
+      "share_pred_1_new": 0.558,
+      "alpha": 0.25,
+      "t": 0.56,
+      "alpha_hat": 0.19287272987424461,
+      "t_hat": 0.4516438004578186,
+      "accuracy_new_rule": 0.908,
+      "alpha_ok": true,
+      "t_ok": false,
+      "accuracy_ok": true,
+      "qualified": false,
+      "fit": {
+        "w": [
+          80.8480519129811,
+          -2.80974218086867,
+          15.59338447747131,
+          -2.3521854953543424,
+          0.011580044486320561
+        ],
+        "b": -41.736039848457104,
+        "n_iter": 12,
+        "converged": true,
+        "separable": false,
+        "train_accuracy": 0.982
+      },
+      "ridge": 0.0,
+      "sensitivity_ridge_1e-3": {
+        "alpha_hat": 0.19166617660118185,
+        "t_hat": 0.45155552332446547
+      }
+    }
+  ],
+  "n_not_qualified": 2,
+  "stop_rule_triggered": null
+}

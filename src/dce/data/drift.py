@@ -99,6 +99,27 @@ def adaptation_set(
     return phi, y
 
 
+def ro_label(phi: np.ndarray, alpha: float, t: float) -> np.ndarray:
+    """Amendment v1.9 §2.1 (D-036): y = 1[aspect + α (colour − 0.5) > t]."""
+    return (phi[:, 0] + alpha * (phi[:, 2] - 0.5) > t).astype(np.int64)
+
+
+def ro_adaptation_set(
+    alpha: float, t: float, seed: int, n: int = 10_000, label_noise: float = 0.05,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Rotation × offset adaptation data (v1.9 §2.1): uniform factors, the rule above, 5% symmetric noise.
+
+    Same draw order as `adaptation_set` for T3/T4, so (α = 0, t = 0.6) reproduces the T4 set of the same seed.
+    """
+    rng = np.random.default_rng(seed)
+    phi = sample_factors(n, rng)
+    y = ro_label(phi, alpha, t)
+    if label_noise > 0:
+        flip = rng.random(n) < label_noise
+        y = np.where(flip, 1 - y, y)
+    return phi, y
+
+
 def tier0_pairs(n_seeds_drift: int = 3, n_seeds_n0: int = 5, n_seeds_n1: int = 3) -> list[dict]:
     """Model pairs of Tier 0 with stable pair_id (spec §4.4: 17 pairs)."""
     counts = {"T1": n_seeds_drift, "T3": n_seeds_drift, "T4": n_seeds_drift, "N0": n_seeds_n0,
