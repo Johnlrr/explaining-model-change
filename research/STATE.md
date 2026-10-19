@@ -16,9 +16,12 @@ v1.9 (D-036, branch research/delta-ce-v19, 2026-10-19): amendment committed 1997
   α̂ = 0.233 (ok), accuracy 0.929 (ok), t̂ = 0.630 (|t̂−t| = 0.070 > 0.02). Grid NOT started (v1.9 §6).
   → v1.9.1 (D-037, 67de538): offset checks replace the t̂ tolerance. exp_0025 (679d6a2): 32 pairs fine-tuned and
   qualified on validation; stop rule 2/32 (pairs 22, 23 fail 2a) → not triggered; null cell DD 0.
-  BLOCKED: author to confirm the qualification table and the (2b) exclusion reading (under "both pairs of a violating
-  step", H5c loses both seeds); and whether the 30 CPU-hour cap is wall-hours or core-hours (step 3 ≈ 12–13 h wall,
-  ≈ 100 core-hours on 8 threads). Test set (seed 7000 + pair_id) NOT generated. GPU used by v1.9: 0 h.
+  → D-038 (2b reading; wall-hours; step 3 authorised), D-039 (test statistics, declared before the run).
+  IN FLIGHT exp_0026 (code 419b291 / 11c89c7, CPU, locked solver): §5.3 consistency PASSED on pairs 26–27
+  (B3 0.087, Δ-CE found 0.452; b22337c). Two detached CPU workers (`v19_test run` forward, `run-reverse` backward,
+  same config); both resumable — if interrupted, re-launch both commands; done pairs are skipped. Logs run.log,
+  run_reverse.log. Next: when all 32 pair_*.json exist → `v19_test analyze`, `figure`, write research/results_v19.md.
+  Stage B prep: Adult loader committed (74a0cbb); training details still open (ask the author). GPU used by v1.9: 0 h.
 Status: TIER 0 FINAL DONE (exp_0017) — H2a NOT supported → Route B (benchmark + analysis). Previously: G1 PASSED (H4 exp_0007; found-rate exp_0009/0011; runtime projections exp_0011). Next: evaluation code + G2 (Tier 1)
 Last updated: 2026-10-16
 Current commit: see `git log -1` (kick-off commit on research/delta-ce)
