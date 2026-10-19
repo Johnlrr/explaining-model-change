@@ -151,3 +151,11 @@ def test_v19_consistency_and_h5_on_constructed_outputs():
     d = descriptive(pairs)
     assert all(d["ii_alpha0_witness_only_y1"].values())
     assert not consistency({k: v for k, v in _synthetic_pairs(b3_aspect=0.5).items() if k in (26, 27)})["pass"]
+
+
+def test_v19_map_renders(tmp_path):
+    from dce.analysis.v19 import descriptive
+    from dce.analysis.v19_figure import make_map
+
+    make_map(descriptive(_synthetic_pairs())["pairs"], tmp_path / "map.pdf")
+    assert (tmp_path / "map.pdf").stat().st_size > 0 and (tmp_path / "map.png").exists()

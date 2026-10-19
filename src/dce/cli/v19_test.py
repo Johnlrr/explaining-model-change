@@ -7,6 +7,7 @@ run          — per pair (config order; resumable): test set new_test_set(7000 
                (as A3 in exp_0017). No metric is printed.
 consistency  — v1.9 §5.3 on pairs 26–27 only; written before any H5 statistic is computed.
 analyze      — H5a–H5d (refuses unless consistency passed and all 32 pairs are done) and the descriptive table.
+figure       — v1.9 §5.2 map at the measured (α̂, t̂), from results.json only.
 """
 
 from __future__ import annotations
@@ -165,15 +166,24 @@ def cmd_analyze(cfg, out: Path) -> int:
     return 0
 
 
+def cmd_figure(cfg, out: Path) -> int:
+    from dce.analysis.v19_figure import make_map
+
+    rows = json.loads((out / "results.json").read_text())["descriptive"]["pairs"]
+    make_map(rows, out / "map_v19.pdf")
+    print(f"figure written to {out / 'map_v19.pdf'}")
+    return 0
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("stage", choices=("run", "consistency", "analyze"))
+    ap.add_argument("stage", choices=("run", "consistency", "analyze", "figure"))
     ap.add_argument("--config", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
     args = ap.parse_args(argv)
     cfg = load_config(args.config)
     print(f"config sha256 {sha256(args.config)}", flush=True)
-    return {"run": cmd_run, "consistency": cmd_consistency, "analyze": cmd_analyze}[args.stage](cfg, args.out)
+    return {"run": cmd_run, "consistency": cmd_consistency, "analyze": cmd_analyze, "figure": cmd_figure}[args.stage](cfg, args.out)
 
 
 if __name__ == "__main__":
