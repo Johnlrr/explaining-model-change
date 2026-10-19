@@ -1035,6 +1035,11 @@ Active (author's decision, 2026-10-19), declared before any v1.9 model pair or t
 
 ---
 
+## D-037 — Spec amendment v1.9.1: offset checks replace the t̂ tolerance of v1.9 §2.3 (2)
+Active (author's decision, 2026-10-19). **Written after the pilot qualification exp_0024 (t̂ = 0.630 vs 0.56); no explanation method has been run.** Hypotheses, fine-tune recipe, grid and seeds unchanged; Stage A on CPU only with the locked solver, κ curve only on the α = 0 row and the null cell, ≤ 30 CPU-hours. Full text in `docs/source/delta_ce_spec_amendment_v1.9.1.md` (committed verbatim in 67de538).
+
+---
+
 ## 12. Decision conflicts
 
 Conflicts between the spec and the protocol are resolved in favour of `docs/EVALUATION.md` (D-011, spec amendment v1.1) and the layout in AGENTS.md (D-001).
