@@ -1,0 +1,70 @@
+config sha256 f3b99d6e22acbb49b55d5b7d86a92d31c17a1c26b6b6ebbd9a3fdf5be0cd24f7
+trained f_new_p20_a0.00_t0.50_s0 in 45.4 s, final loss 0.2669
+trained f_new_p21_a0.00_t0.50_s1 in 43.7 s, final loss 0.2868
+trained f_new_p22_a0.00_t0.53_s0 in 47.2 s, final loss 0.2874
+trained f_new_p23_a0.00_t0.53_s1 in 43.5 s, final loss 0.2971
+trained f_new_p24_a0.00_t0.56_s0 in 43.8 s, final loss 0.2882
+trained f_new_p25_a0.00_t0.56_s1 in 44.0 s, final loss 0.2840
+trained f_new_p26_a0.00_t0.60_s0 in 47.8 s, final loss 0.2691
+trained f_new_p27_a0.00_t0.60_s1 in 44.5 s, final loss 0.2675
+trained f_new_p28_a0.10_t0.50_s0 in 44.4 s, final loss 0.2741
+trained f_new_p29_a0.10_t0.50_s1 in 44.1 s, final loss 0.2849
+trained f_new_p30_a0.10_t0.53_s0 in 47.9 s, final loss 0.2824
+trained f_new_p31_a0.10_t0.53_s1 in 44.6 s, final loss 0.2762
+trained f_new_p32_a0.10_t0.56_s0 in 44.5 s, final loss 0.2673
+trained f_new_p33_a0.10_t0.56_s1 in 44.3 s, final loss 0.2869
+trained f_new_p34_a0.10_t0.60_s0 in 48.0 s, final loss 0.2685
+trained f_new_p35_a0.10_t0.60_s1 in 44.3 s, final loss 0.2710
+trained f_new_p36_a0.25_t0.50_s0 in 44.1 s, final loss 0.2800
+trained f_new_p37_a0.25_t0.50_s1 in 44.2 s, final loss 0.2834
+trained f_new_p38_a0.25_t0.53_s0 in 48.0 s, final loss 0.2776
+trained f_new_p39_a0.25_t0.53_s1 in 44.2 s, final loss 0.2923
+trained f_new_p40_a0.25_t0.56_s0 in 44.4 s, final loss 0.2793
+trained f_new_p41_a0.25_t0.56_s1 in 44.7 s, final loss 0.2765
+trained f_new_p42_a0.25_t0.60_s0 in 47.9 s, final loss 0.2749
+trained f_new_p43_a0.25_t0.60_s1 in 44.4 s, final loss 0.2861
+trained f_new_p44_a0.50_t0.50_s0 in 44.3 s, final loss 0.2660
+trained f_new_p45_a0.50_t0.50_s1 in 44.3 s, final loss 0.3050
+trained f_new_p46_a0.50_t0.53_s0 in 47.7 s, final loss 0.2828
+trained f_new_p47_a0.50_t0.53_s1 in 44.4 s, final loss 0.2950
+trained f_new_p48_a0.50_t0.56_s0 in 44.2 s, final loss 0.2698
+trained f_new_p49_a0.50_t0.56_s1 in 44.5 s, final loss 0.2899
+trained f_new_p50_a0.50_t0.60_s0 in 47.9 s, final loss 0.2831
+trained f_new_p51_a0.50_t0.60_s1 in 44.4 s, final loss 0.2874
+config sha256 f3b99d6e22acbb49b55d5b7d86a92d31c17a1c26b6b6ebbd9a3fdf5be0cd24f7
+{"pair_id": 20, "seed": 0, "share_pred_1_new": 0.4766, "alpha": 0.0, "t": 0.5, "alpha_hat": 0.032191571082903714, "t_hat": 0.5259283159417494, "accuracy_new_rule": 0.9726, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0, "dt": 0.0390312434160241}
+{"pair_id": 21, "seed": 1, "share_pred_1_new": 0.5344, "alpha": 0.0, "t": 0.5, "alpha_hat": 0.02787378111079493, "t_hat": 0.4638078562539365, "accuracy_new_rule": 0.9652, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0, "dt": -0.031973270238974616}
+{"pair_id": 22, "seed": 0, "share_pred_1_new": 0.5688, "alpha": 0.0, "t": 0.53, "alpha_hat": 0.04472049359702984, "t_hat": 0.4292873522765035, "accuracy_new_rule": 0.9024, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0025, "dt": -0.057609720249221785}
+{"pair_id": 23, "seed": 1, "share_pred_1_new": 0.5186, "alpha": 0.0, "t": 0.53, "alpha_hat": 0.023972570390526634, "t_hat": 0.4799496107939373, "accuracy_new_rule": 0.9518, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0, "dt": -0.01583151569897384}
+{"pair_id": 24, "seed": 0, "share_pred_1_new": 0.446, "alpha": 0.0, "t": 0.56, "alpha_hat": -0.027255402266389835, "t_hat": 0.5567488743505871, "accuracy_new_rule": 0.9828, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0045, "dt": 0.06985180182486178}
+{"pair_id": 25, "seed": 1, "share_pred_1_new": 0.46, "alpha": 0.0, "t": 0.56, "alpha_hat": 0.00798771999330385, "t_hat": 0.5423333048143563, "accuracy_new_rule": 0.978, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0, "dt": 0.04655217832144515}
+{"pair_id": 26, "seed": 0, "share_pred_1_new": 0.4168, "alpha": 0.0, "t": 0.6, "alpha_hat": -0.000724581228742627, "t_hat": 0.5860351145876735, "accuracy_new_rule": 0.9802, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0335, "dt": 0.09913804206194826}
+{"pair_id": 27, "seed": 1, "share_pred_1_new": 0.416, "alpha": 0.0, "t": 0.6, "alpha_hat": -0.00915874432741991, "t_hat": 0.587208927792702, "accuracy_new_rule": 0.979, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.014, "dt": 0.09142780129979083}
+{"pair_id": 28, "seed": 0, "share_pred_1_new": 0.4826, "alpha": 0.1, "t": 0.5, "alpha_hat": 0.1121109638820603, "t_hat": 0.5179463066003841, "accuracy_new_rule": 0.976, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0005, "dt": 0.031049234074658816}
+{"pair_id": 29, "seed": 1, "share_pred_1_new": 0.4868, "alpha": 0.1, "t": 0.5, "alpha_hat": 0.09774779792461905, "t_hat": 0.5134231817796403, "accuracy_new_rule": 0.9778, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0, "dt": 0.017642055286729186}
+{"pair_id": 30, "seed": 0, "share_pred_1_new": 0.4784, "alpha": 0.1, "t": 0.53, "alpha_hat": 0.06715261646880041, "t_hat": 0.523479885544768, "accuracy_new_rule": 0.9832, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0005, "dt": 0.036582813019042704}
+{"pair_id": 31, "seed": 1, "share_pred_1_new": 0.4934, "alpha": 0.1, "t": 0.53, "alpha_hat": 0.12063307998423053, "t_hat": 0.5064266494540993, "accuracy_new_rule": 0.975, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0, "dt": 0.010645522961188203}
+{"pair_id": 32, "seed": 0, "share_pred_1_new": 0.4768, "alpha": 0.1, "t": 0.56, "alpha_hat": 0.08499454750733017, "t_hat": 0.5249801563641786, "accuracy_new_rule": 0.966, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0005, "dt": 0.038083083838453324}
+{"pair_id": 33, "seed": 1, "share_pred_1_new": 0.4144, "alpha": 0.1, "t": 0.56, "alpha_hat": 0.09466201488578475, "t_hat": 0.5875227976115949, "accuracy_new_rule": 0.9676, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0165, "dt": 0.09174167111868375}
+{"pair_id": 34, "seed": 0, "share_pred_1_new": 0.3936, "alpha": 0.1, "t": 0.6, "alpha_hat": 0.11847655750385822, "t_hat": 0.6089094251150414, "accuracy_new_rule": 0.9828, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0455, "dt": 0.12201235258931614}
+{"pair_id": 35, "seed": 1, "share_pred_1_new": 0.4202, "alpha": 0.1, "t": 0.6, "alpha_hat": 0.09241854619232992, "t_hat": 0.5819720488227641, "accuracy_new_rule": 0.9766, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.017, "dt": 0.08619092232985298}
+{"pair_id": 36, "seed": 0, "share_pred_1_new": 0.4758, "alpha": 0.25, "t": 0.5, "alpha_hat": 0.22137174812778093, "t_hat": 0.5232307478262658, "accuracy_new_rule": 0.975, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.012, "dt": 0.03633367530054049}
+{"pair_id": 37, "seed": 1, "share_pred_1_new": 0.5108, "alpha": 0.25, "t": 0.5, "alpha_hat": 0.2185960504341025, "t_hat": 0.48591403348831863, "accuracy_new_rule": 0.9764, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0045, "dt": -0.009867093004592487}
+{"pair_id": 38, "seed": 0, "share_pred_1_new": 0.4724, "alpha": 0.25, "t": 0.53, "alpha_hat": 0.260043253735282, "t_hat": 0.5254204211940076, "accuracy_new_rule": 0.9828, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.016, "dt": 0.038523348668282276}
+{"pair_id": 39, "seed": 1, "share_pred_1_new": 0.4734, "alpha": 0.25, "t": 0.53, "alpha_hat": 0.201678132895896, "t_hat": 0.52635914764116, "accuracy_new_rule": 0.9778, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0045, "dt": 0.03057802114824887}
+{"pair_id": 40, "seed": 0, "share_pred_1_new": 0.3694, "alpha": 0.25, "t": 0.56, "alpha_hat": 0.23279629563747256, "t_hat": 0.6298677175718171, "accuracy_new_rule": 0.929, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0715, "dt": 0.14297064504609186}
+{"pair_id": 41, "seed": 1, "share_pred_1_new": 0.3904, "alpha": 0.25, "t": 0.56, "alpha_hat": 0.2487521802570101, "t_hat": 0.6089046297530409, "accuracy_new_rule": 0.9484, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.048, "dt": 0.11312350326012982}
+{"pair_id": 42, "seed": 0, "share_pred_1_new": 0.3992, "alpha": 0.25, "t": 0.6, "alpha_hat": 0.2639738175729631, "t_hat": 0.6000746382115469, "accuracy_new_rule": 0.9814, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.053, "dt": 0.11317756568582166}
+{"pair_id": 43, "seed": 1, "share_pred_1_new": 0.3946, "alpha": 0.25, "t": 0.6, "alpha_hat": 0.21053463145531995, "t_hat": 0.6055838855623209, "accuracy_new_rule": 0.9748, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0425, "dt": 0.10980275906940978}
+{"pair_id": 44, "seed": 0, "share_pred_1_new": 0.559, "alpha": 0.5, "t": 0.5, "alpha_hat": 0.44388950748124306, "t_hat": 0.44214188325316317, "accuracy_new_rule": 0.938, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.058, "dt": -0.04475518927256211}
+{"pair_id": 45, "seed": 1, "share_pred_1_new": 0.493, "alpha": 0.5, "t": 0.5, "alpha_hat": 0.42836742750420276, "t_hat": 0.5034176119484572, "accuracy_new_rule": 0.9724, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.035, "dt": 0.007636485455546127}
+{"pair_id": 46, "seed": 0, "share_pred_1_new": 0.4938, "alpha": 0.5, "t": 0.53, "alpha_hat": 0.4869777972097051, "t_hat": 0.5025397253651346, "accuracy_new_rule": 0.9698, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.054, "dt": 0.0156426528394093}
+{"pair_id": 47, "seed": 1, "share_pred_1_new": 0.4326, "alpha": 0.5, "t": 0.53, "alpha_hat": 0.4583831877652324, "t_hat": 0.5617219029288125, "accuracy_new_rule": 0.9626, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.054, "dt": 0.0659407764359014}
+{"pair_id": 48, "seed": 0, "share_pred_1_new": 0.476, "alpha": 0.5, "t": 0.56, "alpha_hat": 0.4631812057947941, "t_hat": 0.5189739452682378, "accuracy_new_rule": 0.955, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0545, "dt": 0.03207687274251253}
+{"pair_id": 49, "seed": 1, "share_pred_1_new": 0.4026, "alpha": 0.5, "t": 0.56, "alpha_hat": 0.5119335742302141, "t_hat": 0.5911797640918707, "accuracy_new_rule": 0.9644, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0735, "dt": 0.09539863759895956}
+{"pair_id": 50, "seed": 0, "share_pred_1_new": 0.3742, "alpha": 0.5, "t": 0.6, "alpha_hat": 0.5479238419164196, "t_hat": 0.6186395335191497, "accuracy_new_rule": 0.972, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.106, "dt": 0.1317424609934244}
+{"pair_id": 51, "seed": 1, "share_pred_1_new": 0.3942, "alpha": 0.5, "t": 0.6, "alpha_hat": 0.4924337854408678, "t_hat": 0.5999611451415462, "accuracy_new_rule": 0.9808, "alpha_ok": true, "accuracy_ok": true, "ridge": 0.0, "dd": 0.0785, "dt": 0.10418001864863508}
+
+real	25m19.274s
+user	144m26.626s
+sys	43m21.303s
