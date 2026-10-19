@@ -1,0 +1,4 @@
+config sha256 bc0832aed27a4db2a7a3e428212e01eb93a0ef03a44f43c061f5f01348e433da
+trained f_new_p40_a0.25_t0.56_s0 in 45.8 s, final loss 0.2793
+config sha256 bc0832aed27a4db2a7a3e428212e01eb93a0ef03a44f43c061f5f01348e433da
+{"pair_id": 40, "seed": 0, "share_pred_1_new": 0.3694, "alpha": 0.25, "t": 0.56, "alpha_hat": 0.23279629563747256, "t_hat": 0.6298677175718171, "accuracy_new_rule": 0.929, "alpha_ok": true, "t_ok": false, "accuracy_ok": true, "qualified": false, "ridge": 0.0}

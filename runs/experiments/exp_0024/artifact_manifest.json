@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "f_new_p40_a0.25_t0.56_s0",
+      "kind": "checkpoint",
+      "path": "models/f_new_p40_a0.25_t0.56_s0.pt",
+      "sha256": "d0957ff37eb451206e9a5cab62ad8f3770391ca38d7c967afac2070f1db4d044"
+    }
+  ]
+}
