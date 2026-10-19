@@ -1040,6 +1040,14 @@ Active (author's decision, 2026-10-19). **Written after the pilot qualification 
 
 ---
 
+## D-038 — Reading of v1.9.1 (2b); budget unit (interpretation of v1.9.1, not an amendment)
+Active (author's decision, 2026-10-19). **Decided after the qualification exp_0025 and before the test set is generated; no explanation-method result exists.**
+- (2b) applies only to a test that compares t levels within one α row. Of H5a–H5d only H5c does, and for H5c the more specific (2c) is used instead of (2b). Hence: H5a excludes pairs {22, 23} by (2a); H5b, H5c, H5d exclude no pair; H5c uses both seeds ((2c) passes: 0.077, 0.120). The five order violations (20→22, 29→31, 33→35, 40→42, 41→43) are reported in `research/results_v19.md` as an observation on the manipulation.
+- The Stage A cap "30 CPU-hours" (v1.9.1 §4) is wall-hours; the estimate of 12–13 h wall on 8 threads (≈ 100 core-hours) is accepted.
+- Step 3 authorised: test sets (seed 7000 + pair_id); Δ-CE, B1-det, B3, A2 on CPU with the locked solver; κ ∈ {0, 0.25, 1.0} only on pairs 20–27 (α = 0), κ = 0.5 everywhere. The §5.3 consistency check (pairs 26–27) is computed and reported before H5a–H5d; if it fails, analysis stops.
+
+---
+
 ## 12. Decision conflicts
 
 Conflicts between the spec and the protocol are resolved in favour of `docs/EVALUATION.md` (D-011, spec amendment v1.1) and the layout in AGENTS.md (D-001).
