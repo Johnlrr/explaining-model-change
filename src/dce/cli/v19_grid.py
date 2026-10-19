@@ -5,8 +5,9 @@ then seed (Tier 0 uses 0–16, T5 17–19). Every per-pair seed is `tier0.yaml` 
 
 train    — f_new = fine-tune of the exp_0002 f_old of the same seed (hash-verified) on the v1.9 adaptation set
            (10 000 samples, 5% label noise, 10 epochs, Adam lr 1e-3, batch 256: the T4 recipe of exp_0003).
-qualify  — v1.9 §2.3 on validation only: α̂, t̂, accuracy under the new rule (5 000 validation points);
-           the null cell (0, 0.50) uses DD ≤ 0.02 on the 2 000 G0 points. No explanation method is run.
+qualify  — on validation only: α̂, t̂, accuracy under the new rule (5 000 validation points), DD on the 2 000 G0
+           points; criteria v1.9 §2.3 (pilot exp_0024) or v1.9.1 §2 (D-037: offset checks against t̂_old of f_old);
+           the null cell keeps DD ≤ 0.02. No explanation method is run.
 
 The pilot (v1.9 §6) is `train` + `qualify` with pair_ids = [40] (α = 0.25, t = 0.56, seed 0).
 """
@@ -21,7 +22,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from dce.analysis.qualification import qualification_row
+from dce.analysis.qualification import grid_checks_v191, qualification_row
 from dce.cli.g0_reeval import load_verified
 from dce.cli.g0_tier0 import git_state, load_config, make_batch_fn, sha256
 from dce.data.drift import clean_splits, ro_adaptation_set, ro_label
@@ -101,7 +102,8 @@ def cmd_qualify(cfg, out: Path) -> int:
     val = clean_splits(seed=cfg["data_seed"])["val"]
     phi = val.phi[: cfg["scale"]["n_qualify"]]
     g0_phi = val.phi[: cfg["scale"]["n_g0_points"]]
-    cache, rows = {}, []
+    criteria = cfg.get("qualification", "v1.9")
+    cache, rows, t_old = {}, [], {}
     for p in selected(cfg):
         entry = man[model_name(p)]
         path = out / entry["path"]
@@ -110,22 +112,37 @@ def cmd_qualify(cfg, out: Path) -> int:
         f_new = SmallCNN()
         f_new.load_state_dict(torch.load(path))
         f_new.eval()
+        f_old, _ = load_verified(Path(cfg["f_old_source"]), f"f_old_s{p['seed']}", cache)
         ln = logits_np(f_new, phi)
         decision = (ln[:, 1] - ln[:, 0] > 0).astype(np.int64)
-        if (p["alpha"], p["t"]) == NULL_CELL:
-            f_old, _ = load_verified(Path(cfg["f_old_source"]), f"f_old_s{p['seed']}", cache)
-            dd = float(decisive_disagreement(logits_np(f_old, g0_phi), logits_np(f_new, g0_phi), cfg["kappa"]).mean())
+        dd = float(decisive_disagreement(logits_np(f_old, g0_phi), logits_np(f_new, g0_phi), cfg["kappa"]).mean())
+        if criteria == "v1.9.1":
+            if p["seed"] not in t_old:   # t̂_old: the same fit on f_old's decision (v1.9.1 §2 (2a))
+                lo = logits_np(f_old, phi)
+                t_old[p["seed"]] = qualification_row(phi, (lo[:, 1] - lo[:, 0] > 0).astype(np.int64),
+                                                     ro_label(phi, 0.0, 0.5), 0.0, 0.5)
+            y_rule = ro_label(phi, p["alpha"], p["t"])
+            row = qualification_row(phi, decision, y_rule, p["alpha"], p["t"])
+            row.update(dd=dd, dt=row["t_hat"] - t_old[p["seed"]]["t_hat"])
+            for k in ("t_ok", "qualified"):   # v1.9 §2.3 (2) and its verdict are replaced by v1.9.1 §2
+                row.pop(k)
+        elif (p["alpha"], p["t"]) == NULL_CELL:
             row = {"alpha": p["alpha"], "t": p["t"], "dd": dd, "qualified": dd <= 0.02, "criterion": "null: DD <= 0.02"}
         else:
             y_rule = ro_label(phi, p["alpha"], p["t"])
             row = qualification_row(phi, decision, y_rule, p["alpha"], p["t"])
-            row["sensitivity_ridge_1e-3"] = {k: v for k, v in qualification_row(
-                phi, decision, y_rule, p["alpha"], p["t"], ridge=1e-3).items() if k in ("alpha_hat", "t_hat")}
+        row["sensitivity_ridge_1e-3"] = {k: v for k, v in qualification_row(
+            phi, decision, ro_label(phi, p["alpha"], p["t"]), p["alpha"], p["t"], ridge=1e-3).items()
+            if k in ("alpha_hat", "t_hat")}
         rows.append({"pair_id": p["pair_id"], "seed": p["seed"], "share_pred_1_new": float(decision.mean()), **row})
         print(json.dumps({k: rows[-1][k] for k in rows[-1] if k not in ("fit", "sensitivity_ridge_1e-3")}), flush=True)
-    n_bad = sum(not r["qualified"] for r in rows)
-    res = {"split": "validation", "n_points": len(phi), "pairs": rows, "n_not_qualified": n_bad,
-           "stop_rule_triggered": bool(n_bad > len(rows) / 3) if len(rows) == 32 else None}
+    res = {"split": "validation", "criteria": criteria, "n_points": len(phi), "pairs": rows}
+    if criteria == "v1.9.1":
+        res["t_hat_old"] = {s: {k: v[k] for k in ("alpha_hat", "t_hat", "fit")} for s, v in t_old.items()}
+        res["grid"] = grid_checks_v191(rows) if len(rows) == len(grid_pairs()) else None
+    else:
+        n_bad = sum(not r["qualified"] for r in rows)
+        res.update(n_not_qualified=n_bad, stop_rule_triggered=bool(n_bad > len(rows) / 3) if len(rows) == 32 else None)
     (out / "qualification.json").write_text(json.dumps(res, indent=2))
     (out / "metadata.json").write_text(json.dumps({"experiment": cfg["experiment_id"], "decision": "D-036",
                                                    "git": git_state(), "split": "validation"}, indent=2))

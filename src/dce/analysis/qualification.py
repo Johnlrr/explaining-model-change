@@ -80,6 +80,67 @@ def qualify(alpha: float, t: float, alpha_hat: float, t_hat: float, accuracy: fl
     return {"alpha_ok": bool(c1), "t_ok": bool(c2), "accuracy_ok": bool(c3), "qualified": bool(c1 and c2 and c3)}
 
 
+TESTS = {  # v1.9 §3: cells (α, t) used by each pre-declared test
+    "H5a": [(0.0, 0.53), (0.0, 0.56), (0.0, 0.60)],
+    "H5b": [(0.5, 0.50), (0.1, 0.50)],
+    "H5c": [(0.25, 0.60), (0.25, 0.50)],
+    "H5d": [(0.25, 0.50), (0.5, 0.50)],
+}
+
+
+def grid_checks_v191(rows: list[dict], null_cell=(0.0, 0.50), stop_frac: float = 1 / 3) -> dict:
+    """Amendment v1.9.1 §2 (D-037) on a full grid of qualification rows.
+
+    Each row needs pair_id, alpha, t, seed, alpha_ok, accuracy_ok, t_hat, dt (= t̂ − t̂_old of the same seed), dd.
+    Per pair: (1) and (3) always; (2a) on α = 0, t > 0.5; the null cell also gets DD ≤ 0.02 (failing it only drops the
+    "null" name). Grid: (2b) t̂ strictly increasing in t within each (α, seed) row — both pairs of a violating adjacent
+    step are listed; (2c) per seed for H5c. The stop rule counts pairs failing (1), (3) or (2a).
+    """
+    by = {(r["alpha"], r["t"], r["seed"]): r for r in rows}
+    per_pair = {}
+    for r in rows:
+        c2a = r["dt"] >= 0.02 if (r["alpha"] == 0.0 and r["t"] > 0.5) else None
+        base = bool(r["alpha_ok"] and r["accuracy_ok"] and c2a is not False)
+        per_pair[r["pair_id"]] = {"c1": r["alpha_ok"], "c3": r["accuracy_ok"], "c2a": c2a, "base_qualified": base,
+                                  **({"null_dd_ok": r["dd"] <= 0.02} if (r["alpha"], r["t"]) == null_cell else {})}
+    order_violations = []
+    for a, s in sorted({(r["alpha"], r["seed"]) for r in rows}):
+        cells = sorted((r for r in rows if r["alpha"] == a and r["seed"] == s), key=lambda r: r["t"])
+        for lo, hi in zip(cells, cells[1:]):
+            if not hi["t_hat"] > lo["t_hat"]:
+                order_violations.append({"alpha": a, "seed": s, "t_lo": lo["t"], "t_hi": hi["t"],
+                                         "pairs": [lo["pair_id"], hi["pair_id"]],
+                                         "t_hat": [lo["t_hat"], hi["t_hat"]]})
+    in_violation = {p for v in order_violations for p in v["pairs"]}
+    c2c = {}
+    for s in sorted({r["seed"] for r in rows}):
+        hi, lo = by.get((0.25, 0.60, s)), by.get((0.25, 0.50, s))
+        if hi and lo:
+            c2c[s] = {"diff": hi["t_hat"] - lo["t_hat"], "ok": bool(hi["t_hat"] - lo["t_hat"] >= 0.05)}
+    exclusions = {}
+    for name, cells in TESTS.items():
+        out = []
+        for (a, t) in cells:
+            for s in sorted({r["seed"] for r in rows}):
+                r = by.get((a, t, s))
+                if r is None:
+                    continue
+                why = []
+                if not per_pair[r["pair_id"]]["base_qualified"]:
+                    why.append("not qualified (1)/(3)/(2a)")
+                if r["pair_id"] in in_violation:
+                    why.append("(2b) order violation")
+                if name == "H5c" and not c2c.get(s, {}).get("ok", False):
+                    why.append("(2c)")
+                if why:
+                    out.append({"pair_id": r["pair_id"], "alpha": a, "t": t, "seed": s, "reasons": why})
+        exclusions[name] = out
+    n_fail = sum(not v["base_qualified"] for v in per_pair.values())
+    return {"per_pair": per_pair, "order_violations": order_violations, "c2c": c2c, "exclusions": exclusions,
+            "n_not_qualified_stop_rule": n_fail, "n_pairs": len(rows),
+            "stop_rule_triggered": bool(n_fail > stop_frac * len(rows))}
+
+
 def qualification_row(phi: np.ndarray, decision_new: np.ndarray, y_rule: np.ndarray, alpha: float, t: float,
                       ridge: float = 0.0) -> dict:
     fit = fit_logistic(phi, decision_new, ridge=ridge)
