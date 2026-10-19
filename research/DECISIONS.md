@@ -1030,6 +1030,11 @@ exp_0021: T5 training and G0-T5 (validation). exp_0022: test run and analysis (o
 
 ---
 
+## D-036 — Spec amendment v1.9: rotation × offset grid (Stage A, H5a–H5d) and Adult abstention (Stage B, H6)
+Active (author's decision, 2026-10-19), declared before any v1.9 model pair or test set; full text in `docs/source/delta_ce_spec_amendment_v1.9.md` (committed verbatim in 1997732).
+
+---
+
 ## 12. Decision conflicts
 
 Conflicts between the spec and the protocol are resolved in favour of `docs/EVALUATION.md` (D-011, spec amendment v1.1) and the layout in AGENTS.md (D-001).
