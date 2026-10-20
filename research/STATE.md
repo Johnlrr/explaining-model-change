@@ -23,6 +23,10 @@ v1.9 (D-036, branch research/delta-ce-v19, 2026-10-19): amendment committed 1997
   B1-det 0.977–1.000) → H-009. Null-offset diagnostic exp_0029 (descriptive): offset alone does not separate witness /
   no witness at |offset| ≈ 0.03–0.04 (recipe differs). Next: the author rewrites paper/ (6 pages, map replaces Fig. 1).
   GPU used by v1.9: 0 h.
+MERGED 2026-10-20 into research/delta-ce: research/delta-ce-p5-check (exp_0023 P5 numerical check, Figure 1 code,
+  paper history) then research/delta-ce-v19. Paper: paper/main.tex = esann_main_v5.tex, 6 pages, 0 overfull, Fig. 2 =
+  exp_0026 map at print size; commit "paper: ESANN submission version (v5)". Next: the author's read-through of the PDF;
+  submission before the ESANN deadline. No experiment pending.
 Status: TIER 0 FINAL DONE (exp_0017) — H2a NOT supported → Route B (benchmark + analysis). Previously: G1 PASSED (H4 exp_0007; found-rate exp_0009/0011; runtime projections exp_0011). Next: evaluation code + G2 (Tier 1)
 Last updated: 2026-10-16
 Current commit: see `git log -1` (kick-off commit on research/delta-ce)
