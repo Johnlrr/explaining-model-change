@@ -1,0 +1,7 @@
+config sha256 be5f0cf54b8224e3231d9f7559c046114c30a0ba5b46258944710bcadcc91e91
+pair B0 done in 112.1 s
+pair B1 done in 124.5 s
+pair B2 done in 124.1 s
+pair B3 done in 97.4 s
+pair B4 done in 131.5 s
+{"dce_union_max": 0.0, "b1_det_min": 0.9766666666666667, "H6_confirmed": true}

@@ -1,0 +1,14 @@
+# exp_0028 — D-036 Stage B test run, H6 (v1.9 §4, D-040, D-042). Adult test split, used once.
+# Models and r_B from exp_0027 (hash-verified); Δ-CE N and O, B1-det; κ and solver: configs/tiers/tier0.yaml.
+experiment_id: exp_0028
+decision: D-036, D-040, D-042
+tier_config: configs/tiers/tier0.yaml
+data_path: .work/adult/adult.arff
+split_seed: 2026
+calibration_run: runs/experiments/exp_0027
+r_frozen: 0.8693360090255737
+seeds_list: [0, 1, 2, 3, 4]
+seeds: {init_base: 0, order_base: 100, noise_base: 200, subset_base: 2000, ft_order_base: 3000, ft_noise_base: 4000,
+        points_base: 5000, restart_base: 10000}
+n_points: 300
+threads: 8
