@@ -464,7 +464,7 @@ The null-pair abstention of C2 carries over to real tabular data in this setting
 ## H-010 — Detection threshold under a logit offset (v1.10 H7c, label shift)
 
 ### ID / type / status
-H-010 (H7c of v1.10, D-043); other (replication of C2 with exact ground truth); **supported before Holm** (2026-10-21); final status after Holm with H8 (exp_0033).
+H-010 (H7c of v1.10, D-043); other (replication of C2 with exact ground truth); **supported** (2026-10-21; p_Holm = 0.0002, Holm m = 2 with H8, exp_0033/results_holm.json).
 
 ### Hypothesis and prediction (pre-declared, v1.10 §2.5)
 On the 12 sub-threshold pairs (f_old seeds 0–2, class-1 logit bias |b| ∈ {0.5, 0.9}), which change 3–8% of decisions but none decisively, B1-det (no detection threshold) attributes a change at almost every query: pooled found-rate CI95 lower bound > 0.90, every pair ≥ 0.90, p_Holm < 0.05 (Holm with H8). Δ-CE (threshold 2κ in logit units) returns no witness — that part is the deterministic check U2, not the hypothesis. Not a ranking: the CEs of f_new and f_old really differ.
@@ -484,7 +484,7 @@ Replication of C2 with an exact offset: B1-det has no detection threshold, Δ-CE
 ## H-011 — Locality of the projection explains the C3/H5d gap (v1.10 H8)
 
 ### ID / type / status
-H-011 (H8 of v1.10, D-043); mechanistic; **queued** (2026-10-20).
+H-011 (H8 of v1.10, D-043); mechanistic; **supported** (2026-10-21).
 
 ### Hypothesis and prediction (pre-declared, v1.10 §3.3)
 Proposition 2 linearises at z0; the witness lies up to r away. On the Δ-CE support set of the H5d pairs 36, 37, 44, 45, with the projection direction ŵ_o taken at the witness and B3 unchanged at z0 (cell (z*, z0)), the projected Recovery gap narrows by at least one half relative to the projection at z0 on the same support: T = |gap(z0,z0)| − 2|gap(z*,z0)|, CI95 lower > 0, p_Holm < 0.05, guard Rec_proj(B3) ≥ 0.50. Not testable if the CI90 of gap(z0,z0) contains 0. The cell was chosen after the validation run exp_0030 (gap −0.19 → +0.01).
@@ -492,8 +492,11 @@ Proposition 2 linearises at z0; the witness lies up to r away. On the Δ-CE supp
 ### Experiments
 exp_0030 (validation development), exp_0033 (test, once).
 
-### Results / conclusion
-Pending.
+### Results (exp_0033, test, once)
+Support 198, 183, 228, 228 (pairs 36, 37, 44, 45). gap(z0, z0) −0.190 [CI90 −0.222, −0.159] (testable); registered cell (z*, z0) +0.029 [0.006, 0.053]; T = 0.132, CI95 lower 0.065, p = 0.0006, p_Holm = 0.0006; guard Rec_proj(B3) 0.88 → **confirmed**. Descriptive: (z*, z*) −0.024; (z0, z*) −0.270 (moving B3 alone widens the gap). Projection deviation vs 1 − cos(ŵ_o(z0), ŵ_o(z*)): Spearman 0.80; vs ‖z* − z0‖: −0.10 (the mechanism prediction "increases with both" holds for the normal's rotation only). Extension (20 α > 0 pairs): at α ∈ {0.25, 0.5} the local projection brings Δ-CE to 0.77–0.98, level with B3; at α = 0.1 both are lower and the gap changes sign on some pairs.
+
+### Conclusion
+The C3/H5d failure is a failure of evaluating Proposition 2 at z0: after removing the old-model normal at the witness, the witness and the original gradient difference agree. About half of the locked −0.35 is found-rate (NOTES 2026-10-20). The cell was chosen after the validation run exp_0030 (disclosed).
 
 ---
 
