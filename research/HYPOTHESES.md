@@ -464,7 +464,7 @@ The null-pair abstention of C2 carries over to real tabular data in this setting
 ## H-010 — Detection threshold under a logit offset (v1.10 H7c, label shift)
 
 ### ID / type / status
-H-010 (H7c of v1.10, D-043); other (replication of C2 with exact ground truth); **testing** (2026-10-20).
+H-010 (H7c of v1.10, D-043); other (replication of C2 with exact ground truth); **supported before Holm** (2026-10-21); final status after Holm with H8 (exp_0033).
 
 ### Hypothesis and prediction (pre-declared, v1.10 §2.5)
 On the 12 sub-threshold pairs (f_old seeds 0–2, class-1 logit bias |b| ∈ {0.5, 0.9}), which change 3–8% of decisions but none decisively, B1-det (no detection threshold) attributes a change at almost every query: pooled found-rate CI95 lower bound > 0.90, every pair ≥ 0.90, p_Holm < 0.05 (Holm with H8). Δ-CE (threshold 2κ in logit units) returns no witness — that part is the deterministic check U2, not the hypothesis. Not a ranking: the CEs of f_new and f_old really differ.
@@ -472,8 +472,12 @@ On the 12 sub-threshold pairs (f_old seeds 0–2, class-1 logit bias |b| ∈ {0.
 ### Experiments
 smoke_0018 (validation pipeline check), exp_0032 (test, once; new_test_set(9000 + pair_id)).
 
-### Results / conclusion
-Pending.
+### Results (exp_0032, test, once)
+U1–U3 passed: B3 invalid on every point of every pair; no Δ-CE witness on any of the 12 sub-threshold pairs; every witness in the lowered class with κ ≤ m_old(z*) ≤ |b| − κ. H7c: pooled B1-det found-rate 0.961, CI95 [0.955, 0.967], one-sided p = 1e-4 (unadjusted), per pair 0.927–0.997 → criterion met before Holm.
+Descriptive: for |b| ≥ 2κ Δ-CE found a witness on 100% of lowered-class queries (found-rate 0.34–0.52 = the lowered-class share), and Recovery(aspect) ≈ found-rate (witnesses move along aspect); B1-det Recovery(aspect) 0.59–0.82 on all pairs.
+
+### Conclusion
+Replication of C2 with an exact offset: B1-det has no detection threshold, Δ-CE's is 2κ in logit units and is sharp (0% below, 100% of the lowered class above).
 
 ---
 
