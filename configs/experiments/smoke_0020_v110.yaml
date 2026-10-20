@@ -1,0 +1,17 @@
+# smoke_0020 — v1.10 T-C and T-D pipelines on VALIDATION (`data: val`), reduced sizes; G4 / H7 pairs from smoke_0018.
+experiment_id: smoke_0020
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+models_run: runs/experiments/exp_0025
+h7_run: runs/smoke/smoke_0018
+data: val
+pair_ids: [9, 6, 20]
+td_pair_ids: [60, 64, 69, 20]
+tc_points: 10
+tc_queries: 2
+tc_M: 10000
+tc_starts: 16
+tc_steps: 200
+tc_seed_base: 9500
+kappa_curve: ["0", "0.5", "1.0"]
+threads: 4

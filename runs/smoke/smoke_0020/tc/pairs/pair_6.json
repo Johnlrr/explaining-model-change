@@ -1,0 +1,50 @@
+{
+  "pair_id": 6,
+  "group": "G2_t4_class0",
+  "kind": "tier0",
+  "condition": "T4",
+  "seed": 0,
+  "data_sha256": "validation",
+  "n_points": 10,
+  "dce_found": 5,
+  "n_eligible": 5,
+  "queries": [
+    {
+      "query": 3,
+      "y": 0,
+      "s_sample": -1.082148790359497,
+      "s_ascent": -0.9345067739486694,
+      "s_max": -0.9345067739486694,
+      "n_samples": 10000,
+      "n_draws": 200000,
+      "dist_best": 0.5412657260894775,
+      "wall_s": 72.09
+    },
+    {
+      "query": 4,
+      "y": 0,
+      "s_sample": -1.1561458110809326,
+      "s_ascent": -1.1803200244903564,
+      "s_max": -1.1561458110809326,
+      "n_samples": 10000,
+      "n_draws": 200000,
+      "dist_best": 0.5412657260894775,
+      "wall_s": 79.5
+    }
+  ],
+  "checkpoints": [
+    {
+      "name": "f_old_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s0.pt",
+      "sha256": "b54fdbc57708d958ffbc0f1e54a7e476ec6b51db4213eee4edd28dda64d7d0c5"
+    },
+    {
+      "name": "f_new_p06_T4_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0003/artifacts/models/f_new_p06_T4_s0.pt",
+      "sha256": "56c7960d228169f1302d500a77f67ca31b7e0ec26dfad015b730f507eff162cf"
+    }
+  ],
+  "wall_s_pair": 288.8
+}

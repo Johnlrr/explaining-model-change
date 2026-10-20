@@ -1,0 +1,12 @@
+# exp_0035 — v1.10 T-D found-rate against κ (D-043 §5, descriptive), first 100 κ = 0.5-valid points per pair.
+# H7 pairs b ∈ {±0.5, ±1.1, ±2.0} seed 0 (exp_0032 points); grid 20, 26 and N0 pair 9 (new_test_set(9000 + pair_id)).
+experiment_id: exp_0035
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+models_run: runs/experiments/exp_0025
+h7_run: runs/experiments/exp_0032
+data_seed_base: 9000
+n_samples: 5000
+pair_ids: [60, 62, 64, 65, 67, 69, 20, 26, 9]
+kappa_curve: ["0", "0.1", "0.25", "0.5", "0.75", "1.0"]
+threads: 8

@@ -1,0 +1,81 @@
+{
+  "label": "v1.10 T-C (D-043, descriptive)",
+  "groups": {
+    "G1_null": {
+      "pairs": [
+        9
+      ],
+      "queries": 2,
+      "false_negatives": 0,
+      "rate": 0.0,
+      "cp95": [
+        0.0,
+        0.841886116991581
+      ],
+      "max_s_quantiles": [
+        -0.4307900071144104,
+        -0.4262958526611328,
+        -0.40831923484802246,
+        -0.39034261703491213,
+        -0.3858484625816345
+      ],
+      "accepted_min": 10000
+    },
+    "G2_t4_class0": {
+      "pairs": [
+        6
+      ],
+      "queries": 2,
+      "false_negatives": 0,
+      "rate": 0.0,
+      "cp95": [
+        0.0,
+        0.841886116991581
+      ],
+      "max_s_quantiles": [
+        -1.1561458110809326,
+        -1.1339819073677062,
+        -1.045326292514801,
+        -0.9566706776618957,
+        -0.9345067739486694
+      ],
+      "accepted_min": 10000
+    },
+    "G3_offsets": {
+      "pairs": [
+        20
+      ],
+      "queries": 2,
+      "false_negatives": 0,
+      "rate": 0.0,
+      "cp95": [
+        0.0,
+        0.841886116991581
+      ],
+      "max_s_quantiles": [
+        -0.8769370913505554,
+        -0.8329427748918533,
+        -0.656965509057045,
+        -0.4809882432222366,
+        -0.43699392676353455
+      ],
+      "accepted_min": 10000
+    },
+    "G4_h7": {
+      "pairs": [],
+      "queries": 0,
+      "false_negatives": 0,
+      "rate": null,
+      "cp95": [
+        NaN,
+        NaN
+      ],
+      "max_s_quantiles": null,
+      "accepted_min": null
+    }
+  },
+  "git": {
+    "commit": "730f5be448415bd007e40a3f3f1f6bfc770472a3",
+    "dirty": true
+  }
+}

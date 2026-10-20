@@ -1,0 +1,16 @@
+# exp_0034 — v1.10 T-C abstention recall (D-043 §4, descriptive). Runs after H7c is computed (G4 reuses exp_0032).
+# G1 null 9–16, G2 T4 class 0 6–8, G3 offsets 20–27: new_test_set(9000 + pair_id), first 100 valid points, Δ-CE N;
+# G4 H7 |b| ∈ {1.1, 1.5}: exp_0032 points and Δ-CE. ≤ 50 NOT_FOUND queries per pair; M = 1e5 accepted samples.
+experiment_id: exp_0034
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+models_run: runs/experiments/exp_0025
+h7_run: runs/experiments/exp_0032
+data_seed_base: 9000
+n_samples: 5000
+pair_ids: [9, 10, 11, 12, 13, 14, 15, 16, 6, 7, 8, 20, 21, 22, 23, 24, 25, 26, 27, 61, 62, 67, 68, 71, 72, 77, 78, 81, 82, 87, 88]
+tc_M: 100000
+tc_starts: 16
+tc_steps: 200
+tc_seed_base: 9500
+threads: 8

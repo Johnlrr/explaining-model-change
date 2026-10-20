@@ -1,0 +1,35 @@
+{
+  "pair_id": 60,
+  "kind": "h7",
+  "seed": 0,
+  "b": -2.0,
+  "lowered_class": 1,
+  "data_sha256": "exp_0032 pair 60",
+  "n_points": 10,
+  "found_by_kappa": {
+    "0": {
+      "found": 0.5,
+      "found_y0": 0.0,
+      "found_y1": 1.0
+    },
+    "0.5": {
+      "found": 0.5,
+      "found_y0": 0.0,
+      "found_y1": 1.0
+    },
+    "1.0": {
+      "found": 0.0,
+      "found_y0": 0.0,
+      "found_y1": 0.0
+    }
+  },
+  "checkpoints": [
+    {
+      "name": "f_old_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s0.pt",
+      "sha256": "b54fdbc57708d958ffbc0f1e54a7e476ec6b51db4213eee4edd28dda64d7d0c5"
+    }
+  ],
+  "wall_s_pair": 382.3
+}
