@@ -1,0 +1,9 @@
+# smoke_0018 — v1.10 T-A pipeline on VALIDATION (same code path as exp_0032, `data: val`, 10 points, 3 pairs).
+experiment_id: smoke_0018
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+data: val
+n_points: 10
+pair_ids: [60, 64, 69]
+bootstrap_resamples: 1000
+threads: 8

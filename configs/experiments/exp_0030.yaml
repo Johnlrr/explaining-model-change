@@ -1,0 +1,9 @@
+# exp_0030 — v1.10 development (D-043 draft): H8 2×2 on VALIDATION, descriptive only. Informs the v1.10 thresholds and cost.
+# Pairs = the H5d cells (α ∈ {0.25, 0.5}, t = 0.5, seeds 0, 1). Models: exp_0025 f_new (hash-verified), exp_0002 f_old.
+experiment_id: exp_0030
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+models_run: runs/experiments/exp_0025
+n_points: 50
+pair_ids: [36, 37, 44, 45]
+threads: 8

@@ -11,6 +11,13 @@
 ## 1. Project status
 
 ```text
+v1.10 (D-043, 2026-10-20) APPROVED by the author (with changes; see D-043). H-010 = H7c (logit offset, detection
+  threshold), H-011 = H8 (registered cell (z*, z0)). Dev on validation: exp_0030 (H8: gap −0.19 → +0.01 at (z*, z0)),
+  exp_0031 (T-C cost); smoke_0018 (T-A pipeline on validation) passed. RUNNING: exp_0032 (T-A test, 30 pairs, two
+  CPU shards, ≈ 7–8 h wall; resumable: rerun `uv run python -m dce.cli.v110_test ta-run --config
+  configs/experiments/exp_0032.yaml --out runs/experiments/exp_0032 --shard i/2`, i = 0, 1). NEXT: ta-analyze → exp_0033
+  (H8) → Holm {H7c, H8} → exp_0034 (T-C) → exp_0035 (T-D) → summary (incl. the decomposition of the locked H5d −0.35
+  into found-rate and geometry) to the author before any paper edit. ESANN deadline 18/11.
 v1.9 (D-036, branch research/delta-ce-v19, 2026-10-19): amendment committed 1997732; code 19d7331.
   Pilot exp_0024 (pair 40: α=0.25, t=0.56, seed 0; validation, qualification only) FAILS §2.3:
   α̂ = 0.233 (ok), accuracy 0.929 (ok), t̂ = 0.630 (|t̂−t| = 0.070 > 0.02). Grid NOT started (v1.9 §6).

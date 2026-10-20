@@ -1,0 +1,12 @@
+# exp_0032 — v1.10 T-A test run (D-043, §2): H7 pairs 60–89, f_new = LogitShift(f_old, b). Local CPU, locked solver.
+# f_old: exp_0002 (hash-verified). Data per pair: new_test_set(9000 + pair_id, 5 000), generated here, used once
+# for H7c (descriptive reuse in T-C G4 and T-D only after H7c is computed, §6.1).
+experiment_id: exp_0032
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+data_seed_base: 9000
+n_samples: 5000
+n_points: 300
+pair_ids: [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89]
+bootstrap_resamples: 10000
+threads: 8

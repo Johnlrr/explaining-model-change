@@ -1,0 +1,58 @@
+{
+  "label": "v1.10 T-A (D-043)",
+  "checks_U1_U3": "passed",
+  "H7c": {
+    "n_pairs": 1,
+    "estimate": 1.0,
+    "ci95": [
+      1.0,
+      1.0
+    ],
+    "p_one_sided": 0.001,
+    "per_pair_found_b1_det": [
+      1.0
+    ],
+    "min_per_pair": 1.0,
+    "criterion": "ci95 lower > 0.90 and p_holm < 0.05 (Holm with H8) and every pair >= 0.90",
+    "pass_before_holm": true
+  },
+  "descriptive": [
+    {
+      "pair_id": 60,
+      "seed": 0,
+      "b": -2.0,
+      "found_dce": 0.5,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 5,
+      "found_b1_det": 0.8,
+      "rec_dce_aspect": 0.5,
+      "rec_b1_det_aspect": 0.8
+    },
+    {
+      "pair_id": 64,
+      "seed": 0,
+      "b": -0.5,
+      "found_dce": 0.0,
+      "found_dce_lowered": 0.0,
+      "n_lowered": 7,
+      "found_b1_det": 1.0,
+      "rec_dce_aspect": 0.0,
+      "rec_b1_det_aspect": 0.8
+    },
+    {
+      "pair_id": 69,
+      "seed": 0,
+      "b": 2.0,
+      "found_dce": 0.2,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 2,
+      "found_b1_det": 0.8,
+      "rec_dce_aspect": 0.2,
+      "rec_b1_det_aspect": 0.8
+    }
+  ],
+  "git": {
+    "commit": "927918d6761cb8abf2674124afa75ad5d1764457",
+    "dirty": true
+  }
+}

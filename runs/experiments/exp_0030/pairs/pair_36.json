@@ -1,0 +1,26 @@
+{
+  "pair_id": 36,
+  "idx": 16,
+  "alpha": 0.25,
+  "t": 0.5,
+  "seed": 0,
+  "k_star": "color",
+  "n_points": 50,
+  "support": 35,
+  "found_rate": 0.7,
+  "wall_dce_s": 118.4,
+  "wall_rest_s": 0.3,
+  "checkpoints": [
+    {
+      "name": "f_old_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s0.pt",
+      "sha256": "b54fdbc57708d958ffbc0f1e54a7e476ec6b51db4213eee4edd28dda64d7d0c5"
+    },
+    {
+      "name": "f_new_p36_a0.25_t0.50_s0",
+      "path": "runs/experiments/exp_0025/models/f_new_p36_a0.25_t0.50_s0.pt",
+      "sha256": "e93a111ae28540ce98eb2137b97bbadc398a23b564f97ceb55c49fa6d5294b84"
+    }
+  ]
+}

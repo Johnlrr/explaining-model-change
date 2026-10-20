@@ -1,0 +1,21 @@
+{
+  "experiment": "smoke_0018",
+  "decision": "D-043 (v1.10 \u00a72)",
+  "shard": [
+    0,
+    1
+  ],
+  "git_runs": [
+    {
+      "git": {
+        "commit": "927918d6761cb8abf2674124afa75ad5d1764457",
+        "dirty": true
+      },
+      "started": "2026-10-20T12:38:05"
+    }
+  ],
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "finished": "2026-10-20T12:40:52"
+}

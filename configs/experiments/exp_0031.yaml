@@ -1,0 +1,14 @@
+# exp_0031 — v1.10 development (D-043 draft): T-C cost of max-slack search on VALIDATION, descriptive only.
+# Pair 20 = grid null cell (α 0, t 0.5, seed 0); pair 26 = pure offset (α 0, t 0.6, seed 0).
+experiment_id: exp_0031
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+models_run: runs/experiments/exp_0025
+tc_pair_ids: [20, 26]
+tc_queries: 20
+tc_max_notfound: 5
+tc_M: [10000, 100000]
+tc_starts: 16
+tc_steps: 200
+tc_seed: 9500
+threads: 8

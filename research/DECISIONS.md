@@ -1081,6 +1081,20 @@ Active (Research Lead on the author's authorisation of 2026-10-20). **Fixed befo
 - **H6 "found-rate of Δ-CE"** = the union N ∪ O per point, as C2 (D-034) for null pairs; N and O are reported separately too. H6 confirmed iff union found-rate ≤ 0.05 on every qualified pair AND B1-det found-rate ≥ 0.90 on every qualified pair.
 - **Diagnostic (descriptive, author's request):** t̂ − t̂_old with the v1.9.1 measurement (same 5 000 validation points, logistic fit) for the 8 locked null pairs (N0 pairs 9–13, N1 pairs 14–16; exp_0002 checkpoints, hash-verified). Joined table with pairs 20–27: t̂ − t̂_old, validation DD (locked: exp_0004 `decisive_disagreement_all`), test Δ-CE found-rate at κ = 0.5 (locked: exp_0019 and exp_0017, read from saved outputs, N and O), witness class (y = 1[aspect > 0.5] of z0). No method is re-run on a locked pair.
 
+## D-043 — Amendment v1.10: label shift as a logit offset (H7c), locality of the projection (H8), abstention recall (T-C), κ curve (T-D)
+
+**Status:** active — approved by the author on 2026-10-20 with changes (Q1 Adult dropped; Q2 H8 registered on cell (z*, z0), (z*, z*) descriptive; Q3 H7c 0.90 pooled and per pair; Q4 A2 dropped; Q5 guard on (z*, z0); §6.1 reuse rule; §4 exact-M sampling; H7c worded as a detection threshold). Hypotheses H-010 (H7c), H-011 (H8). Committed before any v1.10 test data was generated. Spec text: `docs/source/delta_ce_spec_amendment_v1.10.md` (new file, created on the author's authorisation of 2026-10-20; no earlier file in `docs/` was edited).
+
+**Origin:** the author's handoff of 2026-10-20 and the Research Lead's review of it (both before any v1.10 data). Decisions already taken by the author: H7a, H7b and B3 ≡ 0 under a logit offset are unit tests and a corollary, not hypotheses; Holm family {H7c, H8}; B3 is "undefined" under a logit offset and excluded from H7 comparisons; label shift is not the headline; H8 is scored on the Δ-CE support set in a 2 × 2 design, its reference is the (z0, z0) cell recomputed on new data (not the locked −0.35); T-C uses the slack s(z) = min(−κ − m_new, m_old − κ) with an independent search; results under `runs/experiments/exp_0030+`, notes in `research/extended_version.md`; local CPU.
+
+**Development evidence seen before the amendment (validation only):**
+- Margins are logits (`dce.models.cnn.margin`), so a class-1 logit bias b shifts every margin by ±b (tests/unit/test_v110.py: shift, B3 invalid, no witness for |b| < 2κ, witnesses in the band for b = 3 on the trained f_old).
+- Validation decision flips under the bias (f_old seeds 0–4, 5 000 points): |b| = 0.5 → 3.4–4.2%; 0.9 → 6.6–7.4%; 1.1 → 8.0–9.0%; 1.5 → 11–12%; 2.0 → 16–18%. Pairs with |b| < 2κ are therefore sub-threshold real changes, not null updates.
+- exp_0030 (H5d pairs 36, 37, 44, 45; 50 points each): support 30–40 per pair. Gap on the support: (z0, z0) −0.19 [CI90 −0.27, −0.11]; (z0, z*) −0.25; (z*, z0) +0.01; (z*, z*) −0.01 [−0.04, 0.02]. Levels in (z*, z*): Δ-CE 0.80–1.00, B3 0.83–1.00 (the gap does not close by both losing k*). The narrowing comes from the projection position, not from where B3 is computed. The −0.35 of H5d is roughly half found-rate, half geometry.
+- exp_0031 (T-C cost, pairs 20 and 26, 20 points): cost as in the amendment §8. The run used a version of `max_slack` that reported the ascent stage only; fixed before the amendment (report the max of sampling and ascent).
+
+**Consequence:** H8 is registered after a development run that already shows the effect on validation. This is disclosed in the amendment and in the paper.
+
 ---
 
 ## 12. Decision conflicts

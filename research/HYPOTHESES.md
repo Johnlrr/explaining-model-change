@@ -461,6 +461,38 @@ The null-pair abstention of C2 carries over to real tabular data in this setting
 
 ---
 
+## H-010 — Detection threshold under a logit offset (v1.10 H7c, label shift)
+
+### ID / type / status
+H-010 (H7c of v1.10, D-043); other (replication of C2 with exact ground truth); **testing** (2026-10-20).
+
+### Hypothesis and prediction (pre-declared, v1.10 §2.5)
+On the 12 sub-threshold pairs (f_old seeds 0–2, class-1 logit bias |b| ∈ {0.5, 0.9}), which change 3–8% of decisions but none decisively, B1-det (no detection threshold) attributes a change at almost every query: pooled found-rate CI95 lower bound > 0.90, every pair ≥ 0.90, p_Holm < 0.05 (Holm with H8). Δ-CE (threshold 2κ in logit units) returns no witness — that part is the deterministic check U2, not the hypothesis. Not a ranking: the CEs of f_new and f_old really differ.
+
+### Experiments
+smoke_0018 (validation pipeline check), exp_0032 (test, once; new_test_set(9000 + pair_id)).
+
+### Results / conclusion
+Pending.
+
+---
+
+## H-011 — Locality of the projection explains the C3/H5d gap (v1.10 H8)
+
+### ID / type / status
+H-011 (H8 of v1.10, D-043); mechanistic; **queued** (2026-10-20).
+
+### Hypothesis and prediction (pre-declared, v1.10 §3.3)
+Proposition 2 linearises at z0; the witness lies up to r away. On the Δ-CE support set of the H5d pairs 36, 37, 44, 45, with the projection direction ŵ_o taken at the witness and B3 unchanged at z0 (cell (z*, z0)), the projected Recovery gap narrows by at least one half relative to the projection at z0 on the same support: T = |gap(z0,z0)| − 2|gap(z*,z0)|, CI95 lower > 0, p_Holm < 0.05, guard Rec_proj(B3) ≥ 0.50. Not testable if the CI90 of gap(z0,z0) contains 0. The cell was chosen after the validation run exp_0030 (gap −0.19 → +0.01).
+
+### Experiments
+exp_0030 (validation development), exp_0033 (test, once).
+
+### Results / conclusion
+Pending.
+
+---
+
 ## 4. Hypothesis template
 
 Use the template from the earlier version of this file (preserved in git history) when a hypothesis is added. Required fields: ID, type, status, origin, contribution quality, hypothesis, rationale, predictions, falsification signals, controlled variables, minimal experiment, confirmation procedure, parent, prior-work relation, experiments, results, conclusion, follow-up.
