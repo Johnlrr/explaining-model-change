@@ -1,0 +1,9 @@
+{
+  "experiment": "exp_0025",
+  "decision": "D-036",
+  "git": {
+    "commit": "679d6a25b2d0eedb9b3dbd8effc7a95936a612e5",
+    "dirty": false
+  },
+  "split": "validation"
+}

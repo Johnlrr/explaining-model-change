@@ -1,0 +1,12 @@
+# smoke_0013 — smoke of exp_0024 (same path; scale only: 1 000 samples, 1 epoch; pairs 20 (null cell) and 40).
+# Validation only, qualification only (α̂, t̂, accuracy under the new rule). No explanation method is run.
+# Recipe = the T4 fine-tune of exp_0003 (v1.9 §2.1): 10 000 samples, 5% label noise, 10 epochs, Adam lr 1e-3.
+# Seeds: configs/tiers/tier0.yaml bases + pair_id. f_old: exp_0002 checkpoints (as exp_0017), hash-verified. Local CPU.
+experiment_id: smoke_0013
+decision: D-036
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+pair_ids: [20, 40]
+recipe: {epochs: 1, lr: 1.0e-3, batch_size: 256}
+scale: {n_adapt: 1000, n_qualify: 1000, n_g0_points: 500}
+threads: 8

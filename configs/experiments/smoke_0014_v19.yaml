@@ -1,0 +1,12 @@
+# smoke_0014 — smoke of exp_0025 (same path, all 32 pairs; scale only: 500 samples, 1 epoch).
+# Validation only; no explanation method, no test set. Local CPU. Recipe = T4 knob of exp_0003 (v1.9 §2.1, v1.9.1 §5.4).
+# Seeds: configs/tiers/tier0.yaml bases + pair_id. f_old: exp_0002 checkpoints (as exp_0017), hash-verified.
+experiment_id: smoke_0014
+decision: D-036, D-037
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+pair_ids: null
+qualification: v1.9.1
+recipe: {epochs: 1, lr: 1.0e-3, batch_size: 256}
+scale: {n_adapt: 500, n_qualify: 1000, n_g0_points: 500}
+threads: 8

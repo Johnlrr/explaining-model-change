@@ -1,0 +1,9 @@
+{
+  "experiment": "smoke_0013",
+  "decision": "D-036",
+  "git": {
+    "commit": "71549b8546ed6961f367d29c8a93ea7f755f2274",
+    "dirty": true
+  },
+  "split": "validation"
+}

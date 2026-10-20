@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "f_new_p20_a0.00_t0.50_s0",
+      "kind": "checkpoint",
+      "path": "models/f_new_p20_a0.00_t0.50_s0.pt",
+      "sha256": "002f331013d6c513b1d0cd1e0e15d80aa5d65c67655dbc6f875db6eeff5c32ac"
+    },
+    {
+      "name": "f_new_p40_a0.25_t0.56_s0",
+      "kind": "checkpoint",
+      "path": "models/f_new_p40_a0.25_t0.56_s0.pt",
+      "sha256": "da227cc28a90495199af8209f0ec505375cb02ff23341d0ebafeb9b6147e2ac8"
+    }
+  ]
+}

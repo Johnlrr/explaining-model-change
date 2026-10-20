@@ -1,0 +1,75 @@
+{
+  "pair_id": 26,
+  "idx": 6,
+  "alpha": 0.0,
+  "t": 0.6,
+  "seed": 0,
+  "k_star": "aspect",
+  "alpha_hat": -0.000724581228742627,
+  "t_hat": 0.5860351145876735,
+  "n_points": 300,
+  "data_seed": 7026,
+  "data_sha256": "d69958779e418b0a4c79af754f9979c94d976765a2c7df2b503956f5ae3d4df9",
+  "runtime": {
+    "dce_N": {
+      "wall_s_per_point": 2.0240579430262247,
+      "cpu_s_per_point": 15.937978701676666,
+      "device": "cpu",
+      "phase1_wall_s": 168.9288148880005,
+      "phase2_cpu_s_per_point_with_witness": 4.896210719092198,
+      "phase2_cpu_s_per_point_without_witness": 17.372817018396226
+    },
+    "b1_det": {
+      "wall_s_per_point": 0.3283465011914571
+    },
+    "b3": {
+      "wall_s_per_point": 0.000652159055074056
+    },
+    "a2": {
+      "wall_s_per_point": 0.5871874769528707,
+      "cpu_s_per_point": 4.637163734693334,
+      "device": "cpu",
+      "phase1_wall_s": 84.04114747047424,
+      "phase2_cpu_s_per_point_with_witness": 2.350439039354015,
+      "phase2_cpu_s_per_point_without_witness": 2.621144225730769
+    },
+    "dce_N_k0": {
+      "wall_s_per_point": 1.9378431169191996,
+      "cpu_s_per_point": 15.357662901466664,
+      "device": "cpu",
+      "phase1_wall_s": 164.03285765647888,
+      "phase2_cpu_s_per_point_with_witness": 4.094916721758867,
+      "phase2_cpu_s_per_point_without_witness": 17.04137955833962
+    },
+    "dce_N_k0.25": {
+      "wall_s_per_point": 1.9312254158655802,
+      "cpu_s_per_point": 15.309165916836664,
+      "device": "cpu",
+      "phase1_wall_s": 164.80759239196777,
+      "phase2_cpu_s_per_point_with_witness": 4.394029645751774,
+      "phase2_cpu_s_per_point_without_witness": 16.658769472012576
+    },
+    "dce_N_k1.0": {
+      "wall_s_per_point": 2.709847887357076,
+      "cpu_s_per_point": 21.50907321750333,
+      "device": "cpu",
+      "phase1_wall_s": 177.65974235534668,
+      "phase2_cpu_s_per_point_with_witness": 13.934547107744686,
+      "phase2_cpu_s_per_point_without_witness": 17.35499934301581
+    }
+  },
+  "checkpoints": [
+    {
+      "name": "f_old_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s0.pt",
+      "sha256": "b54fdbc57708d958ffbc0f1e54a7e476ec6b51db4213eee4edd28dda64d7d0c5"
+    },
+    {
+      "name": "f_new_p26_a0.00_t0.60_s0",
+      "path": "runs/experiments/exp_0025/models/f_new_p26_a0.00_t0.60_s0.pt",
+      "sha256": "1a432fafa73ad2278dc30cafcabb25ff37ac37363a954ac82c6b663e23e46293"
+    }
+  ],
+  "wall_s_pair": 2858.0
+}

@@ -1,0 +1,15 @@
+# smoke_0017 — smoke of exp_0028 on VALIDATION (same path; 2 pairs, 5 points). Never reads the test split.
+# Models and r_B from exp_0027 (hash-verified); Δ-CE N and O, B1-det; κ and solver: configs/tiers/tier0.yaml.
+experiment_id: smoke_0017
+eval_split: val
+decision: D-036, D-040, D-042
+tier_config: configs/tiers/tier0.yaml
+data_path: .work/adult/adult.arff
+split_seed: 2026
+calibration_run: runs/experiments/exp_0027
+r_frozen: 0.8693360090255737
+seeds_list: [0, 1]
+seeds: {init_base: 0, order_base: 100, noise_base: 200, subset_base: 2000, ft_order_base: 3000, ft_noise_base: 4000,
+        points_base: 5000, restart_base: 10000}
+n_points: 5
+threads: 8

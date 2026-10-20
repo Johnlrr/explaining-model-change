@@ -1,0 +1,13 @@
+{
+  "pair": "B0",
+  "split": "validation",
+  "n_points": 300,
+  "ce_found_share": 1.0,
+  "median_ce_distance": 0.43466800451278687,
+  "r": 0.8693360090255737,
+  "wall_seconds": 8.6,
+  "git": {
+    "commit": "39e9fa4463e6dfb53dbe81a3c16276724a52a6ba",
+    "dirty": false
+  }
+}

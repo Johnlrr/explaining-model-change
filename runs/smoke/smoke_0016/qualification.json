@@ -1,0 +1,34 @@
+{
+  "split": "validation",
+  "n_val": 9768,
+  "n_g0_points": 2000,
+  "majority_class_rate_val": 0.7531736281736282,
+  "pairs": [
+    {
+      "pair": "B0",
+      "seed": 0,
+      "dd": 0.0,
+      "acc_old": 0.8087633087633087,
+      "acc_new": 0.8133701883701884,
+      "disagreement_all_val": 0.021601146601146603,
+      "dd_ok": true,
+      "acc_ok": true,
+      "qualified": true
+    },
+    {
+      "pair": "B1",
+      "seed": 1,
+      "dd": 0.0,
+      "acc_old": 0.8130630630630631,
+      "acc_new": 0.8112203112203112,
+      "disagreement_all_val": 0.02190827190827191,
+      "dd_ok": true,
+      "acc_ok": true,
+      "qualified": true
+    }
+  ],
+  "git": {
+    "commit": "429b0d8f9e722e76f52126397ccdf412888f0b4a",
+    "dirty": true
+  }
+}

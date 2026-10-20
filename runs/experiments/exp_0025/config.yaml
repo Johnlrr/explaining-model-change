@@ -1,0 +1,12 @@
+# exp_0025 — D-036 Stage A, all 32 pairs (pair_ids 20–51): fine-tune + qualification under v1.9.1 §2 (D-037).
+# Validation only; no explanation method, no test set. Local CPU. Recipe = T4 knob of exp_0003 (v1.9 §2.1, v1.9.1 §5.4).
+# Seeds: configs/tiers/tier0.yaml bases + pair_id. f_old: exp_0002 checkpoints (as exp_0017), hash-verified.
+experiment_id: exp_0025
+decision: D-036, D-037
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+pair_ids: null
+qualification: v1.9.1
+recipe: {epochs: 10, lr: 1.0e-3, batch_size: 256}
+scale: {n_adapt: 10000, n_qualify: 5000, n_g0_points: 2000}
+threads: 8

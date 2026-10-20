@@ -1030,6 +1030,59 @@ exp_0021: T5 training and G0-T5 (validation). exp_0022: test run and analysis (o
 
 ---
 
+## D-036 — Spec amendment v1.9: rotation × offset grid (Stage A, H5a–H5d) and Adult abstention (Stage B, H6)
+Active (author's decision, 2026-10-19), declared before any v1.9 model pair or test set; full text in `docs/source/delta_ce_spec_amendment_v1.9.md` (committed verbatim in 1997732).
+
+---
+
+## D-037 — Spec amendment v1.9.1: offset checks replace the t̂ tolerance of v1.9 §2.3 (2)
+Active (author's decision, 2026-10-19). **Written after the pilot qualification exp_0024 (t̂ = 0.630 vs 0.56); no explanation method has been run.** Hypotheses, fine-tune recipe, grid and seeds unchanged; Stage A on CPU only with the locked solver, κ curve only on the α = 0 row and the null cell, ≤ 30 CPU-hours. Full text in `docs/source/delta_ce_spec_amendment_v1.9.1.md` (committed verbatim in 67de538).
+
+---
+
+## D-038 — Reading of v1.9.1 (2b); budget unit (interpretation of v1.9.1, not an amendment)
+Active (author's decision, 2026-10-19). **Decided after the qualification exp_0025 and before the test set is generated; no explanation-method result exists.**
+- (2b) applies only to a test that compares t levels within one α row. Of H5a–H5d only H5c does, and for H5c the more specific (2c) is used instead of (2b). Hence: H5a excludes pairs {22, 23} by (2a); H5b, H5c, H5d exclude no pair; H5c uses both seeds ((2c) passes: 0.077, 0.120). The five order violations (20→22, 29→31, 33→35, 40→42, 41→43) are reported in `research/results_v19.md` as an observation on the manipulation.
+- The Stage A cap "30 CPU-hours" (v1.9.1 §4) is wall-hours; the estimate of 12–13 h wall on 8 threads (≈ 100 core-hours) is accepted.
+- Step 3 authorised: test sets (seed 7000 + pair_id); Δ-CE, B1-det, B3, A2 on CPU with the locked solver; κ ∈ {0, 0.25, 1.0} only on pairs 20–27 (α = 0), κ = 0.5 everywhere. The §5.3 consistency check (pairs 26–27) is computed and reported before H5a–H5d; if it fails, analysis stops.
+
+---
+
+## D-039 — Execution and test statistics of the v1.9 Stage A test run (exp_0026; implementation reading, declared before the run)
+Active (Research Lead, 2026-10-19). **Fixed in code (`src/dce/analysis/v19.py`, `src/dce/cli/v19_test.py`) before any test set is generated; the author may overrule it before `analyze` is run.** Follows the precedents D-028 (seeds 6000 + index), D-034 (TOST with Holm, labels and projection) and exp_0017 A2/A3.
+- **Data:** per pair `new_test_set(7000 + pair_id, 5 000)`, labels of the original rule y = 1[aspect > 0.5] (as T4 in exp_0019); 300 valid points at κ = 0.5 with order seed `points_base` (5000) + pair_id; restarts 10000 + pair_id.
+- **Methods:** Δ-CE N (κ = 0.5), B1-det, B3, A2 = ordinary CE of f_new (`ordinary_ce`, as exp_0017). κ curve on pairs 20–27 = Δ-CE N with solver κ ∈ {0, 0.25, 1.0} on the same valid points (as A3 in exp_0017). Projection = D-034 C3 (∇ m_o of f_old at z0).
+- **Bootstrap:** 10 000 resamples, points within pair; seeds H5a 6500, H5b 6501, H5c 6502, H5d 6503. Within one cell set and two methods (H5d) indices are shared (paired); between different cells (H5b, H5c) each pair is resampled on its own, since the cells have different test points.
+- **p-values for Holm (m = 4):** H5a one-sided P*(mean ≥ 0.20); H5b two-sided as §11; H5c, H5d TOST max(P*(≤ −0.10), P*(≥ 0.10)). **Pass:** H5a CI95 upper ≤ 0.20 and p_Holm < 0.05; H5b CI95 lower > 0 and p_Holm < 0.05; H5c, H5d CI90 ⊂ [−0.10, 0.10] and p_Holm < 0.05.
+- **§5.3 consistency:** pooled over pairs 26–27: Recovery(B3, aspect) ≤ 0.20 and Δ-CE found-rate ∈ [0.30, 0.65].
+
+---
+
+## D-040 — Stage B implementation details (author's decision 2026-10-19, fixed before any Stage B data is seen)
+(The author's text called this "D-039"; D-039 was already taken by the Stage A test statistics, hence D-040.)
+1. **f_old:** MLP 6→64→64→2, ReLU, Adam lr 1e-3, batch 256, 20 epochs, no cosine, seeds 0–4 (torch init seed = s, order seed 100 + s).
+2. **f_new:** fine-tune of f_old on a subset of 10 000 train samples drawn **without replacement** (`default_rng(2000 + s)`), true labels, new order (seed 3000 + s), 3 epochs, Adam lr 3e-4, batch 256 (the N0 recipe). Pair B_s = (f_old s, f_new s).
+3. **r:** spec §6.3 rule — 2 × median CE(f_new) distance with r = ∞ on 300 valid validation points (κ = 0.5, order seed 5000) of the first pair B_0; calibrated once, frozen before test. Run after exp_0026 finishes (no CPU competition), with the Tier 0 solver settings unchanged (n_workers 8).
+4. **Search space (change of the letter of v1.9 §4 "standardised by train"):** every feature is clipped to [p1, p99] of train and min-max mapped to [0, 1] on that range (train, val, test alike); the space is [0, 1]^6 and D is the inverse map. Reason: the Tier 0 solver parameters (R, T, lr, σ, λ, clamp [0, 1]) keep their scale; with a z-score and a skewed box they would not. Solver parameters unchanged.
+5. **"f_old ≥ 0.80"** is validation accuracy; the majority-class rate of validation is reported next to it. Null qualification: DD ≤ 0.02 on the first 2 000 validation points (as the Tier 0 G0 points), κ = 0.5.
+- **Limitation recorded now:** age and education-num are integers treated as continuous; witnesses may fall on non-integer values. H6 counts found-rate only, so it is unaffected; goes to Limitations.
+- Order: implementation + unit tests → train 5 f_old + 5 f_new → qualification → r calibration (validation) → report and STOP. No test set, no H6 until the author confirms.
+
+---
+
+## D-041 — exp_0026 analysis: exclusion bug found AFTER seeing results, fixed to the pre-declared D-038 rule
+Active (Research Lead, 2026-10-20). **Recorded after the first `analyze` output was seen.** The first analysis (commit a4c8860 code 11c89c7) passed exp_0025's `grid.exclusions` — computed under the pre-D-038 reading "(2b) drops both pairs of a violating step" — instead of the D-038 rule. Effect: H5b lost pair 29, H5c reported "not testable", Holm m = 3. The fix implements exactly D-038 (declared before the test set): H5a drops {22, 23}, H5b/H5c/H5d drop none, H5c keeps both seeds via (2c); Holm m = 4. No statistic, seed, criterion or threshold changes. The superseded output is kept as `runs/experiments/exp_0026/results_SUPERSEDED_wrong_exclusions.json` (and SUPERSEDED_map_v19.*). Both versions are reported in `research/results_v19.md`.
+
+---
+
+## D-042 — Stage B test run details and the null-offset diagnostic (declared before the Adult test split is read)
+Active (Research Lead on the author's authorisation of 2026-10-20). **Fixed before any Adult test value is computed.**
+- **Stage B test (exp_0028):** Adult test split (seed-2026 split, D-040 [0, 1] map); per pair B_s 300 valid points (κ = 0.5, order seed 5000 + s, as the calibration), restarts 10000 + s; r_B = 0.8693 (exp_0027), Tier 0 solver settings. Methods: Δ-CE type N and type O, B1-det. CPU (8 threads): the MLP solves in seconds, a GPU job would not be faster.
+- **H6 "found-rate of Δ-CE"** = the union N ∪ O per point, as C2 (D-034) for null pairs; N and O are reported separately too. H6 confirmed iff union found-rate ≤ 0.05 on every qualified pair AND B1-det found-rate ≥ 0.90 on every qualified pair.
+- **Diagnostic (descriptive, author's request):** t̂ − t̂_old with the v1.9.1 measurement (same 5 000 validation points, logistic fit) for the 8 locked null pairs (N0 pairs 9–13, N1 pairs 14–16; exp_0002 checkpoints, hash-verified). Joined table with pairs 20–27: t̂ − t̂_old, validation DD (locked: exp_0004 `decisive_disagreement_all`), test Δ-CE found-rate at κ = 0.5 (locked: exp_0019 and exp_0017, read from saved outputs, N and O), witness class (y = 1[aspect > 0.5] of z0). No method is re-run on a locked pair.
+
+---
+
 ## 12. Decision conflicts
 
 Conflicts between the spec and the protocol are resolved in favour of `docs/EVALUATION.md` (D-011, spec amendment v1.1) and the layout in AGENTS.md (D-001).

@@ -1,0 +1,18 @@
+{
+  "experiment": "smoke_0015",
+  "decision": "D-036, D-037, D-038, D-039",
+  "git_runs": [
+    {
+      "git": {
+        "commit": "c00164a35d4388fc5f09e16b18a8f7f0e40cf11b",
+        "dirty": true
+      },
+      "started": "2026-10-19T13:42:08"
+    }
+  ],
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "device": "cpu (8 threads)",
+  "status": "PARTIAL"
+}

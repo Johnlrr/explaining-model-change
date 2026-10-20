@@ -1,0 +1,38 @@
+{
+  "r_B": 0.8693360090255737,
+  "kappa": 0.5,
+  "split": "val",
+  "pairs": [
+    {
+      "pair": "B0",
+      "seed": 0,
+      "qualified": true,
+      "n_points": 5,
+      "dce_N_found_rate": 0.0,
+      "dce_O_found_rate": 0.0,
+      "dce_union_found_rate": 0.0,
+      "b1_det_found_rate": 1.0,
+      "wall_s": 15.9
+    },
+    {
+      "pair": "B1",
+      "seed": 1,
+      "qualified": true,
+      "n_points": 5,
+      "dce_N_found_rate": 0.0,
+      "dce_O_found_rate": 0.0,
+      "dce_union_found_rate": 0.0,
+      "b1_det_found_rate": 1.0,
+      "wall_s": 13.2
+    }
+  ],
+  "n_qualified": 2,
+  "dce_union_max": 0.0,
+  "b1_det_min": 1.0,
+  "criterion": "union N\u222aO found-rate <= 0.05 AND B1-det found-rate >= 0.90 on every qualified pair (D-042)",
+  "git": {
+    "commit": "48f6a8e5e02bfd2f6c6cd03ff6acf72ebaf30421",
+    "dirty": true
+  },
+  "H6_confirmed": true
+}

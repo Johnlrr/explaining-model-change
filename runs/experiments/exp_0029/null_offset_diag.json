@@ -1,0 +1,520 @@
+{
+  "label": "D-042 diagnostic (descriptive, not tested)",
+  "t_hat_old": {
+    "0": 0.4868970725257253,
+    "1": 0.4957811264929111,
+    "2": 0.48624807877002585,
+    "3": 0.5077119528052106,
+    "4": 0.47800862987831244
+  },
+  "pairs": [
+    {
+      "pair_id": 9,
+      "condition": "N0",
+      "seed": 0,
+      "t_hat": 0.5035423645622461,
+      "dt": 0.01664529203652082,
+      "dd_val": 0.0,
+      "dd_source": "exp_0004",
+      "test_exp_0019": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      },
+      "test_exp_0017": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      },
+      "checkpoints": [
+        {
+          "name": "f_old_s0",
+          "kind": "checkpoint_reference",
+          "path": "runs/experiments/exp_0002/artifacts/models/f_old_s0.pt",
+          "sha256": "b54fdbc57708d958ffbc0f1e54a7e476ec6b51db4213eee4edd28dda64d7d0c5"
+        },
+        {
+          "name": "f_new_p09_N0_s0",
+          "kind": "checkpoint_reference",
+          "path": "runs/experiments/exp_0002/artifacts/models/f_new_p09_N0_s0.pt",
+          "sha256": "b652e302249ddb9b8938cf3985aa3c29514fc7010eb6a6d99ef1f7088be6586e"
+        }
+      ]
+    },
+    {
+      "pair_id": 10,
+      "condition": "N0",
+      "seed": 1,
+      "t_hat": 0.5305265717420934,
+      "dt": 0.03474544524918227,
+      "dd_val": 0.0,
+      "dd_source": "exp_0004",
+      "test_exp_0019": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      },
+      "test_exp_0017": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      },
+      "checkpoints": [
+        {
+          "name": "f_old_s1",
+          "kind": "checkpoint_reference",
+          "path": "runs/experiments/exp_0002/artifacts/models/f_old_s1.pt",
+          "sha256": "b65ed1e696119fb8f9a825c26c9bcc65a5dc9cd36a9cb8627e9e1808414883fc"
+        },
+        {
+          "name": "f_new_p10_N0_s1",
+          "kind": "checkpoint_reference",
+          "path": "runs/experiments/exp_0002/artifacts/models/f_new_p10_N0_s1.pt",
+          "sha256": "14aee0e8ec0383799120f7adeb6649efdfe97814ae76a0ead6c9cf9155ca5f7e"
+        }
+      ]
+    },
+    {
+      "pair_id": 11,
+      "condition": "N0",
+      "seed": 2,
+      "t_hat": 0.491686878582279,
+      "dt": 0.005438799812253148,
+      "dd_val": 0.0,
+      "dd_source": "exp_0004",
+      "test_exp_0019": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      },
+      "test_exp_0017": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      },
+      "checkpoints": [
+        {
+          "name": "f_old_s2",
+          "kind": "checkpoint_reference",
+          "path": "runs/experiments/exp_0002/artifacts/models/f_old_s2.pt",
+          "sha256": "b6f462719d1aa0e38a682b907674ff90ea524e35f9119a5aa29e28079acff330"
+        },
+        {
+          "name": "f_new_p11_N0_s2",
+          "kind": "checkpoint_reference",
+          "path": "runs/experiments/exp_0002/artifacts/models/f_new_p11_N0_s2.pt",
+          "sha256": "a2e9ab58cbd7b16dea0e5a62670ea9f33a7bf4a5f1d0ad26d0c40431b3ebacc5"
+        }
+      ]
+    },
+    {
+      "pair_id": 12,
+      "condition": "N0",
+      "seed": 3,
+      "t_hat": 0.5236297830505375,
+      "dt": 0.01591783024532689,
+      "dd_val": 0.0,
+      "dd_source": "exp_0004",
+      "test_exp_0019": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      },
+      "test_exp_0017": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      },
+      "checkpoints": [
+        {
+          "name": "f_old_s3",
+          "kind": "checkpoint_reference",
+          "path": "runs/experiments/exp_0002/artifacts/models/f_old_s3.pt",
+          "sha256": "ed4494b8a5035258c1b6a65d6644585a0d455ea0633e016ec7889b04ce23e558"
+        },
+        {
+          "name": "f_new_p12_N0_s3",
+          "kind": "checkpoint_reference",
+          "path": "runs/experiments/exp_0002/artifacts/models/f_new_p12_N0_s3.pt",
+          "sha256": "b8f87d09ffb313d54d84952aac13b276dd58d3ce6e0d1e7eedbd5e0595ade781"
+        }
+      ]
+    },
+    {
+      "pair_id": 13,
+      "condition": "N0",
+      "seed": 4,
+      "t_hat": 0.48198869594860244,
+      "dt": 0.00398006607029,
+      "dd_val": 0.0,
+      "dd_source": "exp_0004",
+      "test_exp_0019": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      },
+      "test_exp_0017": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      },
+      "checkpoints": [
+        {
+          "name": "f_old_s4",
+          "kind": "checkpoint_reference",
+          "path": "runs/experiments/exp_0002/artifacts/models/f_old_s4.pt",
+          "sha256": "232a09c0e7d6b01426ac83bb96756db861693f363595fd5cda32a07925186084"
+        },
+        {
+          "name": "f_new_p13_N0_s4",
+          "kind": "checkpoint_reference",
+          "path": "runs/experiments/exp_0002/artifacts/models/f_new_p13_N0_s4.pt",
+          "sha256": "ea28f9da017b9118c11a4d752b1b46eb52232e74217d8c03b9e58ec2e0aaae76"
+        }
+      ]
+    },
+    {
+      "pair_id": 14,
+      "condition": "N1",
+      "seed": 0,
+      "t_hat": 0.4951095051839518,
+      "dt": 0.00821243265822652,
+      "dd_val": 0.0,
+      "dd_source": "exp_0004",
+      "test_exp_0019": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      },
+      "test_exp_0017": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      },
+      "checkpoints": [
+        {
+          "name": "f_old_s0",
+          "kind": "checkpoint_reference",
+          "path": "runs/experiments/exp_0002/artifacts/models/f_old_s0.pt",
+          "sha256": "b54fdbc57708d958ffbc0f1e54a7e476ec6b51db4213eee4edd28dda64d7d0c5"
+        },
+        {
+          "name": "f_new_p14_N1_s0",
+          "kind": "checkpoint_reference",
+          "path": "runs/experiments/exp_0002/artifacts/models/f_new_p14_N1_s0.pt",
+          "sha256": "3c03129a0abf9c537787d30e3419c76b0d2b7c164308e224d027d647d3c8bf71"
+        }
+      ]
+    },
+    {
+      "pair_id": 15,
+      "condition": "N1",
+      "seed": 1,
+      "t_hat": 0.5164712938900644,
+      "dt": 0.020690167397153292,
+      "dd_val": 0.0,
+      "dd_source": "exp_0004",
+      "test_exp_0019": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      },
+      "test_exp_0017": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      },
+      "checkpoints": [
+        {
+          "name": "f_old_s1",
+          "kind": "checkpoint_reference",
+          "path": "runs/experiments/exp_0002/artifacts/models/f_old_s1.pt",
+          "sha256": "b65ed1e696119fb8f9a825c26c9bcc65a5dc9cd36a9cb8627e9e1808414883fc"
+        },
+        {
+          "name": "f_new_p15_N1_s1",
+          "kind": "checkpoint_reference",
+          "path": "runs/experiments/exp_0002/artifacts/models/f_new_p15_N1_s1.pt",
+          "sha256": "81cf765549b9e44b79a2e14a46ab3a05debd5b1c59853b7889223a1a11cbfdb6"
+        }
+      ]
+    },
+    {
+      "pair_id": 16,
+      "condition": "N1",
+      "seed": 2,
+      "t_hat": 0.4958463314632674,
+      "dt": 0.009598252693241549,
+      "dd_val": 0.0,
+      "dd_source": "exp_0004",
+      "test_exp_0019": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      },
+      "test_exp_0017": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        },
+        "dce_O": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      },
+      "checkpoints": [
+        {
+          "name": "f_old_s2",
+          "kind": "checkpoint_reference",
+          "path": "runs/experiments/exp_0002/artifacts/models/f_old_s2.pt",
+          "sha256": "b6f462719d1aa0e38a682b907674ff90ea524e35f9119a5aa29e28079acff330"
+        },
+        {
+          "name": "f_new_p16_N1_s2",
+          "kind": "checkpoint_reference",
+          "path": "runs/experiments/exp_0002/artifacts/models/f_new_p16_N1_s2.pt",
+          "sha256": "c1a551f8f1c5dafec0375768c627749768b7793a7e4c70beea74fb0fd72995e1"
+        }
+      ]
+    },
+    {
+      "pair_id": 20,
+      "condition": "v1.9 (0, 0.50)",
+      "seed": 0,
+      "t_hat": 0.5259283159417494,
+      "dt": 0.0390312434160241,
+      "dd_val": 0.0,
+      "dd_source": "exp_0025",
+      "test_exp_0026": {
+        "dce_N": {
+          "found_rate": 0.21,
+          "n_found_y1": 63,
+          "n_found_y0": 0
+        }
+      }
+    },
+    {
+      "pair_id": 21,
+      "condition": "v1.9 (0, 0.50)",
+      "seed": 1,
+      "t_hat": 0.4638078562539365,
+      "dt": -0.031973270238974616,
+      "dd_val": 0.0,
+      "dd_source": "exp_0025",
+      "test_exp_0026": {
+        "dce_N": {
+          "found_rate": 0.23,
+          "n_found_y1": 0,
+          "n_found_y0": 69
+        }
+      }
+    },
+    {
+      "pair_id": 22,
+      "condition": "v1.9 (0, 0.53)",
+      "seed": 0,
+      "t_hat": 0.4292873522765035,
+      "dt": -0.057609720249221785,
+      "dd_val": 0.0025,
+      "dd_source": "exp_0025",
+      "test_exp_0026": {
+        "dce_N": {
+          "found_rate": 0.3933333333333333,
+          "n_found_y1": 0,
+          "n_found_y0": 118
+        }
+      }
+    },
+    {
+      "pair_id": 23,
+      "condition": "v1.9 (0, 0.53)",
+      "seed": 1,
+      "t_hat": 0.4799496107939373,
+      "dt": -0.01583151569897384,
+      "dd_val": 0.0,
+      "dd_source": "exp_0025",
+      "test_exp_0026": {
+        "dce_N": {
+          "found_rate": 0.0,
+          "n_found_y1": 0,
+          "n_found_y0": 0
+        }
+      }
+    },
+    {
+      "pair_id": 24,
+      "condition": "v1.9 (0, 0.56)",
+      "seed": 0,
+      "t_hat": 0.5567488743505871,
+      "dt": 0.06985180182486178,
+      "dd_val": 0.0045,
+      "dd_source": "exp_0025",
+      "test_exp_0026": {
+        "dce_N": {
+          "found_rate": 0.5166666666666667,
+          "n_found_y1": 155,
+          "n_found_y0": 0
+        }
+      }
+    },
+    {
+      "pair_id": 25,
+      "condition": "v1.9 (0, 0.56)",
+      "seed": 1,
+      "t_hat": 0.5423333048143563,
+      "dt": 0.04655217832144515,
+      "dd_val": 0.0,
+      "dd_source": "exp_0025",
+      "test_exp_0026": {
+        "dce_N": {
+          "found_rate": 0.11,
+          "n_found_y1": 33,
+          "n_found_y0": 0
+        }
+      }
+    },
+    {
+      "pair_id": 26,
+      "condition": "v1.9 (0, 0.60)",
+      "seed": 0,
+      "t_hat": 0.5860351145876735,
+      "dt": 0.09913804206194826,
+      "dd_val": 0.0335,
+      "dd_source": "exp_0025",
+      "test_exp_0026": {
+        "dce_N": {
+          "found_rate": 0.47,
+          "n_found_y1": 141,
+          "n_found_y0": 0
+        }
+      }
+    },
+    {
+      "pair_id": 27,
+      "condition": "v1.9 (0, 0.60)",
+      "seed": 1,
+      "t_hat": 0.587208927792702,
+      "dt": 0.09142780129979083,
+      "dd_val": 0.014,
+      "dd_source": "exp_0025",
+      "test_exp_0026": {
+        "dce_N": {
+          "found_rate": 0.43333333333333335,
+          "n_found_y1": 130,
+          "n_found_y0": 0
+        }
+      }
+    }
+  ],
+  "git": {
+    "commit": "e30d81a7854241bd40cf61a2d1866cbd62ac3330",
+    "dirty": false
+  }
+}

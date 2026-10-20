@@ -1,0 +1,71 @@
+{
+  "r_B": 0.8693360090255737,
+  "kappa": 0.5,
+  "split": "test",
+  "pairs": [
+    {
+      "pair": "B0",
+      "seed": 0,
+      "qualified": true,
+      "n_points": 300,
+      "dce_N_found_rate": 0.0,
+      "dce_O_found_rate": 0.0,
+      "dce_union_found_rate": 0.0,
+      "b1_det_found_rate": 0.9766666666666667,
+      "wall_s": 112.1
+    },
+    {
+      "pair": "B1",
+      "seed": 1,
+      "qualified": true,
+      "n_points": 300,
+      "dce_N_found_rate": 0.0,
+      "dce_O_found_rate": 0.0,
+      "dce_union_found_rate": 0.0,
+      "b1_det_found_rate": 1.0,
+      "wall_s": 124.5
+    },
+    {
+      "pair": "B2",
+      "seed": 2,
+      "qualified": true,
+      "n_points": 300,
+      "dce_N_found_rate": 0.0,
+      "dce_O_found_rate": 0.0,
+      "dce_union_found_rate": 0.0,
+      "b1_det_found_rate": 0.9866666666666667,
+      "wall_s": 124.1
+    },
+    {
+      "pair": "B3",
+      "seed": 3,
+      "qualified": true,
+      "n_points": 300,
+      "dce_N_found_rate": 0.0,
+      "dce_O_found_rate": 0.0,
+      "dce_union_found_rate": 0.0,
+      "b1_det_found_rate": 0.9933333333333333,
+      "wall_s": 97.4
+    },
+    {
+      "pair": "B4",
+      "seed": 4,
+      "qualified": true,
+      "n_points": 300,
+      "dce_N_found_rate": 0.0,
+      "dce_O_found_rate": 0.0,
+      "dce_union_found_rate": 0.0,
+      "b1_det_found_rate": 0.9966666666666667,
+      "wall_s": 131.5
+    }
+  ],
+  "n_qualified": 5,
+  "dce_union_max": 0.0,
+  "b1_det_min": 0.9766666666666667,
+  "criterion": "union N\u222aO found-rate <= 0.05 AND B1-det found-rate >= 0.90 on every qualified pair (D-042)",
+  "git": {
+    "commit": "d3812f0e7102f35013da28ed412a18da88618401",
+    "dirty": false
+  },
+  "H6_confirmed": true
+}

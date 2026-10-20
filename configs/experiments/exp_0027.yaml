@@ -1,0 +1,16 @@
+# exp_0027 — D-036 Stage B (v1.9 §4, D-040): Adult null pairs B0–B4. Validation only (train, qualify, calibrate r).
+# Data: .work/adult/adult.arff (OpenML 1590 v2, md5 checked in code). Solver/κ: configs/tiers/tier0.yaml (unchanged).
+# Light CPU (2 threads) while exp_0026 runs; `calibrate` runs after exp_0026 with the Tier 0 solver settings.
+experiment_id: exp_0027
+decision: D-036, D-040
+tier_config: configs/tiers/tier0.yaml
+data_path: .work/adult/adult.arff
+split_seed: 2026
+seeds_list: [0, 1, 2, 3, 4]
+seeds: {init_base: 0, order_base: 100, noise_base: 200, subset_base: 2000, ft_order_base: 3000, ft_noise_base: 4000,
+        points_base: 5000, restart_base: 10000}
+f_old: {epochs: 20, lr: 1.0e-3, batch_size: 256}
+f_new: {n_subset: 10000, epochs: 3, lr: 3.0e-4, batch_size: 256}
+n_g0_points: 2000
+n_points: 300
+threads: 2

@@ -1,0 +1,12 @@
+# exp_0024 — D-036 / amendment v1.9 §6 pilot: cell (α = 0.25, t = 0.56), f_old seed 0 = pair 40.
+# Validation only, qualification only (α̂, t̂, accuracy under the new rule). No explanation method is run.
+# Recipe = the T4 fine-tune of exp_0003 (v1.9 §2.1): 10 000 samples, 5% label noise, 10 epochs, Adam lr 1e-3.
+# Seeds: configs/tiers/tier0.yaml bases + pair_id. f_old: exp_0002 checkpoints (as exp_0017), hash-verified. Local CPU.
+experiment_id: exp_0024
+decision: D-036
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+pair_ids: [40]
+recipe: {epochs: 10, lr: 1.0e-3, batch_size: 256}
+scale: {n_adapt: 10000, n_qualify: 5000, n_g0_points: 2000}
+threads: 8

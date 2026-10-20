@@ -1,0 +1,25 @@
+{
+  "pairs": [
+    26,
+    27
+  ],
+  "b3_recovery_per_pair": [
+    0.07,
+    0.10333333333333333
+  ],
+  "dce_found_rate_per_pair": [
+    0.47,
+    0.43333333333333335
+  ],
+  "b3_recovery": 0.08666666666666667,
+  "dce_found_rate": 0.45166666666666666,
+  "locked_t4_reference": {
+    "b3_recovery": 0.07,
+    "dce_found_rate": 0.47
+  },
+  "pass": true,
+  "git": {
+    "commit": "897e6035fa8ef8179f0f41858b2c3bdcebba6461",
+    "dirty": false
+  }
+}
