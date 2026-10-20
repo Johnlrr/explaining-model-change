@@ -496,3 +496,11 @@ Diagnosis (no criterion changed after seeing results):
 Sampling note: the first attempt aborted with "no valid z0" (rejection on N(0, 1) biases has near-zero acceptance for some draws). Biases are therefore drawn so that z0 is valid, m_o(z0), m_n(z0) ∈ [κ, κ + 2]; this changes the sampler, not any criterion.
 
 Reading for the paper: the closed forms hold (distance within 1e-3 on all 2 000 rotation instances; algebra to 1e-15; the corollary criterion agrees with the closed form on all instances; existence agrees on all but one instance at p = 5). The stated claim "checked against the same solver" must carry the caveats above; the pre-declared vector and tie criteria are not met at p = 5.
+
+## 2026-10-20 — Decomposition of the locked H5d gap (exp_0026 saved outputs, descriptive, author's request)
+
+Pairs 36, 37, 44, 45 (k* = colour, projected at z0). gap_all = fr·gap_S + (fr·Rec_S(B3) − Rec_all(B3)), where
+fr = Δ-CE found-rate and S = Δ-CE support. Mean over pairs: gap_all −0.352 = geometry −0.168 + found-rate −0.184;
+gap on the support −0.234 (per pair −0.24, −0.19, −0.24, −0.26; fr 0.64, 0.61, 0.81, 0.78). Validation dev (exp_0030):
+−0.19 on S. Computed from the saved per-point outputs; nothing re-run, no test data regenerated. For the v1.10 summary
+and the rewrite of the paper sentence on H5d.
