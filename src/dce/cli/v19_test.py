@@ -199,11 +199,12 @@ def cmd_analyze(cfg, out: Path) -> int:
 
 
 def cmd_figure(cfg, out: Path) -> int:
-    from dce.analysis.v19_figure import make_map
+    from dce.analysis.v19_figure import PRINT, make_map
 
     rows = json.loads((out / "results.json").read_text())["descriptive"]["pairs"]
     make_map(rows, out / "map_v19.pdf")
-    print(f"figure written to {out / 'map_v19.pdf'}")
+    make_map(rows, out / "map_v19_print.pdf", **PRINT)      # paper size, 8 pt text at 1:1
+    print(f"figures written to {out / 'map_v19.pdf'} and {out / 'map_v19_print.pdf'}")
     return 0
 
 
