@@ -1,0 +1,15 @@
+{
+  "holm_m": 2,
+  "H7c": {
+    "p_holm": 0.0002,
+    "confirmed": true
+  },
+  "H8": {
+    "p_holm": 0.0006,
+    "confirmed": true
+  },
+  "git": {
+    "commit": "d05e21a353d99d19cc13d9673fcc65651fe8d6ad",
+    "dirty": false
+  }
+}
