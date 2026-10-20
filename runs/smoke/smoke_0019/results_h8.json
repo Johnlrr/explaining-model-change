@@ -1,0 +1,196 @@
+{
+  "label": "v1.10 T-B (D-043)",
+  "H8": {
+    "pairs": [
+      36,
+      37,
+      44,
+      45
+    ],
+    "cell": [
+      "zs",
+      "z0"
+    ],
+    "support_sizes": [
+      9,
+      5,
+      7,
+      5
+    ],
+    "gap": {
+      "z0,z0": -0.2246031746031746,
+      "z0,zs": -0.2246031746031746,
+      "zs,z0": -0.02777777777777779,
+      "zs,zs": -0.06349206349206352
+    },
+    "gap_ci90": {
+      "z0,z0": [
+        -0.3388888888888889,
+        -0.11111111111111112
+      ],
+      "z0,zs": [
+        -0.3515873015873016,
+        -0.09353174603174613
+      ],
+      "zs,z0": [
+        -0.13492063492063494,
+        0.09126984126984128
+      ],
+      "zs,zs": [
+        -0.13492063492063494,
+        0.0
+      ]
+    },
+    "T": 0.16904761904761903,
+    "T_ci_lower95": -0.07150793650793649,
+    "p_one_sided": 0.159,
+    "guard_rec_b3": 0.9087301587301587,
+    "testable": true,
+    "criterion": "T ci95 lower > 0 and p_holm < 0.05 and guard_rec_b3 >= 0.50; not testable if gap(z0,z0) ci90 contains 0",
+    "pass_before_holm": false
+  },
+  "descriptive": {
+    "pairs": [
+      {
+        "pair_id": 36,
+        "alpha": 0.25,
+        "t": 0.5,
+        "seed": 0,
+        "support": 9,
+        "found_rate": 0.9,
+        "confirmatory": true,
+        "rec": {
+          "z0,z0": [
+            0.2222222222222222,
+            0.7777777777777778
+          ],
+          "z0,zs": [
+            0.2222222222222222,
+            0.7777777777777778
+          ],
+          "zs,z0": [
+            0.6666666666666666,
+            0.7777777777777778
+          ],
+          "zs,zs": [
+            0.6666666666666666,
+            0.7777777777777778
+          ]
+        },
+        "rec_unprojected_all_points": [
+          0.0,
+          0.7
+        ],
+        "median_dist": 0.3175041973590851,
+        "median_one_minus_cos": 0.10542022069939716
+      },
+      {
+        "pair_id": 37,
+        "alpha": 0.25,
+        "t": 0.5,
+        "seed": 1,
+        "support": 5,
+        "found_rate": 0.5,
+        "confirmatory": true,
+        "rec": {
+          "z0,z0": [
+            1.0,
+            1.0
+          ],
+          "z0,zs": [
+            1.0,
+            1.0
+          ],
+          "zs,z0": [
+            1.0,
+            1.0
+          ],
+          "zs,zs": [
+            1.0,
+            1.0
+          ]
+        },
+        "rec_unprojected_all_points": [
+          0.3,
+          0.9
+        ],
+        "median_dist": 0.37040597200393677,
+        "median_one_minus_cos": 0.03825775103197926
+      },
+      {
+        "pair_id": 44,
+        "alpha": 0.5,
+        "t": 0.5,
+        "seed": 0,
+        "support": 7,
+        "found_rate": 0.7,
+        "confirmatory": true,
+        "rec": {
+          "z0,z0": [
+            0.8571428571428571,
+            1.0
+          ],
+          "z0,zs": [
+            0.8571428571428571,
+            1.0
+          ],
+          "zs,z0": [
+            0.8571428571428571,
+            0.8571428571428571
+          ],
+          "zs,zs": [
+            0.8571428571428571,
+            1.0
+          ]
+        },
+        "rec_unprojected_all_points": [
+          0.4,
+          0.9
+        ],
+        "median_dist": 0.32003775238990784,
+        "median_one_minus_cos": 0.14786458149744908
+      },
+      {
+        "pair_id": 45,
+        "alpha": 0.5,
+        "t": 0.5,
+        "seed": 1,
+        "support": 5,
+        "found_rate": 0.5,
+        "confirmatory": true,
+        "rec": {
+          "z0,z0": [
+            0.8,
+            1.0
+          ],
+          "z0,zs": [
+            0.8,
+            1.0
+          ],
+          "zs,z0": [
+            1.0,
+            1.0
+          ],
+          "zs,zs": [
+            1.0,
+            1.0
+          ]
+        },
+        "rec_unprojected_all_points": [
+          0.3,
+          1.0
+        ],
+        "median_dist": 0.41384461522102356,
+        "median_one_minus_cos": 0.19840864975960293
+      }
+    ],
+    "spearman_h8_pairs": {
+      "proj_dev~dist": 0.18085470085470085,
+      "proj_dev~one_minus_cos": 0.7251282051282051
+    }
+  },
+  "git": {
+    "commit": "f05d127dab4ca8db29f0e5e46d493109eefbd1ee",
+    "dirty": true
+  }
+}

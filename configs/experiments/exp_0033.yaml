@@ -1,0 +1,13 @@
+# exp_0033 — v1.10 T-B test run (D-043, §3): H8 on the H5d pairs 36, 37, 44, 45 (confirmatory, listed first);
+# the other 20 α > 0 grid pairs are descriptive. Models: exp_0025 f_new, exp_0002 f_old (hash-verified).
+# Data per pair: new_test_set(9000 + pair_id, 5 000), generated here, used once for H8 (§6.1).
+experiment_id: exp_0033
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+models_run: runs/experiments/exp_0025
+data_seed_base: 9000
+n_samples: 5000
+n_points: 300
+pair_ids: [36, 37, 44, 45, 28, 29, 30, 31, 32, 33, 34, 35, 38, 39, 40, 41, 42, 43, 46, 47, 48, 49, 50, 51]
+bootstrap_resamples: 10000
+threads: 8

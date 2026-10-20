@@ -1,5 +1,6 @@
 """v1.10 (D-043): label-shift corollaries (T-A), H8 2×2 scoring, T-C slack, locked-seed guard."""
 
+import json
 from pathlib import Path
 
 import numpy as np
@@ -166,3 +167,32 @@ def test_ta_analyze_checks_and_h7c():
     bad[69] = _ta_pair(69, 2.0, [True, False, False, False], [1, 0, 1, 1], [1.0, 3, 3, 3], [True] * 4)
     with pytest.raises(SystemExit, match="raised class"):
         ta_analyze(bad, 0.5, B=50)
+
+
+def _tb_arrays(n, rng):
+    """Δ-CE change: colour + a component along the old normal at z0 (aspect); at z* the normal mixes colour, so the
+    local projection removes less colour… built so that every cell is computable."""
+    found = rng.random(n) < 0.7
+    d = np.zeros((n, 5)); d[:, 0] = 1.0; d[:, 2] = 0.6; d[~found] = 0
+    b3 = np.zeros((n, 5)); b3[:, 2] = 1.0; b3[:, 0] = 0.2
+    g0 = np.zeros((n, 5)); g0[:, 0] = 1.0
+    gs = np.zeros((n, 5)); gs[:, 0] = 1.0; gs[:, 2] = 0.1
+    z0 = rng.random((n, 5)); zs = z0 + d
+    return {"dce__found": found, "dce__dphi": d, "b3_z0__found": np.ones(n, bool), "b3_z0__dphi": b3,
+            "b3_zs__found": np.ones(n, bool), "b3_zs__dphi": b3, "grad_z0": g0, "grad_zs": gs, "z0": z0, "zs": zs}
+
+
+def test_tb_analyze_and_holm(tmp_path):
+    from dce.cli.v110_test import H8_PAIRS, cmd_holm, tb_analyze
+    rng = np.random.default_rng(0)
+    pairs = {p: ({"pair_id": p, "alpha": 0.25, "t": 0.5, "seed": 0}, _tb_arrays(40, rng)) for p in (*H8_PAIRS, 28)}
+    res = tb_analyze(pairs, B=300)
+    h8 = res["H8"]
+    assert h8["cell"] == ["zs", "z0"] and h8["pairs"] == list(H8_PAIRS) and len(h8["support_sizes"]) == 4
+    assert len(res["descriptive"]["pairs"]) == 5 and set(res["descriptive"]["spearman_h8_pairs"]) == {
+        "proj_dev~dist", "proj_dev~one_minus_cos"}
+    (tmp_path / "h7.json").write_text(json.dumps({"H7c": {"p_one_sided": 0.001, "pass_before_holm": True}}))
+    (tmp_path / "h8.json").write_text(json.dumps({"H8": {**h8, "testable": False}}))
+    cmd_holm(tmp_path / "h7.json", tmp_path / "h8.json", tmp_path / "holm.json")
+    out = json.loads((tmp_path / "holm.json").read_text())
+    assert out["holm_m"] == 1 and out["H7c"]["confirmed"] and "not testable" in out["H8"]["status"]

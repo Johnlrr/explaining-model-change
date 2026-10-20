@@ -1,0 +1,10 @@
+# smoke_0019 — v1.10 T-B pipeline on VALIDATION (same code path as exp_0033, `data: val`, 10 points, 4 pairs + tb-analyze).
+experiment_id: smoke_0019
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+models_run: runs/experiments/exp_0025
+data: val
+n_points: 10
+pair_ids: [36, 37, 44, 45]
+bootstrap_resamples: 1000
+threads: 4
