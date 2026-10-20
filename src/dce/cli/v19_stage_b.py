@@ -5,7 +5,9 @@ train     — 5 f_old (MLP, 20 epochs, lr 1e-3) and 5 f_new (fine-tune on a 10 0
 qualify   — DD ≤ 0.02 on the first 2 000 validation points (κ = 0.5) and f_old validation accuracy ≥ 0.80, reported with
             the validation majority-class rate.
 calibrate — r = 2 × median CE(f_new) distance, r = ∞, on 300 valid validation points of pair B_0 (spec §6.3); once.
-No test-split value is read by any stage.
+test      — (D-042, after the author's confirmation) Adult test split: Δ-CE N, Δ-CE O, B1-det on 300 valid points per pair
+            with the frozen r_B; then H6: union N ∪ O found-rate ≤ 0.05 and B1-det found-rate ≥ 0.90 on every pair.
+Only `test` reads the test split.
 """
 
 from __future__ import annotations
@@ -122,15 +124,70 @@ def cmd_calibrate(cfg, out: Path) -> int:
     return 0
 
 
+def cmd_test(cfg, out: Path) -> int:
+    from dce.baselines.b1_diff import b1_diff
+    from dce.eval.records import from_points
+    from dce.solvers.dce import delta_ce
+
+    res_path = out / "h6.json"
+    if res_path.exists():
+        raise SystemExit("refusing to overwrite h6.json (the test split is used once)")
+    r = json.loads((Path(cfg["calibration_run"]) / "r_calibration.json").read_text())["r"]
+    if abs(r - cfg["r_frozen"]) > 1e-12:
+        raise SystemExit(f"r {r} differs from the frozen value {cfg['r_frozen']}")
+    q = json.loads((Path(cfg["calibration_run"]) / "qualification.json").read_text())
+    qualified = {p["seed"] for p in q["pairs"] if p["qualified"]}
+    torch.set_num_threads(cfg["threads"])
+    data = adult_splits(Path(cfg["data_path"]), seed=cfg["split_seed"])
+    split = cfg.get("eval_split", "test")      # smoke: "val", same path
+    xt, yt = data.x[split], data.y[split]
+    base = solver_config(cfg, r=float(r))
+    (out / "pairs").mkdir(parents=True, exist_ok=True)
+    rows = []
+    for s in cfg["seeds_list"]:
+        src = Path(cfg["calibration_run"])
+        f_old, f_new = load(src, f"f_old_s{s}"), load(src, f"f_new_B{s}")
+        keep = valid_points(xt, yt, TabMargin(f_old, yt), TabMargin(f_new, yt), cfg["n_points"],
+                            cfg["seeds"]["points_base"] + s, cfg["kappa"])
+        z0 = torch.as_tensor(xt[keep], dtype=torch.float32)
+        m_old, m_new = TabMargin(f_old, yt[keep]), TabMargin(f_new, yt[keep])
+        seed = cfg["seeds"]["restart_base"] + s
+        t0 = time.time()
+        arrays = {"point_ids": keep, "y": yt[keep], "z0": z0.numpy()}
+        for kind in ("N", "O"):
+            res = delta_ce(z0, m_old, m_new, base, seed, kind=kind)
+            o = from_points(res.found, res.z, z0)
+            arrays[f"dce_{kind}__found"], arrays[f"dce_{kind}__dphi"] = o.found, o.dphi
+        valid, _, ce_o, ce_n = b1_diff(z0, m_old, m_new, base, seed, deterministic=True)
+        o = from_points(valid, ce_n.z, ce_o.z)
+        arrays["b1_det__found"], arrays["b1_det__dphi"] = o.found, o.dphi
+        np.savez_compressed(out / "pairs" / f"pair_B{s}.npz", **arrays)
+        union = arrays["dce_N__found"] | arrays["dce_O__found"]
+        rows.append({"pair": f"B{s}", "seed": s, "qualified": s in qualified, "n_points": len(keep),
+                     "dce_N_found_rate": float(arrays["dce_N__found"].mean()), "dce_O_found_rate": float(arrays["dce_O__found"].mean()),
+                     "dce_union_found_rate": float(union.mean()), "b1_det_found_rate": float(arrays["b1_det__found"].mean()),
+                     "wall_s": round(time.time() - t0, 1)})
+        print(f"pair B{s} done in {rows[-1]['wall_s']} s", flush=True)
+    q_rows = [x for x in rows if x["qualified"]]
+    h6 = {"r_B": r, "kappa": cfg["kappa"], "split": split, "pairs": rows, "n_qualified": len(q_rows),
+          "dce_union_max": max(x["dce_union_found_rate"] for x in q_rows), "b1_det_min": min(x["b1_det_found_rate"] for x in q_rows),
+          "criterion": "union N∪O found-rate <= 0.05 AND B1-det found-rate >= 0.90 on every qualified pair (D-042)",
+          "git": git_state()}
+    h6["H6_confirmed"] = bool(q_rows and h6["dce_union_max"] <= 0.05 and h6["b1_det_min"] >= 0.90)
+    res_path.write_text(json.dumps(h6, indent=2))
+    print(json.dumps({k: h6[k] for k in ("dce_union_max", "b1_det_min", "H6_confirmed")}))
+    return 0
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("stage", choices=("train", "qualify", "calibrate"))
+    ap.add_argument("stage", choices=("train", "qualify", "calibrate", "test"))
     ap.add_argument("--config", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
     args = ap.parse_args(argv)
     cfg = load_config(args.config)
     print(f"config sha256 {sha256(args.config)}", flush=True)
-    return {"train": cmd_train, "qualify": cmd_qualify, "calibrate": cmd_calibrate}[args.stage](cfg, args.out)
+    return {"train": cmd_train, "qualify": cmd_qualify, "calibrate": cmd_calibrate, "test": cmd_test}[args.stage](cfg, args.out)
 
 
 if __name__ == "__main__":

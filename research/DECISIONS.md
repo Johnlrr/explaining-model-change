@@ -1075,6 +1075,14 @@ Active (Research Lead, 2026-10-20). **Recorded after the first `analyze` output 
 
 ---
 
+## D-042 — Stage B test run details and the null-offset diagnostic (declared before the Adult test split is read)
+Active (Research Lead on the author's authorisation of 2026-10-20). **Fixed before any Adult test value is computed.**
+- **Stage B test (exp_0028):** Adult test split (seed-2026 split, D-040 [0, 1] map); per pair B_s 300 valid points (κ = 0.5, order seed 5000 + s, as the calibration), restarts 10000 + s; r_B = 0.8693 (exp_0027), Tier 0 solver settings. Methods: Δ-CE type N and type O, B1-det. CPU (8 threads): the MLP solves in seconds, a GPU job would not be faster.
+- **H6 "found-rate of Δ-CE"** = the union N ∪ O per point, as C2 (D-034) for null pairs; N and O are reported separately too. H6 confirmed iff union found-rate ≤ 0.05 on every qualified pair AND B1-det found-rate ≥ 0.90 on every qualified pair.
+- **Diagnostic (descriptive, author's request):** t̂ − t̂_old with the v1.9.1 measurement (same 5 000 validation points, logistic fit) for the 8 locked null pairs (N0 pairs 9–13, N1 pairs 14–16; exp_0002 checkpoints, hash-verified). Joined table with pairs 20–27: t̂ − t̂_old, validation DD (locked: exp_0004 `decisive_disagreement_all`), test Δ-CE found-rate at κ = 0.5 (locked: exp_0019 and exp_0017, read from saved outputs, N and O), witness class (y = 1[aspect > 0.5] of z0). No method is re-run on a locked pair.
+
+---
+
 ## 12. Decision conflicts
 
 Conflicts between the spec and the protocol are resolved in favour of `docs/EVALUATION.md` (D-011, spec amendment v1.1) and the layout in AGENTS.md (D-001).
