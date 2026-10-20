@@ -25,7 +25,7 @@ import numpy as np
 import torch
 
 from dce.analysis.projection import old_margin_gradients
-from dce.analysis.v19 import consistency, descriptive, h5
+from dce.analysis.v19 import consistency, descriptive, exclusions_d038, h5
 from dce.baselines.b1_diff import b1_diff
 from dce.baselines.b3_grad import b3_grad
 from dce.cli.calibrate_r import solver_config
@@ -187,9 +187,10 @@ def cmd_analyze(cfg, out: Path) -> int:
         raise SystemExit("refusing to overwrite results.json")
     _, grid = qualification(cfg)
     pairs = load_pairs(out, [p["pair_id"] for p in grid_pairs()])
-    res = {"label": "D-036 Stage A (v1.9, v1.9.1, D-038, D-039)", "exclusions": grid["exclusions"],
+    excl = exclusions_d038(grid, {p["pair_id"]: (p["alpha"], p["t"], p["seed"]) for p in grid_pairs()})
+    res = {"label": "D-036 Stage A (v1.9, v1.9.1, D-038, D-039)", "exclusions_d038": excl,
            "order_violations": grid["order_violations"], "consistency": con,
-           "H5": h5(pairs, grid["exclusions"], B=cfg["bootstrap_resamples"]), "descriptive": descriptive(pairs)}
+           "H5": h5(pairs, excl, B=cfg["bootstrap_resamples"]), "descriptive": descriptive(pairs)}
     (out / "results.json").write_text(json.dumps(res, indent=2, default=float))
     meta.update(status="ANALYZED", analysis_git=git_state())
     (out / "metadata.json").write_text(json.dumps(meta, indent=2))

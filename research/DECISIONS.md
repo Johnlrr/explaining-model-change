@@ -1070,6 +1070,11 @@ Active (Research Lead, 2026-10-19). **Fixed in code (`src/dce/analysis/v19.py`, 
 
 ---
 
+## D-041 — exp_0026 analysis: exclusion bug found AFTER seeing results, fixed to the pre-declared D-038 rule
+Active (Research Lead, 2026-10-20). **Recorded after the first `analyze` output was seen.** The first analysis (commit a4c8860 code 11c89c7) passed exp_0025's `grid.exclusions` — computed under the pre-D-038 reading "(2b) drops both pairs of a violating step" — instead of the D-038 rule. Effect: H5b lost pair 29, H5c reported "not testable", Holm m = 3. The fix implements exactly D-038 (declared before the test set): H5a drops {22, 23}, H5b/H5c/H5d drop none, H5c keeps both seeds via (2c); Holm m = 4. No statistic, seed, criterion or threshold changes. The superseded output is kept as `runs/experiments/exp_0026/results_SUPERSEDED_wrong_exclusions.json` (and SUPERSEDED_map_v19.*). Both versions are reported in `research/results_v19.md`.
+
+---
+
 ## 12. Decision conflicts
 
 Conflicts between the spec and the protocol are resolved in favour of `docs/EVALUATION.md` (D-011, spec amendment v1.1) and the layout in AGENTS.md (D-001).

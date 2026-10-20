@@ -159,3 +159,16 @@ def test_v19_map_renders(tmp_path):
 
     make_map(descriptive(_synthetic_pairs())["pairs"], tmp_path / "map.pdf")
     assert (tmp_path / "map.pdf").stat().st_size > 0 and (tmp_path / "map.png").exists()
+
+
+def test_exclusions_d038_on_the_exp_0025_grid():
+    """D-038: on the recorded exp_0025 qualification, only H5a loses pairs (22, 23); (2b) drops nothing."""
+    import json
+    from pathlib import Path
+
+    from dce.analysis.v19 import exclusions_d038
+
+    q = json.loads(Path("runs/experiments/exp_0025/qualification.json").read_text())
+    ex = exclusions_d038(q["grid"], {p["pair_id"]: (p["alpha"], p["t"], p["seed"]) for p in grid_pairs()})
+    assert {e["pair_id"] for e in ex["H5a"]} == {22, 23}
+    assert ex["H5b"] == [] and ex["H5c"] == [] and ex["H5d"] == []

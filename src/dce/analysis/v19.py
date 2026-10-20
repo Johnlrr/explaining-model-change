@@ -66,6 +66,28 @@ def cell_pairs(pairs: dict, cells, exclude=()) -> list[tuple[dict, dict]]:
     return [pairs[p] for p in sorted(pairs) if (pairs[p][0]["alpha"], pairs[p][0]["t"]) in cells and p not in exclude]
 
 
+def exclusions_d038(grid: dict, pair_cells: dict) -> dict:
+    """D-038 reading of v1.9.1: (2b) drops no pair; every test drops pairs failing (1)/(3)/(2a); H5c also drops the
+    seeds failing (2c). `grid` is `grid_checks_v191` output, `pair_cells` maps pair_id → (α, t, seed)."""
+    from dce.analysis.qualification import TESTS
+
+    per = {int(k): v for k, v in grid["per_pair"].items()}
+    c2c = {int(k): v for k, v in grid["c2c"].items()}
+    out = {}
+    for name, cells in TESTS.items():
+        rows = []
+        for pid, (a, t, s) in sorted(pair_cells.items()):
+            if (a, t) not in cells:
+                continue
+            why = [] if per[pid]["base_qualified"] else ["not qualified (1)/(3)/(2a)"]
+            if name == "H5c" and not c2c.get(s, {}).get("ok", False):
+                why.append("(2c)")
+            if why:
+                rows.append({"pair_id": pid, "alpha": a, "t": t, "seed": s, "reasons": why})
+        out[name] = rows
+    return out
+
+
 def consistency(pairs: dict) -> dict:
     """v1.9 §5.3 on cell (0, 0.60): pooled Recovery(B3) ≤ 0.20 and Δ-CE found-rate in [0.30, 0.65]."""
     sel = cell_pairs(pairs, {(0.0, 0.60)})
