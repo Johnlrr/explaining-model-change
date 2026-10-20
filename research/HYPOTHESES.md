@@ -413,6 +413,35 @@ Report with H-002.
 
 ---
 
+## H-008 — Rotation × offset detection rules from Proposition 2 (v1.9 H5a–H5d)
+
+### ID / type / status
+H-008 (H5a–H5d of spec amendment v1.9, D-036); mechanistic; **mixed: H5a, H5b supported; H5c, H5d not supported** (2026-10-20).
+
+### Observation
+exp_0017/exp_0019: B3 is blind to the T4 threshold shift (C1) but the projection explanation failed on T1 (C3). Proposition 2 (P5) predicts which change type each method family can see.
+
+### Hypothesis and prediction (pre-declared, v1.9 §3)
+H5a offset makes B3 blind (pooled B3 Recovery on α = 0, t > 0.5: CI95 upper ≤ 0.20); H5b B3 sees rotation and more with angle (Rec(0.5, 0.5) − Rec(0.1, 0.5): CI95 lower > 0); H5c B3 does not depend on offset (Rec(0.25, 0.60) − Rec(0.25, 0.50): CI90 ⊂ ±0.10); H5d after projection Δ-CE and B3 coincide on rotation (α ∈ {0.25, 0.5}, t = 0.5: CI90 ⊂ ±0.10). Holm m = 4.
+
+### Experiments
+exp_0024 (pilot), exp_0025 (32 pairs, qualification; D-037, D-038), exp_0026 (test run, CPU, locked solver; D-039; analysis bug D-041).
+
+### Results (exp_0026, D-038 exclusions)
+- §5.3 consistency (cell (0, 0.60)): B3 0.087, Δ-CE found 0.452 → pass (locked T4: 0.07, 0.47).
+- H5a: 0.081, CI95 [0.066, 0.096], p_Holm 0.0004 → **supported**.
+- H5b: 0.930 − 0.360 = +0.570, CI95 [0.527, 0.613], p_Holm 0.0004 → **supported**.
+- H5c: 0.583 − 0.682 = −0.098, CI90 [−0.143, −0.053], p_Holm 0.944 → **not supported** (B3 loses ≈ 0.10 with offset; CI leaves the ±0.10 margin).
+- H5d: −0.352, CI90 [−0.378, −0.327] (unprojected −0.545), p_Holm 1.0 → **not supported**; pre-declared reading (v1.9 §3): the linear analysis does not transfer to the CNN even for a rotation with small measured offset.
+
+### Conclusion
+The two detection rules (offset → B3 blind; rotation → B3 sees it, increasingly with angle) hold on CNNs under continuous control. The offset-invariance of B3 and the projection equivalence do not. Details: `research/results_v19.md`.
+
+### Follow-up
+Stage B (H6, Adult abstention): r calibrated (0.8693); test awaits the author's confirmation.
+
+---
+
 ## 4. Hypothesis template
 
 Use the template from the earlier version of this file (preserved in git history) when a hypothesis is added. Required fields: ID, type, status, origin, contribution quality, hypothesis, rationale, predictions, falsification signals, controlled variables, minimal experiment, confirmation procedure, parent, prior-work relation, experiments, results, conclusion, follow-up.

@@ -21,5 +21,17 @@
   "torch": "2.14.1+cpu",
   "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
   "device": "cpu (8 threads)",
-  "status": "RUN_COMPLETE"
+  "status": "ANALYZED",
+  "superseded_analysis": {
+    "analysis_git": {
+      "commit": "a4c8860d898ae5016210f5cc42093497d42c60b2",
+      "dirty": false
+    },
+    "file": "results_SUPERSEDED_wrong_exclusions.json",
+    "reason": "D-041"
+  },
+  "analysis_git": {
+    "commit": "39e9fa4463e6dfb53dbe81a3c16276724a52a6ba",
+    "dirty": false
+  }
 }
