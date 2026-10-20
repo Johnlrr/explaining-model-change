@@ -438,7 +438,26 @@ exp_0024 (pilot), exp_0025 (32 pairs, qualification; D-037, D-038), exp_0026 (te
 The two detection rules (offset → B3 blind; rotation → B3 sees it, increasingly with angle) hold on CNNs under continuous control. The offset-invariance of B3 and the projection equivalence do not. Details: `research/results_v19.md`.
 
 ### Follow-up
-Stage B (H6, Adult abstention): r calibrated (0.8693); test awaits the author's confirmation.
+Stage B → H-009. Diagnostic of measured offsets on null pairs: `research/results_v19.md` §7.
+
+---
+
+## H-009 — Abstention on real tabular null pairs (v1.9 H6, Adult)
+
+### ID / type / status
+H-009 (H6 of v1.9, D-036); other (external validity of C2); **supported** (2026-10-20).
+
+### Hypothesis and prediction (pre-declared, v1.9 §4; D-040, D-042)
+On 5 Adult null pairs (MLP 6-64-64-2; f_new = N0-style fine-tune), Δ-CE (N ∪ O) found-rate ≤ 0.05 on every qualified pair AND B1-det found-rate ≥ 0.90 on every qualified pair (300 valid test points, r_B frozen on validation).
+
+### Experiments
+exp_0027 (train, qualification 5/5, r_B = 0.8693), exp_0028 (test, once).
+
+### Results
+Δ-CE N ∪ O found-rate 0.000 on all five pairs; B1-det 0.977–1.000 → **confirmed**.
+
+### Conclusion
+The null-pair abstention of C2 carries over to real tabular data in this setting. Limits: decisive disagreement is rare on these pairs (validation DD 0.000); no decoder to a manifold, so abstention only; integer features treated as continuous.
 
 ---
 
