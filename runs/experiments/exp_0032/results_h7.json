@@ -1,0 +1,366 @@
+{
+  "label": "v1.10 T-A (D-043)",
+  "checks_U1_U3": "passed",
+  "H7c": {
+    "n_pairs": 12,
+    "estimate": 0.9613888888888888,
+    "ci95": [
+      0.955,
+      0.9674999999999999
+    ],
+    "p_one_sided": 0.0001,
+    "per_pair_found_b1_det": [
+      0.95,
+      0.9966666666666667,
+      0.96,
+      0.9466666666666667,
+      0.94,
+      0.9833333333333333,
+      0.97,
+      0.9566666666666667,
+      0.9366666666666666,
+      0.9966666666666667,
+      0.9733333333333334,
+      0.9266666666666666
+    ],
+    "min_per_pair": 0.9266666666666666,
+    "criterion": "ci95 lower > 0.90 and p_holm < 0.05 (Holm with H8) and every pair >= 0.90",
+    "pass_before_holm": true
+  },
+  "descriptive": [
+    {
+      "pair_id": 60,
+      "seed": 0,
+      "b": -2.0,
+      "found_dce": 0.36333333333333334,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 109,
+      "found_b1_det": 0.8166666666666667,
+      "rec_dce_aspect": 0.36333333333333334,
+      "rec_b1_det_aspect": 0.7433333333333333
+    },
+    {
+      "pair_id": 61,
+      "seed": 0,
+      "b": -1.5,
+      "found_dce": 0.49333333333333335,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 148,
+      "found_b1_det": 0.9133333333333333,
+      "rec_dce_aspect": 0.49333333333333335,
+      "rec_b1_det_aspect": 0.8233333333333334
+    },
+    {
+      "pair_id": 62,
+      "seed": 0,
+      "b": -1.1,
+      "found_dce": 0.52,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 156,
+      "found_b1_det": 0.9733333333333334,
+      "rec_dce_aspect": 0.52,
+      "rec_b1_det_aspect": 0.7633333333333333
+    },
+    {
+      "pair_id": 63,
+      "seed": 0,
+      "b": -0.9,
+      "found_dce": 0.0,
+      "found_dce_lowered": 0.0,
+      "n_lowered": 158,
+      "found_b1_det": 0.95,
+      "rec_dce_aspect": 0.0,
+      "rec_b1_det_aspect": 0.7233333333333334
+    },
+    {
+      "pair_id": 64,
+      "seed": 0,
+      "b": -0.5,
+      "found_dce": 0.0,
+      "found_dce_lowered": 0.0,
+      "n_lowered": 161,
+      "found_b1_det": 0.9966666666666667,
+      "rec_dce_aspect": 0.0,
+      "rec_b1_det_aspect": 0.5933333333333334
+    },
+    {
+      "pair_id": 65,
+      "seed": 0,
+      "b": 0.5,
+      "found_dce": 0.0,
+      "found_dce_lowered": 0.0,
+      "n_lowered": 130,
+      "found_b1_det": 0.96,
+      "rec_dce_aspect": 0.0,
+      "rec_b1_det_aspect": 0.5866666666666667
+    },
+    {
+      "pair_id": 66,
+      "seed": 0,
+      "b": 0.9,
+      "found_dce": 0.0,
+      "found_dce_lowered": 0.0,
+      "n_lowered": 122,
+      "found_b1_det": 0.9466666666666667,
+      "rec_dce_aspect": 0.0,
+      "rec_b1_det_aspect": 0.75
+    },
+    {
+      "pair_id": 67,
+      "seed": 0,
+      "b": 1.1,
+      "found_dce": 0.3933333333333333,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 118,
+      "found_b1_det": 0.9066666666666666,
+      "rec_dce_aspect": 0.3933333333333333,
+      "rec_b1_det_aspect": 0.72
+    },
+    {
+      "pair_id": 68,
+      "seed": 0,
+      "b": 1.5,
+      "found_dce": 0.43,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 129,
+      "found_b1_det": 0.8833333333333333,
+      "rec_dce_aspect": 0.43,
+      "rec_b1_det_aspect": 0.7566666666666667
+    },
+    {
+      "pair_id": 69,
+      "seed": 0,
+      "b": 2.0,
+      "found_dce": 0.4033333333333333,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 121,
+      "found_b1_det": 0.77,
+      "rec_dce_aspect": 0.39666666666666667,
+      "rec_b1_det_aspect": 0.71
+    },
+    {
+      "pair_id": 70,
+      "seed": 1,
+      "b": -2.0,
+      "found_dce": 0.36,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 108,
+      "found_b1_det": 0.8166666666666667,
+      "rec_dce_aspect": 0.36,
+      "rec_b1_det_aspect": 0.7566666666666667
+    },
+    {
+      "pair_id": 71,
+      "seed": 1,
+      "b": -1.5,
+      "found_dce": 0.4033333333333333,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 121,
+      "found_b1_det": 0.88,
+      "rec_dce_aspect": 0.4033333333333333,
+      "rec_b1_det_aspect": 0.75
+    },
+    {
+      "pair_id": 72,
+      "seed": 1,
+      "b": -1.1,
+      "found_dce": 0.41333333333333333,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 124,
+      "found_b1_det": 0.9366666666666666,
+      "rec_dce_aspect": 0.41333333333333333,
+      "rec_b1_det_aspect": 0.7
+    },
+    {
+      "pair_id": 73,
+      "seed": 1,
+      "b": -0.9,
+      "found_dce": 0.0,
+      "found_dce_lowered": 0.0,
+      "n_lowered": 132,
+      "found_b1_det": 0.94,
+      "rec_dce_aspect": 0.0,
+      "rec_b1_det_aspect": 0.5933333333333334
+    },
+    {
+      "pair_id": 74,
+      "seed": 1,
+      "b": -0.5,
+      "found_dce": 0.0,
+      "found_dce_lowered": 0.0,
+      "n_lowered": 132,
+      "found_b1_det": 0.9833333333333333,
+      "rec_dce_aspect": 0.0,
+      "rec_b1_det_aspect": 0.5866666666666667
+    },
+    {
+      "pair_id": 75,
+      "seed": 1,
+      "b": 0.5,
+      "found_dce": 0.0,
+      "found_dce_lowered": 0.0,
+      "n_lowered": 153,
+      "found_b1_det": 0.97,
+      "rec_dce_aspect": 0.0,
+      "rec_b1_det_aspect": 0.65
+    },
+    {
+      "pair_id": 76,
+      "seed": 1,
+      "b": 0.9,
+      "found_dce": 0.0,
+      "found_dce_lowered": 0.0,
+      "n_lowered": 134,
+      "found_b1_det": 0.9566666666666667,
+      "rec_dce_aspect": 0.0,
+      "rec_b1_det_aspect": 0.69
+    },
+    {
+      "pair_id": 77,
+      "seed": 1,
+      "b": 1.1,
+      "found_dce": 0.42333333333333334,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 127,
+      "found_b1_det": 0.9166666666666666,
+      "rec_dce_aspect": 0.42,
+      "rec_b1_det_aspect": 0.6766666666666666
+    },
+    {
+      "pair_id": 78,
+      "seed": 1,
+      "b": 1.5,
+      "found_dce": 0.43666666666666665,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 131,
+      "found_b1_det": 0.9066666666666666,
+      "rec_dce_aspect": 0.43333333333333335,
+      "rec_b1_det_aspect": 0.7533333333333333
+    },
+    {
+      "pair_id": 79,
+      "seed": 1,
+      "b": 2.0,
+      "found_dce": 0.33666666666666667,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 101,
+      "found_b1_det": 0.77,
+      "rec_dce_aspect": 0.29,
+      "rec_b1_det_aspect": 0.6966666666666667
+    },
+    {
+      "pair_id": 80,
+      "seed": 2,
+      "b": -2.0,
+      "found_dce": 0.4033333333333333,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 121,
+      "found_b1_det": 0.8333333333333334,
+      "rec_dce_aspect": 0.4,
+      "rec_b1_det_aspect": 0.7466666666666667
+    },
+    {
+      "pair_id": 81,
+      "seed": 2,
+      "b": -1.5,
+      "found_dce": 0.4033333333333333,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 121,
+      "found_b1_det": 0.92,
+      "rec_dce_aspect": 0.4033333333333333,
+      "rec_b1_det_aspect": 0.8033333333333333
+    },
+    {
+      "pair_id": 82,
+      "seed": 2,
+      "b": -1.1,
+      "found_dce": 0.4166666666666667,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 125,
+      "found_b1_det": 0.9233333333333333,
+      "rec_dce_aspect": 0.4166666666666667,
+      "rec_b1_det_aspect": 0.7433333333333333
+    },
+    {
+      "pair_id": 83,
+      "seed": 2,
+      "b": -0.9,
+      "found_dce": 0.0,
+      "found_dce_lowered": 0.0,
+      "n_lowered": 126,
+      "found_b1_det": 0.9366666666666666,
+      "rec_dce_aspect": 0.0,
+      "rec_b1_det_aspect": 0.72
+    },
+    {
+      "pair_id": 84,
+      "seed": 2,
+      "b": -0.5,
+      "found_dce": 0.0,
+      "found_dce_lowered": 0.0,
+      "n_lowered": 157,
+      "found_b1_det": 0.9966666666666667,
+      "rec_dce_aspect": 0.0,
+      "rec_b1_det_aspect": 0.5733333333333334
+    },
+    {
+      "pair_id": 85,
+      "seed": 2,
+      "b": 0.5,
+      "found_dce": 0.0,
+      "found_dce_lowered": 0.0,
+      "n_lowered": 153,
+      "found_b1_det": 0.9733333333333334,
+      "rec_dce_aspect": 0.0,
+      "rec_b1_det_aspect": 0.6233333333333333
+    },
+    {
+      "pair_id": 86,
+      "seed": 2,
+      "b": 0.9,
+      "found_dce": 0.0,
+      "found_dce_lowered": 0.0,
+      "n_lowered": 130,
+      "found_b1_det": 0.9266666666666666,
+      "rec_dce_aspect": 0.0,
+      "rec_b1_det_aspect": 0.7266666666666667
+    },
+    {
+      "pair_id": 87,
+      "seed": 2,
+      "b": 1.1,
+      "found_dce": 0.4766666666666667,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 143,
+      "found_b1_det": 0.9166666666666666,
+      "rec_dce_aspect": 0.4766666666666667,
+      "rec_b1_det_aspect": 0.7266666666666667
+    },
+    {
+      "pair_id": 88,
+      "seed": 2,
+      "b": 1.5,
+      "found_dce": 0.38333333333333336,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 115,
+      "found_b1_det": 0.84,
+      "rec_dce_aspect": 0.38333333333333336,
+      "rec_b1_det_aspect": 0.7466666666666667
+    },
+    {
+      "pair_id": 89,
+      "seed": 2,
+      "b": 2.0,
+      "found_dce": 0.35,
+      "found_dce_lowered": 1.0,
+      "n_lowered": 105,
+      "found_b1_det": 0.7966666666666666,
+      "rec_dce_aspect": 0.34,
+      "rec_b1_det_aspect": 0.7333333333333333
+    }
+  ],
+  "git": {
+    "commit": "058d9412d26dd93a7748f3f40defa6f508c90f1a",
+    "dirty": false
+  }
+}

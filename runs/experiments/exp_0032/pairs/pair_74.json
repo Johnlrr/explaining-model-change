@@ -1,0 +1,31 @@
+{
+  "pair_id": 74,
+  "seed": 1,
+  "b": -0.5,
+  "lowered_class": 1,
+  "n_points": 300,
+  "data_seed": 9074,
+  "data_sha256": "7f08eb5506d7a195c7fca9bdab2fff3d81acf013db151e62344fc3ebddaf88c9",
+  "runtime": {
+    "dce_N": {
+      "wall_s_per_point": 4.954820098082225,
+      "cpu_s_per_point": 38.50837745174999,
+      "device": "cpu",
+      "phase1_wall_s": 309.48812651634216,
+      "phase2_cpu_s_per_point_with_witness": null,
+      "phase2_cpu_s_per_point_without_witness": 30.47399027517
+    },
+    "b1_det": {
+      "wall_s_per_point": 0.5104862117767334
+    }
+  },
+  "checkpoints": [
+    {
+      "name": "f_old_s1",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s1.pt",
+      "sha256": "b65ed1e696119fb8f9a825c26c9bcc65a5dc9cd36a9cb8627e9e1808414883fc"
+    }
+  ],
+  "wall_s_pair": 1643.8
+}

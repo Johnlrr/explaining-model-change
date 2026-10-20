@@ -1,0 +1,35 @@
+{
+  "experiment": "exp_0032",
+  "decision": "D-043 (v1.10 \u00a72)",
+  "shard": [
+    0,
+    2
+  ],
+  "git_runs": [
+    {
+      "git": {
+        "commit": "f05d127dab4ca8db29f0e5e46d493109eefbd1ee",
+        "dirty": false
+      },
+      "started": "2026-10-20T12:42:29"
+    },
+    {
+      "git": {
+        "commit": "058d9412d26dd93a7748f3f40defa6f508c90f1a",
+        "dirty": false
+      },
+      "started": "2026-10-20T18:30:21"
+    },
+    {
+      "git": {
+        "commit": "058d9412d26dd93a7748f3f40defa6f508c90f1a",
+        "dirty": false
+      },
+      "started": "2026-10-20T23:38:58"
+    }
+  ],
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "finished": "2026-10-21T01:13:20"
+}
