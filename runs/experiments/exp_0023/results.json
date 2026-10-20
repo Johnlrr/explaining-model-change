@@ -1,0 +1,95 @@
+{
+  "git": {
+    "commit": "56b76e0a7767e6fcfafe9e94087a3679999eda1e",
+    "dirty": true
+  },
+  "n_per_dim": 1000,
+  "seed_base": 70000,
+  "dims": {
+    "5": {
+      "1_rotation_delta_ce_closed_form": {
+        "found_share": 1.0,
+        "share_rel_err_below_1e-3": 0.901,
+        "distance_only_share_below_1e-3 (H4-style, diagnostic)": 1.0,
+        "max_distance_rel_err": 0.0006564422707253561,
+        "spurious": 0,
+        "max_rel_err": 0.010863208554451852,
+        "share_case_B": 0.544,
+        "pass": false
+      },
+      "2_b3_and_b1det_algebra": {
+        "max_abs_err_tan": 1.7832957333041577e-15,
+        "max_abs_err_b1det": 1.7763568394002505e-15,
+        "pass": true
+      },
+      "3_factor_aligned_recovery": {
+        "mismatches": [
+          {
+            "i": 565,
+            "closed_gap_u1_minus_u2": 0.000172537461161415,
+            "solver_gap": -0.0006269440054893494,
+            "closed_pred": false,
+            "solver": true
+          }
+        ],
+        "n_nontie": 1000,
+        "solver_agrees_with_closed_form": 0.999,
+        "corollary_agrees_with_closed_form": 1.0,
+        "pass": false
+      },
+      "4_offset": {
+        "b3_direction_max_norm": 0.0,
+        "n_separated": 1000,
+        "spurious_float32_accepts": 299,
+        "existence_mismatches": [
+          {
+            "i": 163,
+            "d_n": 0.4659361296397744,
+            "d_o": 0.8014927675882132,
+            "found": false
+          }
+        ],
+        "existence_agrees": 0.999,
+        "share_rel_err_below_1e-3 (on witnesses)": 0.8223140495867769,
+        "distance_only_share_below_1e-3 (diagnostic)": 1.0,
+        "pass": false
+      }
+    },
+    "20": {
+      "1_rotation_delta_ce_closed_form": {
+        "found_share": 1.0,
+        "share_rel_err_below_1e-3": 0.998,
+        "distance_only_share_below_1e-3 (H4-style, diagnostic)": 1.0,
+        "max_distance_rel_err": 0.0009217526882178475,
+        "spurious": 0,
+        "max_rel_err": 0.004173221790680375,
+        "share_case_B": 0.544,
+        "pass": true
+      },
+      "2_b3_and_b1det_algebra": {
+        "max_abs_err_tan": 1.5404344466674047e-15,
+        "max_abs_err_b1det": 4.718447854656915e-16,
+        "pass": true
+      },
+      "3_factor_aligned_recovery": {
+        "mismatches": [],
+        "n_nontie": 1000,
+        "solver_agrees_with_closed_form": 1.0,
+        "corollary_agrees_with_closed_form": 1.0,
+        "pass": true
+      },
+      "4_offset": {
+        "b3_direction_max_norm": 0.0,
+        "n_separated": 1000,
+        "spurious_float32_accepts": 496,
+        "existence_mismatches": [],
+        "existence_agrees": 1.0,
+        "share_rel_err_below_1e-3 (on witnesses)": 0.9958847736625515,
+        "distance_only_share_below_1e-3 (diagnostic)": 1.0,
+        "pass": true
+      }
+    }
+  },
+  "all_pass": false,
+  "seconds": 214.7
+}

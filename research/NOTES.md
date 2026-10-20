@@ -473,3 +473,26 @@ Both declared recipes fail G0-T5 at every seed: DD = 0.0000–0.0005 (needs ≥ 
 - **Timing, as the repository can show it:** the D-034 analysis (exp_0019) was committed at 09:27; the class split of T4 (the P5-iv numbers) was already printed in `results_summary.md`, committed at 12:01. The header of the file says it was written on 18/10 *before* any D-034 result, but the repository cannot verify when the text was written; only the copy time is recorded. The author should check the Project timestamp.
 - **Consequence:** the predictions in §6 of the file cannot be counted as pre-registered in the repository sense. Status per item: P5-i (C1 done; C4 not run, see D-035), P5-iii (C3, already failed in D-034), P5-iv (class split: observed on exp_0017 and exp_0019 before the file entered the repository; post hoc, descriptive), P5-ii and P5-v (descriptive / motivation). Papers should say "formulated after the main experiment".
 - §8 (numerical check of the closed forms on Tier L) is a mathematical verification with no test data; it is not evidence about the benchmark.
+
+### P5 numerical check on Tier L (exp_0023, branch research/delta-ce-p5-check), 2026-10-18
+Purpose: P5 §8 (closed forms against the locked solver, no distance budget, no test data). 1 000 instances per dimension, seeds 70 000 + p (disjoint from H4 0–1999). Results: `runs/experiments/exp_0023/results.json`.
+
+Pre-declared criteria (P5 §8) and outcome:
+| check | p = 5 | p = 20 | criterion |
+|---|---|---|---|
+| 1. rotation, Δ-CE u* (vector rel. err. < 1e-3) | 90.1 % — **FAIL** | 99.8 % — pass | ≥ 99 % |
+| 1. same, distance only (diagnostic; H4 measure) | 100 %, max 6.6e-4 | 100 %, max 9.2e-4 | — |
+| 2. B3 tan(θ/2), B1-det components (algebra) | max 1.8e-15 — pass | max 1.5e-15 — pass | 1e-9 |
+| 3. factor-aligned recovery vs closed form, away from ties | 99.9 % — **FAIL** (1 instance) | 100 % — pass | 100 % |
+| 3. Corollary 5.1 criterion vs closed form | 100 % | 100 % | — |
+| 4. offset: witness iff d_n ≤ d_o (float64-checked) | 99.9 % — **FAIL** (1 instance) | 100 % — pass | 100 % |
+| 4. offset: u* = −d_n ŵ_o (vector, on witnesses) | 82.2 % | 99.6 % — pass | ≥ 99 % |
+
+Diagnosis (no criterion changed after seeing results):
+- **Items 1 and 3 at p = 5: direction, not distance.** Along the active constraint the objective ‖u‖ is flat in the tangential direction, so a tangential solver error of ~1e-2 costs only ~1e-4 in distance. Distance agrees with the closed form to 6.6e-4 (max); vector and sign comparisons do not, when |u₁| − |u₂| is small (instance 565: closed-form gap 1.7e-4, solver gap −6.3e-4). The pre-declared vector criterion is therefore stricter than the solver's precision; it is reported as failed, not replaced. The κ' = κ + 1e-4 tightening (v1.5 F2) was checked and does not explain it.
+- **Item 4 at p = 5: a solver miss in the parallel (offset) case.** Instance 163 has d_n = 0.466 < d_o = 0.801, so a witness exists. Run alone with restart seeds 1–5 and in float64, the solver finds it (distance 0.46598 = closed form). Run inside the batch with the check's seed (70905), it returns a spurious far point (float32-confirmed, float64-infeasible) instead. Restart noise is drawn per batch, so results depend on batch composition; the float32 confirmation can accept far points. This is outside H4 (H4 pairs are non-parallel). It is a completeness caveat for the solver on the parallel case, not a counterexample to the proposition.
+- The float32-accepted but float64-infeasible outputs are counted as spurious and not as witnesses (299 at p = 5, 496 at p = 20 in the offset check). They do not reach the locked Tier 0 results (box constraints [0, 1]^5 and r ≈ 0.54). Tier 1 is unclamped; the exploratory N0 run (exp_0020) used a finite r, so spurious far points were not counted as found there either.
+
+Sampling note: the first attempt aborted with "no valid z0" (rejection on N(0, 1) biases has near-zero acceptance for some draws). Biases are therefore drawn so that z0 is valid, m_o(z0), m_n(z0) ∈ [κ, κ + 2]; this changes the sampler, not any criterion.
+
+Reading for the paper: the closed forms hold (distance within 1e-3 on all 2 000 rotation instances; algebra to 1e-15; the corollary criterion agrees with the closed form on all instances; existence agrees on all but one instance at p = 5). The stated claim "checked against the same solver" must carry the caveats above; the pre-declared vector and tie criteria are not met at p = 5.

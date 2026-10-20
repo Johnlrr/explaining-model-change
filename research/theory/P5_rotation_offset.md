@@ -1,3 +1,9 @@
+> **Nguồn gốc (ghi bởi tác giả, 18/10/2026).** File này được viết trong phiên làm việc ngày 18/10/2026 lúc 07:54 (giờ Bangkok), trước khi `results_summary.md` có bảng tách lớp T4. Mục P5-iv là dự đoán có trước dữ liệu cho phần tách lớp của T4. Con số found-rate 0.47 của T4 đã biết từ exp_0017 và không thuộc dự đoán.
+>
+> **Đối chiếu với lịch sử git (ghi bởi trợ lý, không do tác giả viết):** (i) bảng tách lớp T4 (136/136 và 0/164) lần đầu được commit lúc **12:01** (`d2984cb`), không phải 15:47; (ii) kết quả phân tích D-034 (`8752597`) được commit lúc 09:27 và không tính tách lớp; (iii) file được chép vào repo lúc 15:44 và commit lúc 15:51 (`56b76e0`). Mốc 07:54 không kiểm chứng được từ repo. Mốc đáng tin là lúc commit: mọi số tách lớp đều xuất hiện sau 12:01.
+>
+> Trong paper, P5-iv chỉ được nêu như dự đoán khi mốc 07:54 được xác nhận bằng bản gốc trong Project; nếu không, nó là mô tả hậu nghiệm.
+
 # Proposition 5 — what each explanation family sees: rotation vs. offset
 
 > **Ghi chú cho tác giả**
