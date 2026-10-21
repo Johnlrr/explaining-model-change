@@ -1,0 +1,60 @@
+# exp_0034 on Kaggle CPU (D-044), kernel 4 of 5: pairs [16, 23, 24]. Same entry and config as the local run;
+# stops between queries at 11 h (deadline_h) inside the 12 h session; a stopped pair resumes from its partial files.
+kernel:
+  id: boinhbo/dce-v110-tc-k4
+  title: dce v110 tc k4
+  code_file: src/dce/remote/bundles/v110_tc_kaggle.py
+  kernel_type: script
+  language: python
+  is_private: true
+  enable_gpu: false
+  enable_internet: true
+  dataset_sources:
+  - boinhbo/dce-v110-tc-inputs
+  competition_sources: []
+  kernel_sources: []
+  model_sources: []
+  immutable_kernel: true
+  timeout_seconds: 43200
+  wait_timeout_seconds: 43800
+  poll_interval_seconds: 300
+  parameters:
+    config: configs/experiments/exp_0034.yaml
+    pairs:
+    - 16
+    - 23
+    - 24
+    threads: 4
+    deadline_h: 11.0
+    pins:
+      torch: 2.14.1+cpu
+      numpy: 2.5.4
+      scipy: 1.18.1
+    cpu_capability: avx512
+    inputs_sha256: 15c747ed0089252cb638b43396709c91dfc01bbeced18dc6f62943fe9199e312
+  required_outputs:
+  - result.json
+  - artifact_manifest.json
+  - metadata.json
+  metrics_file: result.json
+  fetch_files:
+  - result.json
+  - artifact_manifest.json
+  - metadata.json
+  - pair_16.json
+  - pair_16.npz
+  - pair_16.partial.json
+  - pair_16.partial.npz
+  - pair_23.json
+  - pair_23.npz
+  - pair_23.partial.json
+  - pair_23.partial.npz
+  - pair_24.json
+  - pair_24.npz
+  - pair_24.partial.json
+  - pair_24.partial.npz
+  kernel_source_expectations: []
+  json_checks:
+  - path: work.processed
+    op: gte
+    value: 3

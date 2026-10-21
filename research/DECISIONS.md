@@ -1095,6 +1095,29 @@ Active (Research Lead on the author's authorisation of 2026-10-20). **Fixed befo
 
 **Consequence:** H8 is registered after a development run that already shows the effect on validation. This is disclosed in the amendment and in the paper.
 
+
+## D-044 — Kaggle CPU executor (kaggle-cpu, sessions up to 12 h) for long CPU runs; first use: the rest of T-C (exp_0034)
+
+**Status:** active — authorised by the user on 2026-10-21 ("cho phép bạn sửa giới hạn thời gian và môi trường chạy"; Kaggle use for CPU runs is meant to be long-term). Taken **after** part of T-C was seen (exp_0034 pairs 9 and 10 finished locally, max s ≈ −0.15 and −0.25). T-C is descriptive, the protocol (§4 of v1.10: points, queries, M, starts, steps, seeds) is unchanged, and which machine runs a pair does not depend on any result.
+
+**Before:** CPU work runs on the local machine only (`docs/ENVIRONMENTS.md` §execution matrix); Kaggle is used for Tier 1 GPU jobs offline with a 3600 s hard timeout (`docs/CONSTRAINTS.md` §6).
+
+**After (overrides those two points for CPU work; `docs/` is not edited):**
+- New executor **kaggle-cpu**: script kernel, `enable_gpu: false`, Internet ON (only to install pinned library versions), hard timeout up to 43 200 s (12 h) per version, up to 5 concurrent kernels on one account (the user's statement), one slug per kernel (no concurrent versions of one slug, as before). Smoke kernels keep ≤ 3600 s.
+- Inputs as a private Kaggle dataset built by `dce.remote.v110_inputs` (configs + checkpoints + manifests at their repository paths). Kaggle unpacks the zip, so the kernel checks the hash of the file listing (`v110_tc_inputs.json`, passed as a parameter) and the SHA256 of every listed file before use; `load_verified` / `load_models` then check each checkpoint against its manifest as locally. This small (13 MB) upload is an exception to the "no local dataset upload loop" rule, which targets large dependency bundles.
+- Code is the committed bundle `src/dce/remote/bundles/v110_tc_kaggle.py` (tree hash recorded); the kernel calls `dce.cli.v110_tc tc-run` unchanged (`--pairs`, `--deadline-h`, `--threads` only select pairs, stop between queries and set threads).
+- A kernel stops between queries at `deadline_h` = 11 h; finished queries are in `pair_<id>.partial.*`, fetched and resumed (later kernel or locally). T-C values do not depend on where or when a query runs (per-query generators, a91e7c6).
+
+**Floating-point agreement (the user's concern), measures:**
+1. Same library versions as local (torch 2.14.1+cpu, numpy 2.5.4, scipy 1.18.1) installed before torch is imported; versions recorded in result.json. The torch CPU generator then gives the same random stream, so the sampled points and the ascent starts are identical.
+2. Same ATen CPU kernels as local (`ATEN_CPU_CAPABILITY=avx512`) when the Kaggle CPU has AVX-512; observed CPU, flags and capability recorded.
+3. Fixed thread count (4), as the local workers since 62cd8a1.
+4. Measured, not assumed: smoke_0021 re-runs pair 9 (queries 0–1, Δ-CE on the 100 points) on Kaggle and compares with the local exp_0034 values; the differences are reported in the exp_0034 README. What T-C uses is the sign of s_max (s ≥ 0 is a false negative); a difference is material only if it changes a sign.
+
+Residual: MKL / oneDNN may pick other code paths on an Intel CPU than on the local AMD CPU, so bit-identical values are not guaranteed; the smoke comparison bounds the size.
+
+**Assignment for exp_0034:** local finishes pairs 11, 12 and the G4 pairs (which need exp_0032 outputs and have no eligible query); Kaggle kernels k1–k5 run [13, 6, 20], [14, 7, 21], [15, 8, 22], [16, 23, 24], [25, 26, 27].
+
 ---
 
 ## 12. Decision conflicts

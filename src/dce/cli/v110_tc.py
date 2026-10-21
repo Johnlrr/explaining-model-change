@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import time
 from dataclasses import replace
 from pathlib import Path
 
@@ -68,6 +69,10 @@ def points_for(cfg, pid, f_old, f_new, n):
     phi, y, digest = data_for(cfg, pid)
     keep = valid_points(phi, y, Tier0Margin(f_old, y), Tier0Margin(f_new, y), n, cfg["seeds"]["points_base"] + pid, cfg["kappa"])
     return torch.as_tensor(phi[keep], dtype=torch.float32), y[keep], digest
+
+
+class Deadline(Exception):
+    """Raised between T-C queries when --deadline-h is reached (a Kaggle session limit); the pair stays partial."""
 
 
 class Partial:
@@ -128,6 +133,8 @@ def tc_pair(cfg, p, cache):
     for i in np.flatnonzero(eligible)[: cfg.get("tc_queries", Q_MAX)]:
         if int(i) in done:
             continue
+        if time.time() > cfg.get("_deadline", float("inf")):   # every finished query is in the partial checkpoint
+            raise Deadline(pid)
         # one generator per query, derived from the registered seed 9500 + pair_id, so a resumed run gives the same values
         gen = torch.Generator().manual_seed((cfg["tc_seed_base"] + pid) * 10_000 + int(i))
         with Timer() as t:
@@ -214,6 +221,8 @@ def main(argv=None) -> int:
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--shard", default="0/1", help="i/k for a static split, or 'dyn' to claim pairs one at a time")
     ap.add_argument("--threads", type=int, help="override cfg threads (recorded in the metadata)")
+    ap.add_argument("--pairs", help="comma-separated subset of cfg pair_ids to run (a run stage only)")
+    ap.add_argument("--deadline-h", type=float, help="tc-run: stop between queries after this many hours")
     args = ap.parse_args(argv)
     cfg = load_config(args.config)
     print(f"config sha256 {sha256(args.config)}", flush=True)
@@ -223,8 +232,20 @@ def main(argv=None) -> int:
     by_id = {pid: {"pair_id": pid} for pid in cfg["pair_ids"]}
     cfg["_out"] = str(args.out)
     if args.stage in ("tc-run", "td-run"):
+        if args.pairs:
+            sub = [int(x) for x in args.pairs.split(",")]
+            if not set(sub) <= set(cfg["pair_ids"]):
+                raise SystemExit(f"--pairs not in the config: {sorted(set(sub) - set(cfg['pair_ids']))}")
+            cfg["pair_ids"] = sub
+        if args.deadline_h:
+            cfg["_deadline"] = time.time() + 3600 * args.deadline_h
         fn = tc_pair if args.stage == "tc-run" else td_pair
-        return run_pairs(cfg, args.out, shard, by_id, fn, f"D-043 (v1.10 {'§4' if fn is tc_pair else '§5'})")
+        try:
+            return run_pairs(cfg, args.out, shard, by_id, fn, f"D-043 (v1.10 {'§4' if fn is tc_pair else '§5'})")
+        except Deadline as e:
+            (args.out / "pairs" / f"pair_{e.args[0]}.claim").unlink(missing_ok=True)
+            print(f"deadline reached during pair {e.args[0]}; its finished queries are in the partial checkpoint", flush=True)
+            return 3
     rows = [json.loads((args.out / "pairs" / f"pair_{p}.json").read_text()) for p in cfg["pair_ids"]]
     if args.stage == "tc-analyze":
         res = tc_analyze(rows)
