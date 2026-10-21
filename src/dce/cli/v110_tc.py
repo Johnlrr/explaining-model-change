@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from dataclasses import replace
 from pathlib import Path
 
@@ -81,13 +82,18 @@ class Partial:
         return dict(np.load(self.npz)) if self.npz.exists() else None
 
     def save_arrays(self, **a):
-        np.savez_compressed(self.npz, **a)
+        tmp = self.npz.with_name(self.npz.name + ".tmp")
+        with open(tmp, "wb") as fh:
+            np.savez_compressed(fh, **a)
+        os.replace(tmp, self.npz)
 
     def rows(self):
         return json.loads(self.js.read_text()) if self.js.exists() else {}
 
     def save_rows(self, rows):
-        self.js.write_text(json.dumps(rows))
+        tmp = self.js.with_name(self.js.name + ".tmp")
+        tmp.write_text(json.dumps(rows))
+        os.replace(tmp, self.js)
 
     def clear(self):
         for f in (self.npz, self.js):
@@ -206,11 +212,14 @@ def main(argv=None) -> int:
     ap.add_argument("stage", choices=("tc-run", "tc-analyze", "td-run", "td-figure"))
     ap.add_argument("--config", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
-    ap.add_argument("--shard", default="0/1")
+    ap.add_argument("--shard", default="0/1", help="i/k for a static split, or 'dyn' to claim pairs one at a time")
+    ap.add_argument("--threads", type=int, help="override cfg threads (recorded in the metadata)")
     args = ap.parse_args(argv)
     cfg = load_config(args.config)
     print(f"config sha256 {sha256(args.config)}", flush=True)
-    shard = tuple(map(int, args.shard.split("/")))
+    shard = None if args.shard == "dyn" else tuple(map(int, args.shard.split("/")))
+    if args.threads:
+        cfg["threads"] = args.threads
     by_id = {pid: {"pair_id": pid} for pid in cfg["pair_ids"]}
     cfg["_out"] = str(args.out)
     if args.stage in ("tc-run", "td-run"):

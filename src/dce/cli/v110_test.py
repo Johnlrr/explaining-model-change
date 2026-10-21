@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import platform
 import sys
 import time
@@ -212,26 +213,54 @@ def tb_pair(cfg, p, cache):
     return arrays, row
 
 
+def claim(path: Path) -> bool:
+    """Create the claim file atomically; take over a claim whose owner process is gone."""
+    for _ in range(2):
+        try:
+            fd = os.open(path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        except FileExistsError:
+            try:
+                os.kill(int(path.read_text() or 0), 0)
+                return False
+            except (ProcessLookupError, ValueError, FileNotFoundError):
+                path.unlink(missing_ok=True)
+                continue
+        os.write(fd, str(os.getpid()).encode())
+        os.close(fd)
+        return True
+    return False
+
+
 def run_pairs(cfg, out: Path, shard, by_id, fn, label) -> int:
+    """shard = (i, k) runs pairs k-th apart; shard = None claims pairs one at a time (any number of workers)."""
     (out / "pairs").mkdir(parents=True, exist_ok=True)
     torch.set_num_threads(cfg.get("threads", 8))
-    meta_path = out / f"metadata_shard{shard[0]}.json"
+    tag = f"shard{shard[0]}" if shard else f"worker{os.getpid()}"
+    meta_path = out / f"metadata_{tag}.json"
     meta = json.loads(meta_path.read_text()) if meta_path.exists() else {
-        "experiment": cfg["experiment_id"], "decision": label, "shard": list(shard), "git_runs": [],
+        "experiment": cfg["experiment_id"], "decision": label, "shard": list(shard) if shard else "dyn", "git_runs": [],
         "python": sys.version.split()[0], "torch": torch.__version__, "platform": platform.platform()}
-    meta["git_runs"].append({"git": git_state(), "started": time.strftime("%Y-%m-%dT%H:%M:%S")})
+    meta["git_runs"].append({"git": git_state(), "started": time.strftime("%Y-%m-%dT%H:%M:%S"),
+                             "threads": torch.get_num_threads()})
     meta_path.write_text(json.dumps(meta, indent=2))
     cache, start = {}, time.time()
-    for pid in [pid for k, pid in enumerate(cfg["pair_ids"]) if k % shard[1] == shard[0]]:
+    ids = cfg["pair_ids"] if shard is None else [p for k, p in enumerate(cfg["pair_ids"]) if k % shard[1] == shard[0]]
+    for pid in ids:
         npz, js = out / "pairs" / f"pair_{pid}.npz", out / "pairs" / f"pair_{pid}.json"
         if npz.exists() and js.exists():
             print(f"pair {pid}: already done, skipped", flush=True)
+            continue
+        lock = out / "pairs" / f"pair_{pid}.claim"
+        if shard is None and not claim(lock):
             continue
         with Timer() as t:
             arrays, row = fn(cfg, by_id[pid], cache)
         np.savez_compressed(npz, **arrays)
         row["wall_s_pair"] = round(t.wall, 1)
         js.write_text(json.dumps(row, indent=2))
+        lock.unlink(missing_ok=True)
+        meta.setdefault("pairs", []).append(pid)
+        meta_path.write_text(json.dumps(meta, indent=2))
         print(f"pair {pid} done in {t.wall / 60:.1f} min (total {(time.time() - start) / 3600:.2f} h)", flush=True)
     meta["finished"] = time.strftime("%Y-%m-%dT%H:%M:%S")
     meta_path.write_text(json.dumps(meta, indent=2))

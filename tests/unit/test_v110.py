@@ -196,3 +196,27 @@ def test_tb_analyze_and_holm(tmp_path):
     cmd_holm(tmp_path / "h7.json", tmp_path / "h8.json", tmp_path / "holm.json")
     out = json.loads((tmp_path / "holm.json").read_text())
     assert out["holm_m"] == 1 and out["H7c"]["confirmed"] and "not testable" in out["H8"]["status"]
+
+
+def test_claim_and_dynamic_run_pairs(tmp_path):
+    from dce.cli.v110_test import claim, run_pairs
+
+    lock = tmp_path / "a.claim"
+    assert claim(lock) and not claim(lock)  # held by this live process
+    lock.write_text("999999999")  # owner gone
+    assert claim(lock) and lock.read_text() == str(__import__("os").getpid())
+
+    done = []
+
+    def fn(cfg, p, cache):
+        done.append(p["pair_id"])
+        return {"x": np.zeros(1)}, {"pair_id": p["pair_id"]}
+
+    cfg = {"experiment_id": "t", "pair_ids": [1, 2, 3], "threads": 1}
+    (tmp_path / "pairs").mkdir()
+    (tmp_path / "pairs" / "pair_2.claim").write_text(str(__import__("os").getpid()))  # another live worker
+    run_pairs(cfg, tmp_path, None, {i: {"pair_id": i} for i in (1, 2, 3)}, fn, "test")
+    assert done == [1, 3] and not (tmp_path / "pairs" / "pair_1.claim").exists()
+    (tmp_path / "pairs" / "pair_2.claim").unlink()
+    run_pairs(cfg, tmp_path, None, {i: {"pair_id": i} for i in (1, 2, 3)}, fn, "test")
+    assert done == [1, 3, 2]
