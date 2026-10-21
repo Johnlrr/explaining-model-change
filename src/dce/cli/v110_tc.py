@@ -153,6 +153,26 @@ def tc_pair(cfg, p, cache):
     return arrays, row
 
 
+def tc_recheck(cfg, pid: int, queries: list[int], ref: dict) -> list[dict]:
+    """Re-run T-C queries of a pair on this machine (D-044 guard): the points are regenerated and must match the
+    reference run (digest and z0); each query uses the registered per-query generator."""
+    f_old, f_new, _ = models_for(cfg, pid, {})
+    torch.set_num_threads(cfg.get("threads", 8))
+    z0, y, digest = points_for(cfg, pid, f_old, f_new, cfg.get("tc_points", N_FIRST))
+    if digest != ref["data_sha256"] or not np.array_equal(z0.numpy(), ref["z0"]):
+        raise SystemExit(f"pair {pid}: regenerated points differ from the reference run")
+    m_old, m_new = Tier0Margin(f_old, y), Tier0Margin(f_new, y)
+    out = []
+    for i in queries:
+        gen = torch.Generator().manual_seed((cfg["tc_seed_base"] + pid) * 10_000 + i)
+        with Timer() as t:
+            q = max_slack(z0[i], i, m_old, m_new, cfg["kappa"], float(cfg["r"]), cfg["tc_M"], cfg["tc_starts"],
+                          cfg["tc_steps"], gen)
+        out.append({"pair_id": pid, "query": i, "y": int(y[i]), **q, "wall_s": round(t.wall, 2)})
+        print(json.dumps(out[-1]), flush=True)
+    return out
+
+
 def clopper_pearson(k: int, n: int) -> list[float]:
     if n == 0:
         return [float("nan"), float("nan")]
@@ -216,13 +236,15 @@ def td_figure(rows: list[dict], path: Path) -> None:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("stage", choices=("tc-run", "tc-analyze", "td-run", "td-figure"))
+    ap.add_argument("stage", choices=("tc-run", "tc-analyze", "td-run", "td-figure", "tc-recheck"))
     ap.add_argument("--config", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--shard", default="0/1", help="i/k for a static split, or 'dyn' to claim pairs one at a time")
     ap.add_argument("--threads", type=int, help="override cfg threads (recorded in the metadata)")
     ap.add_argument("--pairs", help="comma-separated subset of cfg pair_ids to run (a run stage only)")
     ap.add_argument("--deadline-h", type=float, help="tc-run: stop between queries after this many hours")
+    ap.add_argument("--queries", help="tc-recheck: pair:query,... to re-run against the pair files in --out/pairs")
+    ap.add_argument("--tag", default="recheck", help="tc-recheck: output name tc_<tag>.json")
     args = ap.parse_args(argv)
     cfg = load_config(args.config)
     print(f"config sha256 {sha256(args.config)}", flush=True)
@@ -246,6 +268,18 @@ def main(argv=None) -> int:
             (args.out / "pairs" / f"pair_{e.args[0]}.claim").unlink(missing_ok=True)
             print(f"deadline reached during pair {e.args[0]}; its finished queries are in the partial checkpoint", flush=True)
             return 3
+    if args.stage == "tc-recheck":
+        todo: dict[int, list[int]] = {}
+        for item in args.queries.split(","):
+            pid, q = map(int, item.split(":"))
+            todo.setdefault(pid, []).append(q)
+        res = []
+        for pid, qs in todo.items():
+            ref = {**json.loads((args.out / "pairs" / f"pair_{pid}.json").read_text()),
+                   "z0": np.load(args.out / "pairs" / f"pair_{pid}.npz")["z0"]}
+            res += tc_recheck(cfg, pid, qs, ref)
+        (args.out / f"tc_{args.tag}.json").write_text(json.dumps({"git": git_state(), "rows": res}, indent=2))
+        return 0
     rows = [json.loads((args.out / "pairs" / f"pair_{p}.json").read_text()) for p in cfg["pair_ids"]]
     if args.stage == "tc-analyze":
         res = tc_analyze(rows)
