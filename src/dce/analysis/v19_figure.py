@@ -30,8 +30,9 @@ PRINT = {"figsize": (4.8, 1.65), "marker_size": 16, "max_ticks": 3}   # 12.2 cm 
 
 
 def make_map(rows: list[dict], out: Path, figsize=(7.0, 2.4), marker_size: float = 40, max_ticks: int | None = None,
-             titles: tuple[str, str, str] | None = None) -> None:
-    """titles: panel titles instead of PANELS' (the paper names the methods: Grad-diff for B3)."""
+             titles: tuple[str, str, str] | None = None, dpi: int = 300) -> None:
+    """titles: panel titles instead of PANELS' (the paper names the methods: Grad-diff for B3). dpi: raster parts
+    (the colour bar); ESANN asks for 600."""
     plt.rcParams.update({"font.size": 8, "axes.linewidth": 0.6, "xtick.major.size": 2, "ytick.major.size": 2})
     fig, axes = plt.subplots(1, 3, figsize=figsize, sharex=True, sharey=True, constrained_layout=True)
     cmap, sc = plt.get_cmap("Blues"), None
@@ -62,6 +63,6 @@ def make_map(rows: list[dict], out: Path, figsize=(7.0, 2.4), marker_size: float
     else:
         fig.legend(frameon=False, fontsize=7, loc="outside lower center", ncols=2)
     fig.colorbar(sc, ax=axes, shrink=0.9, label=None if max_ticks else "value", ticks=[0, 0.5, 1])
-    fig.savefig(out, dpi=300)
+    fig.savefig(out, dpi=dpi)
     fig.savefig(out.with_suffix(".png"), dpi=200)
     plt.close(fig)
