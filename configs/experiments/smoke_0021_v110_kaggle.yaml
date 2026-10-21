@@ -42,8 +42,6 @@ kernel:
   - metadata.json
   - pair_9.json
   - pair_9.npz
-  - pair_9.partial.json
-  - pair_9.partial.npz
   kernel_source_expectations: []
   json_checks:
   - path: work.processed

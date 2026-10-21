@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "metadata.json",
+      "path": "metadata.json",
+      "sha256": "b916b3acf591cd26d40344b5fce65d1049429d9d06b72dc8d10a50f99d74f962",
+      "bytes": 413
+    },
+    {
+      "name": "pair_9.json",
+      "path": "pair_9.json",
+      "sha256": "78859fda3873a9b0a6c1d2a512cc51c02cb53948b38cface63140ca94cdcba54",
+      "bytes": 1325
+    },
+    {
+      "name": "pair_9.npz",
+      "path": "pair_9.npz",
+      "sha256": "4bba8f7dec6474604561968660d907a44314ce602e5811f438fd434fe52d5d29",
+      "bytes": 2855
+    },
+    {
+      "name": "result.json",
+      "path": "result.json",
+      "sha256": "0cf892b82d6db3c22af23e8bf7ff233bbfb9f448e03eb7ce08d8ba92d6972249",
+      "bytes": 1143
+    }
+  ]
+}

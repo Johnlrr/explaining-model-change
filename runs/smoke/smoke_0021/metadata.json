@@ -1,0 +1,85 @@
+{
+  "run_id": "smoke_0021",
+  "status": "MISSING_OUTPUT",
+  "executor": "kaggle",
+  "kernel": "boinhbo/dce-v110-tc-smoke",
+  "git_commit": "51e39bdab57eb709e1ac1d3aa78ae9c6646d8956",
+  "requested_hardware": null,
+  "internet": true,
+  "started_at": "2026-10-21T07:34:26.954100+00:00",
+  "finished_at": "2026-10-21T07:56:54.132572+00:00",
+  "git_dirty": true,
+  "submitted_code_sha256": "0aea12f0b76865cf716441a9bece7390a772af5370bc26129535ecdbc4d60219",
+  "source_dir": "/home/toska/code/research/Agent-auto-Research",
+  "source_path": "/home/toska/code/research/Agent-auto-Research/src/dce/remote/bundles/v110_tc_kaggle.py",
+  "source_sha256": "3dcd164e0f35c70e5cd294571219923f2f785eaf4e5226291e9fb450150e0f3b",
+  "source_git_tracked": true,
+  "config": {
+    "id": "boinhbo/dce-v110-tc-smoke",
+    "title": "dce v110 tc smoke",
+    "code_file": "src/dce/remote/bundles/v110_tc_kaggle.py",
+    "kernel_type": "script",
+    "language": "python",
+    "is_private": true,
+    "enable_gpu": false,
+    "enable_internet": true,
+    "machine_shape": null,
+    "expected_hardware_contains": null,
+    "dataset_sources": [
+      "boinhbo/dce-v110-tc-inputs"
+    ],
+    "competition_sources": [],
+    "kernel_sources": [],
+    "model_sources": [],
+    "timeout_seconds": 3600,
+    "wait_timeout_seconds": 4200,
+    "poll_interval_seconds": 60,
+    "immutable_kernel": false,
+    "kernel_source_expectations": [],
+    "fetch_files": [
+      "result.json",
+      "artifact_manifest.json",
+      "metadata.json",
+      "pair_9.json",
+      "pair_9.npz",
+      "pair_9.partial.json",
+      "pair_9.partial.npz"
+    ],
+    "required_outputs": [
+      "result.json",
+      "artifact_manifest.json",
+      "metadata.json"
+    ],
+    "metrics_file": "result.json",
+    "json_checks": [
+      {
+        "path": "work.processed",
+        "op": "gte",
+        "value": 1
+      }
+    ],
+    "parameters": {
+      "config": "configs/experiments/smoke_0021_v110_tc.yaml",
+      "pairs": [
+        9
+      ],
+      "threads": 4,
+      "deadline_h": 0.75,
+      "pins": {
+        "torch": "2.14.1+cpu",
+        "numpy": "2.5.4",
+        "scipy": "1.18.1"
+      },
+      "cpu_capability": "avx512",
+      "inputs_sha256": "15c747ed0089252cb638b43396709c91dfc01bbeced18dc6f62943fe9199e312"
+    }
+  },
+  "error": "Requested remote output was not found: pair_9.partial.json, pair_9.partial.npz",
+  "kernel_version": 1,
+  "remote_status": "KernelWorkerStatus.COMPLETE",
+  "remote_failure_message": null,
+  "observed_hardware": null,
+  "expected_hardware_contains": null,
+  "remote_artifacts": null,
+  "account": "boinhbo"
+}

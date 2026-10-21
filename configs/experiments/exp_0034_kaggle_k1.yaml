@@ -43,16 +43,10 @@ kernel:
   - metadata.json
   - pair_13.json
   - pair_13.npz
-  - pair_13.partial.json
-  - pair_13.partial.npz
   - pair_6.json
   - pair_6.npz
-  - pair_6.partial.json
-  - pair_6.partial.npz
   - pair_20.json
   - pair_20.npz
-  - pair_20.partial.json
-  - pair_20.partial.npz
   kernel_source_expectations: []
   json_checks:
   - path: work.processed

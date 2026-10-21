@@ -1116,6 +1116,10 @@ Active (Research Lead on the author's authorisation of 2026-10-20). **Fixed befo
 
 Residual: MKL / oneDNN may pick other code paths on an Intel CPU than on the local AMD CPU, so bit-identical values are not guaranteed; the smoke comparison bounds the size.
 
+**smoke_0021 result (2026-10-21, Kaggle CPU = Intel Xeon @ 2.20 GHz, 4 cores, AVX2 only, no AVX-512, so ATen ran AVX2):** pinned versions installed (torch 2.14.1+cpu, numpy 2.5.4, scipy 1.18.1; Python 3.13 vs 3.12 locally). Pair 9: data digest, z0, y and the Δ-CE found vector identical to local; queries 0–1: |Δ s_max| ≤ 5.1e-6, |Δ s_sample| ≤ 6e-8, |Δ s_ascent| ≤ 3.5e-4 (200 Adam steps amplify rounding), same n_draws, same signs. Local 4 vs 8 threads: bit-identical. So the residual comes from the CPU (AVX2 vs AVX-512 / Intel vs AMD), not from threads. Cost: ≈ 120 s per query, ≈ 17 min for the Δ-CE solve (≈ 2 h per pair).
+
+**Guard (fixed before the full kernels run):** any Kaggle query with |s_max| < 1e-3 (within ~200× the observed difference of the sign) is re-run locally and the local value is used; the README lists such queries (expected none). The harness `fetch_files` lists only complete-pair files; partial files after a deadline stop are fetched with `kernel fetch`.
+
 **Assignment for exp_0034:** local finishes pairs 11, 12 and the G4 pairs (which need exp_0032 outputs and have no eligible query); Kaggle kernels k1–k5 run [13, 6, 20], [14, 7, 21], [15, 8, 22], [16, 23, 24], [25, 26, 27].
 
 ---

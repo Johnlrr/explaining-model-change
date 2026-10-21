@@ -1,0 +1,14 @@
+[{"stream_name":"stdout","time":7.405781692,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.4/62.4 kB 1.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":9.52612335,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 196.3/196.3 MB 9.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":9.761214383,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 78.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":10.1482684,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 53.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":67.416512355,"data":"config sha256 644f2fa139e0ce56ef2f904acfc8a90cb341be2a8a43299655502da1d6c6aa56\n"}
+,{"stream_name":"stdout","time":1294.67207799,"data":"pair 9 done in 20.5 min (total 0.34 h)\n"}
+,{"stream_name":"stdout","time":1294.676056848,"data":"{\"rc\": 0, \"pairs_done\": [9], \"pairs_partial\": [], \"wall_s\": 1293.7}\n"}
+,{"stream_name":"stderr","time":1298.137045329,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1298.137077203,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1298.518858343,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1298.518889049,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1299.468348195,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1300.655616092,"data":"[NbConvertApp] Writing 557438 bytes to __results__.html\n"}
+]
