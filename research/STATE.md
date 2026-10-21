@@ -25,6 +25,10 @@ v1.10 COMPLETE; author approved the summary with corrections (2026-10-21). exp_0
   fix); 6 pages, 0 overfull/underfull. B5 citation [5] verified correct (no change). Author's 7 corrections applied
   (545fe9c, 6 pages).
   NEXT: co-authors read and adjust wording; content judged submission-ready by the author (2026-10-21).
+  Readability rewrite (09e25c2) and the author's final round (348c459): 6 pages, 0 overfull. D-046: protocol-log
+  audit passed (exceptions disclosed), DeepXplore = Δ-CE without proximity, anonymous copy builder `dce.release`
+  (.work/anon_release, 104 MB with checkpoints, tests pass). NEXT: author checks ESANN rules on anonymous links,
+  then upload and replace "[anonymous link]" in paper/main.tex; co-author page to be refreshed after approval.
 v1.9 (D-036, branch research/delta-ce-v19, 2026-10-19): amendment committed 1997732; code 19d7331.
   Pilot exp_0024 (pair 40: α=0.25, t=0.56, seed 0; validation, qualification only) FAILS §2.3:
   α̂ = 0.233 (ok), accuracy 0.929 (ok), t̂ = 0.630 (|t̂−t| = 0.070 > 0.02). Grid NOT started (v1.9 §6).
