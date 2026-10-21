@@ -1,0 +1,55 @@
+{
+  "pair_id": 20,
+  "kind": "grid",
+  "alpha": 0.0,
+  "t": 0.5,
+  "seed": 0,
+  "data_sha256": "9a5cf53185e2a6d3edfae6f22bddc15bff78fdcd3ae54f8cc58f7f61c169c0db",
+  "n_points": 100,
+  "found_by_kappa": {
+    "0": {
+      "found": 0.8,
+      "found_y0": 0.4444444444444444,
+      "found_y1": 1.0
+    },
+    "0.1": {
+      "found": 0.68,
+      "found_y0": 0.1111111111111111,
+      "found_y1": 1.0
+    },
+    "0.25": {
+      "found": 0.64,
+      "found_y0": 0.0,
+      "found_y1": 1.0
+    },
+    "0.5": {
+      "found": 0.33,
+      "found_y0": 0.0,
+      "found_y1": 0.515625
+    },
+    "0.75": {
+      "found": 0.0,
+      "found_y0": 0.0,
+      "found_y1": 0.0
+    },
+    "1.0": {
+      "found": 0.0,
+      "found_y0": 0.0,
+      "found_y1": 0.0
+    }
+  },
+  "checkpoints": [
+    {
+      "name": "f_old_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s0.pt",
+      "sha256": "b54fdbc57708d958ffbc0f1e54a7e476ec6b51db4213eee4edd28dda64d7d0c5"
+    },
+    {
+      "name": "f_new_p20_a0.00_t0.50_s0",
+      "path": "runs/experiments/exp_0025/models/f_new_p20_a0.00_t0.50_s0.pt",
+      "sha256": "ac18f29f3dc605fcb89b42b53b08eb74bb318c271ae1407984c65e4d736a59fa"
+    }
+  ],
+  "wall_s_pair": 2106.7
+}

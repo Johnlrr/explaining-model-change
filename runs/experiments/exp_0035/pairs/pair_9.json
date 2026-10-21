@@ -1,0 +1,55 @@
+{
+  "pair_id": 9,
+  "kind": "tier0",
+  "condition": "N0",
+  "seed": 0,
+  "data_sha256": "99e610a2bb98677708a728d6c5fedbee4265e19b92c1d714def07809f18521c7",
+  "n_points": 100,
+  "found_by_kappa": {
+    "0": {
+      "found": 0.78,
+      "found_y0": 0.5925925925925926,
+      "found_y1": 1.0
+    },
+    "0.1": {
+      "found": 0.46,
+      "found_y0": 0.0,
+      "found_y1": 1.0
+    },
+    "0.25": {
+      "found": 0.13,
+      "found_y0": 0.0,
+      "found_y1": 0.2826086956521739
+    },
+    "0.5": {
+      "found": 0.0,
+      "found_y0": 0.0,
+      "found_y1": 0.0
+    },
+    "0.75": {
+      "found": 0.0,
+      "found_y0": 0.0,
+      "found_y1": 0.0
+    },
+    "1.0": {
+      "found": 0.0,
+      "found_y0": 0.0,
+      "found_y1": 0.0
+    }
+  },
+  "checkpoints": [
+    {
+      "name": "f_old_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s0.pt",
+      "sha256": "b54fdbc57708d958ffbc0f1e54a7e476ec6b51db4213eee4edd28dda64d7d0c5"
+    },
+    {
+      "name": "f_new_p09_N0_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_new_p09_N0_s0.pt",
+      "sha256": "b652e302249ddb9b8938cf3985aa3c29514fc7010eb6a6d99ef1f7088be6586e"
+    }
+  ],
+  "wall_s_pair": 2391.8
+}
