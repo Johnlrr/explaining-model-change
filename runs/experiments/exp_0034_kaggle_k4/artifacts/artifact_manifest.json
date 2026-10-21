@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "metadata.json",
+      "path": "metadata.json",
+      "sha256": "5ea86af76d4cb8c88fe2443343e6a88b8a5ef2cf7c93cfa4895a3655fce8c05b",
+      "bytes": 428
+    },
+    {
+      "name": "pair_16.json",
+      "path": "pair_16.json",
+      "sha256": "f4609e9186a7fe3c3c1747cc540663ce530d160ed97af9d012b465377cf69e90",
+      "bytes": 14513
+    },
+    {
+      "name": "pair_16.npz",
+      "path": "pair_16.npz",
+      "sha256": "26e9ca47a8ae0ca110e15b0ed92c22fe46d209e5f823ca5c7198934376985bc5",
+      "bytes": 3189
+    },
+    {
+      "name": "pair_23.json",
+      "path": "pair_23.json",
+      "sha256": "00f8569696e8efe15214ce662a93fb594b10d3df96e897a2e15f74584d692ffc",
+      "bytes": 14529
+    },
+    {
+      "name": "pair_23.npz",
+      "path": "pair_23.npz",
+      "sha256": "f371b5a865d8b165ed9d56504fe93901318dde504b85322f055dfcb48f98c520",
+      "bytes": 3208
+    },
+    {
+      "name": "pair_24.json",
+      "path": "pair_24.json",
+      "sha256": "d5f80f6d20d11ebb1ab93b89ff2398ad4ef96288e44992932c2b55aa8688c17c",
+      "bytes": 13074
+    },
+    {
+      "name": "pair_24.npz",
+      "path": "pair_24.npz",
+      "sha256": "90e71a387b1f0068e9268c8a27129acf00087c7629747a69e193749f0637bb22",
+      "bytes": 3197
+    },
+    {
+      "name": "result.json",
+      "path": "result.json",
+      "sha256": "cd3cfb054fe7372817c963119b0383a936dd7a58d9de64ff8b20b5bb4e57d20f",
+      "bytes": 1168
+    }
+  ]
+}

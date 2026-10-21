@@ -1,0 +1,22 @@
+{
+  "pair_id": 72,
+  "group": "G4_h7",
+  "kind": "h7",
+  "seed": 1,
+  "b": -1.1,
+  "lowered_class": 1,
+  "data_sha256": "exp_0032 pair 72",
+  "n_points": 300,
+  "dce_found": 124,
+  "n_eligible": 0,
+  "queries": [],
+  "checkpoints": [
+    {
+      "name": "f_old_s1",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s1.pt",
+      "sha256": "b65ed1e696119fb8f9a825c26c9bcc65a5dc9cd36a9cb8627e9e1808414883fc"
+    }
+  ],
+  "wall_s_pair": 0.0
+}

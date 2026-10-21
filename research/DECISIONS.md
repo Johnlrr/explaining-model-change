@@ -1120,6 +1120,8 @@ Residual: MKL / oneDNN may pick other code paths on an Intel CPU than on the loc
 
 **Guard (fixed before the full kernels run):** any Kaggle query with |s_max| < 1e-3 (within ~200× the observed difference of the sign) is re-run locally and the local value is used; the README lists such queries (expected none). The harness `fetch_files` lists only complete-pair files; partial files after a deadline stop are fetched with `kernel fetch`.
 
+**Full-run finding (after the results, 2026-10-21):** the ascent stage is more sensitive than the smoke showed: |Δ s_ascent| up to 9.6e-3 between machines (sampling stage ≤ 1.5e-7). The registered guard (|s_max| < 1e-3) caught one query (no change). A descriptive sensitivity check re-ran all 14 Kaggle queries with |s_max| < 0.02 locally: one sign flip (pair 20 q27). The registered T-C count uses the Kaggle values (3 false negatives in G3); the sensitivity count (4) is reported beside it. Lesson for later kaggle-cpu use: a local/remote comparison should include ascent-type (iterative, non-convex) steps on several queries, and a sign-sensitive statistic should carry a re-run band set from that comparison.
+
 **Assignment for exp_0034:** local finishes pairs 11, 12 and the G4 pairs (which need exp_0032 outputs and have no eligible query); Kaggle kernels k1–k5 run [13, 6, 20], [14, 7, 21], [15, 8, 22], [16, 23, 24], [25, 26, 27].
 
 ---

@@ -35,7 +35,24 @@ Deterministic checks of T-A (U1–U3, exp_0032): B3 invalid on every query of al
 
 ## 3. Abstention recall (T-C, exp_0034, descriptive)
 
-TBD.
+NOT_FOUND queries searched independently of the solver (10⁵ uniform points in B(z₀, r) ∩ cube, then ascent);
+false negative = a point with slack s ≥ 0, i.e. a witness the solver missed.
+
+| group | queries | false negatives | rate [CP95] | max s (median, max) |
+|---|---|---|---|---|
+| G1 null (N0, N1; 8 pairs) | 400 | 0 | 0 [0, 0.009] | −0.38, −0.15 |
+| G2 class an offset cannot flip (T4 class 0) | 150 | 0 | 0 [0, 0.024] | −1.00, −0.82 |
+| G3 small / pure offsets (grid 20–27) | 395 | 3 | 0.008 [0.002, 0.022] | −0.62, +0.05 |
+| G4 H7 \|b\| ≥ 2κ | 0 (Δ-CE found every lowered-class witness) | — | — | — |
+
+- Where no witness should exist, NOT_FOUND is reliable, with margin: the best point the search finds is still
+  ≥ 0.15 logits from feasibility (null) or ≥ 0.8 (the class an offset cannot flip).
+- All misses are on pair 20 (the grid null cell; fine-tune offset t̂ − t̂_old = +0.039), in the class where Δ-CE does
+  find witnesses (33/100), with max s ≤ 0.05: thin feasible regions. On the queried G3 points Δ-CE recovers ≥ 246 of
+  249 witness-holding points.
+- Execution note: 15 of 31 pairs ran on Kaggle CPU (D-044, user-authorised). The sampling stage is identical across
+  machines; the ascent stage can differ by up to ~1e-2. Re-running the 14 near-zero queries locally flips one sign
+  (pair 20 q27): 3 false negatives registered, 4 in the sensitivity run. No conclusion changes.
 
 ## 4. Found-rate against κ (T-D, exp_0035, descriptive)
 
@@ -56,6 +73,31 @@ TBD.
   threshold-shifted grid pair 26 has the offset profile (|b| between 1.5 and 2); the grid null cell pair 20 is mixed:
   decaying, then 0.33 one-class at κ = 0.5 (its fine-tune left t̂ − t̂_old = +0.039, exp_0029).
 
-## 5. Consequences for the paper (proposed, for the author)
+## 5. Consequences for the paper (proposed, for the author — nothing in paper/ has been edited)
 
-TBD.
+1. **H5d sentence (author's request).** Replace the single "−0.35" with the decomposition: of the locked −0.352,
+   −0.184 is found-rate (Δ-CE abstains where B3 always answers) and −0.168 geometry on the support; H8 then shows the
+   geometric part is where the old-model normal is taken: with ŵ_o at the witness the support gap is +0.029
+   (vs −0.190 at z₀), p_Holm 0.0006. Suggested wording: "Proposition 2 holds at the witness, not at the query."
+2. **Proposition 2 remark.** Add that the projection must use ∇m_old at z*; the deviation tracks the rotation of the
+   normal between z₀ and z* (Spearman 0.80), not ‖z* − z₀‖ (−0.10). One sentence + the 2×2 numbers in a footnote or
+   table row.
+3. **Label shift as a corollary of Lemma 1.** A class-prior change acts as a logit offset b: B3 is undefined (the
+   gradient difference is 0), Δ-CE has an exact detection threshold |b| = 2κ (0 witnesses below; above it, a witness
+   for every query in the lowered class and none in the other), B1-det has none (0.961 of queries flagged for
+   sub-threshold offsets that move 3–8% of decisions; H7c, p_Holm 0.0002). Wording: a detection threshold, not
+   "false positives" of B1. Not a headline (author's decision).
+4. **κ as a threshold in logit units (T-D).** One sentence or a small inset: offsets give a flat one-class step at
+   κ = |b|/2, retraining noise decays smoothly and is gone at κ = 0.5. This also corrects the reading of κ as a
+   probability margin (κ is in logits).
+5. **Abstention is reliable (T-C).** "NOT_FOUND on null pairs is not a solver failure: an independent search of
+   10⁵ points per query finds no witness on 400 null and 150 impossible-class queries (CP95 upper 0.9% and 2.4%);
+   misses (3/395) occur only where the feasible band is thin." This answers the obvious reviewer question about
+   abstention.
+6. **Limitations to update.** T-C is a sampling lower bound on existence (finding none is evidence, not proof);
+   H8 was registered after a validation run that showed the effect (disclosed in v1.10); the grid null cell is not
+   null-like (small fine-tune offset, visible in T-C and T-D).
+7. **From the earlier review:** the B5 citation [5] should be [7].
+
+Space (6 pages): items 1, 3, 5 fit as three sentences in Results/Discussion; item 2 as a footnote; item 4 as one
+sentence (a figure only if space allows).

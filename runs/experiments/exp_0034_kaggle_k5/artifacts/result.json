@@ -1,0 +1,45 @@
+{
+  "experiment": "exp_0034",
+  "decision": "D-044",
+  "observed_hardware": "CPU: Intel(R) Xeon(R) CPU @ 2.20GHz",
+  "rc": 0,
+  "pairs": [
+    25,
+    26,
+    27
+  ],
+  "pairs_done": [
+    25,
+    26,
+    27
+  ],
+  "pairs_partial": [],
+  "resumed_files": [],
+  "inputs_listing": "/kaggle/input/datasets/boinhbo/dce-v110-tc-inputs/v110_tc_inputs.json",
+  "config": "configs/experiments/exp_0034.yaml",
+  "config_sha256": "13a926f7743ecbaf3b888b9a88b57bc02f30e5c7e903a5fa3f5c250126ee46a1",
+  "inputs_listing_sha256": "15c747ed0089252cb638b43396709c91dfc01bbeced18dc6f62943fe9199e312",
+  "bundle_tree_hash": "f7b71e40fcb23b73ce1e2dd8e8b676f6f15d94bf6b99d48ebb4ce2b31f35fd89",
+  "env": {
+    "cpu": {
+      "model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+      "logical_cpus": 4,
+      "avx2": true,
+      "avx512f": false
+    },
+    "python": "3.13.15",
+    "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+    "torch": "2.14.1+cpu",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "aten_cpu_capability": "AVX2",
+    "aten_cpu_capability_env": null,
+    "torch_threads": 4,
+    "mkl": true,
+    "mkldnn": true
+  },
+  "wall_s": 23019.5,
+  "work": {
+    "processed": 3
+  }
+}

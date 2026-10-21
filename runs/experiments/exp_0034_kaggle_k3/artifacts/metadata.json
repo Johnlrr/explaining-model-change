@@ -1,0 +1,24 @@
+{
+  "experiment": "exp_0034",
+  "decision": "D-043 (v1.10 \u00a74)",
+  "shard": "dyn",
+  "git_runs": [
+    {
+      "git": {
+        "commit": "",
+        "dirty": false
+      },
+      "started": "2026-10-21T07:59:39",
+      "threads": 4
+    }
+  ],
+  "python": "3.13.15",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+  "pairs": [
+    15,
+    8,
+    22
+  ],
+  "finished": "2026-10-21T13:10:01"
+}

@@ -1,0 +1,89 @@
+{
+  "run_id": "exp_0034_kaggle_k5",
+  "status": "RUNNING",
+  "executor": "kaggle",
+  "kernel": "boinhbo/dce-v110-tc-k5",
+  "git_commit": "4e52443aaaf9cf9e0f0164a26d720a2a26158eb9",
+  "requested_hardware": null,
+  "internet": true,
+  "started_at": "2026-10-21T07:59:12.433014+00:00",
+  "finished_at": null,
+  "git_dirty": true,
+  "submitted_code_sha256": "7e0ee08d1db432990ba51ca2a558f59b83a424241528fe41f76114886417146b",
+  "source_dir": "/home/toska/code/research/Agent-auto-Research",
+  "source_path": "/home/toska/code/research/Agent-auto-Research/src/dce/remote/bundles/v110_tc_kaggle.py",
+  "source_sha256": "3dcd164e0f35c70e5cd294571219923f2f785eaf4e5226291e9fb450150e0f3b",
+  "source_git_tracked": true,
+  "config": {
+    "id": "boinhbo/dce-v110-tc-k5",
+    "title": "dce v110 tc k5",
+    "code_file": "src/dce/remote/bundles/v110_tc_kaggle.py",
+    "kernel_type": "script",
+    "language": "python",
+    "is_private": true,
+    "enable_gpu": false,
+    "enable_internet": true,
+    "machine_shape": null,
+    "expected_hardware_contains": null,
+    "dataset_sources": [
+      "boinhbo/dce-v110-tc-inputs"
+    ],
+    "competition_sources": [],
+    "kernel_sources": [],
+    "model_sources": [],
+    "timeout_seconds": 43200,
+    "wait_timeout_seconds": 43800,
+    "poll_interval_seconds": 300,
+    "immutable_kernel": true,
+    "kernel_source_expectations": [],
+    "fetch_files": [
+      "result.json",
+      "artifact_manifest.json",
+      "metadata.json",
+      "pair_25.json",
+      "pair_25.npz",
+      "pair_26.json",
+      "pair_26.npz",
+      "pair_27.json",
+      "pair_27.npz"
+    ],
+    "required_outputs": [
+      "result.json",
+      "artifact_manifest.json",
+      "metadata.json"
+    ],
+    "metrics_file": "result.json",
+    "json_checks": [
+      {
+        "path": "work.processed",
+        "op": "gte",
+        "value": 3
+      }
+    ],
+    "parameters": {
+      "config": "configs/experiments/exp_0034.yaml",
+      "pairs": [
+        25,
+        26,
+        27
+      ],
+      "threads": 4,
+      "deadline_h": 11.0,
+      "pins": {
+        "torch": "2.14.1+cpu",
+        "numpy": "2.5.4",
+        "scipy": "1.18.1"
+      },
+      "cpu_capability": "avx512",
+      "inputs_sha256": "15c747ed0089252cb638b43396709c91dfc01bbeced18dc6f62943fe9199e312"
+    }
+  },
+  "error": null,
+  "kernel_version": 1,
+  "remote_status": null,
+  "remote_failure_message": null,
+  "observed_hardware": null,
+  "expected_hardware_contains": null,
+  "remote_artifacts": null,
+  "account": "boinhbo"
+}

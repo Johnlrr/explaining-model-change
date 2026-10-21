@@ -1,0 +1,33 @@
+{
+  "experiment": "exp_0034",
+  "decision": "D-043 (v1.10 \u00a74)",
+  "shard": "dyn",
+  "git_runs": [
+    {
+      "git": {
+        "commit": "51e39bdab57eb709e1ac1d3aa78ae9c6646d8956",
+        "dirty": false
+      },
+      "started": "2026-10-21T14:34:23",
+      "threads": 4
+    }
+  ],
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "pairs": [
+    61,
+    62,
+    67,
+    68,
+    71,
+    72,
+    77,
+    78,
+    81,
+    82,
+    87,
+    88
+  ],
+  "finished": "2026-10-21T14:34:24"
+}

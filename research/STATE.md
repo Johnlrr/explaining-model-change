@@ -19,13 +19,11 @@ v1.10 (D-043, 2026-10-20) APPROVED by the author (with changes; see D-043). H-01
   runs/experiments/exp_0033 --shard i/2`). NEXT: tb-analyze → holm → exp_0034 (T-C; G4 will be empty, since every
   lowered-class query has a witness) → exp_0035 (T-D) → summary to the author. Locked H5d −0.352 = geometry −0.168 +
   found-rate −0.184 (NOTES). ESANN deadline 18/11.
-IN FLIGHT (2026-10-21 ~15:40 +07): exp_0034 T-C on Kaggle CPU (D-044), account boinhbo, commit 4e52443, kernels
-  boinhbo/dce-v110-tc-k1..k5 (pairs [13,6,20] [14,7,21] [15,8,22] [16,23,24] [25,26,27]), ≈ 6 h each, deadline 11 h,
-  timeout 12 h. Run records runs/experiments/exp_0034_kaggle_k{1..5}/. Recovery: `uv run python -m tools.kaggle kernel
-  status|fetch --config configs/experiments/exp_0034_kaggle_kN.yaml ...`; copy pair_*.json/npz into
-  runs/experiments/exp_0034/pairs; partials (deadline stop) resume from `kernel fetch`. Local done: 9–12 and G4 (16/31).
-  Guard: Kaggle queries with |s_max| < 1e-3 are re-run locally. Then tc-analyze, README, summary §3 and §5, report.
-  exp_0035 T-D DONE (README; summary §4).
+v1.10 COMPLETE (2026-10-21 ~22:30 +07). exp_0034 T-C DONE (31 pairs; 15 on Kaggle CPU under D-044, 5 kernels, all
+  verified): false negatives G1 null 0/400, G2 0/150, G3 3/395 (all pair 20, thin band; 4 in the local sensitivity
+  re-run), G4 no query. exp_0035 T-D DONE. Summary for the author: runs/experiments/exp_0035/summary_v110.md (§1–§5).
+  NEXT: the author reviews the summary; NO paper edit before that (handoff gate). kaggle-cpu executor available for
+  long CPU runs (D-044; ascent-type steps differ up to ~1e-2 across CPUs).
 v1.9 (D-036, branch research/delta-ce-v19, 2026-10-19): amendment committed 1997732; code 19d7331.
   Pilot exp_0024 (pair 40: α=0.25, t=0.56, seed 0; validation, qualification only) FAILS §2.3:
   α̂ = 0.233 (ok), accuracy 0.929 (ok), t̂ = 0.630 (|t̂−t| = 0.070 > 0.02). Grid NOT started (v1.9 §6).
