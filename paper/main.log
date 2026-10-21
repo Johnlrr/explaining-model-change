@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.18)  21 OCT 2026 22:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.18)  21 OCT 2026 23:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -318,30 +318,30 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <8> on input line 45.
  [3]
-<figures/map_v19.pdf, id=33, 346.89601pt x 119.2455pt>
-File: figures/map_v19.pdf Graphic file (type pdf)
-<use figures/map_v19.pdf>
-Package pdftex.def Info: figures/map_v19.pdf  used on input line 93.
+<figures/map_names.pdf, id=33, 346.89601pt x 119.2455pt>
+File: figures/map_names.pdf Graphic file (type pdf)
+<use figures/map_names.pdf>
+Package pdftex.def Info: figures/map_names.pdf  used on input line 114.
 (pdftex.def)             Requested size: 347.12354pt x 119.32889pt.
- [4] [5 <./figures/map_v19.pdf>] [6] (./main.aux)
+ [4] [5 <./figures/map_names.pdf>] [6] (./main.aux)
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-09-09>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5833 strings out of 469040
- 92134 string characters out of 5457195
- 539532 words of memory out of 5000000
- 34636 multiletter control sequences out of 15000+600000
- 707329 words of font info for 198 fonts, out of 8000000 for 9000
+ 5816 strings out of 469040
+ 91941 string characters out of 5457195
+ 544553 words of memory out of 5000000
+ 34637 multiletter control sequences out of 15000+600000
+ 706300 words of font info for 189 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  59i,11n,67p,1486b,318s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (6 pages, 357492 bytes).
+</home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (6 pages, 388007 bytes).
 PDF statistics:
- 189 PDF objects out of 1000 (max. 8388607)
- 99 compressed objects within 1 object stream
+ 203 PDF objects out of 1000 (max. 8388607)
+ 107 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  40966 words of extra memory for PDF output out of 42996 (max. 10000000)
 

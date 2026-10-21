@@ -13,6 +13,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
+PAPER_TITLES = ("Grad-diff Recovery", "Δ-CE Recovery", "Δ-CE found-rate")
 PANELS = (("B3 Recovery@r", "rec_b3"), ("Δ-CE Recovery@r", "rec_dce_N"), ("Δ-CE found-rate", "found_dce_N"))
 MARKERS = {0: "o", 1: "s"}
 
@@ -28,11 +29,14 @@ def value(row: dict, key: str):
 PRINT = {"figsize": (4.8, 1.65), "marker_size": 16, "max_ticks": 3}   # 12.2 cm × 4.2 cm: ESANN \linewidth at 1:1
 
 
-def make_map(rows: list[dict], out: Path, figsize=(7.0, 2.4), marker_size: float = 40, max_ticks: int | None = None) -> None:
+def make_map(rows: list[dict], out: Path, figsize=(7.0, 2.4), marker_size: float = 40, max_ticks: int | None = None,
+             titles: tuple[str, str, str] | None = None) -> None:
+    """titles: panel titles instead of PANELS' (the paper names the methods: Grad-diff for B3)."""
     plt.rcParams.update({"font.size": 8, "axes.linewidth": 0.6, "xtick.major.size": 2, "ytick.major.size": 2})
     fig, axes = plt.subplots(1, 3, figsize=figsize, sharex=True, sharey=True, constrained_layout=True)
     cmap, sc = plt.get_cmap("Blues"), None
-    for ax, (title, key) in zip(axes, PANELS):
+    panels = [(t, k) for t, (_, k) in zip(titles, PANELS)] if titles else PANELS
+    for ax, (title, key) in zip(axes, panels):
         for r in rows:
             v = value(r, key)
             kw = dict(s=marker_size, marker=MARKERS[r["seed"]], linewidths=0.6, edgecolors="#333333", zorder=3)
