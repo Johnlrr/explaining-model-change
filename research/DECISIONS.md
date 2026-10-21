@@ -1139,6 +1139,29 @@ Residual: MKL / oneDNN may pick other code paths on an Intel CPU than on the loc
 
 **Also recorded (the author's corrections to the summary, 2026-10-21):** (1) Spearman(projection deviation, 1 − cos) ≈ 0.80 is close to a tautology (the deviation is a function of the angle between the two normals) and is not evidence; the content is that the rotation of the normal does not depend on ‖z* − z0‖, so the "increases with distance" half of the registered mechanism prediction is not supported. (2) The B5 citation [5] (Renard et al., DIG) is correct; the earlier suggestion to change it to [7] (DiG-IN) was the Research Lead's error in the first review (bibitem key r7 confused with the printed number). (3) Only the prior-correction update [13] is an exact logit offset; label shift by fine-tuning (D-035) remains untested.
 
+
+## D-046 — Final paper round (author, 2026-10-21): protocol-log audit, DeepXplore = Δ-CE without proximity, anonymous review copy
+
+**Status:** active. No new experiment; two read-only checks on saved outputs and repository history.
+
+**Protocol-log audit (for the paper sentence "Every change to the protocol was logged and made before the test data it concerns were generated").** Every amendment file under `docs/source/` was committed once and never edited afterwards; each first commit precedes the test run it concerns:
+
+| Amendment / decision | Committed | Test data it concerns | First used |
+|---|---|---|---|
+| v1.1–v1.8 (D-018…D-031) | 15/10 15:57 – 16/10 21:37 | Tier 0 locked test (clean_splits 1234) | exp_0017, 16/10 23:03 |
+| D-034 (C1–C3) | 18/10 01:26 | new Tier 0 test, seed 2027 | exp_0019, 18/10 01:40 |
+| v1.9, v1.9.1, D-038, D-039 | 19/10 11:29 – 13:45 | grid test, seeds 7020–7051 | exp_0026, 19/10 19:49 |
+| D-040, D-042 | 19/10 20:16; 20/10 08:39 | Adult test (seed-2026 split) | exp_0028 (results committed 08:49, run ≈ 9.5 min) |
+| v1.10 (D-043) | 20/10 12:42:23 | seeds 9000 + pair_id | exp_0032, 12:42:29 (commit f05d127) |
+| D-045 | 21/10 | seeds 9000–9002 (T1) | exp_0036, 21/10 21:56 |
+
+`docs/` saw no other edit after the first test run. Exceptions, all disclosed: D-041 (analysis-code error found after the grid output, fixed to the registered rule); C1–C3 formed after the first test results (tested on new data); H8 registered after a validation run; D-044 (T-C execution moved to Kaggle after part of T-C was seen; the local re-run of near-zero queries is a descriptive sensitivity check). T5 (seed 2028) failed qualification on validation; its test split was never read.
+
+**DeepXplore (A1) is Δ-CE without the proximity term** (`final_tier0.py`: `delta_ce(..., replace(base, lam0=0.0, polish=False))`; `lam0` weighs ‖z − z0‖² in the penalty loss, `polish` is the SLSQP phase): same solver, constraint set F^N_κ, restarts and budget r. DIG (B5) checks the same F^N_κ. Hence all three disagreement searches verify the margin; none found a point on null pairs (Table 2).
+Descriptive, from saved exp_0017 outputs (`dce_N_distance`, `a1_distance`, locked split, no re-run): on points where both found a witness, median ‖z* − z0‖ Δ-CE vs DeepXplore = Shortcut 0.227 vs 0.329 (n = 567), Subgroup 0.215 vs 0.311 (519), Threshold 0.199 vs 0.305 (358); DeepXplore farther on 100% of these points, median ratio 1.41–1.53. Own found points: 0.276/0.329, 0.264/0.311, 0.232/0.305.
+
+**Anonymous review copy:** `python -m dce.release <out> <patterns.tsv> [--with-checkpoints]` copies git-tracked code, configs, tests, docs (spec + amendments), DECISIONS/HYPOTHESES and runs; rewrites identifying strings (content and paths) from a patterns file kept outside the release, and fails if any remains. Built at `.work/anon_release` (with checkpoints: 1 199 files, 104 MB; full unit suite passes inside the copy: 198 passed, 1 skipped). Not uploaded: the author checks the ESANN rules on links first.
+
 ---
 
 ## 12. Decision conflicts
