@@ -25,7 +25,8 @@ Reading (descriptive):
 - H7: found-rate is the lowered-class share (witnesses on 100% of lowered-class points, 0% elsewhere) while 2κ < |b|,
   and 0 once 2κ > |b|, exactly as Lemma 1. At 2κ = |b| (b = ±0.5 at κ = 0.25; b = ±2 at κ = 1) the band
   [κ, |b| − κ] is a single value: 0 found, except 1 point for b = −2 at κ = 1 (feasible within the SLSQP tolerance).
-- Pair 26 (label threshold 0.6) behaves like a logit offset of 1.5 < |b| < 2: one class only, flat to κ = 0.75, 0.17 at 1.0.
+- Pair 26 (label threshold 0.6) has an offset-like profile: one class only, flat to κ = 0.75, 0.17 at 1.0 (a fine-tune,
+  so h is not constant; no |b| is inferred).
 - Pair 9 (N0 retrain, no label change) decays with κ: retraining noise is a small-margin difference, gone at κ = 0.5.
 - Pair 20 (grid null cell α = 0, t = 0.5) keeps 0.33 at κ = 0.5, class 1 only, 0 at 0.75: the fine-tune left a small
   threshold offset (exp_0029: t̂ − t̂_old = +0.039; locked exp_0026 found-rate 0.21, all class 1). A one-class κ profile

@@ -20,9 +20,12 @@ Deterministic checks of T-A (U1–U3, exp_0032): B3 invalid on every query of al
   share), all moving along aspect (Recovery ≈ found-rate). B1-det is not wrong to report a change: the CEs differ.
 - **C3/H5d explained (H8).** Proposition 2 holds at the witness, not at z₀: after removing the old-model normal at z*,
   the witness and the *original* gradient difference (at z₀) agree. Moving B3 to z* alone widens the gap (−0.270), so
-  the mechanism is the projection direction. The projection deviation tracks the rotation of the normal,
-  1 − cos(ŵ_o(z₀), ŵ_o(z*)) (Spearman 0.80), not the distance ‖z* − z₀‖ (−0.10): the registered mechanism prediction
-  ("increases with both") holds for the first only.
+  the mechanism is the projection direction. The old-model normal turns between z₀ and z* by a median 32°, already
+  27° for the nearest quartile of witnesses (‖z* − z₀‖ ≤ 0.21 ≈ 0.4 r) vs 36° for the farthest; the rotation grows only
+  weakly with distance (Spearman 1 − cos ~ ‖z* − z₀‖: +0.17) and the projection deviation not at all (−0.10). The
+  "increases with distance" half of the registered mechanism prediction is therefore not supported; the rotation half
+  is (Spearman deviation ~ 1 − cos 0.80 is near-definitional and is not used as evidence). Reading: m_old is curved in
+  Z through the renderer, so even a near witness sees another normal (extended_version.md).
 - **Locked H5d −0.352 decomposed** (exp_0026 saved outputs, descriptive): geometry −0.168 (found-rate × gap on the
   support) + found-rate −0.184. On the support the locked gap is −0.234; on the new data −0.190.
 - **Extension to all α > 0 (descriptive, 24 pairs):**
@@ -70,34 +73,41 @@ false negative = a point with slack s ≥ 0, i.e. a witness the solver missed.
   b = −2 at κ = 1, inside the solver tolerance). Figure: exp_0035/found_vs_b.pdf.
 - κ is a detection threshold in logit units, and it separates two kinds of change: retraining noise (pair 9) decays
   smoothly with κ and is gone at κ = 0.5; an offset gives a flat, one-class profile with a step at |b|/2. The
-  threshold-shifted grid pair 26 has the offset profile (|b| between 1.5 and 2); the grid null cell pair 20 is mixed:
+  threshold-shifted grid pair 26 has an offset-like profile; the grid null cell pair 20 is mixed:
   decaying, then 0.33 one-class at κ = 0.5 (its fine-tune left t̂ − t̂_old = +0.039, exp_0029).
 
-## 5. Consequences for the paper (proposed, for the author — nothing in paper/ has been edited)
+## 5. Consequences for the paper (approved by the author 2026-10-21 with corrections; applied in paper/main.tex)
 
-1. **H5d sentence (author's request).** Replace the single "−0.35" with the decomposition: of the locked −0.352,
-   −0.184 is found-rate (Δ-CE abstains where B3 always answers) and −0.168 geometry on the support; H8 then shows the
-   geometric part is where the old-model normal is taken: with ŵ_o at the witness the support gap is +0.029
-   (vs −0.190 at z₀), p_Holm 0.0006. Suggested wording: "Proposition 2 holds at the witness, not at the query."
-2. **Proposition 2 remark.** Add that the projection must use ∇m_old at z*; the deviation tracks the rotation of the
-   normal between z₀ and z* (Spearman 0.80), not ‖z* − z₀‖ (−0.10). One sentence + the 2×2 numbers in a footnote or
-   table row.
-3. **Label shift as a corollary of Lemma 1.** A class-prior change acts as a logit offset b: B3 is undefined (the
-   gradient difference is 0), Δ-CE has an exact detection threshold |b| = 2κ (0 witnesses below; above it, a witness
-   for every query in the lowered class and none in the other), B1-det has none (0.961 of queries flagged for
-   sub-threshold offsets that move 3–8% of decisions; H7c, p_Holm 0.0002). Wording: a detection threshold, not
-   "false positives" of B1. Not a headline (author's decision).
-4. **κ as a threshold in logit units (T-D).** One sentence or a small inset: offsets give a flat one-class step at
-   κ = |b|/2, retraining noise decays smoothly and is gone at κ = 0.5. This also corrects the reading of κ as a
-   probability margin (κ is in logits).
-5. **Abstention is reliable (T-C).** "NOT_FOUND on null pairs is not a solver failure: an independent search of
-   10⁵ points per query finds no witness on 400 null and 150 impossible-class queries (CP95 upper 0.9% and 2.4%);
-   misses (3/395) occur only where the feasible band is thin." This answers the obvious reviewer question about
-   abstention.
-6. **Limitations to update.** T-C is a sampling lower bound on existence (finding none is evidence, not proof);
-   H8 was registered after a validation run that showed the effect (disclosed in v1.10); the grid null cell is not
-   null-like (small fine-tune offset, visible in T-C and T-D).
-7. **From the earlier review:** the B5 citation [5] should be [7].
+1. **H5d sentence.** Of the locked −0.352, −0.184 is found-rate (Δ-CE abstains where B3 always answers) and −0.168
+   geometry on the support. H8 (registered after the validation run exp_0030, confirmed on new data) shows the
+   geometric part depends on where the old-model normal is taken: support gap −0.190 at z₀, +0.029 at z*
+   (p_Holm 0.0006). **C3 and H5d stay "not confirmed"**; H8 is a separate test, not a re-test of H5d.
+2. **Proposition 2 remark (footnote).** The projection must use the old-model normal at the witness. That normal turns
+   between z₀ and z* (median 32°, 27° already for the nearest quartile of witnesses); the rotation grows only weakly
+   with distance (ρ = 0.17) and the projection deviation not at all (ρ = −0.10). The "increases with distance" half of
+   the registered mechanism prediction is not supported. Spearman 0.80 (deviation vs 1 − cos) is not used.
+3. **Logit offset as a corollary of Lemma 1.** Only the prior-correction update [13] is an exact logit offset b: B3 is
+   undefined, Δ-CE has the exact threshold |b| = 2κ (none below; above it every lowered-class query has a witness and
+   no other), B1-det has none (0.961 of queries flagged for sub-threshold offsets that move 3–8% of decisions; H7c,
+   p_Holm 0.0002). Worded as a detection threshold. Label shift by fine-tuning (D-035) stays untested (limitation 2).
+4. **κ (T-D), one sentence.** Under a constant offset the found-rate is a one-class step at κ = |b|/2; retraining
+   noise decays smoothly with κ and is gone at κ = 0.5.
+5. **Abstention (T-C), one sentence.** An independent search of 10⁵ points per query finds no witness on 400 null and
+   150 impossible-class NOT_FOUND queries (CP95 upper 0.9%, 2.4%); on small offsets 3 false negatives (4 in a local
+   re-run) of 395, all where the feasible band is thin.
+6. **Abstract + Discussion.** Replace "after projection, witnesses and gradient differences do not coincide" by: they
+   (nearly) coincide when the old normal is taken at the witness (H8 on the grid; T1 descriptive, §6).
+7. **Protocol:** H7c, H8 in the confirmatory list (Holm m = 2; H8 registered after a validation run); eleven logged
+   amendments. **Limitations:** (2) narrowed to label shift by fine-tuning; (3) κ is an exact threshold for a constant
+   offset, approximate when h varies.
+8. **B5 citation [5] is correct** (Renard et al., DIG); the earlier suggestion to change it was the Research Lead's
+   error. No change.
+9. The paper has no hypothesis table; statuses are in the text (Protocol, Results, Contributions) and are updated there.
 
-Space (6 pages): items 1, 3, 5 fit as three sentences in Results/Discussion; item 2 as a footnote; item 4 as one
-sentence (a figure only if space allows).
+## 6. T1 2×2 (exp_0036, D-045, descriptive)
+
+T1 pairs 0–2, new data (seeds 9000–9002, first use), 300 points, supports 247–256. Gap Δ-CE − B3 after projection on
+the support: (z₀, z₀) −0.166 [CI90 −0.192, −0.140] → **(z*, z₀) −0.024 [−0.041, −0.007]**; (z*, z*) −0.028;
+(z₀, z*) −0.188. T = 0.118 (CI95 lower 0.086), Rec_proj(B3) 0.96. The grid pattern repeats on the shortcut design:
+the gap narrows by more than half, not fully to 0. Normal rotation vs distance ρ = +0.14. So "the analysis holds at
+the witness" covers both designs, with "nearly" for T1.
