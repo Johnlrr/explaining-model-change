@@ -19,11 +19,11 @@ v1.10 (D-043, 2026-10-20) APPROVED by the author (with changes; see D-043). H-01
   runs/experiments/exp_0033 --shard i/2`). NEXT: tb-analyze → holm → exp_0034 (T-C; G4 will be empty, since every
   lowered-class query has a witness) → exp_0035 (T-D) → summary to the author. Locked H5d −0.352 = geometry −0.168 +
   found-rate −0.184 (NOTES). ESANN deadline 18/11.
-v1.10 COMPLETE (2026-10-21 ~22:30 +07). exp_0034 T-C DONE (31 pairs; 15 on Kaggle CPU under D-044, 5 kernels, all
-  verified): false negatives G1 null 0/400, G2 0/150, G3 3/395 (all pair 20, thin band; 4 in the local sensitivity
-  re-run), G4 no query. exp_0035 T-D DONE. Summary for the author: runs/experiments/exp_0035/summary_v110.md (§1–§5).
-  NEXT: the author reviews the summary; NO paper edit before that (handoff gate). kaggle-cpu executor available for
-  long CPU runs (D-044; ascent-type steps differ up to ~1e-2 across CPUs).
+v1.10 COMPLETE; author approved the summary with corrections (2026-10-21). exp_0036 T1 2×2 (D-045, descriptive):
+  gap −0.166 → −0.024 with the normal at the witness. paper/main.tex edited per summary §5 (abstract, contributions,
+  Prop. 2 remark, protocol, H8 + logit-offset/abstention paragraphs, discussion, limitations; Section 5.3 → 4.2 ref
+  fix); 6 pages, 0 overfull/underfull. B5 citation [5] verified correct (no change). NEXT: author reviews the diff of
+  abstract + §4 + §5; then a private page with summary + paper changes for co-authors (author's preference).
 v1.9 (D-036, branch research/delta-ce-v19, 2026-10-19): amendment committed 1997732; code 19d7331.
   Pilot exp_0024 (pair 40: α=0.25, t=0.56, seed 0; validation, qualification only) FAILS §2.3:
   α̂ = 0.233 (ok), accuracy 0.929 (ok), t̂ = 0.630 (|t̂−t| = 0.070 > 0.02). Grid NOT started (v1.9 §6).
