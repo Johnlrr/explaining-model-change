@@ -155,7 +155,7 @@ def max_slack(z0, i, m_old, m_new, kappa, r, M, starts, steps, gen, batch=4096):
     k = int(s_fin.argmax())
     # the ascent can end below its start (Adam step + projection): the estimate is the max of both stages
     return {"s_sample": s_sample, "s_ascent": float(s_fin.max()), "s_max": max(s_sample, float(s_fin.max())),
-            "n_samples": len(zs), "n_draws": draws, "dist_best": float((top[k] - z0).norm())}
+            "n_samples": len(zs), "n_draws": draws, "dist_best": float((top[k].detach() - z0).norm())}
 
 
 def cmd_tc_cost(cfg, out: Path) -> int:

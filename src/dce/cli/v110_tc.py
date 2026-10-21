@@ -69,11 +69,41 @@ def points_for(cfg, pid, f_old, f_new, n):
     return torch.as_tensor(phi[keep], dtype=torch.float32), y[keep], digest
 
 
+class Partial:
+    """Per-pair checkpoint inside a pair (the local session can end and stop a run): arrays in
+    pairs/pair_<id>.partial.npz, rows in pairs/pair_<id>.partial.json. Removed when the pair is complete."""
+
+    def __init__(self, cfg, pid):
+        d = Path(cfg["_out"]) / "pairs"
+        self.npz, self.js = d / f"pair_{pid}.partial.npz", d / f"pair_{pid}.partial.json"
+
+    def arrays(self):
+        return dict(np.load(self.npz)) if self.npz.exists() else None
+
+    def save_arrays(self, **a):
+        np.savez_compressed(self.npz, **a)
+
+    def rows(self):
+        return json.loads(self.js.read_text()) if self.js.exists() else {}
+
+    def save_rows(self, rows):
+        self.js.write_text(json.dumps(rows))
+
+    def clear(self):
+        for f in (self.npz, self.js):
+            f.unlink(missing_ok=True)
+
+
 def tc_pair(cfg, p, cache):
     pid = p["pair_id"]
     f_old, f_new, info = models_for(cfg, pid, cache)
     base = solver_config(cfg, r=float(cfg["r"]))
-    if pid >= 60:                                              # G4: reuse the exp_0032 Δ-CE run on all 300 points
+    part = Partial(cfg, pid)
+    if part.arrays() is not None:                              # resume: Δ-CE already solved for this pair
+        a = part.arrays()
+        z0, y, found, eligible = torch.as_tensor(a["z0"]), a["y"], a["dce_found"], a["eligible"]
+        digest = part.rows()["digest"]
+    elif pid >= 60:                                              # G4: reuse the exp_0032 Δ-CE run on all 300 points
         a = np.load(Path(cfg["h7_run"]) / "pairs" / f"pair_{pid}.npz")
         z0, y, digest, found = torch.as_tensor(a["z0"]), a["y"], f"exp_0032 pair {pid}", a["dce_N__found"].astype(bool)
         eligible = ~found & (y == info["lowered_class"])
@@ -82,20 +112,31 @@ def tc_pair(cfg, p, cache):
         res = delta_ce(z0, Tier0Margin(f_old, y), Tier0Margin(f_new, y), base, cfg["seeds"]["restart_base"] + pid, kind="N")
         found = res.found.numpy()
         eligible = ~found & ((y == 0) if group_of(pid) == "G2_t4_class0" else True)
+    if part.arrays() is None:
+        part.save_arrays(z0=z0.numpy(), y=y, dce_found=found, eligible=eligible)
+        part.save_rows({"digest": digest, "queries": []})
     m_old, m_new = Tier0Margin(f_old, y), Tier0Margin(f_new, y)
-    gen = torch.Generator().manual_seed(cfg["tc_seed_base"] + pid)
-    rows = []
+    state = part.rows()
+    rows = state["queries"]
+    done = {r["query"] for r in rows}
     for i in np.flatnonzero(eligible)[: cfg.get("tc_queries", Q_MAX)]:
+        if int(i) in done:
+            continue
+        # one generator per query, derived from the registered seed 9500 + pair_id, so a resumed run gives the same values
+        gen = torch.Generator().manual_seed((cfg["tc_seed_base"] + pid) * 10_000 + int(i))
         with Timer() as t:
             q = max_slack(z0[i], int(i), m_old, m_new, cfg["kappa"], float(cfg["r"]), cfg["tc_M"], cfg["tc_starts"],
                           cfg["tc_steps"], gen)
         rows.append({"query": int(i), "y": int(y[i]), **q, "wall_s": round(t.wall, 2)})
+        part.save_rows(state)
+    rows.sort(key=lambda r: r["query"])
     s_max = np.array([r["s_max"] for r in rows]) if rows else np.zeros(0)
     arrays = {"z0": z0.numpy(), "y": y, "dce_found": found, "queries": np.array([r["query"] for r in rows], dtype=int),
               "s_max": s_max}
     row = {"pair_id": pid, "group": group_of(pid), **{k: v for k, v in info.items() if k != "checkpoints"},
            "data_sha256": digest, "n_points": len(y), "dce_found": int(found.sum()), "n_eligible": int(eligible.sum()),
            "queries": rows, "checkpoints": info["checkpoints"]}
+    part.clear()
     return arrays, row
 
 
@@ -124,15 +165,19 @@ def td_pair(cfg, p, cache):
     z0, y, digest = points_for(cfg, pid, f_old, f_new, cfg.get("tc_points", N_FIRST))
     m_old, m_new = Tier0Margin(f_old, y), Tier0Margin(f_new, y)
     base = solver_config(cfg, r=float(cfg["r"]))
-    arrays, per = {"z0": z0.numpy(), "y": y}, {}
+    part = Partial(cfg, pid)
+    arrays, per = (part.arrays() or {"z0": z0.numpy(), "y": y}), {}
     for kap in cfg["kappa_curve"]:
-        res = delta_ce(z0, m_old, m_new, replace(base, kappa=float(kap)), cfg["seeds"]["restart_base"] + pid, kind="N")
-        f = res.found.numpy()
-        arrays[f"found_k{kap}"] = f
+        if f"found_k{kap}" not in arrays:
+            res = delta_ce(z0, m_old, m_new, replace(base, kappa=float(kap)), cfg["seeds"]["restart_base"] + pid, kind="N")
+            arrays[f"found_k{kap}"] = res.found.numpy()
+            part.save_arrays(**arrays)
+        f = arrays[f"found_k{kap}"]
         per[str(kap)] = {"found": float(f.mean()), "found_y0": float(f[y == 0].mean()) if (y == 0).any() else None,
                          "found_y1": float(f[y == 1].mean()) if (y == 1).any() else None}
     row = {"pair_id": pid, **{k: v for k, v in info.items() if k != "checkpoints"}, "data_sha256": digest,
            "n_points": len(y), "found_by_kappa": per, "checkpoints": info["checkpoints"]}
+    part.clear()
     return arrays, row
 
 
@@ -167,6 +212,7 @@ def main(argv=None) -> int:
     print(f"config sha256 {sha256(args.config)}", flush=True)
     shard = tuple(map(int, args.shard.split("/")))
     by_id = {pid: {"pair_id": pid} for pid in cfg["pair_ids"]}
+    cfg["_out"] = str(args.out)
     if args.stage in ("tc-run", "td-run"):
         fn = tc_pair if args.stage == "tc-run" else td_pair
         return run_pairs(cfg, args.out, shard, by_id, fn, f"D-043 (v1.10 {'§4' if fn is tc_pair else '§5'})")
