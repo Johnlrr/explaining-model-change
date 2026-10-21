@@ -1124,6 +1124,21 @@ Residual: MKL / oneDNN may pick other code paths on an Intel CPU than on the loc
 
 **Assignment for exp_0034:** local finishes pairs 11, 12 and the G4 pairs (which need exp_0032 outputs and have no eligible query); Kaggle kernels k1–k5 run [13, 6, 20], [14, 7, 21], [15, 8, 22], [16, 23, 24], [25, 26, 27].
 
+
+## D-045 — T1 2×2 on new data (descriptive), the author's request after the v1.10 summary; fixed before the T1 data are generated
+
+**Status:** active — the author's message of 2026-10-21 ("Chạy 2×2 (H8) trên 3 pair T1, data mới new_test_set(9000+pair_id), descriptive"). Declared and committed before `new_test_set(9000..9002)` is generated.
+
+**Why:** H8 was tested on the grid rotation only; the original C3 failure is on T1 (locked, 0.64 vs 0.95). The paper's "analysis holds at the witness" would cover both designs only if T1 shows the same pattern.
+
+**Design (as exp_0033, nothing tuned):** Tier 0 T1 pairs 0–2 (exp_0002 f_old, exp_0003 f_new, hash-verified), k* = colour (drift.K_STAR["T1"] = 2); 300 valid points (κ = 0.5, order seed 5000 + pair_id), Δ-CE N (restarts 10000 + pair_id), B3 at z0 and z*, ∇m_old at z0 and z*; Recovery after projection on the Δ-CE support; cells as v1.10 §3; paired bootstrap stratified by pair, seed 6602, 10 000 resamples. Report gap (z0, z0) → (z*, z0) with CI90, T for (z*, z0), Rec_proj(B3) at (z*, z0), the other cells, and Spearman(1 − cos, ‖z* − z0‖). **No hypothesis, no Holm, no pass/fail.** Stage `v110_test tb-run` (Tier 0 pairs via load_pair) and `tb-describe`.
+
+**Seeds:** 9000–9002 appear nowhere in the repository except as `data_seed_base: 9000` of the v1.10 configs, which ran pair ids 6–16, 20–51 and 60–89 only; the project's other seeds are 0/100/200 (training), 2000–4000 + pid (adaptation), 5000 + pid (points), 10000 + pid (restarts); locked: 1234, 2027, 2028, 7020–7051 (`check_fresh_seed`).
+
+**Smoke (validation, 10 points per pair, smoke_0022):** pipeline runs; values on 10 points are not read as results.
+
+**Also recorded (the author's corrections to the summary, 2026-10-21):** (1) Spearman(projection deviation, 1 − cos) ≈ 0.80 is close to a tautology (the deviation is a function of the angle between the two normals) and is not evidence; the content is that the rotation of the normal does not depend on ‖z* − z0‖, so the "increases with distance" half of the registered mechanism prediction is not supported. (2) The B5 citation [5] (Renard et al., DIG) is correct; the earlier suggestion to change it to [7] (DiG-IN) was the Research Lead's error in the first review (bibitem key r7 confused with the printed number). (3) Only the prior-correction update [13] is an exact logit offset; label shift by fine-tuning (D-035) remains untested.
+
 ---
 
 ## 12. Decision conflicts

@@ -1,0 +1,14 @@
+# exp_0036 — T1 2×2 (H8 design) on new data, DESCRIPTIVE (D-045, the author's request of 2026-10-21 after the v1.10
+# summary). Tier 0 T1 pairs 0–2 (exp_0002 f_old, exp_0003 f_new, hash-verified), k* = colour.
+# Data per pair: new_test_set(9000 + pair_id, 5 000) — seeds 9000–9002, never used before; 300 valid points as exp_0033.
+experiment_id: exp_0036
+decision: D-045
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+data_seed_base: 9000
+n_samples: 5000
+n_points: 300
+pair_ids: [0, 1, 2]
+bootstrap_resamples: 10000
+bootstrap_seed: 6602
+threads: 8

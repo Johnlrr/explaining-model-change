@@ -1,0 +1,11 @@
+# smoke_0022 — T1 2×2 pipeline on VALIDATION (same code path as exp_0036, `data: val`, 10 points, 3 pairs + tb-describe).
+experiment_id: smoke_0022
+decision: D-045
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+data: val
+n_points: 10
+pair_ids: [0, 1, 2]
+bootstrap_resamples: 1000
+bootstrap_seed: 6602
+threads: 8

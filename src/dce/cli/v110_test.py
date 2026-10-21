@@ -39,8 +39,9 @@ from dce.cli.g0_reeval import load_verified
 from dce.cli.g0_tier0 import git_state, load_config, sha256
 from dce.cli.v19_grid import grid_pairs
 from dce.cli.v19_test import load_models
-from dce.data.drift import clean_splits
+from dce.data.drift import clean_splits, tier0_pairs
 from dce.eval.metrics import MethodOutput, recovery_indicator
+from dce.eval.pairs import load_pair
 from dce.eval.records import check_outputs, from_direction, from_points, runtime_row
 from dce.eval.stats import holm
 from dce.eval.tier0_margins import Tier0Margin, valid_points
@@ -190,7 +191,10 @@ def cmd_ta_analyze(cfg, out: Path) -> int:
 def tb_pair(cfg, p, cache):
     pid, n = p["pair_id"], cfg["n_points"]
     base = solver_config(cfg, r=float(cfg["r"]))
-    f_old, f_new, entries = load_models(cfg, p, cache)
+    if "condition" in p:                                       # Tier 0 pair (T1 2×2, D-045)
+        _, f_old, f_new, entries = load_pair(pid, cache=cache)
+    else:
+        f_old, f_new, entries = load_models(cfg, p, cache)
     phi, y, digest = data_for(cfg, pid)
     keep = valid_points(phi, y, Tier0Margin(f_old, y), Tier0Margin(f_new, y), n, cfg["seeds"]["points_base"] + pid, cfg["kappa"])
     z0 = torch.as_tensor(phi[keep], dtype=torch.float32)
@@ -307,6 +311,46 @@ def tb_analyze(pairs: dict, B: int = 10_000) -> dict:
     return {"label": "v1.10 T-B (D-043)", "H8": h8, "descriptive": {"pairs": rows, "spearman_h8_pairs": spear}}
 
 
+def tb_describe(pairs: dict, seed: int, B: int = 10_000) -> dict:
+    """Descriptive 2×2 (D-045): pooled gaps of every cell with CI90 (paired bootstrap stratified by pair, as H8),
+    T for the cell (z*, z0), per-pair recoveries, and locality. k* from the pair (Tier 0) or colour (grid)."""
+    key = lambda c: f"{c[0]},{c[1]}"
+    ks = {pid: COLOUR if r.get("k_star") is None else r["k_star"] for pid, (r, _) in pairs.items()}
+    ind = {pid: h8_inputs(a, ks[pid]) for pid, (_, a) in pairs.items()}
+    res = boot_h8([ind[p][1] for p in sorted(pairs)], np.random.default_rng(seed), B)
+    rows, loc_all = [], {"dist": [], "one_minus_cos": [], "proj_dev": []}
+    for pid in sorted(pairs):
+        a = pairs[pid][1]
+        dce, i = ind[pid]
+        s = dce.found
+        loc = locality(a["z0"][s], a["zs"][s], a["grad_z0"][s], a["grad_zs"][s], a["dce__dphi"][s])
+        for k, acc in loc_all.items():
+            acc.append(loc[k])
+        rows.append({"pair_id": pid, "k_star": ks[pid], "support": int(s.sum()), "found_rate": float(s.mean()),
+                     "rec": {key(c): [float(i[c][0].mean()), float(i[c][1].mean())] if s.any() else None for c in CELLS},
+                     "median_dist": float(np.median(loc["dist"])) if s.any() else None,
+                     "median_one_minus_cos": float(np.median(loc["one_minus_cos"])) if s.any() else None})
+    cat = {k: np.concatenate(v) for k, v in loc_all.items()}
+    return {"label": "v1.10 T1 2×2 (D-045, descriptive)", "bootstrap_seed": seed, "support_sizes": res["support_sizes"],
+            "gap": {key(c): v for c, v in res["gap"].items()}, "gap_ci90": {key(c): v for c, v in res["gap_ci90"].items()},
+            "T_zs_z0": res["T"], "T_ci_lower95": res["T_ci_lower95"], "rec_b3_zs_z0": res["guard_rec_b3"],
+            "pairs": rows, "spearman": {"one_minus_cos~dist": float(spearmanr(cat["one_minus_cos"], cat["dist"]).statistic),
+                                        "proj_dev~dist": float(spearmanr(cat["proj_dev"], cat["dist"]).statistic)}}
+
+
+def cmd_tb_describe(cfg, out: Path) -> int:
+    path = out / "results_2x2.json"
+    if path.exists():
+        raise SystemExit("refusing to overwrite results_2x2.json")
+    pairs = {p: (json.loads((out / "pairs" / f"pair_{p}.json").read_text()), dict(np.load(out / "pairs" / f"pair_{p}.npz")))
+             for p in cfg["pair_ids"]}
+    res = tb_describe(pairs, cfg["bootstrap_seed"], cfg["bootstrap_resamples"])
+    res["git"] = git_state()
+    path.write_text(json.dumps(res, indent=2))
+    print(json.dumps({k: res[k] for k in ("support_sizes", "gap", "gap_ci90", "T_zs_z0", "rec_b3_zs_z0", "spearman")}, indent=1))
+    return 0
+
+
 def cmd_tb_analyze(cfg, out: Path) -> int:
     path = out / "results_h8.json"
     if path.exists():
@@ -343,7 +387,7 @@ def cmd_holm(h7_path: Path, h8_path: Path, out: Path) -> int:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("stage", choices=("ta-run", "ta-analyze", "tb-run", "tb-analyze", "holm"))
+    ap.add_argument("stage", choices=("ta-run", "ta-analyze", "tb-run", "tb-analyze", "tb-describe", "holm"))
     ap.add_argument("--config", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--shard", default="0/1", help="i/k: run the pairs whose position mod k is i")
@@ -358,8 +402,9 @@ def main(argv=None) -> int:
     if args.stage == "ta-run":
         return cmd_ta_run(cfg, args.out, shard)
     if args.stage == "tb-run":
-        return run_pairs(cfg, args.out, shard, {p["pair_id"]: p for p in grid_pairs()}, tb_pair, "D-043 (v1.10 §3)")
-    return {"ta-analyze": cmd_ta_analyze, "tb-analyze": cmd_tb_analyze}[args.stage](cfg, args.out)
+        by_id = {p["pair_id"]: p for p in [*tier0_pairs(), *grid_pairs()]}
+        return run_pairs(cfg, args.out, shard, by_id, tb_pair, cfg.get("decision", "D-043 (v1.10 §3)"))
+    return {"ta-analyze": cmd_ta_analyze, "tb-analyze": cmd_tb_analyze, "tb-describe": cmd_tb_describe}[args.stage](cfg, args.out)
 
 
 if __name__ == "__main__":

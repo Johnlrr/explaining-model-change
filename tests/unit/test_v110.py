@@ -220,3 +220,16 @@ def test_claim_and_dynamic_run_pairs(tmp_path):
     (tmp_path / "pairs" / "pair_2.claim").unlink()
     run_pairs(cfg, tmp_path, None, {i: {"pair_id": i} for i in (1, 2, 3)}, fn, "test")
     assert done == [1, 3, 2]
+
+
+def test_tb_describe_k_star():
+    from dce.analysis.v110 import boot_h8
+    from dce.cli.v110_test import COLOUR, h8_inputs, tb_describe
+    rng = np.random.default_rng(1)
+    pairs = {0: ({"pair_id": 0, "condition": "T1", "k_star": 2}, _tb_arrays(40, rng)),
+             20: ({"pair_id": 20, "alpha": 0.0, "k_star": None}, _tb_arrays(40, rng))}
+    res = tb_describe(pairs, seed=6602, B=200)
+    assert [r["k_star"] for r in res["pairs"]] == [2, COLOUR]
+    ref = boot_h8([h8_inputs(pairs[p][1], 2)[1] for p in (0, 20)], np.random.default_rng(6602), 200)
+    assert res["gap"]["zs,z0"] == ref["gap"][("zs", "z0")] and res["T_zs_z0"] == ref["T"]
+    assert set(res["spearman"]) == {"one_minus_cos~dist", "proj_dev~dist"}
