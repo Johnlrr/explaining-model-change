@@ -22,8 +22,9 @@ v1.10 (D-043, 2026-10-20) APPROVED by the author (with changes; see D-043). H-01
 v1.10 COMPLETE; author approved the summary with corrections (2026-10-21). exp_0036 T1 2×2 (D-045, descriptive):
   gap −0.166 → −0.024 with the normal at the witness. paper/main.tex edited per summary §5 (abstract, contributions,
   Prop. 2 remark, protocol, H8 + logit-offset/abstention paragraphs, discussion, limitations; Section 5.3 → 4.2 ref
-  fix); 6 pages, 0 overfull/underfull. B5 citation [5] verified correct (no change). NEXT: author reviews the diff of
-  abstract + §4 + §5; then a private page with summary + paper changes for co-authors (author's preference).
+  fix); 6 pages, 0 overfull/underfull. B5 citation [5] verified correct (no change). Author's 7 corrections applied
+  (545fe9c, 6 pages).
+  NEXT: co-authors read and adjust wording; content judged submission-ready by the author (2026-10-21).
 v1.9 (D-036, branch research/delta-ce-v19, 2026-10-19): amendment committed 1997732; code 19d7331.
   Pilot exp_0024 (pair 40: α=0.25, t=0.56, seed 0; validation, qualification only) FAILS §2.3:
   α̂ = 0.233 (ok), accuracy 0.929 (ok), t̂ = 0.630 (|t̂−t| = 0.070 > 0.02). Grid NOT started (v1.9 §6).
