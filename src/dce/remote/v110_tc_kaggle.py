@@ -103,17 +103,22 @@ def main() -> None:
             resumed.append(f.name)
     os.chdir(work)
 
+    import importlib
+
     import numpy
     import scipy
     import torch
 
-    from dce.cli.v110_tc import main as tc_main
-
-    argv = ["tc-run", "--config", p["config"], "--out", str(out), "--shard", "dyn", "--threads", threads,
-            "--pairs", ",".join(map(str, pairs))]
-    if p.get("deadline_h"):
-        argv += ["--deadline-h", str(p["deadline_h"])]
-    rc = tc_main(argv)
+    module = p.get("module", "dce.cli.v110_tc")          # D-044 executor: T-C by default; any `run_pairs` stage
+    run_main = importlib.import_module(module).main
+    if module == "dce.cli.v110_tc":
+        argv = ["tc-run", "--config", p["config"], "--out", str(out), "--shard", "dyn", "--threads", threads,
+                "--pairs", ",".join(map(str, pairs))]
+        if p.get("deadline_h"):
+            argv += ["--deadline-h", str(p["deadline_h"])]
+    else:
+        argv = [*p["argv"], "--config", p["config"], "--out", str(out)]
+    rc = run_main(argv)
 
     for f in sorted((out / "pairs").glob("pair_*")):
         if not f.name.endswith(".claim"):
@@ -123,7 +128,7 @@ def main() -> None:
         shutil.copy(meta[0], working / "metadata.json")
     done = [q for q in pairs if (working / f"pair_{q}.json").exists() and (working / f"pair_{q}.npz").exists()]
     result = {
-        "experiment": "exp_0034", "decision": "D-044", "observed_hardware": f"CPU: {cpu['model']}", "rc": rc, "pairs": pairs, "pairs_done": done,
+        "experiment": p.get("experiment", "exp_0034"), "module": module, "decision": "D-044", "observed_hardware": f"CPU: {cpu['model']}", "rc": rc, "pairs": pairs, "pairs_done": done,
         "pairs_partial": [q for q in pairs if (working / f"pair_{q}.partial.json").exists()], "resumed_files": resumed, "inputs_listing": str(listing),
         "config": p["config"], "config_sha256": sha256(work / p["config"]), "inputs_listing_sha256": p["inputs_sha256"],
         "bundle_tree_hash": os.environ.get("DCE_BUNDLE_TREE_HASH"),

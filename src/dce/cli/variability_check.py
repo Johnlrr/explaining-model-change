@@ -80,6 +80,7 @@ def main(argv=None) -> int:
     ap.add_argument("stage", choices=("run", "summary"))
     ap.add_argument("--config", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--units", help="run stage: comma-separated unit ids (100 · pair + run) to run")
     args = ap.parse_args(argv)
     cfg = load_config(args.config)
     cfg["_out"] = str(args.out)
@@ -87,6 +88,8 @@ def main(argv=None) -> int:
     units = {100 * pid + r: {"pair_id": 100 * pid + r, "pid": pid, "run": r} for pid in cfg["pair_ids"] for r in range(len(RUNS))}
     cfg["pair_ids"] = list(units)
     if args.stage == "run":
+        if args.units:
+            cfg["pair_ids"] = [int(u) for u in args.units.split(",")]
         return run_pairs(cfg, args.out, None, units, unit_fn, "variability check (validation, descriptive)")
     rows = [json.loads((args.out / "pairs" / f"pair_{u}.json").read_text()) for u in units]
     out = {}
