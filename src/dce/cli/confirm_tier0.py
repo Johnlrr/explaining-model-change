@@ -187,7 +187,7 @@ def main(argv=None) -> int:
     if args.stage == "run":
         return cmd_run(cfg, args.out)
     meta = json.loads((args.out / "metadata.json").read_text())
-    if meta.get("status") != "RUN_COMPLETE":
+    if meta.get("status") not in ("RUN_COMPLETE", "ANALYZED"):   # ANALYZED: re-analysis from saved outputs
         raise SystemExit("run stage not complete")
     if (args.out / "results.json").exists():
         raise SystemExit("refusing to overwrite results.json")

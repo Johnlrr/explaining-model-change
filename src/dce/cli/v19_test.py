@@ -181,7 +181,7 @@ def cmd_analyze(cfg, out: Path) -> int:
     if not con["pass"]:
         raise SystemExit("§5.3 consistency check failed: analysis stops (v1.9 §5.3)")
     meta = json.loads((out / "metadata.json").read_text())
-    if meta.get("status") != "RUN_COMPLETE":
+    if meta.get("status") not in ("RUN_COMPLETE", "ANALYZED"):   # ANALYZED: re-analysis from saved outputs
         raise SystemExit("run stage not complete")
     if (out / "results.json").exists():
         raise SystemExit("refusing to overwrite results.json")

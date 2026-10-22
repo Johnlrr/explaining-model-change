@@ -264,7 +264,7 @@ def analyze(pairs: dict[int, tuple[dict, dict[str, MethodOutput]]], cfg: dict, e
 
 def cmd_analyze(cfg: dict, out: Path) -> int:
     meta = json.loads((out / "metadata.json").read_text())
-    if meta.get("status") != "RUN_COMPLETE":
+    if meta.get("status") not in ("RUN_COMPLETE", "ANALYZED"):   # ANALYZED: re-analysis from saved outputs
         raise SystemExit("run stage not complete")
     if (out / "results.json").exists():
         print("refusing to overwrite results.json", file=sys.stderr)

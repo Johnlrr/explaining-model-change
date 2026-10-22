@@ -6,14 +6,15 @@ Two levels:
 
 - **From saved outputs (minutes).** Each test run saved its per-pair outputs in `runs/experiments/<exp>/pairs/`.
   The `analyze` stages recompute every metric, CI and test from them. They refuse to overwrite an existing
-  `results.json`, so copy the pairs to a fresh directory first (helper below).
+  `results.json`, so the helper below copies the run to a fresh directory without its results first.
 - **Full re-run (hours).** The `run` stages regenerate the data from seeds and re-solve every point with the
   checkpoints under `runs/experiments/exp_0002`, `exp_0003`, `exp_0025` (hash-verified on load). Test splits were
   used once in the study; re-running them is for verification only.
 
 ```bash
-reanalyze() {   # reanalyze <module> <exp> [stage]: recompute from saved per-pair outputs into .work/repro/<exp>
-  mkdir -p .work/repro/$2 && cp -r runs/experiments/$2/pairs .work/repro/$2/
+reanalyze() {   # reanalyze <module> <exp> [stage]: recompute from the saved run (outputs, metadata) into .work/repro/<exp>
+  rm -rf .work/repro/$2 && mkdir -p .work/repro && cp -r runs/experiments/$2 .work/repro/$2
+  rm -f .work/repro/$2/results*.json
   uv run python -m $1 ${3:-analyze} --config configs/experiments/$2.yaml --out .work/repro/$2
 }
 ```
