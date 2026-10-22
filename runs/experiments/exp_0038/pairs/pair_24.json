@@ -1,0 +1,28 @@
+{
+  "pair_id": 24,
+  "kind": "grid",
+  "alpha": 0.0,
+  "t": 0.56,
+  "seed": 0,
+  "data_sha256": "validation",
+  "n_points": 100,
+  "dce_std_seconds": 636.5,
+  "dce_ref_seconds": 765.8,
+  "a1_f32_seconds": 65.3,
+  "a1_f64_seconds": 155.2,
+  "dce_std_vs_dce_ref": {
+    "n_both": 56,
+    "found_disagree": 0,
+    "median": 0.0009070590754749887,
+    "p95": 0.3374748204828903,
+    "max": 1.5839878195554378
+  },
+  "a1_f32_vs_a1_f64": {
+    "n_both": 37,
+    "found_disagree": 5,
+    "median": 0.41952263647991456,
+    "p95": 1.0468730851962165,
+    "max": 1.2216555390129225
+  },
+  "wall_s_pair": 1636.7
+}

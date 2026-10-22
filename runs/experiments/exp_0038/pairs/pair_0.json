@@ -1,0 +1,27 @@
+{
+  "pair_id": 0,
+  "kind": "tier0",
+  "condition": "T1",
+  "seed": 0,
+  "data_sha256": "validation",
+  "n_points": 100,
+  "dce_std_seconds": 303.9,
+  "dce_ref_seconds": 880.0,
+  "a1_f32_seconds": 175.5,
+  "a1_f64_seconds": 445.3,
+  "dce_std_vs_dce_ref": {
+    "n_both": 81,
+    "found_disagree": 0,
+    "median": 7.986986528273421e-05,
+    "p95": 0.2319351043060957,
+    "max": 0.8116769648200866
+  },
+  "a1_f32_vs_a1_f64": {
+    "n_both": 62,
+    "found_disagree": 5,
+    "median": 0.5466610522491142,
+    "p95": 1.1056804401237441,
+    "max": 1.2168212577920758
+  },
+  "wall_s_pair": 1808.2
+}

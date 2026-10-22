@@ -1,0 +1,86 @@
+{
+  "tau_solver": 0.2231,
+  "tau_deepxplore": 1.2204,
+  "factor": "sqrt(2)",
+  "comparisons": [
+    {
+      "name": "H2a (Subgroup, locked)",
+      "estimate": -0.0911111111111111,
+      "worst": 0.22222222222222224,
+      "criterion": "sign",
+      "direction_holds": false
+    },
+    {
+      "name": "Tie: Shortcut \u0394-CE vs Grad-diff",
+      "estimate": -0.5333333333333333,
+      "worst": -0.1811111111111111,
+      "criterion": "abs>0.10",
+      "direction_holds": true
+    },
+    {
+      "name": "Tie: Shortcut \u0394-CE vs CF-diff",
+      "estimate": -0.16777777777777772,
+      "worst": 0.19111111111111115,
+      "criterion": "abs>0.10",
+      "direction_holds": false
+    },
+    {
+      "name": "Tie: Threshold \u0394-CE vs Grad-diff",
+      "estimate": 0.3955555555555555,
+      "worst": 0.2522222222222222,
+      "criterion": "abs>0.10",
+      "direction_holds": true
+    },
+    {
+      "name": "Tie: Threshold \u0394-CE vs CF-diff",
+      "estimate": -0.2933333333333334,
+      "worst": -0.04,
+      "criterion": "abs>0.10",
+      "direction_holds": false
+    },
+    {
+      "name": "C1 (Threshold, new data)",
+      "estimate": 0.31222222222222223,
+      "worst": 0.14555555555555558,
+      "criterion": "sign",
+      "direction_holds": true
+    },
+    {
+      "name": "C3 (Shortcut, projected)",
+      "estimate": -0.30444444444444446,
+      "worst": -0.031111111111111128,
+      "criterion": "abs>0.10",
+      "direction_holds": false
+    },
+    {
+      "name": "H5d (grid, projected)",
+      "estimate": -0.3524999999999999,
+      "worst": 0.05250000000000002,
+      "criterion": "abs>0.10",
+      "direction_holds": false
+    },
+    {
+      "name": "\u0394-CE vs DeepXplore: Subgroup",
+      "estimate": 0.23666666666666666,
+      "worst": -0.1333333333333333,
+      "criterion": "sign",
+      "direction_holds": false
+    },
+    {
+      "name": "\u0394-CE vs DeepXplore: Threshold",
+      "estimate": 0.15777777777777777,
+      "worst": 0.062222222222222213,
+      "criterion": "sign",
+      "direction_holds": true
+    }
+  ],
+  "H8": {
+    "gap_z0z0": -0.19043105777359448,
+    "gap_zsz0": 0.029289334239722492,
+    "T": 0.1318523892941495,
+    "worst_gap_z0z0": 0.2542083910720667,
+    "worst_gap_zsz0": -0.4702972346414969,
+    "worst_T": -0.6863860782109271,
+    "direction_holds": false
+  }
+}

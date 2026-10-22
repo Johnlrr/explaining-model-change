@@ -1,0 +1,23 @@
+{
+  "experiment": "exp_0038",
+  "decision": "tangent check (validation, descriptive)",
+  "shard": "dyn",
+  "git_runs": [
+    {
+      "git": {
+        "commit": "dbd1962089f1e3a2b1d24bdb876cb4add00344ad",
+        "dirty": false
+      },
+      "started": "2026-10-22T09:59:44",
+      "threads": 4
+    }
+  ],
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "pairs": [
+    0,
+    36
+  ],
+  "finished": "2026-10-22T11:05:59"
+}
