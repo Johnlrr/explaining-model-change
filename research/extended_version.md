@@ -27,3 +27,12 @@ distance in Z is replaced by image-space distance — if the normal is nearly co
 is a coordinate effect of Z; (c) links to #5: the method "witness + normal at the witness" is needed precisely because
 the normal is not stable within the budget r. Correlation deviation ~ 1 − cos (0.80) is near-definitional, not
 evidence.
+
+## #7 — the proximity term makes the explanation determined (2026-10-22, validation, descriptive)
+
+exp_0038: re-solving the same points (float32 vs float64, same seed) changes the top factor of DeepXplore on 33% of
+points (98/301) but of Δ-CE on 0.5% (2/409); CF-diff (two ordinary CEs) changes on 10.9% (61/561). exp_0039: the mean
+Recovery is nevertheless stable across five runs (DeepXplore SD 0.013–0.028, Δ-CE ≤ 0.005). Argument for #5: the
+proximity term pins the explanation (a unique nearest point), whereas a search without it returns an arbitrary feasible
+point. For the extended version, measure this on test data with all pairs (attribution stability as a metric next to
+Recovery).
