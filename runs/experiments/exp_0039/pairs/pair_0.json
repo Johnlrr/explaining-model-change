@@ -1,0 +1,62 @@
+{
+  "pair_id": 0,
+  "kind": "tier0",
+  "condition": "T1",
+  "seed": 0,
+  "k_star": 2,
+  "data_sha256": "validation",
+  "n_points": 100,
+  "runs": {
+    "dce_f32_s0": {
+      "found": 0.81,
+      "recovery": 0.27,
+      "seconds": 289.3
+    },
+    "dce_f32_s1": {
+      "found": 0.81,
+      "recovery": 0.27,
+      "seconds": 319.2
+    },
+    "dce_f32_s2": {
+      "found": 0.81,
+      "recovery": 0.27,
+      "seconds": 425.7
+    },
+    "dce_f64_s0": {
+      "found": 0.81,
+      "recovery": 0.27,
+      "seconds": 677.8
+    },
+    "dce_f64_s1": {
+      "found": 0.81,
+      "recovery": 0.27,
+      "seconds": 678.0
+    },
+    "a1_f32_s0": {
+      "found": 0.65,
+      "recovery": 0.33,
+      "seconds": 171.6
+    },
+    "a1_f32_s1": {
+      "found": 0.67,
+      "recovery": 0.33,
+      "seconds": 170.9
+    },
+    "a1_f32_s2": {
+      "found": 0.65,
+      "recovery": 0.32,
+      "seconds": 166.2
+    },
+    "a1_f64_s0": {
+      "found": 0.64,
+      "recovery": 0.35,
+      "seconds": 472.8
+    },
+    "a1_f64_s1": {
+      "found": 0.64,
+      "recovery": 0.35,
+      "seconds": 447.5
+    }
+  },
+  "wall_s_pair": 3822.3
+}

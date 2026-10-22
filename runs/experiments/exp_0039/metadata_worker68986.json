@@ -1,0 +1,22 @@
+{
+  "experiment": "exp_0039",
+  "decision": "stability check (validation, descriptive)",
+  "shard": "dyn",
+  "git_runs": [
+    {
+      "git": {
+        "commit": "019363b41967de4b67df3968ec1b4f6a05134dd7",
+        "dirty": false
+      },
+      "started": "2026-10-22T11:49:50",
+      "threads": 4
+    }
+  ],
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "pairs": [
+    3
+  ],
+  "finished": "2026-10-22T12:55:25"
+}
