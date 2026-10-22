@@ -1162,6 +1162,24 @@ Descriptive, from saved exp_0017 outputs (`dce_N_distance`, `a1_distance`, locke
 
 **Anonymous review copy:** `python -m dce.release <out> <patterns.tsv> [--with-checkpoints]` copies git-tracked code, configs, tests, docs (spec + amendments), DECISIONS/HYPOTHESES and runs; rewrites identifying strings (content and paths) from a patterns file kept outside the release, and fails if any remains. Built at `.work/anon_release` (with checkpoints: 1 199 files, 104 MB; full unit suite passes inside the copy: 198 passed, 1 skipped). Not uploaded: the author checks the ESANN rules on links first.
 
+
+## D-047 — exp_0040 decision rules (variability across re-solves, validation); H8 rule clarified before any result
+
+**Status:** active. Rules fixed by the author on 2026-10-22, before any exp_0040 number was read (the run was in
+progress; no output had been opened). Descriptive; no registered test changes.
+
+- **Shortcut, Δ-CE vs CF-diff (predicted tie):** |Δ| > 0.10 in every one of the 5 runs → paper unchanged; otherwise
+  the sentence becomes "fails in three of four comparisons robustly; Shortcut vs. CF-diff is within CF-diff's re-solve
+  variability".
+- **H8 (clarified):** the trigger is T = |gap(z0,z0)| − 2|gap(z*,z0)| ≤ 0 in a run (the narrowing by ≥ ½ fails). The
+  first wording ("gap at (z*, z0) changes sign relative to (z0, z0)") was a slip: the reported test values already
+  have opposite signs (−0.190, +0.029), and a sign change of a gap near 0 is not what H8 claims. All three readings
+  are reported per run. If T ≤ 0 in at least one run: H8 stays confirmed (the registered test on test data passed);
+  §4.2 gets "(on validation re-solves the narrowing held in k of 5 runs)" and proofs.md §6 the details. If T > 0 in
+  all 5 runs: proofs.md §6 only.
+- **After exp_0040:** no further robustness checks for the ESANN version; proofs.md §6 (CNN part) is written from
+  exp_0038/0039/0040, with the flip-rate bound described as pessimistic and the run-to-run variation as the main measure.
+
 ---
 
 ## 12. Decision conflicts
