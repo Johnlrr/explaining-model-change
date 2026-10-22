@@ -1,0 +1,11 @@
+# smoke_0025 — run-to-run variability of the reported comparisons (author's request 2026-10-22; decision rules fixed in
+# the module docstring before any number was seen). VALIDATION only, descriptive.
+experiment_id: smoke_0025
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+models_run: runs/experiments/exp_0025
+data: val
+n_points_tier0: 3
+n_points_grid: 3
+pair_ids: [0, 6, 36, 37, 44, 45]
+threads: 4

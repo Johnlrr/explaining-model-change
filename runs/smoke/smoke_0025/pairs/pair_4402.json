@@ -1,0 +1,13 @@
+{
+  "pair_id": 44,
+  "run": "f32_s2",
+  "kind": "grid",
+  "alpha": 0.5,
+  "t": 0.5,
+  "seed": 0,
+  "n_points": 3,
+  "gap_z0_z0": 0.0,
+  "gap_zs_z0": 0.0,
+  "support": 2,
+  "wall_s_pair": 29.6
+}

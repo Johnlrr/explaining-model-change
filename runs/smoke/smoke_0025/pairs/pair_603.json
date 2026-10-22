@@ -1,0 +1,13 @@
+{
+  "pair_id": 6,
+  "run": "f64_s0",
+  "kind": "tier0",
+  "condition": "T4",
+  "seed": 0,
+  "n_points": 3,
+  "rec_dce": 1.0,
+  "rec_cf_diff": 0.6666666666666666,
+  "found_dce": 1.0,
+  "found_cf_diff": 1.0,
+  "wall_s_pair": 40.3
+}

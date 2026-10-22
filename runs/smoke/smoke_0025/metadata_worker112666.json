@@ -1,0 +1,29 @@
+{
+  "experiment": "smoke_0025",
+  "decision": "variability check (validation, descriptive)",
+  "shard": "dyn",
+  "git_runs": [
+    {
+      "git": {
+        "commit": "50ac248ed1ff99f10207878ab2ec8119ba0e9e03",
+        "dirty": true
+      },
+      "started": "2026-10-22T14:10:48",
+      "threads": 4
+    }
+  ],
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "pairs": [
+    2,
+    601,
+    604,
+    3700,
+    3702,
+    4401,
+    4500,
+    4504
+  ],
+  "finished": "2026-10-22T14:15:03"
+}
