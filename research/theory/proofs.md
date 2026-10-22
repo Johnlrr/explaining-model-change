@@ -6,7 +6,8 @@ written 18/10/2026, after the main experiment and before the grid). Numerical ch
 
 ## 0 Setting
 
-Search space $\mathcal Z=\mathbb R^p$ with the Euclidean norm. For a query $z_0$ with label $y$, the margins are
+Search space $\mathcal Z=\mathbb R^p$ with the Euclidean norm and no box constraints (the experiments use
+$[0,1]^5$; box constraints can change the minimiser, so the closed forms below are for the unbounded case). For a query $z_0$ with label $y$, the margins are
 $m_o,m_n$ and $h=m_n-m_o$. A query is valid if $m_o(z_0)\ge\kappa$ and $m_n(z_0)\ge\kappa$, $\kappa>0$.
 A witness is a point of $\mathcal F^N_\kappa=\{z:\ m_n(z)\le-\kappa,\ m_o(z)\ge\kappa\}$; the $\Delta$-CE is
 $z^\star=z_0+u^\star$, $u^\star\in\arg\min\{\|u\|:\ z_0+u\in\mathcal F^N_\kappa\}$ (NOT_FOUND if $\|u^\star\|>r$).
@@ -20,10 +21,11 @@ than $2\kappa$ everywhere have no witness.
 If $|h|<2\kappa$ everywhere, no $z$ satisfies this. ∎
 
 **Corollary 1 (constant logit offset).** Let $f_{new}$ add a constant $b$ to the logit of class 1 of $f_{old}$
-(e.g. the prior correction of Saerens et al. [13]). The margin of class $y$ is $f_y-f_{1-y}$, so $h\equiv+b$ on
-points of class 1 and $h\equiv-b$ on points of class 0, for every $z$. By Lemma 1 a witness needs $h\le-2\kappa$:
+(e.g. the prior correction of Saerens et al. [13]). The margin of class $y$ is $f_y-f_{1-y}$, so for queries with label $y=1$
+$h\equiv+b$ and for queries with label $y=0$ $h\equiv-b$, at every $z$. By Lemma 1 a witness needs $h\le-2\kappa$:
 it exists only for the class whose margin $b$ lowers (class 0 if $b>0$, class 1 if $b<0$), only if $|b|\ge2\kappa$,
-and then exactly at the points with $\kappa\le m_o(z)\le|b|-\kappa$. The gradient difference is
+and then exactly at the points with $\kappa\le m_o(z)\le|b|-\kappa$ (this set may still be empty in a bounded
+$\mathcal Z$ or beyond the budget $r$). The gradient difference is
 $\nabla h\equiv0$. No linearity is needed. ∎
 
 *Remark (the threshold itself).* At $|b|=2\kappa$ the feasible set is the level set $\{m_o=\kappa\}$ of the
@@ -52,7 +54,7 @@ $$\text{(N)}\ \ \hat w_n^\top u\le-d_n,\qquad\text{(O)}\ \ \hat w_o^\top u\ge-d_
 
 ### Lemma 2 (the witness for linearly independent normals)
 
-**Statement.** If $\theta\in(0,\pi/2)$ the witness is unique: it is $u_n=-d_n\hat w_n$ (the ordinary
+**Statement.** If $\theta\in(0,\pi/2)$ the nearest witness ($\Delta$-CE) is unique: it is $u_n=-d_n\hat w_n$ (the ordinary
 counterfactual of $f_{new}$) if $u_n$ satisfies (O), i.e. if $d_n\cos\theta\le d_o$; otherwise it is the
 minimum-norm point with both constraints active.
 
@@ -101,7 +103,10 @@ In both cases $|u_1^\star|=\min\{d_n\cos\theta,d_o\}$.
 
 Dominance of $v$ means $|u_2^\star|>|u_1^\star|$. In case A this is $\tan\theta>1$, impossible for
 $\theta\le\pi/4$. In case B it is $(d_n-d_o\cos\theta)/\sin\theta>d_o\iff d_n>d_o(\sin\theta+\cos\theta)$.
-So for $\theta\le\pi/4$ dominance requires $d_o(\sin\theta+\cos\theta)<d_n$. ∎
+So for $\theta\le\pi/4$ dominance requires $d_o(\sin\theta+\cos\theta)<d_n$. The condition is also sufficient:
+for $\theta\le\pi/4$, $(\sin\theta+\cos\theta)\cos\theta-1=\sin\theta(\cos\theta-\sin\theta)\ge0$, so
+$d_o(\sin\theta+\cos\theta)<d_n$ implies $d_o<d_n\cos\theta$, i.e. case B, where it is the dominance condition.
+(The paper states the necessary direction only.) ∎
 
 *Remark (budget).* For $\theta\le\pi/4$ a witness dominated by $v$ is in case B with $|u_2^\star|>d_o$, so
 $\|u^\star\|>\sqrt2\,d_o$; within a budget $r$ this needs $d_o<r/\sqrt2$.
@@ -110,8 +115,8 @@ $\|u^\star\|>\sqrt2\,d_o$; within a budget $r$ this needs $d_o<r/\sqrt2$.
 
 ## 5 After projection
 
-**Statement.** With $P=I-\hat w_o\hat w_o^\top$, all three explanations are multiples of $v$ in (b), with the same
-sign, and vanish in (a); this is consistent with Theorem 1 of [1].
+**Statement.** With $P=I-\hat w_o\hat w_o^\top$, all three explanations are positive multiples of $-v$ in (b) (they coincide
+up to a positive scale), and vanish in (a) (where the witness may not exist); this is consistent with Theorem 1 of [1].
 
 **Proof.** $P\hat w_o=0$, $Pv=v$, $Pu_\perp=u_\perp$. In (b): $P(-(\hat w_n-\hat w_o))=-\sin\theta\,v$;
 $Pu^\star=u_2^\star v$ with $u_2^\star<0$ in both cases ($u_\perp^\star=0$); $P(u_n-u_o)=-d_n\sin\theta\,v$. All
@@ -134,10 +139,12 @@ stationarity residuals $\le10^{-14}$, multiplier of (N) $>0$, multiplier of (O) 
 strictly convex QP, so this certifies the closed form as the unique minimiser, without any solver.
 2. *Independent solver.* scipy SLSQP in float64 ($\mathrm{ftol}=10^{-15}$) matches the closed form to $10^{-6}$ on
 100% of instances.
-3. *Experiments' solver.* Vector agreement to $10^{-3}$: 82.7%, 89.9%, 96.6% ($p=2,5,10$); unchanged in float64
+3. *Experiments' solver.* Vector agreement to $10^{-3}$: 82.7%, 89.9%, 96.6% ($p=2,5,10$); nearly unchanged in float64
 (82.7%, 91.3%, 97.0%), so precision is not the cause. 90–98% of the disagreements are in case A (one active
 constraint), and they are not concentrated near the case boundary or at extreme $\theta$. On a single active face
 $\|u\|^2=d_n^2+\|u_{\mathrm{tan}}\|^2$, so a tangential error $\varepsilon$ changes the distance only by
-$\approx\varepsilon^2/2$; the solver stops on the distance (error $\le7\cdot10^{-4}$ everywhere), which allows vector
-errors up to $\approx0.04$ (observed max 0.012). The solver's distances, which is what the experiments use, are
+$\approx\varepsilon^2/(2d_n)$; in relative terms, a relative distance error $\delta$ allows a relative vector error
+$\varepsilon/d_n\approx\sqrt{2\delta}$. The solver's relative distance error is $\le7\cdot10^{-4}$ on every instance, which
+allows relative vector errors up to $\approx0.037$; the observed maximum is 0.012. (This assumes the solver's point lies
+on the active face, as its feasibility check enforces up to the tolerance.) The solver's distances, which is what the experiments use, are
 accurate; its vectors carry a tangential error of order $10^{-3}$–$10^{-2}$.
