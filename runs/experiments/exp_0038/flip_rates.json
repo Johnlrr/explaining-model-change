@@ -1,0 +1,139 @@
+{
+  "label": "top-factor change rates and maximal shifts (validation, descriptive)",
+  "per_pair": {
+    "0": {
+      "dce": "0/81",
+      "dce_proj_z0": "2/81",
+      "dce_proj_zs": "0/81",
+      "b3_proj_zs": "0/81",
+      "cf_diff": "3/90"
+    },
+    "3": {
+      "dce": "0/82",
+      "cf_diff": "21/99"
+    },
+    "6": {
+      "dce": "0/40",
+      "cf_diff": "9/86"
+    },
+    "36": {
+      "dce": "0/71",
+      "dce_proj_z0": "1/71",
+      "dce_proj_zs": "1/71",
+      "b3_proj_zs": "0/71",
+      "cf_diff": "15/98"
+    },
+    "44": {
+      "dce": "0/79",
+      "dce_proj_z0": "2/79",
+      "dce_proj_zs": "0/79",
+      "b3_proj_zs": "0/79",
+      "cf_diff": "3/90"
+    },
+    "24": {
+      "dce": "2/56",
+      "cf_diff": "10/98"
+    }
+  },
+  "rates": {
+    "dce": {
+      "changes": 2,
+      "n": 409,
+      "rate": 0.004889975550122249,
+      "cp95_upper": 0.017551807899637277
+    },
+    "dce_proj_z0": {
+      "changes": 5,
+      "n": 231,
+      "rate": 0.021645021645021644,
+      "cp95_upper": 0.049786625467859724
+    },
+    "dce_proj_zs": {
+      "changes": 1,
+      "n": 231,
+      "rate": 0.004329004329004329,
+      "cp95_upper": 0.023882344503897295
+    },
+    "b3_proj_zs": {
+      "changes": 0,
+      "n": 231,
+      "rate": 0.0,
+      "cp95_upper": 0.015842343876557693
+    },
+    "cf_diff": {
+      "changes": 61,
+      "n": 561,
+      "rate": 0.10873440285204991,
+      "cp95_upper": 0.1374767161969936
+    }
+  },
+  "shifts": {
+    "H2a (Subgroup)": {
+      "estimate": -0.0911,
+      "max_shift": 0.017551807899637277,
+      "worst_abs": 0.07354819210036273,
+      "boundary": 0.0,
+      "direction_holds": true
+    },
+    "Tie: Shortcut vs Grad-diff": {
+      "estimate": -0.5333,
+      "max_shift": 0.017551807899637277,
+      "worst_abs": 0.5157481921003627,
+      "boundary": 0.1,
+      "direction_holds": true
+    },
+    "Tie: Shortcut vs CF-diff": {
+      "estimate": -0.1678,
+      "max_shift": 0.15502852409663087,
+      "worst_abs": 0.012771475903369134,
+      "boundary": 0.1,
+      "direction_holds": false
+    },
+    "Tie: Threshold vs Grad-diff": {
+      "estimate": 0.3956,
+      "max_shift": 0.017551807899637277,
+      "worst_abs": 0.3780481921003627,
+      "boundary": 0.1,
+      "direction_holds": true
+    },
+    "Tie: Threshold vs CF-diff": {
+      "estimate": -0.2933,
+      "max_shift": 0.15502852409663087,
+      "worst_abs": 0.13827147590336913,
+      "boundary": 0.1,
+      "direction_holds": true
+    },
+    "C1 (Threshold)": {
+      "estimate": 0.3122,
+      "max_shift": 0.017551807899637277,
+      "worst_abs": 0.2946481921003627,
+      "boundary": 0.0,
+      "direction_holds": true
+    },
+    "C3 (Shortcut, projected)": {
+      "estimate": -0.3044,
+      "max_shift": 0.049786625467859724,
+      "worst_abs": 0.2546133745321403,
+      "boundary": 0.1,
+      "direction_holds": true
+    },
+    "H5d (grid, projected)": {
+      "estimate": -0.3525,
+      "max_shift": 0.049786625467859724,
+      "worst_abs": 0.30271337453214026,
+      "boundary": 0.1,
+      "direction_holds": true
+    },
+    "H8 (T)": {
+      "T": 0.13180000000000003,
+      "shift_z0z0": 0.049786625467859724,
+      "shift_zsz0": 0.03972468838045499,
+      "worst_T": 0.002563997771230314,
+      "direction_holds": true
+    }
+  },
+  "git": {
+    "commit": "63dfa68cb64025de2c904bf476a6bfef181ab153",
+    "dirty": true
+  }
+}
