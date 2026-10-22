@@ -1,0 +1,9 @@
+# exp_0039 — run-to-run stability of Recovery, Δ-CE vs DeepXplore (author's request 2026-10-22). VALIDATION only,
+# descriptive. ~100 valid points per pair: Shortcut 0, Subgroup 3, Threshold 6; 5 runs per method.
+experiment_id: exp_0039
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+data: val
+n_points: 100
+pair_ids: [0, 3, 6]
+threads: 4
