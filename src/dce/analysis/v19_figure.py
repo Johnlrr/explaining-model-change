@@ -66,3 +66,11 @@ def make_map(rows: list[dict], out: Path, figsize=(7.0, 2.4), marker_size: float
     fig.savefig(out, dpi=dpi)
     fig.savefig(out.with_suffix(".png"), dpi=200)
     plt.close(fig)
+
+
+if __name__ == "__main__":   # paper Fig. 1: python -m dce.analysis.v19_figure <results.json> <out.pdf>
+    import json
+    import sys
+
+    rows = json.loads(Path(sys.argv[1]).read_text())["descriptive"]["pairs"]
+    make_map(rows, Path(sys.argv[2]), titles=PAPER_TITLES, dpi=600, **PRINT)

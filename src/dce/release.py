@@ -20,7 +20,7 @@ import sys
 from pathlib import Path
 
 INCLUDE = ("src/", "configs/", "tests/", "docs/", "runs/", "research/DECISIONS.md", "research/HYPOTHESES.md",
-           "research/theory/proofs.md",
+           "research/theory/proofs.md", "REPRODUCE.md",
            "pyproject.toml", "uv.lock")
 EXCLUDE = ("tools/", "AGENTS.md", "project rules file", ".local/", "research/STATE.md", "research/NOTES.md",
            "research/LITERATURE.md", "research/extended_version.md", "paper/")
