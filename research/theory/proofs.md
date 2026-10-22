@@ -2,9 +2,7 @@
 
 Numbering follows the paper: Lemma 1, the linear case (here Lemma 2), Proposition 2 (a) and (b), and the
 statement after projection. Derived from `research/theory/P5_rotation_offset.md` (internal name "Proposition 5",
-written 18/10/2026, after the main experiment and before the grid). A numerical check of the closed forms against
-the experiments' solver is in `runs/experiments/exp_0023` (distances agree to 1e-3; a stricter pre-declared
-vector criterion failed at p = 5, as stated in the paper).
+written 18/10/2026, after the main experiment and before the grid). Numerical checks: Section 6.
 
 ## 0 Setting
 
@@ -27,6 +25,10 @@ points of class 1 and $h\equiv-b$ on points of class 0, for every $z$. By Lemma 
 it exists only for the class whose margin $b$ lowers (class 0 if $b>0$, class 1 if $b<0$), only if $|b|\ge2\kappa$,
 and then exactly at the points with $\kappa\le m_o(z)\le|b|-\kappa$. The gradient difference is
 $\nabla h\equiv0$. No linearity is needed. ∎
+
+*Remark (the threshold itself).* At $|b|=2\kappa$ the feasible set is the level set $\{m_o=\kappa\}$ of the
+lowered class: non-empty, but of measure zero. A solver that must land on it exactly finds it only by chance
+(exp_0035: 0 or 1 of 100 points at $|b|=2\kappa$). Hence the paper's wording "once $|b|$ reaches $2\kappa$".
 
 ## 2 Linear margins
 
@@ -117,3 +119,25 @@ point along $-v$. In (a) all three are multiples of $\hat w_o$ and project to $0
 
 *Remark (CNNs).* The statement uses one normal $\hat w_o$, constant for linear margins. For curved margins the
 normal at $z_0$ and at $z^\star$ differ; the paper's H8 tests which one makes the statement hold approximately.
+
+## 6 Numerical checks
+
+**exp_0023** (P5 check, Tier L, 1 000 random linear instances per dimension): with the experiments' two-phase solver,
+distances agree with the closed forms to $10^{-3}$ on every instance; the stricter pre-declared vector criterion
+(relative error of $u^\star$ below $10^{-3}$ on $\ge99\%$ of instances) failed at $p=5$ (90.1%; max 1.1%) and passed at
+$p=20$.
+
+**exp_0037** (diagnosis, fresh seeds, $p\in\{2,5,10\}$, 1 000 instances each): the failure is numerical, not in the
+formulas.
+1. *Certificate.* For every instance the closed form satisfies the KKT conditions in float64: feasibility and
+stationarity residuals $\le10^{-14}$, multiplier of (N) $>0$, multiplier of (O) $\ge0$ in case B. The problem is a
+strictly convex QP, so this certifies the closed form as the unique minimiser, without any solver.
+2. *Independent solver.* scipy SLSQP in float64 ($\mathrm{ftol}=10^{-15}$) matches the closed form to $10^{-6}$ on
+100% of instances.
+3. *Experiments' solver.* Vector agreement to $10^{-3}$: 82.7%, 89.9%, 96.6% ($p=2,5,10$); unchanged in float64
+(82.7%, 91.3%, 97.0%), so precision is not the cause. 90–98% of the disagreements are in case A (one active
+constraint), and they are not concentrated near the case boundary or at extreme $\theta$. On a single active face
+$\|u\|^2=d_n^2+\|u_{\mathrm{tan}}\|^2$, so a tangential error $\varepsilon$ changes the distance only by
+$\approx\varepsilon^2/2$; the solver stops on the distance (error $\le7\cdot10^{-4}$ everywhere), which allows vector
+errors up to $\approx0.04$ (observed max 0.012). The solver's distances, which is what the experiments use, are
+accurate; its vectors carry a tangential error of order $10^{-3}$–$10^{-2}$.
