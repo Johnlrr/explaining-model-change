@@ -1,0 +1,10 @@
+# exp_0038 — tangential error of the solver on the CNN benchmark (author's request 2026-10-22). VALIDATION only,
+# descriptive. ~100 valid points per pair: Shortcut 0, Subgroup 3, Threshold 6, grid α>0 36 and 44, grid α=0 24.
+experiment_id: exp_0038
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+models_run: runs/experiments/exp_0025
+data: val
+n_points: 100
+pair_ids: [0, 3, 6, 36, 44, 24]
+threads: 4

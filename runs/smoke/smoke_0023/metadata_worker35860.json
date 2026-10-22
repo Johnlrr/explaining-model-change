@@ -1,0 +1,23 @@
+{
+  "experiment": "smoke_0023",
+  "decision": "tangent check (validation, descriptive)",
+  "shard": "dyn",
+  "git_runs": [
+    {
+      "git": {
+        "commit": "b1c517b8103399674236c55d2586fe5996b7081c",
+        "dirty": true
+      },
+      "started": "2026-10-22T09:56:44",
+      "threads": 4
+    }
+  ],
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "pairs": [
+    0,
+    36
+  ],
+  "finished": "2026-10-22T09:59:30"
+}
