@@ -28,11 +28,11 @@ Let $D:\mathcal Z\to\mathcal X$ map a search space onto the data manifold (here 
 
 \textbf{Lemma 1.} Every witness has $h(z)\le-\kappa-m_o(z)\le-2\kappa$. Hence models whose margins differ by less than $2\kappa$ everywhere have no witness.
 
-\textbf{Linear case.} For linear margins with independent $w_o,w_n$ the witness is unique: the ordinary counterfactual of $f_{new}$ or the minimum-norm point with both constraints active. Write $\hat w_n=\cos\theta\,\hat w_o+\sin\theta\,v$ with $v\perp\hat w_o$, and let $d_n,d_o$ be the distances from $z_0$ to $\{m_n=-\kappa\}$ and $\{m_o=\kappa\}$. The gradient difference of [1] is $-(\hat w_n-\hat w_o)$, counterfactual differencing is $u_n-u_o$, the witness is $u^\star$.
+\textbf{Linear case.} For linear margins on $\mathbb R^p$ with independent $w_o,w_n$ the nearest witness is unique: the ordinary counterfactual of $f_{new}$ or the minimum-norm point with both constraints active. Write $\hat w_n=\cos\theta\,\hat w_o+\sin\theta\,v$ with $v\perp\hat w_o$, and let $d_n,d_o$ be the distances from $z_0$ to $\{m_n=-\kappa\}$ and $\{m_o=\kappa\}$. The gradient difference of [1] is $-(\hat w_n-\hat w_o)$, counterfactual differencing is $u_n-u_o$, the difference of the two models' minimum-norm counterfactuals, the witness is $u^\star$.
 
 \textbf{Proposition 2.} (a) \emph{Offset} ($\theta=0$): the gradient difference is $0$; counterfactual differencing is a multiple of $\hat w_o$; a witness exists iff $d_n\le d_o$ and equals $-d_n\hat w_o$. (b) \emph{Rotation} ($0<\theta<\pi/2$): the gradient difference has components in ratio $\tan(\theta/2)<1$ along $(\hat w_o,v)$, i.e.\ mainly along the new dependence $v$; the witness has $|u^\star\!\cdot\hat w_o|=\min\{d_n\cos\theta,d_o\}$ and, for $\theta\le\pi/4$, is dominated by $v$ only if $d_o(\sin\theta+\cos\theta)<d_n$. After projecting out $\hat w_o$ all three coincide up to scale, as in Theorem 1 of [1].
 
-On CNNs the last statement holds approximately only with $\hat w_o$ taken at the witness (Section~4.2). On linear models the solver's distances agree to $10^{-3}$ (a stricter pre-declared vector criterion failed at $p=5$ through the solver's tolerance; the closed forms are KKT-certified). In words, gradient differences see a \emph{rotation} and are blind to an \emph{offset}; witnesses exist only on the side whose margin the offset lowers and abstain when the shift is below $2\kappa$, exactly so for a constant logit offset such as the prior correction [13]. The analysis was formulated after the main experiment and before the grid was run.
+On CNNs the last statement holds approximately only with $\hat w_o$ taken at the witness (Section~4.2). On linear models the solver's distances agree to $10^{-3}$ (a stricter pre-declared vector criterion failed at $p=5$ through the solver's tolerance; the closed forms are KKT-certified). In words, gradient differences see a \emph{rotation} and are blind to an \emph{offset}; witnesses exist only on the side whose margin the offset lowers; for a constant logit offset such as the prior correction [13], they abstain exactly when the shift is below $2\kappa$ (Corollary 1 in the proofs). The analysis was formulated after the main experiment and before the grid was run.
 
 \section{Benchmark and protocol}
 
@@ -62,7 +62,7 @@ Grid, $\alpha>0$ & same, $\alpha\in\{.1,.25,.5\}$ & colour & 24\\
 
 \section{Results}
 
-Findings are grouped by the kind of change; Table~\ref{tab:tests} lists every test with its registered ID, the stage at which it was formed and its Holm family.
+Findings are grouped by the kind of change; Table~\ref{tab:tests} lists every test.
 
 \begin{table}[t]
 \caption{Recovery@$r$ (found-rate), locked test split, mean over three pairs (95\% CIs within $\pm0.035$); last row: found-rate on the 8 null pairs.}
@@ -107,7 +107,7 @@ Witness normal narrows gap $\ge\frac12$ & Grid & $-0.19\to+0.03$ [0.01, 0.05]$^\
 
 \subsection{Offsets}
 
-Gradient differences are blind to an offset, and witnesses lie on the side the offset lowers, as Proposition 2(a) predicts. On Threshold, $\Delta$-CE beats Grad-diff (0.41 vs.\ 0.10 on the new test set; Table~\ref{tab:results} is the locked split); on the pure offsets of the grid, Grad-diff Recovery is 0.081 (Table~\ref{tab:tests}). The content is the failure of Grad-diff: on an offset the changed factor is the task factor, so even CF-new recovers it (0.90--0.98). Witnesses lie only on the side the offset lowers (on Threshold: every class-1 point, no class-0 point). For an exact offset $b$ on one logit, witnesses appear only once $|b|$ reaches $2\kappa$, on every query of the lowered class only, while CF-diff flags 0.961 of queries already at $|b|\in\{0.5,0.9\}$, where 3--8\% of decisions flip.
+Gradient differences are blind to an offset, and witnesses lie on the side the offset lowers, as Proposition 2(a) predicts. On Threshold, $\Delta$-CE beats Grad-diff (0.41 vs.\ 0.10 on the new test set; Table~\ref{tab:results} is the locked split); on the pure offsets of the grid, Grad-diff Recovery is 0.081 (Table~\ref{tab:tests}). The content is the failure of Grad-diff: on an offset the changed factor is the task factor, so even CF-new recovers it (0.90--0.98). Witnesses lie only on the side the offset lowers (on Threshold: every class-1 point, no class-0 point). For an exact offset $b$ on one logit, witnesses appear only once $|b|$ reaches $2\kappa$, then, empirically, on every query of the lowered class only, while CF-diff flags 0.961 of queries already at $|b|\in\{0.5,0.9\}$, where 3--8\% of decisions flip.
 
 \begin{figure}[t]
 \centering
