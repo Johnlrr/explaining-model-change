@@ -143,7 +143,7 @@ def main() -> None:
     }
     (working / "result.json").write_text(json.dumps(result, indent=2))
     files = sorted(f for f in working.iterdir() if f.is_file() and f.name != "artifact_manifest.json")
-    manifest = [{"name": f.name, "path": f.name, "sha256": sha256(f), "bytes": f.stat().st_size} for f in files]
+    manifest = [{"name": f.name, "kind": "output", "path": f.name, "sha256": sha256(f), "bytes": f.stat().st_size} for f in files]
     (working / "artifact_manifest.json").write_text(json.dumps({"schema_version": 1, "artifacts": manifest}, indent=2))
     print(json.dumps({k: result[k] for k in ("rc", "pairs_done", "pairs_partial", "wall_s")}), flush=True)
 

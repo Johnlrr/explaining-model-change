@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "metadata.json",
+      "path": "metadata.json",
+      "sha256": "3e27b2c19ad2262f5678d3cd3f18b90036022a2cfc4a00452625a6052a86f944",
+      "bytes": 466
+    },
+    {
+      "name": "pair_3602.json",
+      "path": "pair_3602.json",
+      "sha256": "c2080b7295fdf836f0613bbb7d12693d80b619b0def8eeb95cc2e92ae33c5aee",
+      "bytes": 232
+    },
+    {
+      "name": "pair_3602.npz",
+      "path": "pair_3602.npz",
+      "sha256": "9bde8b1b95723b48b0082af3c4192f834079c1c5b102ff1e1c4757a29787177a",
+      "bytes": 251
+    },
+    {
+      "name": "pair_3702.json",
+      "path": "pair_3702.json",
+      "sha256": "c8370311f8c4940873b962b01f30949bd93eeeaea56767d7d8c7d2907b7d64ac",
+      "bytes": 230
+    },
+    {
+      "name": "pair_3702.npz",
+      "path": "pair_3702.npz",
+      "sha256": "d250a30cdc97a702d004e5de92ca7b89cbbec0d36cd818b510fff9f243909a56",
+      "bytes": 254
+    },
+    {
+      "name": "pair_4402.json",
+      "path": "pair_4402.json",
+      "sha256": "79ce5dc3458b05a51dfec77d78878ddc85db1be6b51ba7cf15f5eb7daceecdfd",
+      "bytes": 230
+    },
+    {
+      "name": "pair_4402.npz",
+      "path": "pair_4402.npz",
+      "sha256": "7d6f9366aeae812e9c0cca2787f5dd06158d3817b63e5203f81d673465953b18",
+      "bytes": 245
+    },
+    {
+      "name": "pair_4502.json",
+      "path": "pair_4502.json",
+      "sha256": "17c5aef96615ecb77fa40d41155ee45267cdf96d8fdd09635926e4195503bfcf",
+      "bytes": 231
+    },
+    {
+      "name": "pair_4502.npz",
+      "path": "pair_4502.npz",
+      "sha256": "b9072b6704299c54b5c53f24b7625e22a57eef0fa9f77158471cd52ffd0ccea6",
+      "bytes": 243
+    },
+    {
+      "name": "result.json",
+      "path": "result.json",
+      "sha256": "6f87a94c337baf5c33f9a45625c45e6cff6b6f55e4bd5a47044bdf55ba26bd24",
+      "bytes": 1240
+    }
+  ]
+}

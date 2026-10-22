@@ -1,0 +1,24 @@
+{
+  "experiment": "exp_0040",
+  "decision": "variability check (validation, descriptive)",
+  "shard": "dyn",
+  "git_runs": [
+    {
+      "git": {
+        "commit": "ba4d5f39bf9dc1b5902f58f360a3a23496fa51bc",
+        "dirty": false
+      },
+      "started": "2026-10-22T14:15:29",
+      "threads": 4
+    }
+  ],
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "pairs": [
+    3,
+    602,
+    4400
+  ],
+  "finished": "2026-10-22T16:21:22"
+}

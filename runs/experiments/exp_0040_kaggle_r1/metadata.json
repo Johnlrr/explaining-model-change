@@ -1,0 +1,98 @@
+{
+  "run_id": "exp_0040_kaggle_r1",
+  "status": "ERROR",
+  "executor": "kaggle",
+  "kernel": "boinhbo/dce-exp0040-r1",
+  "git_commit": "99de8253ddc581cc09d6e5a98b87f18138474531",
+  "requested_hardware": null,
+  "internet": true,
+  "started_at": "2026-10-22T08:45:22.933470+00:00",
+  "finished_at": "2026-10-22T09:46:56.826627+00:00",
+  "git_dirty": true,
+  "submitted_code_sha256": "40f7712b2c0eb0f9ad34211d71637c068e213e9ec5a0dc1520cda2c3d9527df9",
+  "source_dir": "/home/toska/code/research/Agent-auto-Research",
+  "source_path": "/home/toska/code/research/Agent-auto-Research/src/dce/remote/bundles/v110_tc_kaggle.py",
+  "source_sha256": "b93b564f4761aea6526975b4413bd6f980fee41d6a5022fa583078b8359f7fd8",
+  "source_git_tracked": true,
+  "config": {
+    "id": "boinhbo/dce-exp0040-r1",
+    "title": "dce exp0040 r1",
+    "code_file": "src/dce/remote/bundles/v110_tc_kaggle.py",
+    "kernel_type": "script",
+    "language": "python",
+    "is_private": true,
+    "enable_gpu": false,
+    "enable_internet": true,
+    "machine_shape": null,
+    "expected_hardware_contains": null,
+    "dataset_sources": [
+      "boinhbo/dce-v110-tc-inputs"
+    ],
+    "competition_sources": [],
+    "kernel_sources": [],
+    "model_sources": [],
+    "timeout_seconds": 21600,
+    "wait_timeout_seconds": 22200,
+    "poll_interval_seconds": 300,
+    "immutable_kernel": true,
+    "kernel_source_expectations": [],
+    "fetch_files": [
+      "result.json",
+      "artifact_manifest.json",
+      "metadata.json",
+      "pair_3601.json",
+      "pair_3601.npz",
+      "pair_3701.json",
+      "pair_3701.npz",
+      "pair_4401.json",
+      "pair_4401.npz",
+      "pair_4501.json",
+      "pair_4501.npz"
+    ],
+    "required_outputs": [
+      "result.json",
+      "artifact_manifest.json",
+      "metadata.json"
+    ],
+    "metrics_file": "result.json",
+    "json_checks": [
+      {
+        "path": "work.processed",
+        "op": "gte",
+        "value": 4
+      }
+    ],
+    "parameters": {
+      "module": "dce.cli.variability_check",
+      "experiment": "exp_0040",
+      "argv": [
+        "run",
+        "--units",
+        "3601,3701,4401,4501"
+      ],
+      "config": "configs/experiments/exp_0040.yaml",
+      "pairs": [
+        3601,
+        3701,
+        4401,
+        4501
+      ],
+      "threads": 4,
+      "pins": {
+        "torch": "2.14.1+cpu",
+        "numpy": "2.5.4",
+        "scipy": "1.18.1"
+      },
+      "cpu_capability": "avx512",
+      "inputs_sha256": "37cc96ec4aaf91f1ea823d9d9a1dbac8e1c8332700f1c4ce7e708aa936e057f9"
+    }
+  },
+  "error": "artifact manifest entry requires non-empty 'kind'",
+  "kernel_version": 1,
+  "remote_status": "KernelWorkerStatus.COMPLETE",
+  "remote_failure_message": null,
+  "observed_hardware": "CPU: Intel(R) Xeon(R) CPU @ 2.20GHz",
+  "expected_hardware_contains": null,
+  "remote_artifacts": null,
+  "account": "boinhbo"
+}

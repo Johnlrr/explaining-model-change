@@ -1,0 +1,25 @@
+{
+  "experiment": "exp_0040",
+  "decision": "variability check (validation, descriptive)",
+  "shard": "dyn",
+  "git_runs": [
+    {
+      "git": {
+        "commit": "",
+        "dirty": false
+      },
+      "started": "2026-10-22T08:47:48",
+      "threads": 4
+    }
+  ],
+  "python": "3.13.15",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+  "pairs": [
+    3603,
+    3703,
+    4403,
+    4503
+  ],
+  "finished": "2026-10-22T09:55:36"
+}

@@ -1,0 +1,13 @@
+{
+  "pair_id": 0,
+  "run": "f32_s1",
+  "kind": "tier0",
+  "condition": "T1",
+  "seed": 0,
+  "n_points": 300,
+  "rec_dce": 0.33,
+  "rec_cf_diff": 0.5033333333333333,
+  "found_dce": 0.8666666666666667,
+  "found_cf_diff": 0.9333333333333333,
+  "wall_s_pair": 1983.7
+}

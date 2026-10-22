@@ -148,3 +148,27 @@ $\varepsilon/d_n\approx\sqrt{2\delta}$. The solver's relative distance error is 
 allows relative vector errors up to $\approx0.037$; the observed maximum is 0.012. (This assumes the solver's point lies
 on the active face, as its feasibility check enforces up to the tolerance.) The solver's distances, which is what the experiments use, are
 accurate; its vectors carry a tangential error of order $10^{-3}$–$10^{-2}$.
+
+### 6.1 The CNN benchmark (validation, descriptive; exp_0038–exp_0040)
+
+On CNNs the problem is non-convex, so the linear argument above does not carry over; what matters is whether the
+reported comparisons depend on which solution the solver returns.
+
+- **Re-solve change rate (main per-point measure; exp_0038).** Re-solving the same validation points with a tight
+  float64 reference changes the top factor of Δ-CE on 0.5% of points (2/409; CP95 upper 1.8%), of Δ-CE projected at
+  $z_0$ on 2.2% and at $z^\star$ on 0.4%, of CF-diff on 10.9% (61/561), of DeepXplore (float32 vs float64) on 33%
+  (98/301). Grad-diff is analytic.
+- **Many minima.** The relative vector error of Δ-CE has median $10^{-4}$ but p95 0.22 and max 1.6: a few points
+  converge to a different local minimum. A gap-threshold bound ($\|\delta\|\le\tau\|u\|$, $\tau$ = p95) therefore does
+  not apply when solutions differ; computed anyway (as a record only) it reverses several directions
+  (`runs/experiments/exp_0038/worst_case_p95.json`). A bound that assigns every observed change against the reported
+  direction (CP95 upper rates) keeps every direction except the Shortcut tie against CF-diff, and is also pessimistic
+  (`flip_rates.json`).
+- **Run-to-run variation (main measure for the comparisons; exp_0039, exp_0040).** Five runs per method (restart seeds
+  and float32/float64), the comparisons recomputed per run:
+  - Δ-CE vs DeepXplore, ~100 points per change: Recovery SD ≤ 0.005 (Δ-CE), 0.013–0.028 (DeepXplore); Δ-CE −
+    DeepXplore in every run: Subgroup +0.19 to +0.25, Threshold +0.08 to +0.15.
+  - Δ-CE vs CF-diff, 300 points: Shortcut −0.173 to −0.183, Threshold −0.300 to −0.330 (|Δ| > 0.10 in every run).
+  - H8 on the four H5d pairs (150 points each): gap (z0, z0) −0.177 to −0.193, gap (z*, z0) +0.036 to +0.047,
+    $T$ = 0.085 to 0.120 > 0 in every run (runs 1–4 on Kaggle CPU, run 0 locally; each run on one machine).
+  No reported direction changes across runs.

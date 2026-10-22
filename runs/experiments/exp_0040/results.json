@@ -1,0 +1,120 @@
+{
+  "label": "variability check (validation, descriptive)",
+  "pair_0": {
+    "runs": [
+      "f32_s0",
+      "f32_s1",
+      "f32_s2",
+      "f64_s0",
+      "f64_s1"
+    ],
+    "rec_dce": [
+      0.32666666666666666,
+      0.33,
+      0.32,
+      0.32,
+      0.3233333333333333
+    ],
+    "rec_cf_diff": [
+      0.5033333333333333,
+      0.5033333333333333,
+      0.5033333333333333,
+      0.5033333333333333,
+      0.5033333333333333
+    ],
+    "dce_minus_cf_diff": [
+      -0.17666666666666664,
+      -0.17333333333333328,
+      -0.1833333333333333,
+      -0.1833333333333333,
+      -0.18
+    ],
+    "min_abs_diff": 0.17333333333333328
+  },
+  "pair_6": {
+    "runs": [
+      "f32_s0",
+      "f32_s1",
+      "f32_s2",
+      "f64_s0",
+      "f64_s1"
+    ],
+    "rec_dce": [
+      0.45666666666666667,
+      0.4533333333333333,
+      0.45666666666666667,
+      0.45666666666666667,
+      0.4533333333333333
+    ],
+    "rec_cf_diff": [
+      0.7833333333333333,
+      0.7833333333333333,
+      0.7833333333333333,
+      0.7566666666666667,
+      0.7566666666666667
+    ],
+    "dce_minus_cf_diff": [
+      -0.32666666666666666,
+      -0.33,
+      -0.32666666666666666,
+      -0.30000000000000004,
+      -0.3033333333333334
+    ],
+    "min_abs_diff": 0.30000000000000004
+  },
+  "H8": [
+    {
+      "run": "f32_s0",
+      "gap_z0z0": -0.18389974659178468,
+      "gap_zsz0": 0.03883696477597989,
+      "T": 0.1062258170398249,
+      "opposite_sign_literal": true,
+      "zs_sign_differs_from_reported_plus": false,
+      "T_nonpositive": false
+    },
+    {
+      "run": "f32_s1",
+      "gap_z0z0": -0.18601974975922486,
+      "gap_zsz0": 0.04114054377284607,
+      "T": 0.10373866221353273,
+      "opposite_sign_literal": true,
+      "zs_sign_differs_from_reported_plus": false,
+      "T_nonpositive": false
+    },
+    {
+      "run": "f32_s2",
+      "gap_z0z0": -0.17732134088159235,
+      "gap_zsz0": 0.04619255788049542,
+      "T": 0.0849362251206015,
+      "opposite_sign_literal": true,
+      "zs_sign_differs_from_reported_plus": false,
+      "T_nonpositive": false
+    },
+    {
+      "run": "f64_s0",
+      "gap_z0z0": -0.1930886176408586,
+      "gap_zsz0": 0.036467646576584384,
+      "T": 0.12015332448768984,
+      "opposite_sign_literal": true,
+      "zs_sign_differs_from_reported_plus": false,
+      "T_nonpositive": false
+    },
+    {
+      "run": "f64_s1",
+      "gap_z0z0": -0.18417804936496524,
+      "gap_zsz0": 0.04680674847915381,
+      "T": 0.09056455240665762,
+      "opposite_sign_literal": true,
+      "zs_sign_differs_from_reported_plus": false,
+      "T_nonpositive": false
+    }
+  ],
+  "decisions": {
+    "shortcut_vs_cf_diff_all_runs_above_0.10": true,
+    "h8_note": "the reported test values already have opposite signs (\u22120.190, +0.029); all three readings listed per run"
+  },
+  "git": {
+    "commit": "99de8253ddc581cc09d6e5a98b87f18138474531",
+    "dirty": false
+  }
+}

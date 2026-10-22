@@ -1,0 +1,19 @@
+Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/boinhbo/dce-exp0040-r4
+boinhbo/dce-exp0040-r4 has status "KernelWorkerStatus.COMPLETE"
+[{"stream_name":"stdout","time":8.59615902,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.4/62.4 kB 1.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":11.242249044,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 196.3/196.3 MB 7.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":11.455849853,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 75.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":11.85207705,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 51.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":100.219281784,"data":"config sha256 72ac4041a80800a6ec6c7c7f5b44146f804b85a611b88b41ef4c68d42be49505\n"}
+,{"stream_name":"stdout","time":1267.35033668,"data":"pair 3604 done in 19.5 min (total 0.32 h)\n"}
+,{"stream_name":"stdout","time":2424.410001431,"data":"pair 3704 done in 19.3 min (total 0.65 h)\n"}
+,{"stream_name":"stdout","time":3498.037091426,"data":"pair 4404 done in 17.9 min (total 0.94 h)\n"}
+,{"stream_name":"stdout","time":4602.422843945,"data":"pair 4504 done in 18.4 min (total 1.25 h)\n"}
+,{"stream_name":"stdout","time":4602.428340032,"data":"{\"rc\": 0, \"pairs_done\": [3604, 3704, 4404, 4504], \"pairs_partial\": [], \"wall_s\": 4601.3}\n"}
+,{"stream_name":"stderr","time":4606.438093618,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":4606.438139204,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":4606.935861263,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":4606.93589538,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":4608.001338429,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":4609.551460309,"data":"[NbConvertApp] Writing 594346 bytes to __results__.html\n"}
+]

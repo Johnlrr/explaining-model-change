@@ -1,0 +1,61 @@
+id: boinhbo/dce-exp0040-r3
+title: dce exp0040 r3
+code_file: src/dce/remote/bundles/v110_tc_kaggle.py
+kernel_type: script
+language: python
+is_private: true
+enable_gpu: false
+enable_internet: true
+machine_shape: null
+expected_hardware_contains: null
+dataset_sources:
+- boinhbo/dce-v110-tc-inputs
+competition_sources: []
+kernel_sources: []
+model_sources: []
+timeout_seconds: 21600
+wait_timeout_seconds: 22200
+poll_interval_seconds: 300
+immutable_kernel: true
+kernel_source_expectations: []
+fetch_files:
+- result.json
+- artifact_manifest.json
+- metadata.json
+- pair_3603.json
+- pair_3603.npz
+- pair_3703.json
+- pair_3703.npz
+- pair_4403.json
+- pair_4403.npz
+- pair_4503.json
+- pair_4503.npz
+required_outputs:
+- result.json
+- artifact_manifest.json
+- metadata.json
+metrics_file: result.json
+json_checks:
+- path: work.processed
+  op: gte
+  value: 4
+parameters:
+  module: dce.cli.variability_check
+  experiment: exp_0040
+  argv:
+  - run
+  - --units
+  - 3603,3703,4403,4503
+  config: configs/experiments/exp_0040.yaml
+  pairs:
+  - 3603
+  - 3703
+  - 4403
+  - 4503
+  threads: 4
+  pins:
+    torch: 2.14.1+cpu
+    numpy: 2.5.4
+    scipy: 1.18.1
+  cpu_capability: avx512
+  inputs_sha256: 37cc96ec4aaf91f1ea823d9d9a1dbac8e1c8332700f1c4ce7e708aa936e057f9
