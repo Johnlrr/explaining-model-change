@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.18)  22 OCT 2026 09:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.18)  26 OCT 2026 00:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -318,20 +318,20 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 17.
+(Font)              <10> on input line 19.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 17.
+(Font)              <7> on input line 19.
  [1
 
-{/home/toska/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}] [2]
+{/home/toska/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}] [2{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <8> on input line 45.
  [3]
-<figures/map_names.pdf, id=34, 346.89601pt x 119.2455pt>
+<figures/map_names.pdf, id=33, 346.89601pt x 119.2455pt>
 File: figures/map_names.pdf Graphic file (type pdf)
 <use figures/map_names.pdf>
-Package pdftex.def Info: figures/map_names.pdf  used on input line 114.
-(pdftex.def)             Requested size: 347.12354pt x 119.32889pt.
+Package pdftex.def Info: figures/map_names.pdf  used on input line 115.
+(pdftex.def)             Requested size: 270.75592pt x 93.0766pt.
  [4] [5 <./figures/map_names.pdf>] [6] (./main.aux)
  ***********
 LaTeX2e <2026-06-01>
@@ -339,18 +339,18 @@ L3 programming layer <2026-09-09>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5901 strings out of 469040
- 93236 string characters out of 5457195
+ 5909 strings out of 469040
+ 93332 string characters out of 5457195
  546281 words of memory out of 5000000
  34711 multiletter control sequences out of 15000+600000
- 706733 words of font info for 193 fonts, out of 8000000 for 9000
+ 707146 words of font info for 197 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 59i,11n,67p,1558b,308s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (6 pages, 396552 bytes).
+ 59i,12n,67p,1485b,308s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (6 pages, 394520 bytes).
 PDF statistics:
- 208 PDF objects out of 1000 (max. 8388607)
- 110 compressed objects within 2 object streams
+ 203 PDF objects out of 1000 (max. 8388607)
+ 107 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  40966 words of extra memory for PDF output out of 42996 (max. 10000000)
 

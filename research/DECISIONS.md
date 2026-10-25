@@ -1223,6 +1223,15 @@ CF-diff abstains there as well and the contrast is threshold versus no threshold
 a calibrated CF-diff detects offsets below 2κ that Δ-CE does not, and that Δ-CE's gain is the certificate and proximity,
 not sensitivity. Either way H7c stays as registered (0.961, unthresholded) and is labelled as such.
 
+**Results (2026-10-26), recorded after the numbers:** exp_0041: type N Recovery 0.449, type O 0.551, N ∪ O 1.000 on 900
+Threshold queries (CF-diff 0.768, CF-new 0.891, Grad-diff 0.070); the 0.47 of Table 2 is the cost of reporting type N only.
+exp_0042: CF-diff thresholded to flag none of 2 400 null queries detects 0.000 at |b| ≤ 1.5 and 0.001 at |b| = 2
+(Δ-CE: a witness for every lowered-class query from |b| = 1.1); at 5% FPR 0.06–0.61 overall, 0.17 / 0.40 / 0.76 of the
+lowered class at |b| = 1.1 / 1.5 / 2 (README). By the E2 rule the paper says the contrast is largely threshold versus no
+threshold, and gives the operating-point numbers; the abstract drops the "side of the boundary" sentence. paper/main.tex
+edited accordingly and compressed to stay at 6 pages (figure 0.78 of text width, Table 3 scaled, "What failed" run in).
+Order disclosure for E2 is in exp_0042/README.md.
+
 **Not done, with reason:** the "where" measure of A1 (witness inside the disagreement region of the fitted boundaries) is a
 new metric whose definition for vector methods (Grad-diff) is not obvious; it is recorded as follow-up, not added to the
 ESANN version. A5 (Δ-CE Recovery against d_o(sin θ + cos θ)/d_n) is not computed: d_o, d_n are not in the saved grid
