@@ -1,0 +1,10 @@
+# exp_0042 — CF-diff with a detection threshold at matched false-positive rate, DESCRIPTIVE (D-048 E2; review item A2 / Q2).
+# Saved outputs only; nothing is re-run. Score = ‖Δφ̃‖₂ of B1-det. Null reference: the 8 null pairs of exp_0017 (N0 pairs
+# 9–13, N1 pairs 14–16; 2 400 queries). Detection: the 30 logit-offset pairs of exp_0032, per |b|.
+experiment_id: exp_0042
+decision: D-048
+tier_config: configs/tiers/tier0.yaml
+null_run: runs/experiments/exp_0017
+null_pairs: [9, 10, 11, 12, 13, 14, 15, 16]
+h7_run: runs/experiments/exp_0032
+fpr_levels: [0.01, 0.05]

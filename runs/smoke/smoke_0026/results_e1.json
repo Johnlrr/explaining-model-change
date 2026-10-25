@@ -1,0 +1,194 @@
+{
+  "label": "D-048 E1 (descriptive)",
+  "bootstrap_seed": 6603,
+  "pair_ids": [
+    6,
+    7
+  ],
+  "methods": {
+    "dce_N": {
+      "recovery": {
+        "mean": 0.5,
+        "ci95": [
+          0.25,
+          0.75
+        ]
+      },
+      "found_rate": {
+        "mean": 0.5,
+        "ci95": [
+          0.25,
+          0.75
+        ]
+      },
+      "per_pair_recovery": [
+        0.6666666666666666,
+        0.3333333333333333
+      ],
+      "class0": {
+        "n": 6,
+        "found_rate": 0.0,
+        "recovery": 0.0
+      },
+      "class1": {
+        "n": 6,
+        "found_rate": 1.0,
+        "recovery": 1.0
+      }
+    },
+    "dce_O": {
+      "recovery": {
+        "mean": 0.5,
+        "ci95": [
+          0.25,
+          0.75
+        ]
+      },
+      "found_rate": {
+        "mean": 0.5,
+        "ci95": [
+          0.25,
+          0.75
+        ]
+      },
+      "per_pair_recovery": [
+        0.3333333333333333,
+        0.6666666666666666
+      ],
+      "class0": {
+        "n": 6,
+        "found_rate": 1.0,
+        "recovery": 1.0
+      },
+      "class1": {
+        "n": 6,
+        "found_rate": 0.0,
+        "recovery": 0.0
+      }
+    },
+    "dce_NO": {
+      "recovery": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "found_rate": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "per_pair_recovery": [
+        1.0,
+        1.0
+      ],
+      "class0": {
+        "n": 6,
+        "found_rate": 1.0,
+        "recovery": 1.0
+      },
+      "class1": {
+        "n": 6,
+        "found_rate": 1.0,
+        "recovery": 1.0
+      }
+    },
+    "b1_det": {
+      "recovery": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "found_rate": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "per_pair_recovery": [
+        1.0,
+        1.0
+      ],
+      "class0": {
+        "n": 6,
+        "found_rate": 1.0,
+        "recovery": 1.0
+      },
+      "class1": {
+        "n": 6,
+        "found_rate": 1.0,
+        "recovery": 1.0
+      }
+    },
+    "b3": {
+      "recovery": {
+        "mean": 0.08333333333333333,
+        "ci95": [
+          0.0,
+          0.25
+        ]
+      },
+      "found_rate": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "per_pair_recovery": [
+        0.0,
+        0.16666666666666666
+      ],
+      "class0": {
+        "n": 6,
+        "found_rate": 1.0,
+        "recovery": 0.16666666666666666
+      },
+      "class1": {
+        "n": 6,
+        "found_rate": 1.0,
+        "recovery": 0.0
+      }
+    },
+    "a2": {
+      "recovery": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "found_rate": {
+        "mean": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ]
+      },
+      "per_pair_recovery": [
+        1.0,
+        1.0
+      ],
+      "class0": {
+        "n": 6,
+        "found_rate": 1.0,
+        "recovery": 1.0
+      },
+      "class1": {
+        "n": 6,
+        "found_rate": 1.0,
+        "recovery": 1.0
+      }
+    }
+  },
+  "git": {
+    "commit": "2cc79b19a5ba32cd9386ceb60a4325b171ae36de",
+    "dirty": true
+  }
+}

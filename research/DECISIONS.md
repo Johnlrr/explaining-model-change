@@ -1180,6 +1180,54 @@ progress; no output had been opened). Descriptive; no registered test changes.
 - **After exp_0040:** no further robustness checks for the ESANN version; proofs.md §6 (CNN part) is written from
   exp_0038/0039/0040, with the flip-rate bound described as pessimistic and the run-to-run variation as the main measure.
 
+## D-048 — Response to the external review (argument-review + conference-reviewer, 2026-10-25): two descriptive analyses, rules fixed before any number
+
+**Status:** active. The review (pasted by the author, 2026-10-25) was checked item by item against saved outputs. No
+registered test, split, κ, r or solver setting changes; `docs/` untouched. Both analyses are descriptive (no
+hypothesis, no Holm) and are declared here, before `exp_0041` is generated and before the `exp_0042` script reads a score.
+
+**Checked, accepted as writing changes (paper/main.tex):**
+- A3 (type O): Def. 1 gives type O, but the final program ran it only on null pairs (`final_tier0.py`: `dce_O` for N0/N1;
+  EVALUATION: "Δ-CE O where specified"). Recovery in the paper is type N only; the paper now says so, and that a
+  query whose class the update raises (Threshold, class 0) has no N witness by construction and counts 0.
+- W6: (a) C1 +0.31 is the new split (0.41 − 0.10), Table 2 is the locked split (0.47 − 0.07 = +0.40): the split is now in
+  Table 3. (b) C3 −0.30 is over all valid points (exp_0019, Shortcut); −0.166 is on the points that have a witness
+  (exp_0036): both now labelled. (c) "49 model pairs" is the whole benchmark; the grid has 32 (16 cells × 2 seeds of f_old,
+  not 5). (d) Grid α = 0: 8 pairs, of which 2 have no k* (t = 0.5) and 2 failed the offset check 2a (pairs 22, 23), so
+  H5a uses 4 (exp_0026 results.json, H5a pairs 24–27).
+- A6: "DeepXplore" renamed to what it is (Δ-CE without the proximity term). "DIG" kept: it is the name Renard et al. give
+  their method (L-022), and [5] is correct; the table says "DIG-style line search".
+- A4: Table 3 gets a column "kind": D = follows from a lemma, proposition or definition; R = risky prediction.
+- W5/Q4: the grid has 2 seeds of f_old and 3 pairs per condition; CIs resample points within pairs, so they do not cover
+  model-to-model variation (exp_0039/0040 give re-solve variation only). Stated in the protocol and limitations.
+- W7: "registered" is backed by the dated commits listed in D-046; the paper points to them as the evidence.
+
+**E1 — exp_0041: type N, type O and N ∪ O Recovery on Threshold (A3, review Q1).** Tier 0 T4 pairs 6–8 (exp_0002 f_old,
+exp_0003 f_new, hash-verified), k* = aspect, fresh data `new_test_set(9100 + pair_id, 5 000)` (seeds 9106–9108, never used),
+300 valid points per pair (κ = 0.5, point-order seed 5000 + pair_id, restarts 10000 + pair_id), locked solver. Methods:
+Δ-CE N, Δ-CE O, N ∪ O (per point the nearer of the two witnesses when both exist), and on the same points B1-det, B3,
+CF-new (ordinary CE of f_new). Reported: found-rate and Recovery of each, by query class, mean over pairs with a paired
+bootstrap stratified by pair (seed 6603, 10 000). Rule: nothing is tested. Table 2 (locked) is not changed. The paper reports
+N ∪ O next to N in §4.1 whatever the numbers are; the sentence "witnesses lie on the side the offset lowers" is kept for
+type N and the abstract is reworded to "type-N witnesses" in any case.
+
+**E2 — exp_0042: CF-diff with a detection threshold at matched false-positive rate (A2, review Q2), saved outputs only.**
+Score of a query: s = ‖Δφ̃‖₂ of B1-det (0 if no counterfactual pair), the quantity the saved outputs hold. Null
+reference: the 8 null pairs of exp_0017 (pairs 9–16, 2 400 queries; locked split, read from saved outputs, nothing re-run, as in
+D-046). Correction made before any score was read: the first draft named exp_0019, but its null outputs hold B1 (R = 5,
+noisy), not B1-det; exp_0017 holds B1-det, the variant used for H7c. Thresholds: τ_0 = largest null score (0 of 2 400 queries flagged, the Δ-CE operating point), τ_1 and τ_5 = null
+quantiles giving FPR 1% and 5%. Detection = share of queries with s > τ on the 30 logit-offset pairs of exp_0032, per |b| (both
+signs, 3 seeds of f_old), next to Δ-CE found-rate; plus AUROC null vs each |b|. Rule (fixed now): the abstract and §4.1 state
+the matched-FPR numbers. If the detection of CF-diff at τ_0 on |b| ∈ {0.5, 0.9} is below 0.05, the paper says a thresholded
+CF-diff abstains there as well and the contrast is threshold versus no threshold; if it is 0.05 or more, the paper says that
+a calibrated CF-diff detects offsets below 2κ that Δ-CE does not, and that Δ-CE's gain is the certificate and proximity,
+not sensitivity. Either way H7c stays as registered (0.961, unthresholded) and is labelled as such.
+
+**Not done, with reason:** the "where" measure of A1 (witness inside the disagreement region of the fitted boundaries) is a
+new metric whose definition for vector methods (Grad-diff) is not obvious; it is recorded as follow-up, not added to the
+ESANN version. A5 (Δ-CE Recovery against d_o(sin θ + cos θ)/d_n) is not computed: d_o, d_n are not in the saved grid
+outputs; recorded as follow-up.
+
 ---
 
 ## 12. Decision conflicts

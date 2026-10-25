@@ -1,0 +1,14 @@
+# smoke_0026 — D-048 E1 pipeline on the validation split (same code path as exp_0041; scale only). Values are not results.
+experiment_id: smoke_0026
+decision: D-048
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+data: val
+data_seed: 1234
+data_seed_base: 9100
+n_samples: 5000
+n_points: 6
+pair_ids: [6, 7]
+bootstrap_resamples: 200
+bootstrap_seed: 6603
+threads: 8

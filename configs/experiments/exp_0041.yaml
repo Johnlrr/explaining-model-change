@@ -1,0 +1,15 @@
+# exp_0041 — Δ-CE type N, type O and N ∪ O on Tier 0 Threshold (T4), DESCRIPTIVE (D-048 E1; review item A3 / Q1).
+# Tier 0 T4 pairs 6–8 (exp_0002 f_old, exp_0003 f_new, hash-verified), k* = aspect.
+# Data per pair: new_test_set(9100 + pair_id, 5 000) — seeds 9106–9108, never used before; 300 valid points.
+# Methods: Δ-CE N, Δ-CE O, N ∪ O (nearer witness), B1-det, B3, CF-new (ordinary CE of f_new). No test, no Holm.
+experiment_id: exp_0041
+decision: D-048
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+data_seed_base: 9100
+n_samples: 5000
+n_points: 300
+pair_ids: [6, 7, 8]
+bootstrap_resamples: 10000
+bootstrap_seed: 6603
+threads: 5
