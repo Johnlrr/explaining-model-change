@@ -19,6 +19,11 @@ D-048 (2026-10-26): external review (argument-review + conference-reviewer) chec
 D-049 (2026-10-26): A1 → writing only (a "where" metric would be definitional for Δ-CE); A5 → exp_0043: the linear
   recovery condition at the query predicts Δ-CE witness direction on CNN rotations (Rec 0.64 vs 0.04, +0.60 [0.57, 0.62]).
   Contribution (iii) rewritten accordingly; paper 6 pages, 0 overfull. NEXT: author reads the diff.
+2026-10-26: ESANN 2027 author guidelines (esann.org/node/5): "The review process is single blind"; ≤ 6 pages incl.
+  figures and references; supplementary material may be linked from the paper and is not reviewed. Hence NO anonymous
+  copy is needed (D-046's .work/anon_release is obsolete). NEXT (author): replace "[author names and affiliation withheld
+  for review]" with names and affiliations, and "[repository link]" with the public repository URL (make it public,
+  or link a release); then recompile (check still 6 pages) and submit by 18/11/2026.
 v1.10 (D-043, 2026-10-20) APPROVED by the author (with changes; see D-043). H-010 = H7c (logit offset, detection
   threshold), H-011 = H8 (registered cell (z*, z0)). Dev on validation: exp_0030 (H8: gap −0.19 → +0.01 at (z*, z0)),
   exp_0031 (T-C cost); smoke_0018 (T-A pipeline on validation) passed. exp_0032 DONE (0e4ab96): U1–U3 pass; H7c before Holm met (B1-det 0.961 [0.955, 0.967]); Δ-CE sharp threshold
