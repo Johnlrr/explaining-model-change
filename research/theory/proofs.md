@@ -86,8 +86,8 @@ on the distances, not on $h$.
 ## 4 Proposition 2 (b): rotation, $0<\theta<\pi/2$
 
 **Statement.** (i) The gradient difference has components in the ratio $\tan(\theta/2)<1$ along
-$(\hat w_o,v)$. (ii) The witness satisfies $|u^\star\cdot\hat w_o|=\min\{d_n\cos\theta,\ d_o\}$ and, for
-$\theta\le\pi/4$, its component along $v$ dominates only if $d_o(\sin\theta+\cos\theta)<d_n$.
+$(\hat w_o,v)$. (ii) The witness satisfies $|u^\star\cdot\hat w_o|=\min\{d_n\cos\theta,\ d_o\}$, and its
+component along $v$ dominates iff $\theta>\pi/4$ or $d_o(\sin\theta+\cos\theta)<d_n$.
 
 **Proof.** Write $u=u_1\hat w_o+u_2v+u_\perp$ with $u_\perp\perp\{\hat w_o,v\}$. Then (N) reads
 $u_1\cos\theta+u_2\sin\theta\le-d_n$ and (O) reads $u_1\ge-d_o$.
@@ -106,7 +106,11 @@ $\theta\le\pi/4$. In case B it is $(d_n-d_o\cos\theta)/\sin\theta>d_o\iff d_n>d_
 So for $\theta\le\pi/4$ dominance requires $d_o(\sin\theta+\cos\theta)<d_n$. The condition is also sufficient:
 for $\theta\le\pi/4$, $(\sin\theta+\cos\theta)\cos\theta-1=\sin\theta(\cos\theta-\sin\theta)\ge0$, so
 $d_o(\sin\theta+\cos\theta)<d_n$ implies $d_o<d_n\cos\theta$, i.e. case B, where it is the dominance condition.
-(The paper states the necessary direction only.) ∎
+For $\theta>\pi/4$ dominance always holds: in case A, $\tan\theta>1$; in case B, $(\sin\theta+\cos\theta)\cos\theta<1$, so
+$d_o<d_n\cos\theta<d_n/(\sin\theta+\cos\theta)$, which is the case-B dominance condition. At $\theta=\pi/4$ case A is a tie
+(not dominance) and $\cos\theta=1/(\sin\theta+\cos\theta)$, so dominance is again $d_o(\sin\theta+\cos\theta)<d_n$. Hence the
+iff for all $0<\theta<\pi/2$ (as in research/theory/P5_rotation_offset.md; the paper, since 2026-10-26, states it in this
+form). ∎
 
 *Remark (budget).* For $\theta\le\pi/4$ a witness dominated by $v$ is in case B with $|u_2^\star|>d_o$, so
 $\|u^\star\|>\sqrt2\,d_o$; within a budget $r$ this needs $d_o<r/\sqrt2$.
