@@ -1,0 +1,99 @@
+{
+  "label": "D-050 E4 (descriptive)",
+  "tau": {
+    "fpr0": 0.3912730048130703,
+    "fpr0.05": 0.15026520631549578
+  },
+  "pairs": [
+    {
+      "run": "runs/experiments/exp_0041",
+      "pair_id": 6,
+      "n_lowered": 136,
+      "dce_lowered": 1.0,
+      "dce_all": 0.4533333333333333,
+      "cfdiff_lowered_fpr0": 0.0,
+      "cfdiff_all_fpr0": 0.0,
+      "cfdiff_lowered_fpr0.05": 0.27941176470588236,
+      "cfdiff_all_fpr0.05": 0.27666666666666667,
+      "margin_fpr0": 1.0
+    },
+    {
+      "run": "runs/experiments/exp_0041",
+      "pair_id": 7,
+      "n_lowered": 133,
+      "dce_lowered": 1.0,
+      "dce_all": 0.44333333333333336,
+      "cfdiff_lowered_fpr0": 0.0,
+      "cfdiff_all_fpr0": 0.0,
+      "cfdiff_lowered_fpr0.05": 0.2781954887218045,
+      "cfdiff_all_fpr0.05": 0.31666666666666665,
+      "margin_fpr0": 1.0
+    },
+    {
+      "run": "runs/experiments/exp_0041",
+      "pair_id": 8,
+      "n_lowered": 135,
+      "dce_lowered": 1.0,
+      "dce_all": 0.45,
+      "cfdiff_lowered_fpr0": 0.0,
+      "cfdiff_all_fpr0": 0.0,
+      "cfdiff_lowered_fpr0.05": 0.17037037037037037,
+      "cfdiff_all_fpr0.05": 0.15666666666666668,
+      "margin_fpr0": 1.0
+    },
+    {
+      "run": "runs/experiments/exp_0026",
+      "pair_id": 24,
+      "n_lowered": 155,
+      "dce_lowered": 1.0,
+      "dce_all": 0.5166666666666667,
+      "cfdiff_lowered_fpr0": 0.0,
+      "cfdiff_all_fpr0": 0.0,
+      "cfdiff_lowered_fpr0.05": 0.0967741935483871,
+      "cfdiff_all_fpr0.05": 0.08,
+      "margin_fpr0": 1.0
+    },
+    {
+      "run": "runs/experiments/exp_0026",
+      "pair_id": 25,
+      "n_lowered": 134,
+      "dce_lowered": 0.2462686567164179,
+      "dce_all": 0.11,
+      "cfdiff_lowered_fpr0": 0.0,
+      "cfdiff_all_fpr0": 0.0,
+      "cfdiff_lowered_fpr0.05": 0.05223880597014925,
+      "cfdiff_all_fpr0.05": 0.056666666666666664,
+      "margin_fpr0": 0.2462686567164179
+    },
+    {
+      "run": "runs/experiments/exp_0026",
+      "pair_id": 26,
+      "n_lowered": 141,
+      "dce_lowered": 1.0,
+      "dce_all": 0.47,
+      "cfdiff_lowered_fpr0": 0.0,
+      "cfdiff_all_fpr0": 0.0,
+      "cfdiff_lowered_fpr0.05": 0.18439716312056736,
+      "cfdiff_all_fpr0.05": 0.17333333333333334,
+      "margin_fpr0": 1.0
+    },
+    {
+      "run": "runs/experiments/exp_0026",
+      "pair_id": 27,
+      "n_lowered": 130,
+      "dce_lowered": 1.0,
+      "dce_all": 0.43333333333333335,
+      "cfdiff_lowered_fpr0": 0.0,
+      "cfdiff_all_fpr0": 0.0,
+      "cfdiff_lowered_fpr0.05": 0.23846153846153847,
+      "cfdiff_all_fpr0.05": 0.17666666666666667,
+      "margin_fpr0": 1.0
+    }
+  ],
+  "min_margin_fpr0": 0.2462686567164179,
+  "branch": "generalises",
+  "git": {
+    "commit": "aa4dafcf499ac3383b9b8ed5d1ff71b72a6f6ef4",
+    "dirty": false
+  }
+}

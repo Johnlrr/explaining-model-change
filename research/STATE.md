@@ -24,6 +24,9 @@ D-049 (2026-10-26): A1 → writing only (a "where" metric would be definitional 
   copy is needed (D-046's .work/anon_release is obsolete). NEXT (author): replace "[author names and affiliation withheld
   for review]" with names and affiliations, and "[repository link]" with the public repository URL (make it public,
   or link a release); then recompile (check still 6 pages) and submit by 18/11/2026.
+D-050 (2026-10-26): second review (6/10) handled: exp_0044 (zero-FP detection on fine-tuned offsets: Δ-CE 1.0 in 6/7
+  pairs, CF-diff 0 in 7/7), exp_0045 (pair counts 4/4); paper reframed, splits A/B/C named; 6 pages, page images checked.
+  Special session option (distributional change, Bielefeld) recorded for the author.
 v1.10 (D-043, 2026-10-20) APPROVED by the author (with changes; see D-043). H-010 = H7c (logit offset, detection
   threshold), H-011 = H8 (registered cell (z*, z0)). Dev on validation: exp_0030 (H8: gap −0.19 → +0.01 at (z*, z0)),
   exp_0031 (T-C cost); smoke_0018 (T-A pipeline on validation) passed. exp_0032 DONE (0e4ab96): U1–U3 pass; H7c before Holm met (B1-det 0.961 [0.955, 0.967]); Δ-CE sharp threshold

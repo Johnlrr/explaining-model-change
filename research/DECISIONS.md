@@ -1299,6 +1299,15 @@ per pair), H5b (each α = 0.5 pair 44, 45 above each α = 0.1 pair 28, 29), H8 (
 n = 4 an exact one-sided sign test cannot go below 1/16, so no p-value is claimed; the paper adds "(in each of the n pairs)"
 only where k = n, otherwise "k of n".
 
+**Results (2026-10-26, after the numbers):** E4 → "generalises": CF-diff at τ_0 flags no lowered-class query in any of
+7 fine-tuned offset pairs; Δ-CE detects all of them in 6 pairs and 0.246 in pair 25; CF-diff at 5% FPR 0.05–0.28.
+E5 → H5a 4/4, H5b 4/4, H8 4/4 (36, 37 small), C1 3/3 seeds. Paper: abstract reframed (benchmark + analysis first; abstention
+sentence with the zero-false-positive numbers, constant and fine-tuned); splits named A/B/C; per-pair counts added; H7c
+labelled "(no threshold)"; §5 "where" sentence replaced by three partial checks (no comparison); "What failed" paragraph
+removed (H2a stays in the abstract and Table 3). Rendered and checked page by page (PyMuPDF in a throwaway env): 6 pages.
+Note for the author: ESANN 2027 special session "From Understanding Distributional Change to Informed Action" (organisers
+include Vaquet and Hinder, co-authors of [1]) fits the topic; choosing it is the author's decision.
+
 ---
 
 ## 12. Decision conflicts
