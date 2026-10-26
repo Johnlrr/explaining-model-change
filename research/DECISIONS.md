@@ -1308,6 +1308,18 @@ removed (H2a stays in the abstract and Table 3). Rendered and checked page by pa
 Note for the author: ESANN 2027 special session "From Understanding Distributional Change to Informed Action" (organisers
 include Vaquet and Hinder, co-authors of [1]) fits the topic; choosing it is the author's decision.
 
+## D-051 — Third review round (2026-10-26): checked, author approved the proposal; writing only
+
+**Accepted:** abstract "(descriptive)" for the query-side witness prediction; abstract abstention sentence reworded
+(constant and fine-tuned offsets, 5% clause attached to fine-tuned only — at 5% CF-diff reaches 0.76 on constant offsets);
+B5 renamed Seg-search (a simplified segment search, not Renard et al.'s DIG; avoids a fidelity objection and the DiG-IN
+association). **Added by the agent (missed by the reviewer):** null pairs were admitted with decisive disagreement 0.0 on
+validation — the observable part of F_κ — so the zero-false-positive operating point partly follows from selection; §4.3
+now says the 5% point is the fairer reading. **Rejected:** anonymous link (ESANN 2027 is single blind); "longer than
+before" (rendered: 6 pages). **Table 3 reorganised (option B):** rows grouped as Section 4, "When" column replaces the ID
+column and the caption's ID list, Holm families as symbols, p_Holm shown for every family member; protocol IDs mapped
+in REPRODUCE.md. Space recovered by short cuts in §2–§3 (solver details, Prop. 2 wording), no result removed.
+
 ---
 
 ## 12. Decision conflicts
