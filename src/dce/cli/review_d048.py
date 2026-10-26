@@ -5,11 +5,14 @@ e1-run       — exp_0041: Δ-CE type N, type O and N ∪ O on Tier 0 Threshold 
 e1-describe  — found-rate and Recovery (k* = aspect) per method and per query class, paired bootstrap stratified by pair.
 e2-analyze   — exp_0042 (saved outputs only): CF-diff (B1-det) with a detection threshold at matched false-positive rate
                on the null pairs of exp_0017; detection per logit offset |b| on the pairs of exp_0032 next to Δ-CE.
+e3-analyze   — exp_0043 (D-049; exp_0033 outputs plus model gradients at z0, no solver run): the linear recovery
+               condition θ > π/4 or d_o(sin θ + cos θ) < d_n, evaluated at the query, against Δ-CE Recovery on the support.
 
 Usage:
     python -m dce.cli.review_d048 e1-run --config configs/experiments/exp_0041.yaml --out runs/experiments/exp_0041
     python -m dce.cli.review_d048 e1-describe --config configs/experiments/exp_0041.yaml --out runs/experiments/exp_0041
     python -m dce.cli.review_d048 e2-analyze --config configs/experiments/exp_0042.yaml --out runs/experiments/exp_0042
+    python -m dce.cli.review_d048 e3-analyze --config configs/experiments/exp_0043.yaml --out runs/experiments/exp_0043
 """
 
 from __future__ import annotations
@@ -27,6 +30,9 @@ from dce.baselines.b3_grad import b3_grad
 from dce.cli.calibrate_r import solver_config
 from dce.cli.g0_tier0 import git_state, load_config, sha256
 from dce.cli.v110_test import Timer, data_for, run_pairs
+from dce.cli.v19_grid import grid_pairs
+from dce.cli.v19_test import load_models
+from dce.eval.metrics import top_factor
 from dce.data.drift import tier0_pairs
 from dce.eval.metrics import MethodOutput, auroc, recovery_indicator
 from dce.eval.pairs import load_pair
@@ -35,7 +41,7 @@ from dce.eval.tier0_margins import Tier0Margin, valid_points
 from dce.solvers.dce import delta_ce
 from dce.solvers.ordinary_ce import ordinary_ce
 
-ASPECT = 0
+ASPECT, COLOUR = 0, 2
 E1_METHODS = ("dce_N", "dce_O", "dce_NO", "b1_det", "b3", "a2")
 
 
@@ -162,9 +168,81 @@ def cmd_e2(cfg, out: Path) -> int:
     return 0
 
 
+def margin_and_grad(f, z0: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    m = Tier0Margin(f, y)
+    z = torch.as_tensor(z0, dtype=torch.float32).clone().requires_grad_(True)
+    val = m(z, torch.arange(len(z0)))
+    return val.detach().numpy().astype(float), torch.autograd.grad(val.sum(), z)[0].numpy().astype(float)
+
+
+def linear_condition(m_o, g_o, m_n, g_n, kappa: float) -> dict[str, np.ndarray]:
+    """P = 1[θ > π/4 or d_o(sin θ + cos θ) < d_n] with the local linearisation at z0 (P5, Δ-CE recovery condition)."""
+    no, nn = np.linalg.norm(g_o, axis=1), np.linalg.norm(g_n, axis=1)
+    theta = np.arccos(np.clip((g_o * g_n).sum(1) / (no * nn), -1.0, 1.0))
+    d_o, d_n = (m_o - kappa) / no, (m_n + kappa) / nn
+    pred = (theta > np.pi / 4) | (d_o * (np.sin(theta) + np.cos(theta)) < d_n)
+    v = g_n - ((g_n * g_o).sum(1) / no**2)[:, None] * g_o
+    return {"P": pred, "theta": theta, "d_o": d_o, "d_n": d_n,
+            "top_g_o_aspect": top_factor(g_o) == ASPECT, "top_v_colour": top_factor(v) == COLOUR}
+
+
+def e3_analyze(cfg) -> dict:
+    src = Path(cfg["source_run"])
+    by_id = {p["pair_id"]: p for p in grid_pairs()}
+    groups, cache, rows = [], {}, []
+    for pid in cfg["pair_ids"]:
+        a = dict(np.load(src / "pairs" / f"pair_{pid}.npz"))
+        f_old, f_new, _ = load_models(cfg, by_id[pid], cache)
+        m_o, g_o = margin_and_grad(f_old, a["z0"], a["y"])
+        m_n, g_n = margin_and_grad(f_new, a["z0"], a["y"])
+        if not np.allclose(g_o, a["grad_z0"], atol=1e-5):
+            raise SystemExit(f"pair {pid}: ∇m_o differs from the saved grad_z0 (wrong model or points)")
+        c = linear_condition(m_o, g_o, m_n, g_n, cfg["kappa"])
+        s = a["dce__found"]
+        rec = top_factor(a["dce__dphi"]) == COLOUR
+        groups.append((c["P"][s], rec[s]))
+        rows.append({"pair_id": pid, "alpha": by_id[pid]["alpha"], "t": by_id[pid]["t"], "support": int(s.sum()),
+                     "share_P1": float(c["P"][s].mean()), "rec": float(rec[s].mean()),
+                     "median_theta_deg": float(np.degrees(np.median(c["theta"][s]))),
+                     "share_top_g_o_aspect": float(c["top_g_o_aspect"][s].mean()),
+                     "share_top_v_colour": float(c["top_v_colour"][s].mean())})
+    P = np.concatenate([g[0] for g in groups])
+    R = np.concatenate([g[1] for g in groups])
+
+    def gap(ps, rs):
+        p, r = np.concatenate(ps), np.concatenate(rs)
+        return r[p].mean() - r[~p].mean() if p.any() and (~p).any() else np.nan
+
+    rng = np.random.default_rng(cfg["bootstrap_seed"])
+    boot = np.empty(cfg["bootstrap_resamples"])
+    for b in range(boot.size):
+        idx = [rng.integers(0, len(g[0]), len(g[0])) for g in groups]
+        boot[b] = gap([g[0][i] for g, i in zip(groups, idx)], [g[1][i] for g, i in zip(groups, idx)])
+    share = float(P.mean())
+    return {"label": "D-049 E3 (descriptive)", "source_run": str(src), "n_support": int(P.size), "share_P1": share,
+            "rec_P1": float(R[P].mean()) if P.any() else None, "rec_P0": float(R[~P].mean()) if (~P).any() else None,
+            "gap": float(gap([P], [R])), "gap_ci95": [float(np.nanquantile(boot, 0.025)), float(np.nanquantile(boot, 0.975))],
+            "agreement": float((P == R).mean()), "rec_all": float(R.mean()),
+            "testable": bool(min(share, 1 - share) >= 0.05),
+            "share_top_g_o_aspect": float(np.mean([r["share_top_g_o_aspect"] for r in rows])),
+            "share_top_v_colour": float(np.mean([r["share_top_v_colour"] for r in rows])), "pairs": rows}
+
+
+def cmd_e3(cfg, out: Path) -> int:
+    path = out / "results_e3.json"
+    if path.exists():
+        raise SystemExit(f"refusing to overwrite {path}")
+    out.mkdir(parents=True, exist_ok=True)
+    res = e3_analyze(cfg)
+    res["git"] = git_state()
+    path.write_text(json.dumps(res, indent=2, default=float))
+    print(json.dumps({k: v for k, v in res.items() if k not in ("pairs", "git")}, indent=1))
+    return 0
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("stage", choices=("e1-run", "e1-describe", "e2-analyze"))
+    ap.add_argument("stage", choices=("e1-run", "e1-describe", "e2-analyze", "e3-analyze"))
     ap.add_argument("--config", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--shard", default="0/1")
@@ -177,6 +255,8 @@ def main(argv=None) -> int:
         return run_pairs(cfg, args.out, shard, by_id, e1_pair, cfg.get("decision", "D-048"))
     if args.stage == "e1-describe":
         return cmd_e1_describe(cfg, args.out)
+    if args.stage == "e3-analyze":
+        return cmd_e3(cfg, args.out)
     return cmd_e2(cfg, args.out)
 
 

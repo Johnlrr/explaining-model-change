@@ -1,0 +1,12 @@
+# exp_0043 — linear Δ-CE recovery condition at the query vs Δ-CE Recovery on CNN rotations, DESCRIPTIVE (D-049; review A5).
+# Saved exp_0033 outputs (24 α > 0 grid pairs, fresh data seeds 9000 + pair_id) plus margins and gradients of the
+# hash-verified checkpoints at z0 (exp_0002 f_old, exp_0025 f_new). No solver run, no test, no Holm.
+experiment_id: exp_0043
+decision: D-049
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+models_run: runs/experiments/exp_0025
+source_run: runs/experiments/exp_0033
+pair_ids: [36, 37, 44, 45, 28, 29, 30, 31, 32, 33, 34, 35, 38, 39, 40, 41, 42, 43, 46, 47, 48, 49, 50, 51]
+bootstrap_resamples: 10000
+bootstrap_seed: 6604

@@ -1,0 +1,11 @@
+# smoke_0027 — D-049 E3 code path on exp_0033 pair 28 with 200 resamples; checks loading, the grad_z0 identity check and
+# the output schema. Only the schema is read, not the numbers (same path as exp_0043, scale only).
+experiment_id: smoke_0027
+decision: D-049
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+models_run: runs/experiments/exp_0025
+source_run: runs/experiments/exp_0033
+pair_ids: [28]
+bootstrap_resamples: 200
+bootstrap_seed: 6604

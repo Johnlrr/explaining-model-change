@@ -1237,6 +1237,35 @@ new metric whose definition for vector methods (Grad-diff) is not obvious; it is
 ESANN version. A5 (Δ-CE Recovery against d_o(sin θ + cos θ)/d_n) is not computed: d_o, d_n are not in the saved grid
 outputs; recorded as follow-up.
 
+## D-049 — Review follow-ups A1 and A5, decided with the argument-review / conference-reviewer rules; A5 rule fixed before any number
+
+**Status:** active (2026-10-26; the author asked the agent to decide using the two review skills).
+
+**A1 ("where" measure) → writing only, no experiment.** A metric "the witness lies in the true disagreement region" fails
+the skill's B3 rule (a comparison where one side is built to optimise the metric is not evidence): every method that
+searches F^N_κ (Δ-CE, No-prox, DIG) satisfies it by construction, and it is undefined for direction methods (Grad-diff,
+CF-diff). It would manufacture a definitional win for Δ-CE. With no "where" claim in the paper, no claim needs the
+experiment (conference-reviewer: tie each experiment to a claim). Remedy: the Discussion sentence that still asserts
+"where" is hedged; a multi-notion ground truth for "change" is next-paper material (redesign).
+
+**A5 → exp_0043 (descriptive, saved outputs plus model gradients, no solver run).** Material because contribution (iii)
+now says the linear analysis "does not transfer to the witness", resting only on the projection tests; the per-point
+recovery condition of the linear case (research/theory/P5_rotation_offset.md: Δ-CE recovers k* iff θ > π/4 or
+d_o(sin θ + cos θ) < d_n) is stated in the paper and never tested.
+- Data: exp_0033 saved outputs, 24 α > 0 grid pairs on fresh data (new_test_set(9000 + pair_id), used for H8; descriptive
+  reuse as allowed by v1.10 §6.1). Not the locked grid split.
+- Per point, at z0, from the hash-verified checkpoints (exp_0002 f_old, exp_0025 f_new): g_o = ∇m_o, g_n = ∇m_n,
+  θ = angle(g_o, g_n), d_o = (m_o(z0) − κ)/‖g_o‖, d_n = (m_n(z0) + κ)/‖g_n‖. Prediction P = 1[θ > π/4 or d_o(sin θ + cos θ) < d_n].
+- Outcome on the support (points with a witness): R = 1[top factor of Δφ̃ = colour] (unprojected Δ-CE Recovery indicator).
+- Report: Rec(P=1), Rec(P=0), their difference with 95% CI (bootstrap stratified by pair, seed 6604, 10 000), agreement
+  1[P = R], share P = 1; diagnostics: share of points with top factor of g_o = aspect and of v = g_n⊥ = colour (how far the
+  factor-aligned assumption holds).
+- Rule: if either group has < 5% of the support → "condition does not vary; not testable here", (iii) narrowed to the
+  projection result. Else if Rec(P=1) − Rec(P=0) ≥ 0.20 and CI lower > 0 → the condition transfers when evaluated with
+  local quantities at the query; (iii) and §4.2 say so (the analysis transfers for the witness's direction, not for the
+  projection equivalence). Otherwise → it does not; §4.2 says so and (iii) stands. One sentence in §4.2 in every case;
+  Table 3 unchanged (descriptive).
+
 ---
 
 ## 12. Decision conflicts

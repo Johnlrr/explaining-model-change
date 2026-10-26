@@ -1,0 +1,35 @@
+{
+  "label": "D-049 E3 (descriptive)",
+  "source_run": "runs/experiments/exp_0033",
+  "n_support": 110,
+  "share_P1": 0.4727272727272727,
+  "rec_P1": 0.5769230769230769,
+  "rec_P0": 0.06896551724137931,
+  "gap": 0.5079575596816975,
+  "gap_ci95": [
+    0.3505352703179195,
+    0.6681723678171835
+  ],
+  "agreement": 0.7636363636363637,
+  "rec_all": 0.3090909090909091,
+  "testable": true,
+  "share_top_g_o_aspect": 0.9090909090909091,
+  "share_top_v_colour": 0.5272727272727272,
+  "pairs": [
+    {
+      "pair_id": 28,
+      "alpha": 0.1,
+      "t": 0.5,
+      "support": 110,
+      "share_P1": 0.4727272727272727,
+      "rec": 0.3090909090909091,
+      "median_theta_deg": 10.516670507226944,
+      "share_top_g_o_aspect": 0.9090909090909091,
+      "share_top_v_colour": 0.5272727272727272
+    }
+  ],
+  "git": {
+    "commit": "a74f0c44403ab62718204abaeb67a10dffcb288a",
+    "dirty": true
+  }
+}
