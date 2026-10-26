@@ -1,0 +1,10 @@
+# exp_0044 — detection at matched null false positives on FINE-TUNED offsets, DESCRIPTIVE (D-050 E4; review F2/Q2).
+# Saved outputs only. Null reference and thresholds as exp_0042 (exp_0017 nulls 9–16, B1-det ‖Δφ̃‖₂).
+experiment_id: exp_0044
+decision: D-050
+tier_config: configs/tiers/tier0.yaml
+null_run: runs/experiments/exp_0017
+null_pairs: [9, 10, 11, 12, 13, 14, 15, 16]
+offset_runs:
+  runs/experiments/exp_0041: [6, 7, 8]
+  runs/experiments/exp_0026: [24, 25, 26, 27]

@@ -1,0 +1,10 @@
+# exp_0045 — pair-level direction counts for H5a, H5b, H8 (D-050 E5; review W2). Saved outputs only.
+experiment_id: exp_0045
+decision: D-050
+tier_config: configs/tiers/tier0.yaml
+grid_run: runs/experiments/exp_0026
+h5a_pairs: [24, 25, 26, 27]
+h5b_high: [44, 45]
+h5b_low: [28, 29]
+h8_run: runs/experiments/exp_0033
+h8_pairs: [36, 37, 44, 45]

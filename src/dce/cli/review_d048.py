@@ -7,6 +7,9 @@ e2-analyze   — exp_0042 (saved outputs only): CF-diff (B1-det) with a detectio
                on the null pairs of exp_0017; detection per logit offset |b| on the pairs of exp_0032 next to Δ-CE.
 e3-analyze   — exp_0043 (D-049; exp_0033 outputs plus model gradients at z0, no solver run): the linear recovery
                condition θ > π/4 or d_o(sin θ + cos θ) < d_n, evaluated at the query, against Δ-CE Recovery on the support.
+e4-analyze   — exp_0044 (D-050; saved outputs): detection at matched null false positives on fine-tuned offsets
+               (Threshold exp_0041, grid α = 0 pairs of exp_0026), CF-diff thresholded as in exp_0042 vs Δ-CE type N.
+e5-analyze   — exp_0045 (D-050; saved outputs): pair-level direction counts for H5a, H5b and H8.
 
 Usage:
     python -m dce.cli.review_d048 e1-run --config configs/experiments/exp_0041.yaml --out runs/experiments/exp_0041
@@ -240,9 +243,69 @@ def cmd_e3(cfg, out: Path) -> int:
     return 0
 
 
+def e4_analyze(cfg) -> dict:
+    null = np.concatenate([cfdiff_score(dict(np.load(Path(cfg["null_run"]) / "pairs" / f"pair_{p:02d}.npz"))) for p in cfg["null_pairs"]])
+    taus = {"fpr0": float(null.max()), "fpr0.05": float(np.quantile(null, 0.95))}
+    rows = []
+    for run, pids in cfg["offset_runs"].items():
+        for pid in pids:
+            a = dict(np.load(Path(run) / "pairs" / f"pair_{pid}.npz"))
+            if not np.array_equal(a["y"], (a["z0"][:, ASPECT] > 0.5).astype(a["y"].dtype)):
+                raise SystemExit(f"{run} pair {pid}: saved y is not 1[aspect > 0.5]")
+            low = a["y"] == 1
+            s, dce = cfdiff_score(a), a["dce_N__found"]
+            row = {"run": run, "pair_id": pid, "n_lowered": int(low.sum()), "dce_lowered": float(dce[low].mean()),
+                   "dce_all": float(dce.mean())}
+            for k, t in taus.items():
+                row[f"cfdiff_lowered_{k}"] = float((s[low] > t).mean())
+                row[f"cfdiff_all_{k}"] = float((s > t).mean())
+            row["margin_fpr0"] = row["dce_lowered"] - row["cfdiff_lowered_fpr0"]
+            rows.append(row)
+    m = [r["margin_fpr0"] for r in rows]
+    branch = ("generalises" if min(m) >= 0.20 else
+              "constant offsets only" if any(r["cfdiff_lowered_fpr0"] >= r["dce_lowered"] for r in rows) else "report only")
+    return {"label": "D-050 E4 (descriptive)", "tau": taus, "pairs": rows, "min_margin_fpr0": min(m), "branch": branch}
+
+
+def e5_analyze(cfg) -> dict:
+    from dce.cli.v110_test import h8_inputs
+    g = Path(cfg["grid_run"])
+    def rec(pid, k):
+        a = dict(np.load(g / "pairs" / f"pair_{pid}.npz"))
+        return float(recovery_indicator(MethodOutput(a["b3__found"], a["b3__dphi"]), k).mean())
+    h5a = {pid: rec(pid, ASPECT) for pid in cfg["h5a_pairs"]}
+    hi = {pid: rec(pid, COLOUR) for pid in cfg["h5b_high"]}
+    lo = {pid: rec(pid, COLOUR) for pid in cfg["h5b_low"]}
+    h8 = {}
+    for pid in cfg["h8_pairs"]:
+        a = dict(np.load(Path(cfg["h8_run"]) / "pairs" / f"pair_{pid}.npz"))
+        _, ind = h8_inputs(a, COLOUR)
+        gap = {c: float(ind[c][0].mean() - ind[c][1].mean()) for c in (("z0", "z0"), ("zs", "z0"))}
+        h8[pid] = {"gap_z0_z0": gap[("z0", "z0")], "gap_zs_z0": gap[("zs", "z0")],
+                   "T": abs(gap[("z0", "z0")]) - 2 * abs(gap[("zs", "z0")])}
+    return {"label": "D-050 E5 (pair-level counts)",
+            "H5a": {"per_pair": h5a, "k": sum(v < 0.2 for v in h5a.values()), "n": len(h5a)},
+            "H5b": {"high": hi, "low": lo, "k": sum(h > l for h in hi.values() for l in lo.values()), "n": len(hi) * len(lo)},
+            "H8": {"per_pair": h8, "k": sum(v["T"] > 0 for v in h8.values()), "n": len(h8)}}
+
+
+def cmd_json(fn, name):
+    def run(cfg, out: Path) -> int:
+        path = out / name
+        if path.exists():
+            raise SystemExit(f"refusing to overwrite {path}")
+        out.mkdir(parents=True, exist_ok=True)
+        res = fn(cfg)
+        res["git"] = git_state()
+        path.write_text(json.dumps(res, indent=2, default=float))
+        print(json.dumps({k: v for k, v in res.items() if k != "git"}, indent=1, default=float))
+        return 0
+    return run
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("stage", choices=("e1-run", "e1-describe", "e2-analyze", "e3-analyze"))
+    ap.add_argument("stage", choices=("e1-run", "e1-describe", "e2-analyze", "e3-analyze", "e4-analyze", "e5-analyze"))
     ap.add_argument("--config", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--shard", default="0/1")
@@ -257,6 +320,10 @@ def main(argv=None) -> int:
         return cmd_e1_describe(cfg, args.out)
     if args.stage == "e3-analyze":
         return cmd_e3(cfg, args.out)
+    if args.stage == "e4-analyze":
+        return cmd_json(e4_analyze, "results_e4.json")(cfg, args.out)
+    if args.stage == "e5-analyze":
+        return cmd_json(e5_analyze, "results_e5.json")(cfg, args.out)
     return cmd_e2(cfg, args.out)
 
 
