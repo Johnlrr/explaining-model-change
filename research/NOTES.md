@@ -504,3 +504,11 @@ fr = Δ-CE found-rate and S = Δ-CE support. Mean over pairs: gap_all −0.352 =
 gap on the support −0.234 (per pair −0.24, −0.19, −0.24, −0.26; fr 0.64, 0.61, 0.81, 0.78). Validation dev (exp_0030):
 −0.19 on S. Computed from the saved per-point outputs; nothing re-run, no test data regenerated. For the v1.10 summary
 and the rewrite of the paper sentence on H5d.
+
+## 2026-10-26 — Numbers cut from paper/main.tex to stay at 6 pages (D-049); sources
+
+- κ = 0 ablation on null pairs (A3, locked split): Δ-CE found-rate N0 0.799, N1 0.890 → runs/experiments/exp_0017/results.json,
+  `by_condition.{N0,N1}.a3_k0.found_rate`. Paper sentence removed: "With κ = 0 witnesses reappear (0.80, 0.89), as Lemma 1 predicts."
+- Grid H5d gap −0.35 = −0.18 abstention (found-rate) + −0.17 geometry → this file, entry 2026-10-20 (−0.184, −0.168).
+- Sampling check of NOT_FOUND (T-C): 0/400 null queries, 95% upper bound 0.009; 0/150 impossible-class queries, bound
+  0.024 → runs/experiments/exp_0034/README.md, rows G1 and G2. The paper keeps the counts, not the bounds.

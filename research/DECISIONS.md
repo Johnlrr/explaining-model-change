@@ -1271,7 +1271,7 @@ d_o(sin θ + cos θ) < d_n) is stated in the paper and never tested.
 pairs with both groups (mean +0.54). paper/main.tex: contribution (iii) and §4.2 now say the analysis transfers with
 quantities at the query (incl. which witnesses show the new dependence) and the projection equivalence only with the
 normal at the witness; the Discussion "where" sentence now makes no claim. To stay at 6 pages: the κ = 0 sentence, the
-−0.18/−0.17 split of the grid gap and the 95% bounds of the sampling check were cut (all remain in runs/ and NOTES).
+−0.18/−0.17 split of the grid gap and the 95% bounds of the sampling check were cut (sources listed in NOTES, entry 2026-10-26; the first wording "all remain in runs/ and NOTES" was inaccurate: two of the three were only in runs/).
 
 ---
 
