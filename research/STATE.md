@@ -16,6 +16,9 @@ D-048 (2026-10-26): external review (argument-review + conference-reviewer) chec
   outputs): flags none below 2κ at FPR 0. paper/main.tex: W6 number/label fixes, DeepXplore → No-prox, Table 3 column K
   (D/R), type-N statement, CI caveat, Theorem 1 of [1] stated; 6 pages, 0 overfull. Follow-ups, not done: a "where" measure
   (A1), Δ-CE Recovery vs d_o(sin θ+cos θ)/d_n (A5). NEXT: author reads the diff; ESANN deadline 18/11.
+D-049 (2026-10-26): A1 → writing only (a "where" metric would be definitional for Δ-CE); A5 → exp_0043: the linear
+  recovery condition at the query predicts Δ-CE witness direction on CNN rotations (Rec 0.64 vs 0.04, +0.60 [0.57, 0.62]).
+  Contribution (iii) rewritten accordingly; paper 6 pages, 0 overfull. NEXT: author reads the diff.
 v1.10 (D-043, 2026-10-20) APPROVED by the author (with changes; see D-043). H-010 = H7c (logit offset, detection
   threshold), H-011 = H8 (registered cell (z*, z0)). Dev on validation: exp_0030 (H8: gap −0.19 → +0.01 at (z*, z0)),
   exp_0031 (T-C cost); smoke_0018 (T-A pipeline on validation) passed. exp_0032 DONE (0e4ab96): U1–U3 pass; H7c before Holm met (B1-det 0.961 [0.955, 0.967]); Δ-CE sharp threshold

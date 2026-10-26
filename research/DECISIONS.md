@@ -1266,6 +1266,13 @@ d_o(sin θ + cos θ) < d_n) is stated in the paper and never tested.
   projection equivalence). Otherwise → it does not; §4.2 says so and (iii) stands. One sentence in §4.2 in every case;
   Table 3 unchanged (descriptive).
 
+**Result (2026-10-26, after the numbers):** exp_0043: Rec 0.638 where P = 1, 0.040 where P = 0, gap +0.598 [0.574,
+0.622], agreement 0.82, 3 952 witnesses → branch "transfers". Post hoc (labelled): within-pair gap positive in all 21
+pairs with both groups (mean +0.54). paper/main.tex: contribution (iii) and §4.2 now say the analysis transfers with
+quantities at the query (incl. which witnesses show the new dependence) and the projection equivalence only with the
+normal at the witness; the Discussion "where" sentence now makes no claim. To stay at 6 pages: the κ = 0 sentence, the
+−0.18/−0.17 split of the grid gap and the 95% bounds of the sampling check were cut (all remain in runs/ and NOTES).
+
 ---
 
 ## 12. Decision conflicts
