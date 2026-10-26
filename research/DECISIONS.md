@@ -1273,6 +1273,32 @@ quantities at the query (incl. which witnesses show the new dependence) and the 
 normal at the witness; the Discussion "where" sentence now makes no claim. To stay at 6 pages: the κ = 0 sentence, the
 −0.18/−0.17 split of the grid gap and the 95% bounds of the sampling check were cut (sources listed in NOTES, entry 2026-10-26; the first wording "all remain in runs/ and NOTES" was inaccurate: two of the three were only in runs/).
 
+## D-050 — Second external review (2026-10-26): checks, two re-analyses of saved outputs; rules fixed before any number
+
+**Status:** active. Review pasted by the author 2026-10-26 (argument-review + conference-reviewer, overall 6/10).
+
+**Checked:** W4 is right: two different "new" Threshold splits — C1 / §4.1 use exp_0019 (seed 2027; Δ-CE 0.41,
+Grad-diff 0.10), the type-O analysis uses exp_0041 (seeds 9106–9108; type N 0.45, Grad-diff 0.07). Fix: name them.
+Item 4 of the review ("the repo link must be anonymous") is wrong: ESANN 2027 is single blind (esann.org/node/5).
+Q3: in H8 both methods are projected with ŵ_o at z*; Grad-diff itself is computed at z0 (cell (z*, z0)).
+"DIG" kept (Renard et al.'s own name, D-048); text says "DIG-style".
+
+**E4 — exp_0044: CF-diff vs Δ-CE detection at matched null false positives on FINE-TUNED offsets (review F2/Q2).**
+Saved outputs only. Null reference and thresholds exactly as exp_0042 (exp_0017 nulls 9–16, B1-det score ‖Δφ̃‖₂; τ_0 =
+max null score, τ_5% = 95% null quantile; Δ-CE: 0/2 400 null witnesses at κ = 0.5). Offset pairs: Threshold exp_0041
+(pairs 6–8, fresh data) and grid α = 0 qualified pairs 24–27 (t ∈ {0.56, 0.6}, exp_0026 locked grid split, read only).
+Lowered class = class 1 (y = 1[aspect > 0.5] on these points; checked against the saved y). Readout per pair: detection
+on the lowered class = share of queries with CF-diff score > τ (τ_0, τ_5%) and Δ-CE type-N found-rate; also over all queries.
+Rule: if Δ-CE − CF-diff(τ_0) ≥ 0.20 on the lowered class in every one of the 7 pairs → the paper says the zero-false-positive
+advantage holds on fine-tuned offsets too (descriptive, after the constant-offset result, so not R). If CF-diff(τ_0) ≥ Δ-CE in
+any pair → the paper says the advantage is shown for constant offsets only. Otherwise → numbers reported, no generalisation.
+
+**E5 — pair-level direction counts (review W2).** From saved per-pair outputs: H5a (pairs 24–27: Grad-diff Recovery < 0.2
+per pair), H5b (each α = 0.5 pair 44, 45 above each α = 0.1 pair 28, 29), H8 (pairs 36, 37, 44, 45: T_pair =
+|gap(z0,z0)| − 2|gap(z*,z0)| > 0 per pair), C1 (per seed, already in exp_0019: +0.36, +0.27, +0.31). Report k of n. With
+n = 4 an exact one-sided sign test cannot go below 1/16, so no p-value is claimed; the paper adds "(in each of the n pairs)"
+only where k = n, otherwise "k of n".
+
 ---
 
 ## 12. Decision conflicts
