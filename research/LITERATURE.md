@@ -35,6 +35,10 @@
 | L-024 | Xie, Ma, et al. — *DiffChaser: Detecting Disagreements for Deep Neural Networks* (IJCAI 2019) | 2019 | medium | screened (abstract, secondary summary) | — | unknown |
 | L-025 | Hinder, Vaquet, Hammer — *One or two things we know about concept drift, Part B: locating and explaining concept drift* (Frontiers in AI 2024) | 2024 | medium | screened (abstract) | venue context | n/a |
 | L-026 | Bansal et al. 2019; Yan et al. CVPR 2021; Träuble et al. NeurIPS 2021 — backward-compatible updates and negative flips | 2019–2021 | low | screened | motivation | n/a |
+| L-027 | Agarwal et al. "OpenXAI: Towards a Transparent Evaluation of Model Explanations", NeurIPS 2022 D&B, arXiv:2206.11104 — synthetic tabular data with ground-truth attributions, 7 attribution methods | 2022 | medium | verified (D-052) | related work: ground-truth XAI benchmarks (advisor item 10) | n/a |
+| L-028 | Hesse, Schaub-Meyer, Roth. "FunnyBirds: A Synthetic Vision Dataset for a Part-Based Analysis of Explainable AI Methods", ICCV 2023, pp. 3981–3991 — part-level ground truth by part removal | 2023 | medium | verified (D-052) | related work: ground-truth XAI benchmarks | n/a |
+| L-029 | Arras, Osman, Samek. "CLEVR-XAI: A benchmark dataset for the ground truth evaluation of neural network explanations", Information Fusion 81:14–40, 2022 | 2022 | medium | verified (D-052) | related work: ground-truth XAI benchmarks | n/a |
+| L-030 | Kulinski, Inouye. "Towards Explaining Distribution Shifts", ICML 2023, PMLR 202:17931–17952 — explains a data shift by interpretable transport maps (data, not model, change) | 2023 | medium | verified (D-052) | related work: explaining distributional change | n/a |
 | L-018 | Kaden, Paassen, Hammer, Schubert, Villmann — *Reliable Counterfactuals for Machine Learning Models* (ESANN 2026) | 2026 | low | discovered | venue context | unknown |
 
 Allowed relevance values: high, medium, low.
