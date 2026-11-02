@@ -1,0 +1,15 @@
+Warning: Looks like you're using an outdated `kaggle` version (installed: 2.2.4), please consider upgrading to the latest version (2.2.5)
+Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/boinhbo/dce-smoke0029-d
+Warning: Looks like you're using an outdated `kaggle` version (installed: 2.2.4), please consider upgrading to the latest version (2.2.5)
+boinhbo/dce-smoke0029-d has status "KernelWorkerStatus.COMPLETE"
+[{"stream_name":"stdout","time":73.882274123,"data":"config sha256 4945c18aa2095208c1a54580c35c072d0c83963c3cced894141cb456910b2240\n"}
+,{"stream_name":"stdout","time":202.66583611,"data":"pair 110 done in 2.1 min (total 0.04 h)\n"}
+,{"stream_name":"stdout","time":269.017777737,"data":"pair 100 done in 1.1 min (total 0.05 h)\n"}
+,{"stream_name":"stdout","time":269.022072073,"data":"{\"rc\": 0, \"pairs_done\": [110, 100], \"pairs_partial\": [], \"wall_s\": 267.8}\n"}
+,{"stream_name":"stderr","time":272.419591972,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":272.419633526,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":272.810227513,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":272.810259314,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":273.816188553,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":275.269357632,"data":"[NbConvertApp] Writing 642266 bytes to __results__.html\n"}
+]

@@ -1,0 +1,56 @@
+# exp_0049 on Kaggle CPU (D-052 X2/X3, D-044 executor), kernel k3 = run_pairs shard 2/3.
+kernel:
+  id: boinhbo/dce-exp0049-k3
+  title: dce exp0049 k3
+  code_file: src/dce/remote/bundles/v110_tc_kaggle.py
+  kernel_type: script
+  language: python
+  is_private: true
+  enable_gpu: false
+  enable_internet: true
+  dataset_sources:
+  - boinhbo/dce-d052-inputs
+  competition_sources: []
+  kernel_sources: []
+  model_sources: []
+  immutable_kernel: true
+  timeout_seconds: 36000
+  wait_timeout_seconds: 36600
+  poll_interval_seconds: 300
+  parameters:
+    module: dce.cli.split_d
+    experiment: exp_0049
+    argv: [run, --shard, "2/3"]
+    config: configs/experiments/exp_0049.yaml
+    pairs: [112, 115, 100, 103, 106]
+    threads: 4
+    pins:
+      torch: 2.14.1+cpu
+      numpy: 2.5.4
+      scipy: 1.18.1
+    cpu_capability: avx512
+    inputs_sha256: 97bbb45736c0db94485e3ce5dc6945a40b312ed503be4026ec6f1f21f2e040cf
+  required_outputs:
+  - result.json
+  - artifact_manifest.json
+  - metadata.json
+  metrics_file: result.json
+  fetch_files:
+  - result.json
+  - artifact_manifest.json
+  - metadata.json
+  - pair_112.json
+  - pair_112.npz
+  - pair_115.json
+  - pair_115.npz
+  - pair_100.json
+  - pair_100.npz
+  - pair_103.json
+  - pair_103.npz
+  - pair_106.json
+  - pair_106.npz
+  kernel_source_expectations: []
+  json_checks:
+  - path: work.processed
+    op: gte
+    value: 5

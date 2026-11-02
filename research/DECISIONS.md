@@ -1424,6 +1424,28 @@ implemented in split_d.py) and cites commit 7d61d13. It does not mention how the
 **OSF registration done (author, 2026-11-02 20:18 local, UTC+7):** project https://osf.io/fw39h, Open-Ended
 Registration of .work/osf/osf_registration_D-052.md; registration https://osf.io/vfjtk. Split-D data generated after this.
 
+**Execution moved to Kaggle (author's instruction, 2026-11-02, before any X1–X4 number was read):** no job longer than
+4 h on the author's laptop. Local runs stopped (X1 had pairs 0–2 done, kept; X2/X3 none). X1 and X2/X3 run on the D-044
+kaggle-cpu executor (CPU kernels, pinned torch 2.14.1+cpu / numpy 2.5.4 / scipy 1.18.1, 4 threads, ≤ 12 h each, ≤ 5 at
+once on boinhbo; inputs dataset boinhbo/dce-d052-inputs, listing sha256 97bbb457…). X1 kernels: [3, 4, 5, 9–12],
+[6, 7, 8, 13–16]; X2/X3 kernels: run_pairs shards 0/3, 1/3, 2/3. The protocol is unchanged; which machine runs a pair
+does not depend on any result. X4 (ResNet-8 training on CPU would take many hours) is planned as a Kaggle GPU job for
+training (< 1 GPU-hour of the 10) followed by kaggle-cpu kernels for the search; set up after X1–X3.
+
+**Kaggle smokes (smoke_0028 X1, smoke_0029 X2/X3; 2026-11-02; compared with local re-runs of the same configs):**
+environment as D-044 (Intel Xeon 2.2 GHz, 4 cores, AVX2 only; pinned versions; bundle tree hash df321b1f… =
+committed bundle; config and inputs hashes match). Identical across machines: point ids, z0, y, split-D data digests,
+every found/not-found vector (Δ-CE N and O, CF-diff, Grad-diff, X1 methods), Imp-diff(adapt), Seg-search×10. Rounding
+level: SHAP ≤ 9e-7, Grad-diff ≤ 2.5e-7, s_M and s_M,r ≤ 1e-6; IG ≤ 1.9e-3 on one point (median 2e-7), argmax of IG and
+SHAP identical on all 600 points. **Not stable across machines: CF-diff Δφ** (difference of two non-convex
+counterfactual solves; on a null pair, one query had ‖Δφ‖ 0.093 on Kaggle vs 0.006 locally, another equal norms with a
+different direction). Consequences, fixed now (before any X1–X3 number): (i) all X2/X3 pairs, their CF-diff
+thresholds and their comparisons run on Kaggle only (one machine); no threshold is carried across machines.
+(ii) X1 mixes local pairs 0–2 and Kaggle pairs 3–16; allowed because every X1 method was machine-stable at the argmax.
+(iii) **Machine-sensitivity check (descriptive, declared now):** after the Kaggle X2/X3 kernels, the first 10 queries of
+pairs 110, 115, 100 and 105 are re-run locally with the same code; the agreement of Δ-CE found (N, O), s_M and CF-diff
+‖Δφ‖ is reported. Registered readouts use the Kaggle values (as D-044).
+
 ---
 
 ## 12. Decision conflicts

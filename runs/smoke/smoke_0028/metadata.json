@@ -1,0 +1,98 @@
+{
+  "run_id": "smoke_0028",
+  "status": "SUCCESS",
+  "executor": "kaggle",
+  "kernel": "boinhbo/dce-smoke0028-x1",
+  "git_commit": "de246904c2012f339630cce9b32fdc0ee130aa91",
+  "requested_hardware": null,
+  "internet": true,
+  "started_at": "2026-11-02T13:33:18.100651+00:00",
+  "finished_at": "2026-11-02T13:41:58.320360+00:00",
+  "git_dirty": true,
+  "submitted_code_sha256": "f1a9344053b8adeb2affe00c356d6ab8417c5ffbeda836602e25357a8f81f079",
+  "source_dir": "/home/toska/code/research/Agent-auto-Research",
+  "source_path": "/home/toska/code/research/Agent-auto-Research/src/dce/remote/bundles/v110_tc_kaggle.py",
+  "source_sha256": "e20fafdf90a04af1c6b7786ddb8f9ab2ae47ce45308ca66a88a6b060a97532df",
+  "source_git_tracked": true,
+  "config": {
+    "id": "boinhbo/dce-smoke0028-x1",
+    "title": "dce smoke0028 x1",
+    "code_file": "src/dce/remote/bundles/v110_tc_kaggle.py",
+    "kernel_type": "script",
+    "language": "python",
+    "is_private": true,
+    "enable_gpu": false,
+    "enable_internet": true,
+    "machine_shape": null,
+    "expected_hardware_contains": null,
+    "dataset_sources": [
+      "boinhbo/dce-d052-inputs"
+    ],
+    "competition_sources": [],
+    "kernel_sources": [],
+    "model_sources": [],
+    "timeout_seconds": 3600,
+    "wait_timeout_seconds": 4200,
+    "poll_interval_seconds": 60,
+    "immutable_kernel": false,
+    "kernel_source_expectations": [],
+    "fetch_files": [
+      "result.json",
+      "artifact_manifest.json",
+      "metadata.json",
+      "pair_00.json",
+      "pair_00.npz",
+      "pair_09.json",
+      "pair_09.npz"
+    ],
+    "required_outputs": [
+      "result.json",
+      "artifact_manifest.json",
+      "metadata.json"
+    ],
+    "metrics_file": "result.json",
+    "json_checks": [
+      {
+        "path": "work.processed",
+        "op": "gte",
+        "value": 2
+      }
+    ],
+    "parameters": {
+      "module": "dce.cli.review_0211",
+      "experiment": "smoke_0028",
+      "argv": [
+        "x1-run",
+        "--pairs",
+        "0,9"
+      ],
+      "config": "configs/experiments/smoke_0028_x1.yaml",
+      "pairs": [
+        0,
+        9
+      ],
+      "threads": 4,
+      "pins": {
+        "torch": "2.14.1+cpu",
+        "numpy": "2.5.4",
+        "scipy": "1.18.1"
+      },
+      "cpu_capability": "avx512",
+      "inputs_sha256": "97bbb45736c0db94485e3ce5dc6945a40b312ed503be4026ec6f1f21f2e040cf"
+    }
+  },
+  "error": null,
+  "kernel_version": 1,
+  "remote_status": "KernelWorkerStatus.COMPLETE",
+  "remote_failure_message": null,
+  "observed_hardware": "CPU: Intel(R) Xeon(R) CPU @ 2.20GHz",
+  "expected_hardware_contains": null,
+  "remote_artifacts": {
+    "provider": "kaggle_kernel",
+    "kernel": "boinhbo/dce-smoke0028-x1",
+    "kernel_version": 1,
+    "manifest": "artifact_manifest.json",
+    "manifest_sha256": "7779c9d628ee4ea95bdcacba40d38953406dd813076a24f1bf9326acbf52d682"
+  },
+  "account": "boinhbo"
+}
