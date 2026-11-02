@@ -1,0 +1,24 @@
+# smoke_0030 — X4 training on Kaggle GPU at smoke scale (1 epoch everywhere, pairs 120 and 128), same path as exp_0050. Not interpreted.
+experiment_id: smoke_0030
+decision: D-052
+tier_config: configs/tiers/tier0.yaml
+models_run: runs/experiments/exp_0050
+out_run: runs/experiments/exp_0050
+f_old_seeds: [0, 1]
+f_old_epochs: 1
+pair_ids: [120, 128]
+adapt_label_noise: 0.05
+n_adapt: 10000
+recipe_grid: {epochs: 1, lr: 1.0e-3, batch_size: 256}    # exp_0025
+recipe_null: {epochs: 1, lr: 3.0e-4, batch_size: 256}     # exp_0002
+n_qualify: 5000
+n_g0_points: 2000
+data_seed_base: 9500
+n_samples: 5000
+n_points: 200                    # set from the timing stage (200 or 100) before `run`
+n_ball: 256
+ball_seed_base: 5200
+timing_pairs: [120, 128]
+timing_points: 5
+budget_h: 12
+threads: 8

@@ -109,7 +109,8 @@ def cmd_train_old(cfg, out: Path) -> int:
         t0 = time.time()
         losses = train(m, splits["train"].phi, splits["train"].y, make_batch_fn(True), epochs=cfg["f_old_epochs"],
                        lr=tr["f_old_lr"], batch_size=tr["batch_size"], order_seed=sd["order_base"] + s,
-                       noise_seed=sd["noise_base"] + s, cosine=cfg.get("f_old_cosine", False))
+                       noise_seed=sd["noise_base"] + s, cosine=cfg.get("f_old_cosine", False), device=cfg.get("device"))
+        m.cpu().eval()                          # checkpoints are saved and evaluated on the CPU
         lo = logits_np(m, splits["val"].phi)
         acc = float(((lo[:, 1] - lo[:, 0] > 0).astype(int) == splits["val"].y_clean).mean())
         save_model(out, m, f"r8_f_old_s{s}")
@@ -141,7 +142,9 @@ def cmd_train(cfg, out: Path) -> int:
             rc = cfg["recipe_grid"]
         t0 = time.time()
         losses = train(m, phi_a, y_a, make_batch_fn(True), epochs=rc["epochs"], lr=rc["lr"], batch_size=rc["batch_size"],
-                       order_seed=sd["adapt_order_base"] + pid, noise_seed=sd["adapt_noise_base"] + pid)
+                       order_seed=sd["adapt_order_base"] + pid, noise_seed=sd["adapt_noise_base"] + pid,
+                       device=cfg.get("device"))
+        m.cpu().eval()
         save_model(out, m, name_of(p))
         rows.append({**p, "loss": losses, "wall_s": round(time.time() - t0, 1)})
         print(f"trained {name_of(p)} in {rows[-1]['wall_s']} s, final loss {losses[-1]:.4f}", flush=True)
