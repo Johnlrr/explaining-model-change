@@ -1320,6 +1320,81 @@ before" (rendered: 6 pages). **Table 3 reorganised (option B):** rows grouped as
 column and the caption's ID list, Holm families as symbols, p_Holm shown for every family member; protocol IDs mapped
 in REPRODUCE.md. Space recovered by short cuts in §2–§3 (solver details, Prop. 2 wording), no result removed.
 
+## D-052 — Advisor review (2026-11-02): additional analyses and experiments; rules fixed before any number
+
+**Status:** active. Review `Nhận_Xet_02_11.pdf` (10 items), plan `research/proposals/review_0211_plan.md`, author approved
+2026-11-02 together with the four decisions (no DiG-IN / original Renard code / ViT; X4 narrowed and time-boxed; OSF
+registration of X2–X4 by the author, narrow wording; reframing conditional on M). Everything below is **after seeing
+results** (spec frozen, D-016) and descriptive unless marked otherwise. κ, r, R, T, lr, λ0, σ and the splits A/B/C are
+unchanged. New experiments use **split D** (data seeds 9500 + pair_id; point seeds as the producing CLI's base + pair_id).
+Each readout is reported whatever its value. Order: M → E1–E4 → X3 → X1 → X2 → X4 → writing.
+
+**Shared definitions.** Lowered class = the class whose margin the offset lowers (class 1 on Threshold / α = 0 grid pairs;
+`lowered_class` on exp_0032). Null reference for split A/B/C readouts: the 2 400 queries of exp_0017 null pairs 9–16;
+τ_0 = max null score, τ_5% = 95% null quantile (as exp_0042/exp_0044). "Detects" = score > τ.
+
+**M — margin control for detection (review items 5/8; the agent's own check).** Score s_M(z0) = |h(z0)|, h = Δℓ_new −
+Δℓ_old with Δℓ = ℓ_1 − ℓ_0 (orientation-free; no label needed). Local variant s_M,r(z0) = max |h| over 256 points drawn
+uniformly in the ball ‖z − z0‖ ≤ r = 0.54 intersected with [0, 1]^5 (rejection sampling, seed 5200 + pair_id, plus z0).
+Computed from hash-verified checkpoints at the saved z0 of: exp_0017 nulls 9–16 (reference), exp_0032 logit offsets
+(per |b|), the 7 fine-tuned offset pairs of exp_0044 (exp_0041 6–8, exp_0026 24–27). Readout as exp_0044, lowered class
+and all queries, τ_0 and τ_5%, next to Δ-CE type N and CF-diff. **Rule (fine-tuned pairs, s_M at τ_0, lowered class):**
+(i) if s_M ≥ Δ-CE − 0.05 in ≥ 5 of 7 pairs → branch **"whether is cheap"**: the paper makes no detection-sensitivity
+claim for witnesses; the detection paragraph says that a margin score at the query suffices to tell *whether* decisions
+moved, and the witness adds *where/what* (D-012); the CF-diff contrast is kept only as explanation false positives on
+nulls (97.7–100% of null points get an attribution). (ii) if Δ-CE ≥ s_M + 0.20 in every pair → branch **"witness more
+sensitive"**: the zero-false-positive comparison stays, with s_M and s_M,r as controls. (iii) otherwise → numbers
+reported, framing as (i). s_M,r is reported but does not enter the rule.
+
+**E1 — pair-level inference (item 3).** (a) Rotation: the 24 α > 0 pairs of exp_0026 (grid split); per pair Grad-diff
+Recovery vs measured α̂; Spearman ρ; one-sided permutation p, α̂ permuted within f_old seed, 10⁴ permutations, seed 5201.
+Prediction ρ > 0, p < 0.05. (b) Every Table 3 row whose per-point quantity is in the saved outputs: per-pair estimates
+(min, max) and k of n pairs on the claimed side; no pair bootstrap for n ≤ 4 (too few clusters). Paper: Table 3 says the
+CIs are point-level; k/n added where room allows.
+
+**E2 — baseline diagnosis (item 4).** Imp-diff: the ΔPI vector per pair (one vector shared by all points, checked on all
+17 split-A pairs) and its argmax; explanation: permutation importance on a distribution where colour ⟂ y cannot see a
+colour shortcut. Seg-search: share of segments z0 → training point that enter F_κ within r, and nearest-entry distance.
+
+**E3 — rank metrics (item 7).** Rank of k⋆ in |Δφ| per point (ties: worst rank; NOT_FOUND: reciprocal rank 0): MRR and
+Top-2 per method and condition, split A (exp_0017) and grid (exp_0026; α > 0 → colour, α = 0 with t ≠ 0.5 → aspect).
+Set-recovery on α > 0 grid pairs: top-2 of |Δφ| = {aspect, colour}. Prediction: per condition the method order by MRR
+equals the order by Recovery (Table 2); any swap is reported.
+
+**E4 — κ and r sensitivity (item 7).** κ ∈ {0, 0.25, 0.5, 1.0} (exp_0026 variants), κ ∈ {0, 0.5, 1} (exp_0017 A3):
+found-rate, Recovery, witness share on null pairs. r′ ∈ {0.30, 0.40, 0.54} by thresholding saved distances (r′ > r not
+computable). Predictions: κ = 0 yields witnesses on null queries; found-rate non-increasing in κ.
+
+**X3 — nulls without the admission filter (item 8).** 8 new null pairs on split D (N0 resample × f_old seeds 0–4,
+N1 size ∼ U[0.5, 1] × seeds 0–2), fine-tuned with the exp_0017 null recipe, **all admitted** (no decisive-disagreement
+check). 300 valid points each. Methods: Δ-CE type N and O (κ = 0.5), CF-diff (B1-det), s_M, s_M,r. Readouts: witness
+share on null queries (FPR of Δ-CE); null score distributions; τ_0, τ_5% recomputed on these nulls for X2.
+Prediction: Δ-CE witness share ≤ 0.05 of null queries, pooled and per pair.
+
+**X1 — added baselines on split A (item 4).** Same 17 pairs, same 300 points, locked checkpoints (hash-checked).
+IG-diff: IG(m_n) − IG(m_o) in z, baseline z̄ of the training set, 64 steps. SHAP-diff: exact Shapley values over the 5
+factors (32 coalitions), background 256 training samples, difference new − old. Imp-diff(adapt): permutation importance
+difference computed on the adaptation data of each condition. Seg-search×10: Seg-search with 10× the training points
+(segments). Recovery@r as Table 2 (direction methods always valid). Predictions: IG-/SHAP-diff behave like Grad-diff
+(high on Shortcut, low on Threshold); Imp-diff(adapt) recovers colour on Shortcut; Seg-search×10 found-rate stays ≤ 0.2.
+
+**X2 — more offset pairs (items 1/3).** Split D; α = 0, t ∈ {0.53, 0.56, 0.60} × f_old seeds {2, 3, 4} (9 pairs; seeds
+0–1 already on the grid), grid fine-tuning recipe, v1.9.1 offset qualification unchanged. 300 valid points. Readouts:
+(a) Grad-diff Recovery < 0.2 per qualified pair — **confirmatory** if ≥ 6 pairs qualify: exact one-sided sign test over
+pairs, α = 0.05, single test (no Holm family); < 6 pairs → descriptive k/n. (b) Detection on the lowered class at X3's
+τ_0 and τ_5%: Δ-CE type N, CF-diff, s_M (descriptive), with M's branch logic re-applied.
+
+**X4 — second architecture (item 1), time-boxed.** ResNet-8 (3 residual stages 32/64/64, BatchNorm in eval mode during
+search, GAP + linear), f_old seeds 0–1 trained with the SmallCNN recipe on the same data; f_new on α ∈ {0, 0.5} ×
+t ∈ {0.53, 0.60} × 2 seeds + 2 null pairs; 200 valid points; split D; same qualification. Readouts (descriptive, k/n):
+null witness share; detection on α = 0 lowered class at τ from the ResNet nulls (Δ-CE, CF-diff, s_M); Grad-diff
+Recovery < 0.2 on α = 0 and higher at α = 0.5 than at α = 0 per seed. Go/no-go 06/11 from smoke timing (> 12 h CPU at
+200 points → 100 points; still > 12 h → dropped); hard stop 10/11, after which X4 is journal material.
+
+**Not done (decided):** DiG-IN (pretrained diffusion; on the exact manifold its objective reduces to No-prox — said in
+the paper), Renard et al.'s code (D-007; Seg-search is labelled an adaptation), ViT (no information beyond ResNet at
+this scale), retroactive registration (impossible; the paper says only X2–X4 were registered, after earlier results).
+
 ---
 
 ## 12. Decision conflicts
