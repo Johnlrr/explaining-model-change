@@ -17,12 +17,13 @@ D-052 (2026-11-02): ADVISOR REVIEW (Nhận_Xet_02_11.pdf, 10 items) → plan res
   p 1e-4; Imp-diff zero structural; rank-order prediction NOT met; κ = 0 → witnesses on 83% of null queries).
   OSF: X2–X4 registered 2026-11-02 20:18 (project osf.io/fw39h; registration URL still to add to D-052).
   Title changed (advisor): "Benchmarking Counterfactual Explanations of Model Change with Exact Ground Truth".
-  RUNNING (detached, nohup): X1 exp_0048 (17 pairs; resume = same command, skips done pairs:
-  `uv run python -m dce.cli.review_0211 x1-run --config configs/experiments/exp_0048.yaml --out runs/experiments/exp_0048`);
-  X2/X3 exp_0049 run, 2 shards (`uv run python -m dce.cli.split_d run --config configs/experiments/exp_0049.yaml
-  --out runs/experiments/exp_0049 --shard i/2`, i = 0, 1). Then `x1-analyze` and `split_d analyze`.
-  X4 exp_0050 (src/dce/cli/x4_resnet.py): code written, smoke running; real timing (`time` stage) once the CPU is
-  free; go/no-go 06/11, hard stop 10/11.
+  MOVED TO KAGGLE (author, 2026-11-02: nothing > 4 h on the laptop). IN FLIGHT on boinhbo (kaggle-cpu, D-044; bundle
+  tree df321b1f, commit f7487b3; inputs dataset boinhbo/dce-d052-inputs): dce-exp0048-k1, -k2 (X1 pairs 3–16; 0–2 local),
+  dce-exp0049-k1, -k2, -k3 (X2/X3 shards 0/3, 1/3, 2/3). Recover: `uv run python -m tools.kaggle kernel status|wait|fetch
+  --account boinhbo boinhbo/<slug>`; run dirs runs/experiments/exp_004{8,9}_kaggle_k*. Then merge pair files into
+  runs/experiments/exp_0048|exp_0049/pairs, `x1-analyze`, `split_d analyze`, and the declared local re-run check (D-052).
+  X4: GPU training smoke_0030 on dinhbaobao (dinhbaobao/dce-smoke0030-x4train); full = exp_0050_kaggle_train.yaml;
+  then qualify locally (light), timing + search on kaggle-cpu. Go/no-go 06/11, hard stop 10/11.
   NEXT: analyses → rewrite paper (plan §4) → send to advisor 14/11 → submit 18/11.
 D-048 (2026-10-26): external review (argument-review + conference-reviewer) checked against saved outputs. exp_0041
   (type N/O/N∪O on Threshold, new data): N 0.449, O 0.551, N∪O 1.000. exp_0042 (CF-diff thresholded at matched FPR, saved
