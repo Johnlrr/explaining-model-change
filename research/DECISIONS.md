@@ -1395,6 +1395,13 @@ Recovery < 0.2 on α = 0 and higher at α = 0.5 than at α = 0 per seed. Go/no-g
 the paper), Renard et al.'s code (D-007; Seg-search is labelled an adaptation), ViT (no information beyond ResNet at
 this scale), retroactive registration (impossible; the paper says only X2–X4 were registered, after earlier results).
 
+**Results M (2026-11-02, exp_0046, after the numbers):** branch **"witness more sensitive"**. Null |h| reaches 1.65
+(τ_0 of s_M), so at zero null false positives s_M detects 0.00–0.10 of lowered-class queries on the 7 fine-tuned offset
+pairs (s_M,r 0.00–0.66), Δ-CE 1.00 in 6 pairs and 0.25 in pair 25; at 5% s_M reaches 0.08–0.66, above CF-diff
+(0.05–0.28). Constant offsets: s_M at τ_0 only at |b| = 2.0, at τ_5% from 0.9. The agent's prediction (a margin score
+would match the witness) was wrong. Consequence: detection comparison stays in the paper with s_M as a control;
+the false-positive side still depends on admitted nulls → X3.
+
 ---
 
 ## 12. Decision conflicts
