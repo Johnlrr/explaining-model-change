@@ -1,0 +1,19 @@
+# exp_0046 — margin control for detection, DESCRIPTIVE (D-052 M; advisor review items 5/8).
+# Saved z0 plus hash-verified checkpoints; no solver run. Null reference exp_0017 nulls 9–16 (as exp_0042/exp_0044).
+# Readout: exp_0032 logit offsets per |b|; fine-tuned offsets exp_0041 6–8 (split C) and exp_0026 24–27 (grid split).
+experiment_id: exp_0046
+decision: D-052
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+models_run: runs/experiments/exp_0025
+null_run: runs/experiments/exp_0017
+null_pairs: [9, 10, 11, 12, 13, 14, 15, 16]
+h7_run: runs/experiments/exp_0032
+offset_runs:
+  runs/experiments/exp_0041: [6, 7, 8]
+  runs/experiments/exp_0026: [24, 25, 26, 27]
+kappa: 0.5
+r: 0.54
+n_ball: 256
+ball_seed_base: 5200
+threads: 8
