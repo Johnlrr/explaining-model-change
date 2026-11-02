@@ -1,0 +1,13 @@
+{
+  "experiment": "exp_0048",
+  "git_runs": [
+    {
+      "commit": "42604276e1d5bb5e55ca0f561b5d4028ce4bfdad",
+      "dirty": false
+    },
+    {
+      "commit": "fcea6e49a3d547c2312a5bb4d869543eb2d8957a",
+      "dirty": false
+    }
+  ]
+}

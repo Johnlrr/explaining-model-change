@@ -323,7 +323,7 @@ def exact_shapley(m, z0: torch.Tensor, bg: torch.Tensor, batch: int = 32768) -> 
         v[S] = vals.reshape(n, nb).double().mean(1)
     phi = torch.zeros(n, d, dtype=torch.float64)
     for S in range(2 ** d):
-        s = bin(S).count("1")
+        s = S.bit_count()
         for k in range(d):
             if not (S >> k) & 1:
                 w = factorial(s) * factorial(d - s - 1) / factorial(d)
@@ -382,17 +382,17 @@ def x1_pair(cfg, pid, split, train, cache) -> tuple[dict, dict]:
     return out, row
 
 
-def cmd_x1_run(cfg, out: Path) -> int:
+def cmd_x1_run(cfg, out: Path, pairs: list[int] | None = None) -> int:
     from dce.data.drift import clean_splits
     splits = clean_splits(seed=cfg["data_seed"])
     split, train = splits["test"], splits["train"]
     (out / "pairs").mkdir(parents=True, exist_ok=True)
-    meta_path = out / "metadata.json"
+    meta_path = out / "metadata_x1.json"
     meta = json.loads(meta_path.read_text()) if meta_path.exists() else {"experiment": cfg["experiment_id"], "git_runs": []}
     meta["git_runs"].append(git_state())
     meta_path.write_text(json.dumps(meta, indent=2))
     cache = {}
-    for pid in cfg["pair_ids"]:
+    for pid in pairs or cfg["pair_ids"]:
         npz, js = out / "pairs" / f"pair_{pid:02d}.npz", out / "pairs" / f"pair_{pid:02d}.json"
         if npz.exists() and js.exists():
             print(f"pair {pid}: already done, skipped", flush=True)
@@ -432,12 +432,13 @@ def main(argv=None) -> int:
     ap.add_argument("stage", choices=("m-analyze", "e-analyze", "x1-run", "x1-analyze"))
     ap.add_argument("--config", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--pairs", default=None, help="comma-separated subset of pair_ids (x1-run; one Kaggle kernel each)")
     args = ap.parse_args(argv)
     cfg = load_config(args.config)
     print(f"config sha256 {sha256(args.config)}", flush=True)
     torch.set_num_threads(int(cfg.get("threads", 8)))
     if args.stage == "x1-run":
-        return cmd_x1_run(cfg, args.out)
+        return cmd_x1_run(cfg, args.out, [int(x) for x in args.pairs.split(",")] if args.pairs else None)
     if args.stage == "x1-analyze":
         return cmd_json(x1_analyze, "results_x1.json")(cfg, args.out)
     if args.stage == "e-analyze":

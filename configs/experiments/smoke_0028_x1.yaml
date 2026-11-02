@@ -1,0 +1,16 @@
+# smoke_0028 — Kaggle CPU smoke of X1 (D-052, exp_0048 path), reduced scale; pair 0 (IG compared with local exp_0048 pair 0) and null 9. Not interpreted.
+experiment_id: smoke_0028
+decision: D-052
+tier_config: configs/tiers/tier0.yaml
+split_a_run: runs/experiments/exp_0017
+out_run: runs/experiments/exp_0048
+pair_ids: [0, 9]
+ig_steps: 64
+shap_bg: 8
+shap_bg_seed_base: 5300
+adapt_seed_base: 2600        # fresh adaptation draws (training used 2000 + pair_id)
+b4_points: 2000
+drift_params:                # as the locked f_new were trained (exp_0003: T1 knob 1)
+  T1: {t1_correlation: 0.99}
+b5x_K: 2
+threads: 4

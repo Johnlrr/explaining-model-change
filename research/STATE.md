@@ -15,10 +15,15 @@ D-052 (2026-11-02): ADVISOR REVIEW (Nhận_Xet_02_11.pdf, 10 items) → plan res
   D-052 before any number. DONE: M exp_0046 (margin control: null |h| up to 1.65, so s_M at FPR 0 detects 0–0.10 of
   fine-tuned offsets vs Δ-CE 1.0 in 6/7 → branch "witness more sensitive"); E1–E4 exp_0047 (rotation pair-level ρ 0.89,
   p 1e-4; Imp-diff zero structural; rank-order prediction NOT met; κ = 0 → witnesses on 83% of null queries).
-  IN PROGRESS: X2/X3 exp_0049 train + qualify (validation only); X1 exp_0048 smoke (slow: exact SHAP + Seg-search×10).
-  HELD: exp_0049 `run` (split D data) until the author registers X2–X4 on OSF (plan §8.7) or waives it.
-  Resume: `uv run python -m dce.cli.split_d run --config configs/experiments/exp_0049.yaml --out runs/experiments/exp_0049 --shard i/2`.
-  NEXT: X1 full → X2/X3 run → X4 smoke (go/no-go 06/11) → rewrite paper (plan §4) → send to advisor 14/11 → submit 18/11.
+  OSF: X2–X4 registered 2026-11-02 20:18 (project osf.io/fw39h; registration URL still to add to D-052).
+  Title changed (advisor): "Benchmarking Counterfactual Explanations of Model Change with Exact Ground Truth".
+  RUNNING (detached, nohup): X1 exp_0048 (17 pairs; resume = same command, skips done pairs:
+  `uv run python -m dce.cli.review_0211 x1-run --config configs/experiments/exp_0048.yaml --out runs/experiments/exp_0048`);
+  X2/X3 exp_0049 run, 2 shards (`uv run python -m dce.cli.split_d run --config configs/experiments/exp_0049.yaml
+  --out runs/experiments/exp_0049 --shard i/2`, i = 0, 1). Then `x1-analyze` and `split_d analyze`.
+  X4 exp_0050 (src/dce/cli/x4_resnet.py): code written, smoke running; real timing (`time` stage) once the CPU is
+  free; go/no-go 06/11, hard stop 10/11.
+  NEXT: analyses → rewrite paper (plan §4) → send to advisor 14/11 → submit 18/11.
 D-048 (2026-10-26): external review (argument-review + conference-reviewer) checked against saved outputs. exp_0041
   (type N/O/N∪O on Threshold, new data): N 0.449, O 0.551, N∪O 1.000. exp_0042 (CF-diff thresholded at matched FPR, saved
   outputs): flags none below 2κ at FPR 0. paper/main.tex: W6 number/label fixes, DeepXplore → No-prox, Table 3 column K

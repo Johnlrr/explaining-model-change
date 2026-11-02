@@ -35,8 +35,8 @@ from dce.cli.g0_reeval import load_verified
 from dce.cli.g0_tier0 import git_state, load_config, make_batch_fn, sha256
 from dce.cli.review_0211 import margin_scores, rank_metrics, thresholds
 from dce.cli.review_d048 import cmd_json
-from dce.cli.v110_test import data_for, run_pairs
 from dce.cli.v19_grid import logits_np
+from dce.cli.v110_test import data_for, run_pairs
 from dce.data.drift import adaptation_set, clean_splits, ro_adaptation_set, ro_label
 from dce.eval.g0 import decisive_disagreement
 from dce.eval.records import from_direction, from_points, runtime_row
@@ -213,7 +213,6 @@ def analyze(cfg) -> dict:
                      prediction_le_005=bool(w.mean() <= 0.05 and all(p["witness_share_N_or_O"] <= 0.05 for p in res["x3"]["pairs"])))
 
     # X2: Grad-diff < 0.2 per qualified offset pair; detection on the lowered class (class 1) at X3 thresholds
-    q = [pid for pid in offs if qual[pid].get("qualified")]
     for pid in offs:
         a = load(pid)
         if not np.array_equal(a["y"], (a["z0"][:, ASPECT] > 0.5).astype(a["y"].dtype)):

@@ -1,0 +1,20 @@
+# smoke_0029 — Kaggle CPU smoke of X2/X3 (D-052, exp_0049 path) on split D: pairs 110 (null) and 100 (offset), 3 points. Not interpreted.
+experiment_id: smoke_0029
+decision: D-052
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+models_run: runs/experiments/exp_0049
+out_run: runs/experiments/exp_0049
+pair_ids: [110, 100]
+adapt_label_noise: 0.05
+n_adapt: 10000
+recipe_offset: {epochs: 10, lr: 1.0e-3, batch_size: 256}   # exp_0025 (grid)
+recipe_null: {epochs: 3, lr: 3.0e-4, batch_size: 256}      # exp_0002 (N0, N1)
+n_qualify: 5000
+n_g0_points: 2000
+data_seed_base: 9500
+n_samples: 5000
+n_points: 3
+n_ball: 4
+ball_seed_base: 5200
+threads: 4

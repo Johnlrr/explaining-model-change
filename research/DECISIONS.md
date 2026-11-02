@@ -1422,7 +1422,7 @@ thresholds, predictions and decision rules; X2 (b) spells out M's branch rule as
 implemented in split_d.py) and cites commit 7d61d13. It does not mention how the experiments were motivated.
 
 **OSF registration done (author, 2026-11-02 20:18 local, UTC+7):** project https://osf.io/fw39h, Open-Ended
-Registration of .work/osf/osf_registration_D-052.md; registration URL to be added. Split-D data generated after this.
+Registration of .work/osf/osf_registration_D-052.md; registration https://osf.io/vfjtk. Split-D data generated after this.
 
 ---
 

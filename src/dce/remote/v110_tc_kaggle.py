@@ -126,7 +126,8 @@ def main() -> None:
     meta = sorted(out.glob("metadata_*.json"))
     if meta:
         shutil.copy(meta[0], working / "metadata.json")
-    done = [q for q in pairs if (working / f"pair_{q}.json").exists() and (working / f"pair_{q}.npz").exists()]
+    done = [q for q in pairs if any((working / f"pair_{n}.json").exists() and (working / f"pair_{n}.npz").exists()
+                                    for n in (q, f"{q:02d}"))]          # run_pairs names pair_<id>, x1-run pair_<id:02d>
     result = {
         "experiment": p.get("experiment", "exp_0034"), "module": module, "decision": "D-044", "observed_hardware": f"CPU: {cpu['model']}", "rc": rc, "pairs": pairs, "pairs_done": done,
         "pairs_partial": [q for q in pairs if (working / f"pair_{q}.partial.json").exists()], "resumed_files": resumed, "inputs_listing": str(listing),
