@@ -1413,6 +1413,10 @@ exact SHAP with 256 background samples and 29 min for Seg-search×10 → ≈ 17 
 exp_0017 has none). The smoke's outputs were not inspected. **X2/X3 qualification (exp_0049, validation):** 8/9 offset
 pairs qualify (pair 103 fails (2a): dt = −0.012), so X2 (a) is confirmatory; all 8 nulls have decisive disagreement 0.
 
+**Title (2026-11-02, advisor: no question as title; author's choice):** "Benchmarking Counterfactual Explanations of
+Model Change with Exact Ground Truth" replaces "Which Model Changes Can Counterfactual Explanations See? A Ground-Truth
+Benchmark" in paper/main.tex, research/theory/proofs.md and the OSF registration text. Older paper versions unchanged.
+
 ---
 
 ## 12. Decision conflicts

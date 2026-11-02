@@ -1,4 +1,4 @@
-# Proofs for Section 2 of "Which Model Changes Can Counterfactual Explanations See?"
+# Proofs for Section 2 of "Benchmarking Counterfactual Explanations of Model Change with Exact Ground Truth"
 
 Numbering follows the paper: Lemma 1, the linear case (here Lemma 2), Proposition 2 (a) and (b), and the
 statement after projection. Derived from `research/theory/P5_rotation_offset.md` (internal name "Proposition 5",
