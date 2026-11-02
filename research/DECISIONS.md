@@ -1417,6 +1417,10 @@ pairs qualify (pair 103 fails (2a): dt = −0.012), so X2 (a) is confirmatory; a
 Model Change with Exact Ground Truth" replaces "Which Model Changes Can Counterfactual Explanations See? A Ground-Truth
 Benchmark" in paper/main.tex, research/theory/proofs.md and the OSF registration text. Older paper versions unchanged.
 
+**OSF text (2026-11-02):** the registration restates the X2–X4 rules of this entry in the authors' words (same design,
+thresholds, predictions and decision rules; X2 (b) spells out M's branch rule as "≥ 5/7 of the qualified pairs", as
+implemented in split_d.py) and cites commit 7d61d13. It does not mention how the experiments were motivated.
+
 ---
 
 ## 12. Decision conflicts
