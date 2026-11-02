@@ -1,0 +1,22 @@
+# exp_0049 — D-052 X2 (offset pairs 100–108) + X3 (null pairs 110–117, all admitted) on split D.
+# f_old: exp_0002 checkpoints (hash-verified); f_new trained here (models/, manifest). Data: new_test_set(9500 + pid, 5 000),
+# fresh seeds. Locked solver, κ, r (tier0.yaml). X2 (a) is confirmatory iff ≥ 6 offset pairs qualify (D-052).
+experiment_id: exp_0049
+decision: D-052
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+models_run: runs/experiments/exp_0049
+out_run: runs/experiments/exp_0049
+pair_ids: [110, 111, 112, 113, 114, 115, 116, 117, 100, 101, 102, 103, 104, 105, 106, 107, 108]
+adapt_label_noise: 0.05
+n_adapt: 10000
+recipe_offset: {epochs: 10, lr: 1.0e-3, batch_size: 256}   # exp_0025 (grid)
+recipe_null: {epochs: 3, lr: 3.0e-4, batch_size: 256}      # exp_0002 (N0, N1)
+n_qualify: 5000
+n_g0_points: 2000
+data_seed_base: 9500
+n_samples: 5000
+n_points: 300
+n_ball: 256
+ball_seed_base: 5200
+threads: 8

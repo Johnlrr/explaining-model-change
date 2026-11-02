@@ -1,0 +1,19 @@
+# exp_0048 — X1 of D-052 (advisor review item 4): added baselines on split A, DESCRIPTIVE (added after review).
+# Same 17 pairs and 300 points as exp_0017 (locked test split, points checked against the saved z0), locked
+# checkpoints (hash-verified via load_pair). IG-diff, exact SHAP-diff, Imp-diff on fresh adaptation data,
+# Seg-search with 10× the segments (K = 200 nearest training points instead of 20).
+experiment_id: exp_0048
+decision: D-052
+tier_config: configs/tiers/tier0.yaml
+split_a_run: runs/experiments/exp_0017
+out_run: runs/experiments/exp_0048
+pair_ids: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+ig_steps: 64
+shap_bg: 256
+shap_bg_seed_base: 5300
+adapt_seed_base: 2600        # fresh adaptation draws (training used 2000 + pair_id)
+b4_points: 2000
+drift_params:                # as the locked f_new were trained (exp_0003: T1 knob 1)
+  T1: {t1_correlation: 0.99}
+b5x_K: 200
+threads: 6

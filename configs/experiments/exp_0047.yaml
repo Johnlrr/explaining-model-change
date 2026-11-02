@@ -1,0 +1,14 @@
+# exp_0047 — E1–E4 of D-052 (advisor review items 3, 4, 7), DESCRIPTIVE. Saved outputs only; nothing is re-run.
+# Split A = exp_0017 (locked), split B = exp_0019 (new Tier 0 test, seed 2027), grid = exp_0026 (grid split).
+experiment_id: exp_0047
+decision: D-052
+tier_config: configs/tiers/tier0.yaml
+split_a_run: runs/experiments/exp_0017
+split_b_run: runs/experiments/exp_0019
+grid_run: runs/experiments/exp_0026
+offset_pairs: [24, 25, 26, 27]
+grid_null_pairs: [20, 21]
+n_perm: 10000
+perm_seed: 5201
+r_levels: [0.30, 0.40, 0.54]
+threads: 4
