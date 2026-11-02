@@ -1402,6 +1402,11 @@ pairs (s_M,r 0.00–0.66), Δ-CE 1.00 in 6 pairs and 0.25 in pair 25; at 5% s_M 
 would match the witness) was wrong. Consequence: detection comparison stays in the paper with s_M as a control;
 the false-positive side still depends on admitted nulls → X3.
 
+**Results E1–E4 (2026-11-02, exp_0047):** E1a met (ρ = 0.89, permutation p = 10⁻⁴, 24 pairs). E1b: every per-pair
+estimate on the claimed side (offsets 4/4, Threshold 3/3 on A and B, Subgroup 3/3 negative). E2: Imp-diff argmax = aspect
+in 9/9 change pairs (structural). E3 prediction **not met** (6/7 groups reorder; top two unchanged everywhere). E4: the
+margin is what makes abstention (split-A null witness share 0.83 at κ = 0, 0 at κ = 0.5); found-rate non-increasing in κ.
+
 ---
 
 ## 12. Decision conflicts
