@@ -1407,6 +1407,12 @@ estimate on the claimed side (offsets 4/4, Threshold 3/3 on A and B, Subgroup 3/
 in 9/9 change pairs (structural). E3 prediction **not met** (6/7 groups reorder; top two unchanged everywhere). E4: the
 margin is what makes abstention (split-A null witness share 0.83 at κ = 0, 0 at κ = 0.5); found-rate non-increasing in κ.
 
+**X1 cost amendment (2026-11-02, before any X1 number was read):** the smoke (pair 0, contended CPU) took 29 min for
+exact SHAP with 256 background samples and 29 min for Seg-search×10 → ≈ 17 h for 17 pairs. Changed: SHAP background
+256 → 128; Seg-search×10 only on the 9 change pairs (on nulls every returned point must be a verified witness, and
+exp_0017 has none). The smoke's outputs were not inspected. **X2/X3 qualification (exp_0049, validation):** 8/9 offset
+pairs qualify (pair 103 fails (2a): dt = −0.012), so X2 (a) is confirmatory; all 8 nulls have decisive disagreement 0.
+
 ---
 
 ## 12. Decision conflicts

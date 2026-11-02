@@ -367,6 +367,11 @@ def x1_pair(cfg, pid, split, train, cache) -> tuple[dict, dict]:
     out["b4a__dphi"] = np.tile(b4_perm(pred(f_old), pred(f_new), phi_a, y_a), (n, 1))
     rt["b4a"] = time.time() - t0
     t0 = time.time()
+    if pair["k_star"] is None:   # D-052 cost amendment: Seg-search×10 only on change pairs
+        row = {**pair, "n_points": n, "runtime_s": rt, "checkpoints": entries}
+        for k in ("ig", "shap", "b4a"):
+            out[f"{k}__found"] = np.ones(n, bool)
+        return out, row
     found, d, dist = b5_line(z0, torch.as_tensor(train.phi, dtype=torch.float32), m_old, m_new, cfg["kappa"],
                              float(cfg["r"]), K=cfg["b5x_K"])
     out["b5x__found"], out["b5x__dphi"], out["b5x_distance"] = found.numpy(), d.numpy().astype(float), dist.numpy()
@@ -408,6 +413,8 @@ def x1_analyze(cfg) -> dict:
     rows = {}
     for meta, a in load_run(Path(cfg["out_run"])):
         for meth in X1_METHODS:
+            if f"{meth}__found" not in a:
+                continue
             f = a[f"{meth}__found"]
             rec = rank_metrics(f, a[f"{meth}__dphi"], k_index(meta["k_star"])) if meta["k_star"] is not None else {}
             rows.setdefault(meta["condition"], {}).setdefault(meth, []).append({**rec, "found": float(f.mean())})
