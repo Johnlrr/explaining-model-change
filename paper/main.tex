@@ -9,16 +9,16 @@
 \maketitle
 
 \begin{abstract}
-Counterfactual methods are used to explain how a classifier changed after an update, but without ground truth one cannot tell which method sees which kind of change. We contribute a benchmark with exact ground truth (rendered images, injected changes, a grid over the rotation and offset of the decision boundary) and a linear analysis of what counterfactual differencing, gradient differences, importance differences, disagreement search and differential counterfactuals ($\Delta$-CE, minimal inputs on which exactly one model changes its decision by a margin) can see. The analysis predicts that gradient differences see a rotation and are blind to an offset; both halves were confirmed on CNNs in tests registered before the grid was run (Recovery 0.08 on offsets; $+0.57$ from the smallest to the largest rotation), and with quantities taken at the query it also predicts which witnesses show the new dependence (descriptive). A pre-registered hypothesis that $\Delta$-CE recovers the changed factor better than gradient differences was rejected. Margin witnesses abstain on null updates, also on a tabular dataset. Thresholded to flag none of these nulls, a differencing score flags no query of constant offsets below $|b|=2$ or of fine-tuned offsets (at most 0.28 of the latter at 5\% false positives), while witnesses detect constant logit offsets from $|b|=1.1$ and fine-tuned offsets on every lowered-class query in 6 of 7 pairs (descriptive).
+Counterfactual methods are used to explain how a classifier changed after an update, but without ground truth one cannot tell which method sees which change. We contribute a benchmark with exact ground truth (rendered images, injected changes, a grid over rotation and offset of the boundary) and a linear analysis of what counterfactual differencing, gradient differences, importance differences, disagreement search and differential counterfactuals ($\Delta$-CE: nearest inputs on which exactly one model changes its decision by a margin) can see. As predicted, gradient differences are blind to an offset (confirmed on the grid and on 8 new registered pairs) and see a rotation. A pre-registered hypothesis that $\Delta$-CE recovers the changed factor better than gradient differences was rejected. On null updates margin witnesses abstain (0 of 2\,400 queries, nulls not filtered), while differencing attributes a change to over 98\% of them. Whether decisions moved can be read from a margin score; the witness adds a verified input showing where.
 \end{abstract}
 
 \section{Introduction}
 
-Deployed classifiers are updated routinely, and an update that improves accuracy can still change individual decisions in unwanted ways [11]; explaining \emph{how} they differ is a goal of explainable AI under distributional change [3, 12]. Artelt et al.\ [1, 2] compare a counterfactual [8] of the same input under each model, or approximate this by a difference of gradients; Muschalik et al.\ [4] compare feature importances; disagreement search [5, 6, 7] looks for inputs on which two models disagree. These families assume different things about \emph{what} changed, and without ground truth this goes unchecked.
+Deployed classifiers are updated routinely, and an update that improves accuracy can still change individual decisions in unwanted ways~\cite{yan}; explaining \emph{how} they differ is a goal of explainable AI under distributional change~\cite{hammer,kaden}, distinct from explaining a shift of the data~\cite{kulinski}. Artelt et al.~\cite{artelt1,artelt2} compare a counterfactual~\cite{wachter} of the same input under each model, or approximate this by a difference of gradients; Muschalik et al.~\cite{muschalik} compare feature importances; disagreement search~\cite{renard,deepxplore,digin} looks for inputs on which two models disagree. These families assume different things about \emph{what} changed. Benchmarks with ground truth exist for explaining one model~\cite{openxai,funnybirds,clevrxai}, not for explaining a change, so this goes unchecked.
 
-We ask which kind of change each family can see. We also include \emph{differential counterfactuals} ($\Delta$-CE): the closest input on the data manifold at which only $f_{new}$ changes its decision while $f_{old}$ keeps it, both by a margin $\kappa$. $\Delta$-CE anchors disagreement search [5, 6] at a query; unlike robust counterfactuals [9, 10], which seek a point valid for both models, it seeks one valid for exactly one, and the margin makes it return nothing for models that differ only by jitter.
+We ask which kind of change each family can see. We also include \emph{differential counterfactuals} ($\Delta$-CE): the closest input on the data manifold at which only $f_{new}$ changes its decision while $f_{old}$ keeps it, both by a margin $\kappa$. $\Delta$-CE anchors disagreement search~\cite{renard,deepxplore} at a query; unlike robust counterfactuals~\cite{hamman,pawelczyk}, which seek a point valid for both models, it seeks one valid for exactly one. We use it as a probe that should stay silent when nothing changed and, when it answers, return an input that can be checked.
 
-\textbf{Contributions.} (i) A benchmark with exact ground truth for explaining model updates: five rendered factors, three injected changes, null updates, and a $4\times4$ grid over the rotation and threshold of the decision boundary (32 of the 49 model pairs), with code and protocol. (ii) A linear analysis separating rotation from offset, with a prediction for each family. (iii) A test of these predictions on CNNs under a protocol fixed in advance. The analysis transfers with quantities taken at the query, and its projection equivalence only with the old normal taken at the witness; Table~\ref{tab:tests} separates tests that follow from a lemma or definition from risky predictions, and all failures are reported.
+\textbf{Contributions.} (i) A benchmark with exact ground truth for explaining model updates: five rendered factors, three injected changes, null updates, and a $4\times4$ grid over the rotation and threshold of the decision boundary, with code and protocol. (ii) A linear analysis separating rotation from offset, with a prediction for each family. (iii) Tests on CNNs under a protocol fixed in advance, including follow-ups registered before their data existed; all failures are reported.
 
 \section{Differential counterfactuals and what each family sees}
 
@@ -26,20 +26,22 @@ Let $D:\mathcal Z\to\mathcal X$ map a search space onto the data manifold (here 
 
 \textbf{Definition 1.} With $\mathcal F^N_\kappa=\{z: m_n(z)\le-\kappa,\ m_o(z)\ge\kappa\}$, a $\Delta$-CE of $z_0$ is $z^\star\in\arg\min_{z\in\mathcal F^N_\kappa}\|z-z_0\|$ if $\|z^\star-z_0\|\le r$, and NOT\_FOUND otherwise; swapping the models gives type O. Each $z\in\mathcal F^N_\kappa$ is a \emph{witness}: two forward passes verify that the models decide differently, both decisively, which a difference of two counterfactuals does not.
 
-\textbf{Lemma 1.} Every witness has $h(z)\le-\kappa-m_o(z)\le-2\kappa$. Hence models whose margins differ by less than $2\kappa$ everywhere have no witness.
+\textbf{Lemma 1.} Every witness has $h(z)\le-\kappa-m_o(z)\le-2\kappa$. Hence models whose margins differ by less than $2\kappa$ everywhere have no witness. \emph{Proof:} subtract the two constraints of $\mathcal F^N_\kappa$.
 
-\textbf{Linear case.} For linear margins on $\mathbb R^p$ with independent $w_o,w_n$ the nearest witness is unique: the ordinary counterfactual of $f_{new}$ or the minimum-norm point with both constraints active. Write $\hat w_n=\cos\theta\,\hat w_o+\sin\theta\,v$ with $v\perp\hat w_o$, and let $d_n,d_o$ be the distances from $z_0$ to $\{m_n=-\kappa\}$ and $\{m_o=\kappa\}$. The gradient difference of [1] is $-(\hat w_n-\hat w_o)$, counterfactual differencing $u_n-u_o$ (the two minimum-norm counterfactuals), the witness $u^\star$.
+\textbf{Corollary 1} (constant logit offset). If $f_{new}$ adds $b$ to the logit of class 1, e.g.\ the prior correction~\cite{saerens}, then $h\equiv\pm b$ and $\nabla h\equiv0$. Type-N witnesses exist only for the class whose margin $b$ lowers and only if $|b|\ge2\kappa$, at the points with $\kappa\le m_o\le|b|-\kappa$. \emph{Proof:} insert $h\equiv-|b|$ in Lemma 1; no linearity is needed.
 
-\textbf{Proposition 2.} (a) \emph{Offset} ($\theta=0$): the gradient difference is $0$; counterfactual differencing is a multiple of $\hat w_o$; a witness exists iff $d_n\le d_o$ and equals $-d_n\hat w_o$. (b) \emph{Rotation} ($0<\theta<\pi/2$): the gradient difference has components in ratio $\tan(\theta/2)<1$ along $(\hat w_o,v)$, i.e.\ mainly along the new dependence $v$; the witness has $|u^\star\!\cdot\hat w_o|=\min\{d_n\cos\theta,d_o\}$ and is dominated by $v$ iff $\theta>\pi/4$ or $d_o(\sin\theta+\cos\theta)<d_n$. After projecting out $\hat w_o$ all three coincide up to scale (cf.\ Theorem 1 of [1], which gives the cosine of two weight vectors from their counterfactuals).
+\textbf{Linear case.} For linear margins on $\mathbb R^p$ with independent $w_o,w_n$ the nearest witness is unique: the ordinary counterfactual of $f_{new}$ or the minimum-norm point with both constraints active. Write $\hat w_n=\cos\theta\,\hat w_o+\sin\theta\,v$ with $v\perp\hat w_o$, and let $d_n,d_o$ be the distances from $z_0$ to $\{m_n=-\kappa\}$ and $\{m_o=\kappa\}$. The gradient difference of~\cite{artelt1} is $-(\hat w_n-\hat w_o)$, counterfactual differencing $u_n-u_o$ (the two minimum-norm counterfactuals), the witness $u^\star$.
 
-On CNNs the last statement holds approximately only with $\hat w_o$ taken at the witness (Section~4.2). In words, gradient differences see a \emph{rotation} and are blind to an \emph{offset}; type-N witnesses exist only on the side whose margin the offset lowers; for a constant logit offset such as the prior correction [13], they abstain exactly when the shift is below $2\kappa$ (Corollary 1 in the proofs). The analysis was formulated after the main experiment and before the grid was run.
+\textbf{Proposition 2.} (a) \emph{Offset} ($\theta=0$): the gradient difference is $0$; counterfactual differencing is a multiple of $\hat w_o$; a witness exists iff $d_n\le d_o$ and equals $-d_n\hat w_o$. (b) \emph{Rotation} ($0<\theta<\pi/2$): the gradient difference lies mainly along the new dependence $v$; the witness is dominated by $v$ iff $\theta>\pi/4$ or $d_o(\sin\theta+\cos\theta)<d_n$; after projecting out $\hat w_o$ all three coincide up to scale. \emph{Proof of (a):} both normals equal $\hat w_o$, so every move is along $\hat w_o$; proofs of (b) in the repository.
+
+In words, gradient differences see a \emph{rotation} and are blind to an \emph{offset}; type-N witnesses exist only on the side whose margin the offset lowers. Attributions integrated from a baseline are not covered. The analysis was formulated after the main experiment and before the grid was run.
 
 \section{Benchmark and protocol}
 
-\textbf{Data and models.} Images are $32\times32$ ellipses rendered from five independent factors in $[0,1]$: aspect (task factor), size, colour, background and horizontal position; labels are $y=\mathbb 1[\text{aspect}>0.5]$ with 5\% noise; the renderer is exact, so the factor change of any explanation is read without a learned oracle. $f_{old}$ is a small CNN (five seeds; two on the grid); $f_{new}$ is $f_{old}$ fine-tuned on 10\,000 samples from one condition (Table~\ref{tab:changes}). A pair enters only if its change is visible in decisions on validation data (null pairs: decisive disagreement $\le0.02$). For the grid we measure the realised rotation $\hat\alpha$ and threshold $\hat t$ of each $f_{new}$ by a logistic fit to its decisions, and analyse at these measured values; all 32 realised the intended rotation, while offsets below about 0.05 were not produced reliably.
+\textbf{Data and models.} Images are $32\times32$ ellipses rendered from five independent factors in $[0,1]$: aspect (task factor), size, colour, background and horizontal position; labels are $y=\mathbb 1[\text{aspect}>0.5]$ with 5\% noise; the renderer is exact, so the factor change of any explanation is read without a learned oracle. All methods search the same factor space through the same renderer, so no method has access the others lack. $f_{old}$ is a small CNN (five seeds); $f_{new}$ is $f_{old}$ fine-tuned on 10\,000 samples from one condition (Table~\ref{tab:changes}). A pair enters only if its change is visible in decisions on validation data. For the grid we measure the realised rotation $\hat\alpha$ and threshold $\hat t$ of each $f_{new}$ by a logistic fit to its decisions and analyse at these values.
 
 \begin{table}[t]
-\caption{Injected changes; $k^\star$ is the ground-truth factor (none for the grid cell $(0,0.5)$). $^a$Two pairs have no $k^\star$ ($t=0.5$) and two failed the offset check ($t=0.53$), so four enter the offset test of Table~\ref{tab:tests}.}
+\caption{Injected changes; $k^\star$: ground-truth factor. $^a$$\alpha\in\{0,.1,.25,.5\}$, $t\in\{.5,.53,.56,.6\}$, two seeds; of the 8 offsets ($\alpha=0$) four enter the tests. $^b$Split D, registered; 8 of 9 qualified.}
 \label{tab:changes}
 \centering\footnotesize
 \begin{tabular}{lllc}
@@ -50,15 +52,15 @@ Shortcut & colour correlated with label (0.99) & colour & 3\\
 Subgroup & labels flipped for size $>0.75$ & size & 3\\
 Threshold & $y=\mathbb 1[\text{aspect}>0.6]$ & aspect & 3\\
 Null & resample / size $\sim U[0.5,1]$, same rule & --- & 5 / 3\\
-Grid, $\alpha=0$ & $y=\mathbb 1[\text{aspect}+\alpha(\text{colour}-0.5)>t]$, $t\in\{.5,.53,.56,.6\}$ & aspect & 8$^a$\\
-Grid, $\alpha>0$ & same, $\alpha\in\{.1,.25,.5\}$ & colour & 24\\
+Grid$^a$ & $y=\mathbb 1[\text{aspect}+\alpha(\text{colour}-0.5)>t]$ & aspect / colour & 8 / 24\\
+Offsets$^b$ & grid, $\alpha=0$, $t\in\{.53,.56,.6\}$, seeds 2--4 & aspect & 9\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Metrics and methods.} Per pair: $N=300$ valid test points. $\mathrm{Recovery@}r$ is the share of points with a valid explanation within the budget whose largest factor change is $k^\star$ (NOT\_FOUND and ties count 0). Recovery uses type-N witnesses only (pre-declared); a query whose class the update raises (Threshold, class 0) has none and counts 0. All counterfactual methods share one solver (Adam, then SLSQP), the points and the budget $r=0.54$, set once on validation. We compare $\Delta$-CE ($\kappa=0.5$) with \textbf{CF-diff}, counterfactual differencing [1]; \textbf{Grad-diff}, the gradient difference [1]; \textbf{Imp-diff}, a permutation-importance difference [4]; \textbf{Seg-search}, a line search along segments to training points, after [5]; \textbf{No-prox}, $\Delta$-CE without the proximity term (the DeepXplore objective [6]); and \textbf{CF-new}, the ordinary counterfactual of $f_{new}$ alone.
+\textbf{Metrics and methods.} Per pair: $N=300$ valid test points. $\mathrm{Recovery@}r$ is the share of points with a valid explanation within the budget whose largest factor change is $k^\star$ (NOT\_FOUND and ties count 0). Recovery uses type-N witnesses only (pre-declared); a query whose class the update raises (Threshold, class 0) has none and counts 0. All counterfactual methods share one solver (Adam, then SLSQP), the points and the budget $r=0.54$, set once on validation. We compare $\Delta$-CE ($\kappa=0.5$) with \textbf{CF-diff}, counterfactual differencing~\cite{artelt1}; \textbf{Grad-diff}, the gradient difference~\cite{artelt1}; \textbf{Imp-diff}, a difference of permutation importances on the test data~\cite{muschalik}, one vector per pair; \textbf{Seg-search}, a line search along segments from the query to training points, after~\cite{renard}; \textbf{No-prox}, $\Delta$-CE without the proximity term (the DeepXplore objective~\cite{deepxplore}); and \textbf{CF-new}, the counterfactual of $f_{new}$ alone. DiG-IN~\cite{digin} searches a learned generator for disagreement; on an exact manifold its objective reduces to No-prox. Section~4.4 adds IG-~\cite{ig} and SHAP-differences~\cite{shap}.
 
-\textbf{Protocol.} Every test split served at most one confirmatory test, after all choices were fixed: split A is the locked split of Table~\ref{tab:results}, split B the new data of the tests formed after the first results, split C the fresh data of the type-O analysis. Table~\ref{tab:tests} lists every test; the grid's manipulation check, exclusion rule and statistics were fixed after a pilot and before its test data; one analysis-code error was later corrected. Bootstraps are paired and resample points within pairs (three per condition; two seeds of $f_{old}$ on the grid), so intervals do not cover model-to-model variation. The rest is descriptive. A digit tier and a label-shift update failed qualification.
+\textbf{Protocol.} Every test split served at most one confirmatory test, after all choices were fixed: split A is the locked split of Table~\ref{tab:results}, split B the new data of the tests formed after the first results, split C the data of the type-O analysis, split D the data of three follow-ups registered~\cite{osf} after the earlier results and before split D was generated. The grid's checks were fixed after a pilot and before its test data; one analysis-code error was later corrected. Bootstraps resample points within pairs, so their intervals do not cover model-to-model variation; Table~\ref{tab:tests} therefore also counts pairs. The rest is descriptive. A digit tier and a label-shift update failed qualification.
 
 \section{Results}
 
@@ -80,73 +82,88 @@ Null & \textbf{0.000} & 0.994 & 1.0 & 1.0 & 0.000 & 0.000 & 0.996\\
 \end{table}
 
 \begin{table}[t]
-\caption{Tests, grouped as in Section~4 (95\% CIs; $^\dagger$90\%). K: D = follows from a lemma, proposition or definition; R = risky prediction. When formed: pre = before any result; post = after the first, on split B; grid = before the grid run; new = later, new data. Holm families: $^{*}$, $^{\ddagger}$, $^{\S}$. Proj.: $\hat w_o$ projected out. Protocol IDs: repository.}
+\caption{Tests, grouped as in Section~4 (95\% CIs; $^\dagger$90\%). Pairs: pairs on the claimed side / pairs. K: D = follows from a lemma, proposition or definition; R = risky prediction. When: pre = before any result; post = after the first, on split B; grid = before the grid run; new = later, new data; reg = registered~\cite{osf}. Holm families: $^{*}$, $^{\ddagger}$, $^{\S}$. Proj.: $\hat w_o$ projected out.}
 \label{tab:tests}
 \centering\scriptsize
 \setlength{\tabcolsep}{2.5pt}
 \resizebox{\linewidth}{!}{%
-\begin{tabular}{@{}lllllcl@{}}
+\begin{tabular}{@{}llllcll@{}}
 \toprule
-Claim & Data & Estimate & $p_{Holm}$ & Status & K & When\\
+Claim & Data & Estimate & $p$ & Pairs & Status & K, when\\
 \midrule
-\multicolumn{7}{@{}l}{\emph{Offsets}}\\
-Grad-diff $<0.2$ & Grid, $\alpha=0$ & 0.081 [0.066, 0.096] & $4{\cdot}10^{-4}\,^{\ddagger}$ & confirmed & R & grid\\
-Grad-diff offset-free & Grid & $-0.098$ [$-0.143$, $-0.053$]$^\dagger$ & $0.94\,^{\ddagger}$ & not conf. & R & grid\\
-$\Delta$-CE $>$ Grad-diff & Threshold, B & $+0.31$ [0.27, 0.35] & $2{\cdot}10^{-4}\,^{*}$ & confirmed & D & post\\
-\multicolumn{7}{@{}l}{\emph{Rotations}}\\
-Grad-diff rises with $\alpha$ & Grid & $+0.57$ [0.53, 0.61] & $4{\cdot}10^{-4}\,^{\ddagger}$ & confirmed & R & grid\\
-Proj.\ $\Delta$-CE $\approx$ Grad-diff & Shortcut, B & $-0.30$ [$-0.33$, $-0.28$]$^\dagger$ & $1\,^{*}$ & not conf. & R & post\\
-Proj.\ $\Delta$-CE $\approx$ Grad-diff & Grid & $-0.35$ [$-0.38$, $-0.33$]$^\dagger$ & $1\,^{\ddagger}$ & not conf. & R & grid\\
-Normal at $z^\star$ halves gap or more & Grid, new & $-0.19\to+0.03$ [0.01, 0.05]$^\dagger$ & $6{\cdot}10^{-4}\,^{\S}$ & confirmed & R & new\\
 \multicolumn{7}{@{}l}{\emph{Abstention}}\\
-No witness on nulls & Null, B; Adult & 0/2\,400; 0/1\,500 & & confirmed & D & post; new\\
-CF-diff (no cut) flags $|b|<2\kappa$ & Logit offsets & 0.961 [0.955, 0.967] & $2{\cdot}10^{-4}\,^{\S}$ & confirmed & D & new\\
+No witness on nulls & Null, B; Adult & 0/2\,400; 0/1\,500 & & 8/8; 5/5 & confirmed & D, post; new\\
+No witness on unfiltered nulls & Null, D & 0/2\,400 & & 8/8 & confirmed & R, reg\\
+CF-diff (no cut) flags $|b|<2\kappa$ & Logit offsets & 0.961 [0.955, 0.967] & $2{\cdot}10^{-4}\,^{\S}$ & & confirmed & D, new\\
+\multicolumn{7}{@{}l}{\emph{Offsets}}\\
+Grad-diff $<0.2$ & Grid, $\alpha=0$ & 0.081 [0.066, 0.096] & $4{\cdot}10^{-4}\,^{\ddagger}$ & 4/4 & confirmed & R, grid\\
+Grad-diff $<0.2$ & Offsets, D & 0.033--0.093 & 0.004 (sign) & 8/8 & confirmed & R, reg\\
+Grad-diff offset-free & Grid & $-0.098$ [$-0.143$, $-0.053$]$^\dagger$ & $0.94\,^{\ddagger}$ & & not conf. & R, grid\\
+$\Delta$-CE $>$ Grad-diff & Threshold, B & $+0.31$ [0.27, 0.35] & $2{\cdot}10^{-4}\,^{*}$ & 3/3 & confirmed & D, post\\
+\multicolumn{7}{@{}l}{\emph{Rotations}}\\
+Grad-diff rises with $\alpha$ & Grid & $+0.57$ [0.53, 0.61] & $4{\cdot}10^{-4}\,^{\ddagger}$ & $\rho=0.89$ & confirmed & R, grid\\
+Proj.\ $\Delta$-CE $\approx$ Grad-diff & Shortcut, B & $-0.30$ [$-0.33$, $-0.28$]$^\dagger$ & $1\,^{*}$ & & not conf. & R, post\\
+Proj.\ $\Delta$-CE $\approx$ Grad-diff & Grid & $-0.35$ [$-0.38$, $-0.33$]$^\dagger$ & $1\,^{\ddagger}$ & & not conf. & R, grid\\
+Normal at $z^\star$ halves gap or more & Grid, new & $-0.19\to+0.03$ [0.01, 0.05]$^\dagger$ & $6{\cdot}10^{-4}\,^{\S}$ & 4/4 & confirmed & R, new\\
 \multicolumn{7}{@{}l}{\emph{$\Delta$-CE versus gradient differences}}\\
-$\Delta$-CE $>$ Grad-diff & Subgroup & $-0.09$ [$-0.13$, $-0.05$] & & rejected & R & pre\\
-Tie ($|\Delta|\le0.1$) & Shortc., Thresh. & $|\Delta|=0.17$--$0.53$ & & not conf. & R & pre\\
+$\Delta$-CE $>$ Grad-diff & Subgroup & $-0.09$ [$-0.13$, $-0.05$] & & 0/3 & rejected & R, pre\\
+Tie ($|\Delta|\le0.1$) & Shortc., Thresh. & $|\Delta|=0.17$--$0.53$ & & & not conf. & R, pre\\
 \bottomrule
 \end{tabular}}
 \end{table}
 
+\subsection{Abstention and detection}
+
+No disagreement search returns a point on a null update (Table~\ref{tab:results}); on the 8 null pairs and on five null updates of an MLP on Adult (1\,500 test points) no witness exists, while CF-diff attributes a change to 97.7--100\% of points. These nulls were admitted only without decisive disagreement on validation, close to the witness criterion. We therefore registered 8 new null pairs admitted without any check (split D): again no witness on any of 2\,400 queries, CF-diff attributes a change to 98.3--99.7\%. The margin is what makes the probe silent: with $\kappa=0$ witnesses appear on 83\% of the split-A null queries. NOT\_FOUND is no solver failure: $10^5$ samples per query find none on 550 null or impossible-class queries.
+
+Does abstention cost sensitivity? We cut each score on the null queries so that it flags none (or 5\%) and count flagged lowered-class queries. For a constant logit offset $b$, witnesses appear from $|b|=1.1$ on every lowered-class query, as Corollary~1 predicts, while CF-diff flags at most 0.002 up to $|b|=2$. Below $2\kappa$ the witness misses real changes by design (3--8\% of decisions flip at $|b|\in\{0.5,0.9\}$), which CF-diff without a cut flags (0.961). And the plain margin score $|h(z_0)|$ at the query flags all of them from $|b|=0.9$ at 5\%, and at $|b|=2$ also at zero false positives. On the 8 registered fine-tuned offsets, at zero false positives, witnesses exist for 0.17--1.00 of lowered-class queries, the margin score flags 0.00--0.54 and CF-diff none (0.03--0.18 at 5\%). The witness exceeded the margin score by 0.2 in 7 of 8 pairs, not in all as our registered criterion required, so we claim no advantage in telling \emph{whether} decisions moved; a margin score does that cheaply. What the witness adds is \emph{where}: a verified input near the query.
+
 \subsection{Offsets}
 
-Gradient differences are blind to an offset, as Proposition 2(a) predicts: on the pure offsets of the grid their Recovery is 0.081 (below 0.2 in each of the 4 pairs), and on Threshold $\Delta$-CE beats them (0.41 vs.\ 0.10 on split B; positive for each of the three seeds). On an offset the changed factor is the task factor, so even CF-new recovers it (0.90--0.98). Type-N witnesses exist only on the side the offset lowers (on Threshold: every class-1 query, none of class 0), which is why $\Delta$-CE scores 0.47 in Table~\ref{tab:results}; type O covers the other side. On split C (three Threshold pairs, 900 queries, descriptive) type N finds a witness for every class-1 query and none of class 0 (Recovery 0.45), type O the converse, and the nearer of the two recovers aspect on all 900 queries (1.00; CF-diff 0.77, CF-new 0.89, Grad-diff 0.07). For an exact logit offset $b$, witnesses appear only once $|b|$ reaches $2\kappa$ and then, empirically, on every query of the lowered class. CF-diff, with no threshold, flags 0.961 of queries already at $|b|\in\{0.5,0.9\}$, where 3--8\% of decisions do flip; the witness misses this real change by design (Corollary~1), a difference in sensitivity, not an error of CF-diff.
+Gradient differences are blind to an offset, as Proposition 2(a) predicts: on the pure offsets of the grid their Recovery is 0.081 (below 0.2 in each of the 4 pairs), and on the 8 registered offsets of split D 0.03--0.09 (8 of 8 below 0.2; sign test $p=0.004$). On Threshold $\Delta$-CE beats them (0.41 vs.\ 0.10 on split B; positive for each seed). As the changed factor is the task factor, even CF-new recovers it (0.90--0.98). Type-N witnesses exist only on the side the offset lowers (on Threshold every class-1 query, none of class 0), which is why $\Delta$-CE scores 0.47 in Table~\ref{tab:results}; on split C type O covers the other side, and the nearer of the two recovers aspect on all 900 queries (CF-diff 0.77, Grad-diff 0.07).
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.7\linewidth]{figures/map_names.pdf}
+\includegraphics[width=0.5\linewidth]{figures/map_names.pdf}
 \caption{Grid results at the measured rotation $\hat\alpha$ and threshold $\hat t$ of each $f_{new}$ (grid test split), on one colour scale from 0 to 1. Hollow: no $k^\star$; marker shape: seed of $f_{old}$.}
 \label{fig:map}
 \end{figure}
 
 \subsection{Rotations}
 
-Gradient differences see a rotation, increasingly with its angle: Grad-diff Recovery rises from 0.36 at $\alpha=0.1$ to 0.93 at $\alpha=0.5$ (each $\alpha=0.5$ pair above each $\alpha=0.1$ pair; Fig.~\ref{fig:map}), while CF-new recovers colour on $\le0.03$ of points. Proposition 2(b) predicts that after projecting out $\hat w_o$ witnesses and gradient differences coincide up to scale; with $\hat w_o$ taken at the query they do not (Shortcut 0.64 vs.\ 0.95 on split B, all valid points; grid $-0.35$). A post-hoc explanation, tested on new data (four grid pairs, points with a witness): with $\hat w_o$ taken at the witness the projected gap $\Delta$-CE $-$ Grad-diff moves from $-0.190$ to $+0.029$ (narrowing by more than half in each of the 4 pairs, by a small margin in two). This locates the failure, not its cause. On Shortcut (points with a witness) it moves from $-0.166$ to $-0.024$; the normal turns by a median $32^\circ$ from $z_0$ to $z^\star$, not more for distant witnesses as registered. The witness direction itself follows the analysis: where the condition of Proposition 2(b), computed from margins and gradients at $z_0$, holds, witnesses recover colour on 0.64 of points, elsewhere on 0.04 (24 rotation pairs, new data, 3\,952 witnesses; gap positive in each of the 21 pairs with both groups; descriptive).
+Gradient differences see a rotation, increasingly with its angle: Grad-diff Recovery rises from 0.36 at $\alpha=0.1$ to 0.93 at $\alpha=0.5$ (Spearman $\rho=0.89$ over the 24 pairs, permutation $p=10^{-4}$; Fig.~\ref{fig:map}), while CF-new recovers colour on $\le0.03$ of points. The projection equivalence of Proposition 2(b) fails with $\hat w_o$ taken at the query (grid $-0.35$) and holds approximately with $\hat w_o$ taken at the witness (gap $-0.19\to+0.03$, new data, 4 of 4 pairs). Where the condition of Proposition 2(b), computed at $z_0$, holds, witnesses recover colour on 0.64 of points, elsewhere on 0.04 (3\,952 witnesses; positive in each of 21 pairs; descriptive).
 
-\subsection{Null updates and abstention}
+\subsection{Other baselines}
 
-All three disagreement searches verify the margin, and none returns a point on a null update (Table~\ref{tab:results}). $\Delta$-CE adds proximity: No-prox finds witnesses on fewer points (0.40--0.63 vs.\ 0.47--0.84) and, where both find one, farther away on every point (median 0.31--0.33 vs.\ 0.20--0.23). On the 8 null pairs and on five null updates of an MLP on Adult (1\,500 test points) no witness exists, while CF-diff attributes a change to 97.7--100\% of points. Part of this contrast is the threshold. Scoring a query by $\|u_n-u_o\|$ and cutting on the 2\,400 null queries so that none is flagged, as for $\Delta$-CE, CF-diff flags at most 0.001 of the logit-offset queries up to $|b|=2$, while $\Delta$-CE has a witness for every lowered-class query from $|b|=1.1$. For a constant offset Corollary~1 makes the witness an exact test of $|b|\ge2\kappa$, so we repeated this on fine-tuned offsets, where it is not (three Threshold pairs of split C, four $\alpha=0$ grid pairs): at the same cut CF-diff flags no lowered-class query in any pair, and only 0.05--0.28 at 5\% false positives, while $\Delta$-CE has a witness for every one in 6 of 7 pairs and 0.25 in the seventh (descriptive, saved outputs). Null pairs were admitted only without decisive disagreement on validation, which is close to the witness criterion, so the 5\% point is the fairer reading. NOT\_FOUND is no solver failure: $10^5$ samples per query find none on 550 null or impossible-class queries.
+With predictions logged beforehand (split A), IG-diff and SHAP-diff (exact Shapley values) recover colour on Shortcut (0.93), like Grad-diff, but unlike it also aspect on Threshold (0.73--0.75 vs.\ 0.07): they integrate from a baseline, which the local analysis does not cover; like Grad-diff they attribute a change on every null query. Imp-diff on the test data has aspect as largest entry in all 9 change pairs, hence its 1.00 and 0.00 in Table~\ref{tab:results}; computed on the adaptation data it finds $k^\star$ in 9 of 9 pairs. With ten times the segments Seg-search finds a disagreement point on 0.26--0.47 of queries (predicted $\le0.2$), and recovers $k^\star$ on 0.10--0.29.
 
 \section{Discussion and limitations}
 
-Witnesses are meant to show \emph{where} decisions changed near a query. We have partial checks, not a score: each witness is verified (by definition), the search misses few (in the sampling audit, 3 of 395 small-offset queries) and returns nearer witnesses than No-prox; other families return directions, so this is no comparison. \textbf{Limitations.} (1) The image data are synthetic; the tabular test covers abstention only; of label shift, only the prior correction [13] was tested. (2) $\kappa$ is an exact threshold only for a constant offset; otherwise abstention tracks decisive change (at shifts of 0.03--0.04 it depended on the fine-tuning recipe). (3) Witnesses see only decision changes on the manifold within the budget, with no certificate for deep networks. (4) Recovery scores one notion of change, the factor along which the weights moved. (5) Several tests were formed after earlier results, one after a validation run showed the effect. Every protocol change was logged, with dated commits, before the data it concerns were generated (the analysis-code correction excepted); log, proofs, code: [repository link].
+For \emph{where}, we have partial checks, not a score: each witness is verified by definition, the search misses few (3 of 395 audited queries) and returns nearer witnesses than No-prox (median 0.20--0.23 vs.\ 0.31--0.33). Witness decisions were also identical on two CPUs (40 of 40 queries), while CF-diff norms differed on 12 of 40. \textbf{Limitations.} (1) The data are synthetic and the manifold map exact; a learned generator was not tested, and the tabular test covers abstention only. (2) One architecture: a registered ResNet-8 replication was not run because its projected cost exceeded the registered budget. (3) $\kappa$ is an exact threshold only for a constant offset; otherwise abstention tracks decisive change. (4) Witnesses see only decision changes on the manifold within the budget, with no certificate for deep networks; Recovery scores one notion of change. (5) Several tests were formed after earlier results; every protocol change was logged with dated commits before the data it concerns were generated (one analysis-code correction excepted); log, proofs, code: [repository link].
 
 \begin{footnotesize}
-\begin{thebibliography}{13}
+\begin{thebibliography}{20}
 \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}
-\bibitem{r1} A. Artelt, F. Hinder, V. Vaquet, R. Feldhans, B. Hammer. Contrastive explanations for explaining model adaptations. arXiv:2104.02459, 2021.
-\bibitem{r2} A. Artelt et al. Contrasting explanations for understanding and regularizing model adaptations. \emph{Neural Processing Letters}, 2022.
-\bibitem{r4} B. Hammer, E. H\"ullermeier. Interpretable machine learning: on the problem of explaining model change. In \emph{Proc.\ 31.\ Workshop Computational Intelligence}, pp.~1--10, 2021.
-\bibitem{r5} M. Muschalik et al. Agnostic explanation of model change based on feature importance. \emph{KI -- K\"unstliche Intelligenz} 36:211--224, 2022.
-\bibitem{r6} X. Renard et al. Understanding prediction discrepancies in machine learning classifiers. arXiv:2104.05467, 2021.
-\bibitem{r7} K. Pei et al. DeepXplore: automated whitebox testing of deep learning systems. \emph{SOSP}, 2017.
-\bibitem{r8} M. Augustin et al. DiG-IN: diffusion guidance for investigating networks. \emph{CVPR}, 2024.
-\bibitem{r9} S. Wachter et al. Counterfactual explanations without opening the black box. \emph{Harvard J. Law \& Technology}, 2017.
-\bibitem{r10} F. Hamman et al. Robust counterfactual explanations for neural networks with probabilistic guarantees. \emph{ICML}, 2023.
-\bibitem{r11} M. Pawelczyk et al. On counterfactual explanations under predictive multiplicity. \emph{UAI}, 2020.
-\bibitem{r12} S. Yan et al. Positive-congruent training: towards regression-free model updates. \emph{CVPR}, 2021.
-\bibitem{r13} M. Kaden et al. Reliable counterfactuals for machine learning models --- current aspects and perspectives. \emph{ESANN}, 2026.
-\bibitem{r14} M. Saerens et al. Adjusting the outputs of a classifier to new a priori probabilities: a simple procedure. \emph{Neural Computation} 14(1):21--41, 2002.
+\bibitem{artelt1} A. Artelt et al. Contrastive explanations for explaining model adaptations. arXiv, 2021.
+\bibitem{artelt2} A. Artelt et al. Contrasting explanations for understanding and regularizing model adaptations. \emph{Neural Process.\ Lett.}, 2022.
+\bibitem{hammer} B. Hammer, E. H\"ullermeier. Interpretable machine learning: on the problem of explaining model change. \emph{Workshop Comput.\ Intell.}, 2021.
+\bibitem{muschalik} M. Muschalik et al. Agnostic explanation of model change based on feature importance. \emph{KI} 36:211--224, 2022.
+\bibitem{renard} X. Renard et al. Understanding prediction discrepancies in machine learning classifiers. arXiv, 2021.
+\bibitem{deepxplore} K. Pei et al. DeepXplore: automated whitebox testing of deep learning systems. \emph{SOSP}, 2017.
+\bibitem{digin} M. Augustin et al. DiG-IN: diffusion guidance for investigating networks. \emph{CVPR}, 2024.
+\bibitem{wachter} S. Wachter et al. Counterfactual explanations without opening the black box. \emph{Harv.\ J.\ Law Tech.}, 2017.
+\bibitem{hamman} F. Hamman et al. Robust counterfactual explanations for neural networks with probabilistic guarantees. \emph{ICML}, 2023.
+\bibitem{pawelczyk} M. Pawelczyk et al. On counterfactual explanations under predictive multiplicity. \emph{UAI}, 2020.
+\bibitem{yan} S. Yan et al. Positive-congruent training: towards regression-free model updates. \emph{CVPR}, 2021.
+\bibitem{kaden} M. Kaden et al. Reliable counterfactuals for machine learning models -- current aspects and perspectives. \emph{ESANN}, 2026.
+\bibitem{saerens} M. Saerens et al. Adjusting the outputs of a classifier to new a priori probabilities: a simple procedure. \emph{Neural Comput.}, 2002.
+\bibitem{kulinski} S. Kulinski, D. I. Inouye. Towards explaining distribution shifts. \emph{ICML}, 2023.
+\bibitem{openxai} C. Agarwal et al. OpenXAI: towards a transparent evaluation of model explanations. \emph{NeurIPS}, 2022.
+\bibitem{funnybirds} R. Hesse et al. FunnyBirds: a synthetic vision dataset for a part-based analysis of explainable AI methods. \emph{ICCV}, 2023.
+\bibitem{clevrxai} L. Arras et al. CLEVR-XAI: a benchmark dataset for the ground truth evaluation of neural network explanations. \emph{Inf.\ Fusion}, 2022.
+\bibitem{ig} M. Sundararajan et al. Axiomatic attribution for deep networks. \emph{ICML}, 2017.
+\bibitem{shap} S. Lundberg, S. Lee. A unified approach to interpreting model predictions. \emph{NeurIPS}, 2017.
+\bibitem{osf} Registration of the follow-up experiments. OSF, 2026. https://osf.io/vfjtk
 \end{thebibliography}
 \end{footnotesize}
 

@@ -39,6 +39,8 @@
 | L-028 | Hesse, Schaub-Meyer, Roth. "FunnyBirds: A Synthetic Vision Dataset for a Part-Based Analysis of Explainable AI Methods", ICCV 2023, pp. 3981–3991 — part-level ground truth by part removal | 2023 | medium | verified (D-052) | related work: ground-truth XAI benchmarks | n/a |
 | L-029 | Arras, Osman, Samek. "CLEVR-XAI: A benchmark dataset for the ground truth evaluation of neural network explanations", Information Fusion 81:14–40, 2022 | 2022 | medium | verified (D-052) | related work: ground-truth XAI benchmarks | n/a |
 | L-030 | Kulinski, Inouye. "Towards Explaining Distribution Shifts", ICML 2023, PMLR 202:17931–17952 — explains a data shift by interpretable transport maps (data, not model, change) | 2023 | medium | verified (D-052) | related work: explaining distributional change | n/a |
+| L-031 | Sundararajan, Taly, Yan. "Axiomatic Attribution for Deep Networks", ICML 2017, PMLR 70:3319–3328 — Integrated Gradients (path integral from a baseline) | 2017 | medium | verified (D-052) | X1 IG-diff baseline; not local, so outside Proposition 2(a) | n/a |
+| L-032 | Lundberg, Lee. "A Unified Approach to Interpreting Model Predictions", NeurIPS 2017 — SHAP (Shapley values) | 2017 | medium | verified (D-052) | X1 SHAP-diff baseline (exact Shapley over 5 factors) | n/a |
 | L-018 | Kaden, Paassen, Hammer, Schubert, Villmann — *Reliable Counterfactuals for Machine Learning Models* (ESANN 2026) | 2026 | low | discovered | venue context | unknown |
 
 Allowed relevance values: high, medium, low.
