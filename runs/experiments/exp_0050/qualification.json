@@ -1,0 +1,325 @@
+{
+  "split": "validation",
+  "criteria": "v1.9.1; nulls all admitted (D-052 X4)",
+  "pairs": [
+    {
+      "alpha": 0.0,
+      "t": 0.53,
+      "alpha_hat": -0.036960881185104134,
+      "t_hat": 0.49098322870204236,
+      "accuracy_new_rule": 0.9608,
+      "alpha_ok": true,
+      "accuracy_ok": true,
+      "fit": {
+        "w": [
+          137.0799005480879,
+          1.1073293828531117,
+          -5.066593917023767,
+          -1.5161160583419022,
+          0.6710146400280813
+        ],
+        "b": -64.90174918501283,
+        "n_iter": 13,
+        "converged": true,
+        "separable": false,
+        "train_accuracy": 0.9898
+      },
+      "ridge": 0.0,
+      "pair_id": 120,
+      "kind": "offset",
+      "seed": 0,
+      "dd": 0.0035,
+      "dt": -0.012215608617355045,
+      "qualified": false
+    },
+    {
+      "alpha": 0.0,
+      "t": 0.6,
+      "alpha_hat": -0.00907917618553544,
+      "t_hat": 0.5891365533989626,
+      "accuracy_new_rule": 0.9882,
+      "alpha_ok": true,
+      "accuracy_ok": true,
+      "fit": {
+        "w": [
+          164.53988977100622,
+          0.43055768914908793,
+          -1.4938866487795461,
+          3.163805386532527,
+          0.5011375215416725
+        ],
+        "b": -98.2372705305577,
+        "n_iter": 13,
+        "converged": true,
+        "separable": false,
+        "train_accuracy": 0.9928
+      },
+      "ridge": 0.0,
+      "pair_id": 121,
+      "kind": "offset",
+      "seed": 0,
+      "dd": 0.0695,
+      "dt": 0.08593771607956524,
+      "qualified": true
+    },
+    {
+      "alpha": 0.0,
+      "t": 0.53,
+      "alpha_hat": 0.035119215365885845,
+      "t_hat": 0.5855675103612947,
+      "accuracy_new_rule": 0.9442,
+      "alpha_ok": true,
+      "accuracy_ok": true,
+      "fit": {
+        "w": [
+          182.51740463207634,
+          -9.788790515432508,
+          6.409868041296419,
+          -2.2267608211621406,
+          -0.62464575939366
+        ],
+        "b": -103.76109770066402,
+        "n_iter": 14,
+        "converged": true,
+        "separable": false,
+        "train_accuracy": 0.9924
+      },
+      "ridge": 0.0,
+      "pair_id": 122,
+      "kind": "offset",
+      "seed": 1,
+      "dd": 0.068,
+      "dt": 0.08261915827378707,
+      "qualified": true
+    },
+    {
+      "alpha": 0.0,
+      "t": 0.6,
+      "alpha_hat": 0.021527698476403852,
+      "t_hat": 0.6150618059373074,
+      "accuracy_new_rule": 0.9804,
+      "alpha_ok": true,
+      "accuracy_ok": true,
+      "fit": {
+        "w": [
+          187.75772029268214,
+          5.5454463950621715,
+          4.041991589077834,
+          -3.198140279793561,
+          1.3737366855300783
+        ],
+        "b": -119.36411971682716,
+        "n_iter": 14,
+        "converged": true,
+        "separable": false,
+        "train_accuracy": 0.9918
+      },
+      "ridge": 0.0,
+      "pair_id": 123,
+      "kind": "offset",
+      "seed": 1,
+      "dd": 0.0965,
+      "dt": 0.11211345384979976,
+      "qualified": true
+    },
+    {
+      "alpha": 0.5,
+      "t": 0.53,
+      "alpha_hat": 0.47481719241051357,
+      "t_hat": 0.5493917731422208,
+      "accuracy_new_rule": 0.9686,
+      "alpha_ok": true,
+      "accuracy_ok": true,
+      "fit": {
+        "w": [
+          127.0796571073496,
+          10.409809040662006,
+          60.33960600020251,
+          -2.229402691637968,
+          -0.15138207813630203
+        ],
+        "b": -104.00083328405734,
+        "n_iter": 13,
+        "converged": true,
+        "separable": false,
+        "train_accuracy": 0.9896
+      },
+      "ridge": 0.0,
+      "pair_id": 124,
+      "kind": "rotation",
+      "seed": 0,
+      "dd": 0.1055,
+      "dt": 0.046192935822823356,
+      "qualified": true
+    },
+    {
+      "alpha": 0.5,
+      "t": 0.6,
+      "alpha_hat": 0.5512878370989265,
+      "t_hat": 0.6302649610857357,
+      "accuracy_new_rule": 0.9702,
+      "alpha_ok": true,
+      "accuracy_ok": true,
+      "fit": {
+        "w": [
+          149.5023325910326,
+          -0.555107662153209,
+          82.41881757535471,
+          1.7473724646516797,
+          -0.21478671371249788
+        ],
+        "b": -135.9242296647842,
+        "n_iter": 14,
+        "converged": true,
+        "separable": false,
+        "train_accuracy": 0.9916
+      },
+      "ridge": 0.0,
+      "pair_id": 125,
+      "kind": "rotation",
+      "seed": 0,
+      "dd": 0.16,
+      "dt": 0.1270661237663383,
+      "qualified": true
+    },
+    {
+      "alpha": 0.5,
+      "t": 0.53,
+      "alpha_hat": 0.497051991777477,
+      "t_hat": 0.5120231035116342,
+      "accuracy_new_rule": 0.9762,
+      "alpha_ok": true,
+      "accuracy_ok": true,
+      "fit": {
+        "w": [
+          99.71153267402505,
+          -2.6561438417579435,
+          49.56181591880913,
+          0.26850328611384056,
+          -0.10902339183775553
+        ],
+        "b": -74.58718440131966,
+        "n_iter": 12,
+        "converged": true,
+        "separable": false,
+        "train_accuracy": 0.9844
+      },
+      "ridge": 0.0,
+      "pair_id": 126,
+      "kind": "rotation",
+      "seed": 1,
+      "dd": 0.096,
+      "dt": 0.009074751424126504,
+      "qualified": true
+    },
+    {
+      "alpha": 0.5,
+      "t": 0.6,
+      "alpha_hat": 0.5214489152268302,
+      "t_hat": 0.6057725499933933,
+      "accuracy_new_rule": 0.9862,
+      "alpha_ok": true,
+      "accuracy_ok": true,
+      "fit": {
+        "w": [
+          145.99607667881187,
+          -2.482848141117566,
+          76.12949581153958,
+          0.9608152972953196,
+          -2.523718573071936
+        ],
+        "b": -124.48228785607755,
+        "n_iter": 13,
+        "converged": true,
+        "separable": false,
+        "train_accuracy": 0.9902
+      },
+      "ridge": 0.0,
+      "pair_id": 127,
+      "kind": "rotation",
+      "seed": 1,
+      "dd": 0.138,
+      "dt": 0.1028241979058856,
+      "qualified": true
+    },
+    {
+      "pair_id": 128,
+      "kind": "null",
+      "seed": 0,
+      "dd": 0.0035,
+      "admitted": true
+    },
+    {
+      "pair_id": 129,
+      "kind": "null",
+      "seed": 1,
+      "dd": 0.0,
+      "admitted": true
+    }
+  ],
+  "checks": {
+    "per_pair": {
+      "120": {
+        "c1": true,
+        "c3": true,
+        "c2a": false,
+        "base_qualified": false
+      },
+      "121": {
+        "c1": true,
+        "c3": true,
+        "c2a": true,
+        "base_qualified": true
+      },
+      "122": {
+        "c1": true,
+        "c3": true,
+        "c2a": true,
+        "base_qualified": true
+      },
+      "123": {
+        "c1": true,
+        "c3": true,
+        "c2a": true,
+        "base_qualified": true
+      },
+      "124": {
+        "c1": true,
+        "c3": true,
+        "c2a": null,
+        "base_qualified": true
+      },
+      "125": {
+        "c1": true,
+        "c3": true,
+        "c2a": null,
+        "base_qualified": true
+      },
+      "126": {
+        "c1": true,
+        "c3": true,
+        "c2a": null,
+        "base_qualified": true
+      },
+      "127": {
+        "c1": true,
+        "c3": true,
+        "c2a": null,
+        "base_qualified": true
+      }
+    },
+    "order_violations": [],
+    "c2c": {},
+    "n_not_qualified_stop_rule": 1,
+    "n_pairs": 8,
+    "stop_rule_triggered": false
+  },
+  "t_hat_old": {
+    "0": 0.5031988373193974,
+    "1": 0.5029483520875077
+  },
+  "git": {
+    "commit": "6e3414bb20d9a2619e0f778e94bc9b3a4e4a716e",
+    "dirty": false
+  }
+}
