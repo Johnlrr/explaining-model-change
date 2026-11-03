@@ -1,0 +1,18 @@
+{
+  "experiment": "smoke_0030",
+  "decision": "D-052 X4",
+  "rc": [
+    0,
+    0
+  ],
+  "observed_hardware": "GPU: Tesla T4",
+  "cfg_sha256": "bb4f7fe093861005b25769b6761bf1ddd3df56b1c683ea389a1096cfa3badbe9",
+  "bundle_tree_hash": "8a2ba61e0009657883dc2757ff69f9545eea855d1221e1e963f362f0111ef5ec",
+  "python": "3.13.15",
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "wall_s": 48.4,
+  "work": {
+    "models": 4
+  }
+}

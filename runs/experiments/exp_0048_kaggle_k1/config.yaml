@@ -1,0 +1,70 @@
+id: boinhbo/dce-exp0048-k1
+title: dce exp0048 k1
+code_file: src/dce/remote/bundles/v110_tc_kaggle.py
+kernel_type: script
+language: python
+is_private: true
+enable_gpu: false
+enable_internet: true
+machine_shape: null
+expected_hardware_contains: null
+dataset_sources:
+- boinhbo/dce-d052-inputs
+competition_sources: []
+kernel_sources: []
+model_sources: []
+timeout_seconds: 36000
+wait_timeout_seconds: 36600
+poll_interval_seconds: 300
+immutable_kernel: true
+kernel_source_expectations: []
+fetch_files:
+- result.json
+- artifact_manifest.json
+- metadata.json
+- pair_03.json
+- pair_03.npz
+- pair_04.json
+- pair_04.npz
+- pair_05.json
+- pair_05.npz
+- pair_09.json
+- pair_09.npz
+- pair_10.json
+- pair_10.npz
+- pair_11.json
+- pair_11.npz
+- pair_12.json
+- pair_12.npz
+required_outputs:
+- result.json
+- artifact_manifest.json
+- metadata.json
+metrics_file: result.json
+json_checks:
+- path: work.processed
+  op: gte
+  value: 7
+parameters:
+  module: dce.cli.review_0211
+  experiment: exp_0048
+  argv:
+  - x1-run
+  - --pairs
+  - 3,4,5,9,10,11,12
+  config: configs/experiments/exp_0048.yaml
+  pairs:
+  - 3
+  - 4
+  - 5
+  - 9
+  - 10
+  - 11
+  - 12
+  threads: 4
+  pins:
+    torch: 2.14.1+cpu
+    numpy: 2.5.4
+    scipy: 1.18.1
+  cpu_capability: avx512
+  inputs_sha256: 97bbb45736c0db94485e3ce5dc6945a40b312ed503be4026ec6f1f21f2e040cf

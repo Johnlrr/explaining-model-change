@@ -1,0 +1,21 @@
+{
+  "experiment": "exp_0049",
+  "decision": "D-052",
+  "shard": [
+    0,
+    2
+  ],
+  "git_runs": [
+    {
+      "git": {
+        "commit": "5257c74d1bd508c1afe22114bcc3172e33e882d3",
+        "dirty": false
+      },
+      "started": "2026-11-02T20:21:27",
+      "threads": 8
+    }
+  ],
+  "python": "3.12.14",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39"
+}

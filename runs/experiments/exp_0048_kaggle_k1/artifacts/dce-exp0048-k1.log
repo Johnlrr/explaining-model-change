@@ -1,0 +1,16 @@
+[{"stream_name":"stdout","time":66.350025512,"data":"config sha256 96ff79cc56e9a72d9cd6544e0b85115862d4f903f1523864e44a44fca497ba0a\n"}
+,{"stream_name":"stdout","time":4999.19565352,"data":"pair 3 (T3) done {'ig': 40.02836012840271, 'shap': 1382.5990633964539, 'b4a': 56.83290243148804, 'b5x': 3453.3143661022186}\n"}
+,{"stream_name":"stdout","time":9954.048700496,"data":"pair 4 (T3) done {'ig': 42.59144473075867, 'shap': 1402.452130317688, 'b4a': 58.297149658203125, 'b5x': 3451.4640321731567}\n"}
+,{"stream_name":"stdout","time":14884.910801848,"data":"pair 5 (T3) done {'ig': 41.945958852767944, 'shap': 1402.5108215808868, 'b4a': 58.420674085617065, 'b5x': 3427.929080724716}\n"}
+,{"stream_name":"stdout","time":16394.221090229,"data":"pair 9 (N0) done {'ig': 44.54136037826538, 'shap': 1406.2105107307434, 'b4a': 58.511011362075806}\n"}
+,{"stream_name":"stdout","time":17912.501496765,"data":"pair 10 (N0) done {'ig': 40.39602208137512, 'shap': 1419.6422872543335, 'b4a': 58.21415328979492}\n"}
+,{"stream_name":"stdout","time":19427.324500545,"data":"pair 11 (N0) done {'ig': 40.533077239990234, 'shap': 1416.60018658638, 'b4a': 57.66346263885498}\n"}
+,{"stream_name":"stdout","time":20901.523501651,"data":"pair 12 (N0) done {'ig': 39.6180419921875, 'shap': 1377.482717037201, 'b4a': 57.072149991989136}\n"}
+,{"stream_name":"stdout","time":20901.538251764,"data":"{\"rc\": 0, \"pairs_done\": [3, 4, 5, 9, 10, 11, 12], \"pairs_partial\": [], \"wall_s\": 20900.7}\n"}
+,{"stream_name":"stderr","time":20905.404941385,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":20905.404980294,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":20905.766686278,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":20905.766716951,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":20906.751994284,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":20908.056503753,"data":"[NbConvertApp] Writing 642298 bytes to __results__.html\n"}
+]

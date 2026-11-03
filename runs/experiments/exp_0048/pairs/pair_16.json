@@ -1,0 +1,26 @@
+{
+  "pair_id": 16,
+  "condition": "N1",
+  "seed": 2,
+  "k_star": null,
+  "n_points": 300,
+  "runtime_s": {
+    "ig": 37.33384895324707,
+    "shap": 1297.4537341594696,
+    "b4a": 54.48487973213196
+  },
+  "checkpoints": [
+    {
+      "name": "f_old_s2",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s2.pt",
+      "sha256": "b6f462719d1aa0e38a682b907674ff90ea524e35f9119a5aa29e28079acff330"
+    },
+    {
+      "name": "f_new_p16_N1_s2",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_new_p16_N1_s2.pt",
+      "sha256": "c1a551f8f1c5dafec0375768c627749768b7793a7e4c70beea74fb0fd72995e1"
+    }
+  ]
+}

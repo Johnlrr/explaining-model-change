@@ -1446,6 +1446,21 @@ thresholds and their comparisons run on Kaggle only (one machine); no threshold 
 pairs 110, 115, 100 and 105 are re-run locally with the same code; the agreement of Δ-CE found (N, O), s_M and CF-diff
 ‖Δφ‖ is reported. Registered readouts use the Kaggle values (as D-044).
 
+**Results X3, X1, X2 (2026-11-03, after the numbers; READMEs of exp_0048, exp_0049).** All 5 kernels rc 0, all pairs,
+bundle tree df321b1f…, config and inputs hashes match, outputs match the kernel manifests; analysis code unchanged
+since the run commit. **X3:** Δ-CE witness share 0.000 on 2 400 unfiltered null queries, pooled and in 8/8 pairs →
+prediction met; CF-diff attributes 0.983–0.997. **X1:** IG-/SHAP-diff high on Shortcut (0.93) but **not low on
+Threshold** (0.73–0.75, Grad-diff 0.07) → prediction half met (IG and SHAP are not local, so Proposition 2(a) does not
+cover them); Imp-diff(adapt) recovers colour on Shortcut (1.00) → met; Seg-search×10 found-rate 0.26–0.47 → **not met**
+(≤ 0.2 predicted). **X2 (a) confirmatory:** Grad-diff < 0.2 in 8/8 qualified pairs, sign test p = 0.0039 → confirmed.
+**X2 (b):** at τ_0 Δ-CE 0.17–1.00, s_M 0.00–0.54, CF-diff 0 in every pair; Δ-CE ≥ s_M + 0.20 in 7/8 (pair 100:
++0.17) → **branch (iii)**: numbers reported with the conservative wording (no detection-sensitivity claim for
+witnesses). This overrides M's branch (ii) for the paper's wording, since X2 is the registered readout on new data; M
+is reported as the earlier, smaller check. **Machine-sensitivity check** (`dce.cli.machine_check`, restart noise drawn
+for the full 300-point batch so that it equals the Kaggle noise): all decisions agree 40/40, s_M < 10⁻⁶; CF-diff ‖Δφ‖
+agrees on 28/40 queries, the rest differ by up to 0.10 with similar pair means. Not done yet: X4 (exp_0050; GPU
+training submitted 2026-11-03 after smoke_0030 passed: T4, cfg sha256 and bundle tree verified, 4 checkpoints match).
+
 ---
 
 ## 12. Decision conflicts

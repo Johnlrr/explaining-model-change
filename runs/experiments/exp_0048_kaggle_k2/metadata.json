@@ -1,0 +1,107 @@
+{
+  "run_id": "exp_0048_kaggle_k2",
+  "status": "RUNNING",
+  "executor": "kaggle",
+  "kernel": "boinhbo/dce-exp0048-k2",
+  "git_commit": "f7487b3a56d8f1570dec7d5c1f4a0f3f2e78531a",
+  "requested_hardware": null,
+  "internet": true,
+  "started_at": "2026-11-02T13:53:25.422332+00:00",
+  "finished_at": null,
+  "git_dirty": true,
+  "submitted_code_sha256": "9dc4db00288143ba9a86ac7e7a59e9b7df326b27559f4705181e45042d54576f",
+  "source_dir": "/home/toska/code/research/Agent-auto-Research",
+  "source_path": "/home/toska/code/research/Agent-auto-Research/src/dce/remote/bundles/v110_tc_kaggle.py",
+  "source_sha256": "e20fafdf90a04af1c6b7786ddb8f9ab2ae47ce45308ca66a88a6b060a97532df",
+  "source_git_tracked": true,
+  "config": {
+    "id": "boinhbo/dce-exp0048-k2",
+    "title": "dce exp0048 k2",
+    "code_file": "src/dce/remote/bundles/v110_tc_kaggle.py",
+    "kernel_type": "script",
+    "language": "python",
+    "is_private": true,
+    "enable_gpu": false,
+    "enable_internet": true,
+    "machine_shape": null,
+    "expected_hardware_contains": null,
+    "dataset_sources": [
+      "boinhbo/dce-d052-inputs"
+    ],
+    "competition_sources": [],
+    "kernel_sources": [],
+    "model_sources": [],
+    "timeout_seconds": 36000,
+    "wait_timeout_seconds": 36600,
+    "poll_interval_seconds": 300,
+    "immutable_kernel": true,
+    "kernel_source_expectations": [],
+    "fetch_files": [
+      "result.json",
+      "artifact_manifest.json",
+      "metadata.json",
+      "pair_06.json",
+      "pair_06.npz",
+      "pair_07.json",
+      "pair_07.npz",
+      "pair_08.json",
+      "pair_08.npz",
+      "pair_13.json",
+      "pair_13.npz",
+      "pair_14.json",
+      "pair_14.npz",
+      "pair_15.json",
+      "pair_15.npz",
+      "pair_16.json",
+      "pair_16.npz"
+    ],
+    "required_outputs": [
+      "result.json",
+      "artifact_manifest.json",
+      "metadata.json"
+    ],
+    "metrics_file": "result.json",
+    "json_checks": [
+      {
+        "path": "work.processed",
+        "op": "gte",
+        "value": 7
+      }
+    ],
+    "parameters": {
+      "module": "dce.cli.review_0211",
+      "experiment": "exp_0048",
+      "argv": [
+        "x1-run",
+        "--pairs",
+        "6,7,8,13,14,15,16"
+      ],
+      "config": "configs/experiments/exp_0048.yaml",
+      "pairs": [
+        6,
+        7,
+        8,
+        13,
+        14,
+        15,
+        16
+      ],
+      "threads": 4,
+      "pins": {
+        "torch": "2.14.1+cpu",
+        "numpy": "2.5.4",
+        "scipy": "1.18.1"
+      },
+      "cpu_capability": "avx512",
+      "inputs_sha256": "97bbb45736c0db94485e3ce5dc6945a40b312ed503be4026ec6f1f21f2e040cf"
+    }
+  },
+  "error": null,
+  "kernel_version": 1,
+  "remote_status": null,
+  "remote_failure_message": null,
+  "observed_hardware": null,
+  "expected_hardware_contains": null,
+  "remote_artifacts": null,
+  "account": "boinhbo"
+}

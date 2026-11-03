@@ -1,0 +1,104 @@
+{
+  "run_id": "exp_0049_kaggle_k2",
+  "status": "RUNNING",
+  "executor": "kaggle",
+  "kernel": "boinhbo/dce-exp0049-k2",
+  "git_commit": "f7487b3a56d8f1570dec7d5c1f4a0f3f2e78531a",
+  "requested_hardware": null,
+  "internet": true,
+  "started_at": "2026-11-02T13:54:05.678788+00:00",
+  "finished_at": null,
+  "git_dirty": true,
+  "submitted_code_sha256": "44c99237dfe61359d400949eb203ef2499bc1a2adf39515725eb0aedf66f21f9",
+  "source_dir": "/home/toska/code/research/Agent-auto-Research",
+  "source_path": "/home/toska/code/research/Agent-auto-Research/src/dce/remote/bundles/v110_tc_kaggle.py",
+  "source_sha256": "e20fafdf90a04af1c6b7786ddb8f9ab2ae47ce45308ca66a88a6b060a97532df",
+  "source_git_tracked": true,
+  "config": {
+    "id": "boinhbo/dce-exp0049-k2",
+    "title": "dce exp0049 k2",
+    "code_file": "src/dce/remote/bundles/v110_tc_kaggle.py",
+    "kernel_type": "script",
+    "language": "python",
+    "is_private": true,
+    "enable_gpu": false,
+    "enable_internet": true,
+    "machine_shape": null,
+    "expected_hardware_contains": null,
+    "dataset_sources": [
+      "boinhbo/dce-d052-inputs"
+    ],
+    "competition_sources": [],
+    "kernel_sources": [],
+    "model_sources": [],
+    "timeout_seconds": 36000,
+    "wait_timeout_seconds": 36600,
+    "poll_interval_seconds": 300,
+    "immutable_kernel": true,
+    "kernel_source_expectations": [],
+    "fetch_files": [
+      "result.json",
+      "artifact_manifest.json",
+      "metadata.json",
+      "pair_111.json",
+      "pair_111.npz",
+      "pair_114.json",
+      "pair_114.npz",
+      "pair_117.json",
+      "pair_117.npz",
+      "pair_102.json",
+      "pair_102.npz",
+      "pair_105.json",
+      "pair_105.npz",
+      "pair_108.json",
+      "pair_108.npz"
+    ],
+    "required_outputs": [
+      "result.json",
+      "artifact_manifest.json",
+      "metadata.json"
+    ],
+    "metrics_file": "result.json",
+    "json_checks": [
+      {
+        "path": "work.processed",
+        "op": "gte",
+        "value": 6
+      }
+    ],
+    "parameters": {
+      "module": "dce.cli.split_d",
+      "experiment": "exp_0049",
+      "argv": [
+        "run",
+        "--shard",
+        "1/3"
+      ],
+      "config": "configs/experiments/exp_0049.yaml",
+      "pairs": [
+        111,
+        114,
+        117,
+        102,
+        105,
+        108
+      ],
+      "threads": 4,
+      "pins": {
+        "torch": "2.14.1+cpu",
+        "numpy": "2.5.4",
+        "scipy": "1.18.1"
+      },
+      "cpu_capability": "avx512",
+      "inputs_sha256": "97bbb45736c0db94485e3ce5dc6945a40b312ed503be4026ec6f1f21f2e040cf"
+    }
+  },
+  "error": null,
+  "kernel_version": 1,
+  "remote_status": null,
+  "remote_failure_message": null,
+  "observed_hardware": null,
+  "expected_hardware_contains": null,
+  "remote_artifacts": null,
+  "account": "boinhbo"
+}

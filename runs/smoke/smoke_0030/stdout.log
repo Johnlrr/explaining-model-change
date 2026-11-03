@@ -1,0 +1,16 @@
+Warning: Looks like you're using an outdated `kaggle` version (installed: 2.2.4), please consider upgrading to the latest version (2.2.5)
+Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/dinhbaobao/dce-smoke0030-x4train
+Warning: Looks like you're using an outdated `kaggle` version (installed: 2.2.4), please consider upgrading to the latest version (2.2.5)
+dinhbaobao/dce-smoke0030-x4train has status "KernelWorkerStatus.COMPLETE"
+[{"stream_name":"stdout","time":32.687348654,"data":"f_old s0: val acc 0.9818 in 20.2 s\n"}
+,{"stream_name":"stdout","time":44.877459928,"data":"f_old s1: val acc 0.9674 in 12.2 s\n"}
+,{"stream_name":"stdout","time":47.197642606,"data":"trained r8_f_new_p120_a0.00_t0.53_s0 in 2.3 s, final loss 0.3103\n"}
+,{"stream_name":"stdout","time":49.413252557,"data":"trained r8_f_new_p128_N0_s0 in 2.2 s, final loss 0.2984\n"}
+,{"stream_name":"stdout","time":49.416525546,"data":"{\"experiment\": \"smoke_0030\", \"decision\": \"D-052 X4\", \"rc\": [0, 0], \"observed_hardware\": \"GPU: Tesla T4\", \"cfg_sha256\": \"bb4f7fe093861005b25769b6761bf1ddd3df56b1c683ea389a1096cfa3badbe9\", \"bundle_tree_hash\": \"8a2ba61e0009657883dc2757ff69f9545eea855d1221e1e963f362f0111ef5ec\", \"python\": \"3.13.15\", \"torch\": \"2.11.0+cu128\", \"cuda\": \"12.8\", \"wall_s\": 48.4, \"work\": {\"models\": 4}}\n"}
+,{"stream_name":"stderr","time":56.050744622,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":56.050774492,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":56.361586624,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":56.361616921,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":57.190372228,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":58.214921294,"data":"[NbConvertApp] Writing 646464 bytes to __results__.html\n"}
+]

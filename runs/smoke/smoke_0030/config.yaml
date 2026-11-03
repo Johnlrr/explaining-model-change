@@ -1,0 +1,118 @@
+id: dinhbaobao/dce-smoke0030-x4train
+title: dce smoke0030 x4train
+code_file: src/dce/remote/bundles/x4_train.py
+kernel_type: script
+language: python
+is_private: true
+enable_gpu: true
+enable_internet: false
+machine_shape: NvidiaTeslaT4
+expected_hardware_contains: T4
+dataset_sources: []
+competition_sources: []
+kernel_sources: []
+model_sources: []
+timeout_seconds: 900
+wait_timeout_seconds: 1500
+poll_interval_seconds: 30
+immutable_kernel: false
+kernel_source_expectations: []
+fetch_files:
+- result.json
+- artifact_manifest.json
+- train_old_log.json
+- train_log.json
+- r8_f_old_s0.pt
+- r8_f_old_s1.pt
+- r8_f_new_p120_a0.00_t0.53_s0.pt
+- r8_f_new_p128_N0_s0.pt
+required_outputs:
+- result.json
+- artifact_manifest.json
+metrics_file: result.json
+json_checks:
+- path: work.models
+  op: gte
+  value: 4
+parameters:
+  experiment: smoke_0030
+  device: cuda
+  cfg_sha256: bb4f7fe093861005b25769b6761bf1ddd3df56b1c683ea389a1096cfa3badbe9
+  cfg:
+    tier: 0
+    data_seed: 1234
+    label_noise: 0.05
+    adapt_label_noise: 0.05
+    f_old_cosine: true
+    kappa: 0.5
+    factors:
+    - aspect
+    - size
+    - color
+    - bg
+    - posx
+    training:
+      f_old_lr: 0.001
+      finetune_lr: 0.0003
+      batch_size: 256
+    seeds:
+      init_base: 0
+      order_base: 100
+      noise_base: 200
+      adapt_data_base: 2000
+      adapt_order_base: 3000
+      adapt_noise_base: 4000
+      points_base: 5000
+      restart_base: 10000
+    threads: 8
+    solver:
+      R: 5
+      T: 400
+      lr: 0.05
+      lam0: 1.0
+      mu: 0.0
+      sigma: 0.05
+      clamp:
+      - 0.0
+      - 1.0
+      lam_schedule: halve_every
+      n_lam_steps: 8
+      polish: true
+      slsqp_maxiter: 100
+      slsqp_ftol: 1.0e-10
+      slsqp_tighten: 0.0001
+      n_workers: 8
+    r: 0.5412657260894775
+    experiment_id: smoke_0030
+    decision: D-052
+    tier_config: configs/tiers/tier0.yaml
+    models_run: runs/experiments/exp_0050
+    out_run: runs/experiments/exp_0050
+    f_old_seeds:
+    - 0
+    - 1
+    f_old_epochs: 1
+    pair_ids:
+    - 120
+    - 128
+    n_adapt: 10000
+    recipe_grid:
+      epochs: 1
+      lr: 0.001
+      batch_size: 256
+    recipe_null:
+      epochs: 1
+      lr: 0.0003
+      batch_size: 256
+    n_qualify: 5000
+    n_g0_points: 2000
+    data_seed_base: 9500
+    n_samples: 5000
+    n_points: 200
+    n_ball: 256
+    ball_seed_base: 5200
+    timing_pairs:
+    - 120
+    - 128
+    timing_points: 5
+    budget_h: 12

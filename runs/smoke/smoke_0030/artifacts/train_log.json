@@ -1,0 +1,25 @@
+[
+  {
+    "pair_id": 120,
+    "kind": "offset",
+    "alpha": 0.0,
+    "t": 0.53,
+    "seed": 0,
+    "k_star": "aspect",
+    "loss": [
+      0.3102798201560974
+    ],
+    "wall_s": 2.3
+  },
+  {
+    "pair_id": 128,
+    "kind": "null",
+    "condition": "N0",
+    "seed": 0,
+    "k_star": null,
+    "loss": [
+      0.29842907269001007
+    ],
+    "wall_s": 2.2
+  }
+]

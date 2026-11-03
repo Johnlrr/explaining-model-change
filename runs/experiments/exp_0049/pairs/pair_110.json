@@ -1,0 +1,42 @@
+{
+  "pair_id": 110,
+  "kind": "null",
+  "condition": "N0",
+  "seed": 0,
+  "k_star": null,
+  "n_points": 300,
+  "data_seed": 9610,
+  "data_sha256": "c5cb00cb8c4e88be6854c3fa48c781988ec1eeacdfc0396c71b216ad2c60da96",
+  "runtime": {
+    "dce_N": {
+      "wall_s_per_point": 11.321402558485667,
+      "cpu_s_per_point": 44.12622764606999,
+      "device": "cpu",
+      "phase1_wall_s": 674.712904214859,
+      "phase2_cpu_s_per_point_with_witness": null,
+      "phase2_cpu_s_per_point_without_witness": 35.198910503306664
+    },
+    "dce_O": {
+      "wall_s_per_point": 10.98465299208959,
+      "cpu_s_per_point": 43.32978518498666,
+      "device": "cpu",
+      "phase1_wall_s": 678.3219459056854,
+      "phase2_cpu_s_per_point_with_witness": null,
+      "phase2_cpu_s_per_point_without_witness": 34.35624697340334
+    }
+  },
+  "checkpoints": [
+    {
+      "name": "f_old_s0",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s0.pt",
+      "sha256": "b54fdbc57708d958ffbc0f1e54a7e476ec6b51db4213eee4edd28dda64d7d0c5"
+    },
+    {
+      "name": "f_new_p110_N0_s0",
+      "path": "runs/experiments/exp_0049/models/f_new_p110_N0_s0.pt",
+      "sha256": "c1119a7e76d68fa9f338e534f70a88f901d114a093450d81da2e7c396e7c5b7a"
+    }
+  ],
+  "wall_s_pair": 7155.4
+}
