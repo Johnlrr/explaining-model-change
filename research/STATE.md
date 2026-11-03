@@ -22,9 +22,17 @@ D-052 (2026-11-02): ADVISOR REVIEW (Nhận_Xet_02_11.pdf, 10 items) → plan res
   Threshold (not offset-blind; half met), Imp-diff(adapt) 1.00, Seg-search×10 found 0.26–0.47 (NOT met); X2 (a)
   Grad-diff < 0.2 in 8/8, p = 0.0039 (CONFIRMED); X2 (b) Δ-CE ≥ s_M + 0.20 in 7/8 only → branch (iii): NO detection-
   sensitivity claim for witnesses (overrides M's branch (ii)); machine check: decisions 40/40, CF-diff ‖Δφ‖ 28/40.
-  X4 (exp_0050): NOT DONE by the registered feasibility rule (timing on Kaggle CPU: 30.9 h at 200, 15.5 h at 100
-  queries per pair; 45.6 CPU-h for the Δ-CE solver alone at 100; limit 12 h). Trained (T4, 0.16 GPU-h), qualified
-  7/8, smoke_0031 passed; no search outputs. Paper: one sentence in Limitations (registered, not done, why).
+  D-053 (2026-11-03, author): failed predictions re-checked (no implementation error); post-hoc findings: IG/SHAP-diff
+  name aspect on 57%/71% of NULL queries (task-factor bias; their offset "recovery" is not signal; paper sentence
+  withdrawn), Seg-search×10 = solver audit (0 Δ-CE misses on 955 queries, nearer on 953), X2(b) dose-response
+  (witness rate 0.02→1.00 with max|h| in the r-ball; pair 100 = smallest shift). Split-D IG prediction fixed in D-053.
+  X4 RUNNING LOCALLY as a disclosed deviation (100 queries/pair, exp_0050_run.yaml, chunked with resume; commit c8e6110).
+  RESUME after any interruption (same command; finished chunks are skipped):
+    setsid nohup uv run python -m dce.cli.x4_resnet run-chunked --chunk 20 --config configs/experiments/exp_0050_run.yaml \
+      --out runs/experiments/exp_0050 >> runs/experiments/exp_0050/run_chunked.log 2>&1 < /dev/null &
+  Progress: runs/experiments/exp_0050/run_chunked.log, pairs/chunks/. Then `x4_resnet analyze --config
+  configs/experiments/exp_0050_run.yaml --out runs/experiments/exp_0050`. Split-D IG: runs/experiments/exp_0051/split_d.log
+  (`dce.cli.x1_ref split-d`, rerun from scratch if interrupted, ≈ 1 h). Hard stop for X4: 10/11.
   PAPER rewritten 2026-11-03 (cf7cae1; backup .work/main_before_d052_rewrite.tex; 6 pages, 0 overfull). NEXT: author reviews the
   rewrite → number-check script (plan §4.4) → author names + repository link → send to advisor 14/11 → submit 18/11.
 D-048 (2026-10-26): external review (argument-review + conference-reviewer) checked against saved outputs. exp_0041
