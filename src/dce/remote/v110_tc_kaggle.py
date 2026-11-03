@@ -123,6 +123,9 @@ def main() -> None:
     for f in sorted((out / "pairs").glob("pair_*")):
         if not f.name.endswith(".claim"):
             shutil.copy(f, working / f.name)
+    for f in sorted(out.glob("*.json")):                # stage outputs such as timing.json (x4_resnet time)
+        if not f.name.startswith("metadata_"):
+            shutil.copy(f, working / f.name)
     meta = sorted(out.glob("metadata_*.json"))
     if meta:
         shutil.copy(meta[0], working / "metadata.json")

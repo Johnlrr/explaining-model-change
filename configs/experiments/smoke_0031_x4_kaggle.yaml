@@ -1,0 +1,54 @@
+# smoke_0031 on Kaggle CPU (D-052 X4 search path, D-044 executor): x4_resnet run, pairs 120 and 128, 3 points. Not interpreted.
+kernel:
+  id: dinhbaobao/dce-smoke0031-x4
+  title: dce smoke0031 x4
+  code_file: src/dce/remote/bundles/v110_tc_kaggle.py
+  kernel_type: script
+  language: python
+  is_private: true
+  enable_gpu: false
+  enable_internet: true
+  dataset_sources:
+  - dinhbaobao/dce-x4-inputs
+  competition_sources: []
+  kernel_sources: []
+  model_sources: []
+  immutable_kernel: true
+  timeout_seconds: 3600
+  wait_timeout_seconds: 4200
+  poll_interval_seconds: 120
+  parameters:
+    module: dce.cli.x4_resnet
+    experiment: smoke_0031
+    argv:
+    - run
+    - --shard
+    - 0/1
+    config: configs/experiments/smoke_0031_x4.yaml
+    pairs:
+    - 120
+    - 128
+    threads: 4
+    pins:
+      torch: 2.14.1+cpu
+      numpy: 2.5.4
+      scipy: 1.18.1
+    cpu_capability: avx512
+    inputs_sha256: 192d8f3e89d52bc509e481af0d434e30da462d8da68116a93af15ad299a5a759
+  required_outputs:
+  - result.json
+  - artifact_manifest.json
+  metrics_file: result.json
+  fetch_files:
+  - result.json
+  - artifact_manifest.json
+  - metadata.json
+  - pair_120.json
+  - pair_120.npz
+  - pair_128.json
+  - pair_128.npz
+  kernel_source_expectations: []
+  json_checks:
+  - path: work.processed
+    op: gte
+    value: 2

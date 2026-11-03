@@ -205,7 +205,7 @@ def cmd_time(cfg, out: Path) -> int:
     res = {}
     for pid in cfg["timing_pairs"]:
         t0 = time.time()
-        _, row = x4_pair(cfg | {"n_points": cfg["timing_points"], "models_run": str(out)}, BY_ID[pid], {})
+        _, row = x4_pair(cfg | {"n_points": cfg["timing_points"]}, BY_ID[pid], {})   # checkpoints from models_run
         res[pid] = {"wall_s": time.time() - t0, "points": cfg["timing_points"], "runtime": row["runtime"]}
     per_point = {pid: r["wall_s"] / r["points"] for pid, r in res.items()}
     kinds = {pid: BY_ID[pid]["kind"] for pid in per_point}
