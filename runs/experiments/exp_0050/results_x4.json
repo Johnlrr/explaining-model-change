@@ -1,0 +1,102 @@
+{
+  "label": "D-052 X4 (descriptive)",
+  "nulls": [
+    {
+      "pair_id": 128,
+      "dd_validation": 0.0035,
+      "witness_share": 0.91
+    },
+    {
+      "pair_id": 129,
+      "dd_validation": 0.0,
+      "witness_share": 0.89
+    }
+  ],
+  "offsets": [
+    {
+      "pair_id": 121,
+      "t": 0.6,
+      "seed": 0,
+      "graddiff_recovery": 0.32,
+      "dce_recovery": 0.43,
+      "dce_lowered": 1.0,
+      "s_M_lowered_fpr0": 0.023255813953488372,
+      "s_M_lowered_fpr0.05": 0.09302325581395349,
+      "cfdiff_lowered_fpr0": 0.0,
+      "cfdiff_lowered_fpr0.05": 0.06976744186046512
+    },
+    {
+      "pair_id": 122,
+      "t": 0.53,
+      "seed": 1,
+      "graddiff_recovery": 0.33,
+      "dce_recovery": 0.5,
+      "dce_lowered": 1.0,
+      "s_M_lowered_fpr0": 0.16,
+      "s_M_lowered_fpr0.05": 0.26,
+      "cfdiff_lowered_fpr0": 0.0,
+      "cfdiff_lowered_fpr0.05": 0.0
+    },
+    {
+      "pair_id": 123,
+      "t": 0.6,
+      "seed": 1,
+      "graddiff_recovery": 0.36,
+      "dce_recovery": 0.4,
+      "dce_lowered": 1.0,
+      "s_M_lowered_fpr0": 0.07317073170731707,
+      "s_M_lowered_fpr0.05": 0.2682926829268293,
+      "cfdiff_lowered_fpr0": 0.0,
+      "cfdiff_lowered_fpr0.05": 0.0975609756097561
+    }
+  ],
+  "rotations": [
+    {
+      "pair_id": 124,
+      "t": 0.53,
+      "seed": 0,
+      "graddiff_recovery": 0.1,
+      "dce_recovery": 0.16
+    },
+    {
+      "pair_id": 125,
+      "t": 0.6,
+      "seed": 0,
+      "graddiff_recovery": 0.06,
+      "dce_recovery": 0.21
+    },
+    {
+      "pair_id": 126,
+      "t": 0.53,
+      "seed": 1,
+      "graddiff_recovery": 0.08,
+      "dce_recovery": 0.23
+    },
+    {
+      "pair_id": 127,
+      "t": 0.6,
+      "seed": 1,
+      "graddiff_recovery": 0.09,
+      "dce_recovery": 0.17
+    }
+  ],
+  "tau": {
+    "s_M": {
+      "fpr0": 1.9879796504974365,
+      "fpr0.05": 1.18619647026062
+    },
+    "cfdiff": {
+      "fpr0": 0.32749311626339717,
+      "fpr0.05": 0.18732331310270153
+    }
+  },
+  "null_witness_share_pooled": 0.9,
+  "k_graddiff_below_02_offsets": "0 of 3",
+  "k_rotation_above_offset": "0 of 3",
+  "k_dce_ge_sM_plus_02_fpr0": "3 of 3",
+  "k_dce_ge_cfdiff_plus_02_fpr0": "3 of 3",
+  "git": {
+    "commit": "d7cd8f31c07b38527105002bb13e45d2c38af930",
+    "dirty": false
+  }
+}

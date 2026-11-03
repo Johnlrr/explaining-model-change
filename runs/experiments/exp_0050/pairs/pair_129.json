@@ -1,0 +1,135 @@
+{
+  "pair_id": 129,
+  "kind": "null",
+  "condition": "N0",
+  "seed": 1,
+  "k_star": null,
+  "data_seed": 9629,
+  "data_sha256": "76b8b15ebe1df2109cb0aa2aaa01b883325e58353915404ea4a5b494d4d2cfbc",
+  "checkpoints": [
+    {
+      "name": "r8_f_old_s1",
+      "path": "runs/experiments/exp_0050/models/r8_f_old_s1.pt",
+      "sha256": "bcd1eb8588c4331d3e9ea4fd7ce1fc5e48efaab945a55fc08970d8b83340f0d8"
+    },
+    {
+      "name": "r8_f_new_p129_N0_s1",
+      "path": "runs/experiments/exp_0050/models/r8_f_new_p129_N0_s1.pt",
+      "sha256": "6a62dc6496f62b1530834cda4fd0593f9488334f5cc5cdceed9dd627b90d5d87"
+    }
+  ],
+  "n_points": 100,
+  "chunks": [
+    {
+      "lo": 0,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 1.9146627140045167,
+          "cpu_s_per_point": 13.77706905367,
+          "device": "cpu",
+          "phase1_wall_s": 59.641162395477295,
+          "phase2_cpu_s_per_point_with_witness": 41.0422832262,
+          "phase2_cpu_s_per_point_without_witness": 66.48407484219999
+        },
+        "dce_O": {
+          "wall_s_per_point": 2.278536536693573,
+          "cpu_s_per_point": 15.800521374190003,
+          "device": "cpu",
+          "phase1_wall_s": 60.07990908622742,
+          "phase2_cpu_s_per_point_with_witness": 54.54505175093333,
+          "phase2_cpu_s_per_point_without_witness": 66.03989021660001
+        }
+      },
+      "wall_s_chunk": 475.6
+    },
+    {
+      "lo": 20,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 2.1824581384658814,
+          "cpu_s_per_point": 15.079006712429987,
+          "device": "cpu",
+          "phase1_wall_s": 60.34089231491089,
+          "phase2_cpu_s_per_point_with_witness": 49.743011384357146,
+          "phase2_cpu_s_per_point_without_witness": 62.872879635333334
+        },
+        "dce_O": {
+          "wall_s_per_point": 2.2502770256996154,
+          "cpu_s_per_point": 15.9130525846,
+          "device": "cpu",
+          "phase1_wall_s": 58.54038190841675,
+          "phase2_cpu_s_per_point_with_witness": 55.34662284508334,
+          "phase2_cpu_s_per_point_without_witness": 61.59909681137499
+        }
+      },
+      "wall_s_chunk": 515.8
+    },
+    {
+      "lo": 40,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 2.0938362789154055,
+          "cpu_s_per_point": 15.003017114059993,
+          "device": "cpu",
+          "phase1_wall_s": 59.15996861457825,
+          "phase2_cpu_s_per_point_with_witness": 48.67569204669231,
+          "phase2_cpu_s_per_point_without_witness": 62.667142072285706
+        },
+        "dce_O": {
+          "wall_s_per_point": 2.1436395478248595,
+          "cpu_s_per_point": 15.25285565682,
+          "device": "cpu",
+          "phase1_wall_s": 58.3435640335083,
+          "phase2_cpu_s_per_point_with_witness": 50.574320280230765,
+          "phase2_cpu_s_per_point_without_witness": 62.23529168928571
+        }
+      },
+      "wall_s_chunk": 501.8
+    },
+    {
+      "lo": 60,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 2.1785655856132506,
+          "cpu_s_per_point": 14.750221090259986,
+          "device": "cpu",
+          "phase1_wall_s": 60.336292028427124,
+          "phase2_cpu_s_per_point_with_witness": 49.954004793428574,
+          "phase2_cpu_s_per_point_without_witness": 56.702927603333336
+        },
+        "dce_O": {
+          "wall_s_per_point": 2.2890676045417786,
+          "cpu_s_per_point": 15.930436337510004,
+          "device": "cpu",
+          "phase1_wall_s": 57.61117076873779,
+          "phase2_cpu_s_per_point_with_witness": 55.0571178095625,
+          "phase2_cpu_s_per_point_without_witness": 70.97511843699999
+        }
+      },
+      "wall_s_chunk": 539.5
+    },
+    {
+      "lo": 80,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 2.174718449115753,
+          "cpu_s_per_point": 15.36667531278001,
+          "device": "cpu",
+          "phase1_wall_s": 59.93128705024719,
+          "phase2_cpu_s_per_point_with_witness": 54.1282253954375,
+          "phase2_cpu_s_per_point_without_witness": 61.826180867999994
+        },
+        "dce_O": {
+          "wall_s_per_point": 1.9470191550254823,
+          "cpu_s_per_point": 14.133404578089996,
+          "device": "cpu",
+          "phase1_wall_s": 59.03476929664612,
+          "phase2_cpu_s_per_point_with_witness": 44.255025312,
+          "phase2_cpu_s_per_point_without_witness": 65.0591900052
+        }
+      },
+      "wall_s_chunk": 513.5
+    }
+  ],
+  "wall_s_pair": 2546.2
+}

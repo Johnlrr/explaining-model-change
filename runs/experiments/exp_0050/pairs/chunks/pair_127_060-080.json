@@ -1,0 +1,34 @@
+{
+  "pair_id": 127,
+  "kind": "rotation",
+  "alpha": 0.5,
+  "t": 0.6,
+  "seed": 1,
+  "k_star": "color",
+  "n_points": 100,
+  "data_seed": 9627,
+  "data_sha256": "6fbf4bed297b55110955e7b0dadf9c633a3e0c83ffd0893e3c8562af9120d9ba",
+  "runtime": {
+    "dce_N": {
+      "wall_s_per_point": 1.9261121249198914,
+      "cpu_s_per_point": 12.919427012260005,
+      "device": "cpu",
+      "phase1_wall_s": 58.8199188709259,
+      "phase2_cpu_s_per_point_with_witness": 39.9148659294375,
+      "phase2_cpu_s_per_point_without_witness": 58.19944931025
+    }
+  },
+  "checkpoints": [
+    {
+      "name": "r8_f_old_s1",
+      "path": "runs/experiments/exp_0050/models/r8_f_old_s1.pt",
+      "sha256": "bcd1eb8588c4331d3e9ea4fd7ce1fc5e48efaab945a55fc08970d8b83340f0d8"
+    },
+    {
+      "name": "r8_f_new_p127_a0.50_t0.60_s1",
+      "path": "runs/experiments/exp_0050/models/r8_f_new_p127_a0.50_t0.60_s1.pt",
+      "sha256": "885a9906c4efc9e81964f5d9157541eb913ef37ac21832918251bfac381e764b"
+    }
+  ],
+  "wall_s_chunk": 282.9
+}

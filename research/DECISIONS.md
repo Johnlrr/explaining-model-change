@@ -1522,6 +1522,14 @@ X4 was run after the registered rule had excluded it, on another machine.
 is 0.42 vs 0.044). Reading for the paper: the direction of IG-diff on an offset is not distinguishable from what it
 reports on null updates; only its norm differs, which needs a threshold, as for CF-diff.
 
+**Result X4 (2026-11-03, local deviation run, exp_0050 README):** the CNN results do **not** transfer at κ = 0.5.
+Null witness share 0.90; Grad-diff < 0.2 on offsets 0/3 (0.32–0.36, at its null aspect rate 0.20–0.30); rotation
+above offset 0/3 (0.06–0.10); detection Δ-CE ≥ s_M + 0.2 in 3/3 but not at matched false positives. Witnesses
+verified (eval mode, constraints hold point by point). Cause: ResNet-8 null fine-tuning changes margins about four
+times more (max|h| in the r-ball median 1.93 vs 0.51); the witness rate vs max|h| curve is the same on both
+architectures. κ is a threshold on decisive margin change in logit units, not scale-free; it is **not** changed
+here (project rules file), the paper reports this as a limitation/finding.
+
 ---
 
 ## 12. Decision conflicts

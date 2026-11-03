@@ -26,7 +26,8 @@ D-052 (2026-11-02): ADVISOR REVIEW (Nhận_Xet_02_11.pdf, 10 items) → plan res
   name aspect on 57%/71% of NULL queries (task-factor bias; their offset "recovery" is not signal; paper sentence
   withdrawn), Seg-search×10 = solver audit (0 Δ-CE misses on 955 queries, nearer on 953), X2(b) dose-response
   (witness rate 0.02→1.00 with max|h| in the r-ball; pair 100 = smallest shift). Split-D IG prediction fixed in D-053.
-  X4 RUNNING LOCALLY as a disclosed deviation (100 queries/pair, exp_0050_run.yaml, chunked with resume; commit c8e6110).
+  X4 DONE locally (deviation): null witness share 0.90 (CNN 0), Grad-diff not offset-blind/not rotation-seeing
+  on ResNet; cause = 4× larger null margin jitter, same witness-vs-|h| curve. Previously: X4 RUNNING LOCALLY as a disclosed deviation (100 queries/pair, exp_0050_run.yaml, chunked with resume; commit c8e6110).
   RESUME after any interruption (same command; finished chunks are skipped):
     setsid nohup uv run python -m dce.cli.x4_resnet run-chunked --chunk 20 --config configs/experiments/exp_0050_run.yaml \
       --out runs/experiments/exp_0050 >> runs/experiments/exp_0050/run_chunked.log 2>&1 < /dev/null &
