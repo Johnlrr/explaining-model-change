@@ -1517,6 +1517,11 @@ equivalence check on smoke_0031 (2 pairs × 3 points, chunks 2 + 1) gives bit-id
 s_M,r and Grad-diff within 2.4·10⁻⁷ of the unchunked `run`. The hard stop 10 Nov 2026 stays. The paper states that
 X4 was run after the registered rule had excluded it, on another machine.
 
+**Result, split-D IG prediction (2026-11-03, exp_0051):** met. Nulls: IG-diff aspect rate pooled 0.42 (range
+0.06–0.82), Grad-diff 0.044; offsets 0.31–0.78, 8 of 8 within the null range (a weak criterion; the informative part
+is 0.42 vs 0.044). Reading for the paper: the direction of IG-diff on an offset is not distinguishable from what it
+reports on null updates; only its norm differs, which needs a threshold, as for CF-diff.
+
 ---
 
 ## 12. Decision conflicts

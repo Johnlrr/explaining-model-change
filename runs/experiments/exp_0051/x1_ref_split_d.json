@@ -1,0 +1,172 @@
+{
+  "label": "D-053 IG reference diagnostic, split-d",
+  "pairs": {
+    "110": {
+      "kind": "null",
+      "seed": 0,
+      "qualified": true,
+      "n": 300,
+      "ig_aspect_rate": 0.22333333333333333,
+      "graddiff_aspect_rate": 0.056666666666666664,
+      "ig_norm_mean": 0.15539089181096344
+    },
+    "111": {
+      "kind": "null",
+      "seed": 1,
+      "qualified": true,
+      "n": 300,
+      "ig_aspect_rate": 0.18666666666666668,
+      "graddiff_aspect_rate": 0.07666666666666666,
+      "ig_norm_mean": 0.08388596943019294
+    },
+    "112": {
+      "kind": "null",
+      "seed": 2,
+      "qualified": true,
+      "n": 300,
+      "ig_aspect_rate": 0.6166666666666667,
+      "graddiff_aspect_rate": 0.02666666666666667,
+      "ig_norm_mean": 0.1724453447551001
+    },
+    "113": {
+      "kind": "null",
+      "seed": 3,
+      "qualified": true,
+      "n": 300,
+      "ig_aspect_rate": 0.18666666666666668,
+      "graddiff_aspect_rate": 0.03666666666666667,
+      "ig_norm_mean": 0.18651145626166515
+    },
+    "114": {
+      "kind": "null",
+      "seed": 4,
+      "qualified": true,
+      "n": 300,
+      "ig_aspect_rate": 0.06,
+      "graddiff_aspect_rate": 0.016666666666666666,
+      "ig_norm_mean": 0.17592467174771878
+    },
+    "115": {
+      "kind": "null",
+      "seed": 0,
+      "qualified": true,
+      "n": 300,
+      "ig_aspect_rate": 0.7566666666666667,
+      "graddiff_aspect_rate": 0.043333333333333335,
+      "ig_norm_mean": 0.38212101367238877
+    },
+    "116": {
+      "kind": "null",
+      "seed": 1,
+      "qualified": true,
+      "n": 300,
+      "ig_aspect_rate": 0.5133333333333333,
+      "graddiff_aspect_rate": 0.07,
+      "ig_norm_mean": 0.25717694960087006
+    },
+    "117": {
+      "kind": "null",
+      "seed": 2,
+      "qualified": true,
+      "n": 300,
+      "ig_aspect_rate": 0.8166666666666667,
+      "graddiff_aspect_rate": 0.02666666666666667,
+      "ig_norm_mean": 0.4457008258557745
+    },
+    "100": {
+      "kind": "offset",
+      "seed": 2,
+      "qualified": true,
+      "n": 300,
+      "ig_aspect_rate": 0.31333333333333335,
+      "graddiff_aspect_rate": 0.05,
+      "ig_norm_mean": 0.4562681500404392
+    },
+    "101": {
+      "kind": "offset",
+      "seed": 2,
+      "qualified": true,
+      "n": 300,
+      "ig_aspect_rate": 0.4,
+      "graddiff_aspect_rate": 0.043333333333333335,
+      "ig_norm_mean": 0.437377420974991
+    },
+    "102": {
+      "kind": "offset",
+      "seed": 2,
+      "qualified": true,
+      "n": 300,
+      "ig_aspect_rate": 0.6733333333333333,
+      "graddiff_aspect_rate": 0.09333333333333334,
+      "ig_norm_mean": 0.6631352246195096
+    },
+    "103": {
+      "kind": "offset",
+      "seed": 3,
+      "qualified": false,
+      "n": 300,
+      "ig_aspect_rate": 0.26666666666666666,
+      "graddiff_aspect_rate": 0.03333333333333333,
+      "ig_norm_mean": 0.5386500640195764
+    },
+    "104": {
+      "kind": "offset",
+      "seed": 3,
+      "qualified": true,
+      "n": 300,
+      "ig_aspect_rate": 0.6866666666666666,
+      "graddiff_aspect_rate": 0.043333333333333335,
+      "ig_norm_mean": 0.7212804520687974
+    },
+    "105": {
+      "kind": "offset",
+      "seed": 3,
+      "qualified": true,
+      "n": 300,
+      "ig_aspect_rate": 0.78,
+      "graddiff_aspect_rate": 0.05333333333333334,
+      "ig_norm_mean": 0.7656517848208019
+    },
+    "106": {
+      "kind": "offset",
+      "seed": 4,
+      "qualified": true,
+      "n": 300,
+      "ig_aspect_rate": 0.43,
+      "graddiff_aspect_rate": 0.04,
+      "ig_norm_mean": 0.37323957588947015
+    },
+    "107": {
+      "kind": "offset",
+      "seed": 4,
+      "qualified": true,
+      "n": 300,
+      "ig_aspect_rate": 0.51,
+      "graddiff_aspect_rate": 0.03333333333333333,
+      "ig_norm_mean": 0.4544375128947189
+    },
+    "108": {
+      "kind": "offset",
+      "seed": 4,
+      "qualified": true,
+      "n": 300,
+      "ig_aspect_rate": 0.52,
+      "graddiff_aspect_rate": 0.09333333333333334,
+      "ig_norm_mean": 0.577479733451335
+    },
+    "summary": {
+      "null_ig_aspect_rate_pooled": 0.42,
+      "null_graddiff_aspect_rate_pooled": 0.04416666666666667,
+      "null_ig_aspect_rate_range": [
+        0.06,
+        0.8166666666666667
+      ],
+      "offsets_within_null_range": "8 of 8",
+      "prediction_met": true
+    }
+  },
+  "git": {
+    "commit": "2aece777c8f5ebae04744a7111aabf327eb8c10b",
+    "dirty": false
+  }
+}
