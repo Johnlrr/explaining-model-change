@@ -1,0 +1,76 @@
+{
+  "label": "D-054 \u03ba calibration, resnet, validation nulls",
+  "rule": "kappa_star = smallest kappa of the grid (ascending) with validation null witness share (N or O) <= target",
+  "target": 0.05,
+  "grid": [
+    0.5,
+    0.75,
+    1.0,
+    1.5,
+    2.0
+  ],
+  "levels": [
+    {
+      "kappa": 0.5,
+      "witnesses": 88,
+      "queries": 100,
+      "share": 0.88,
+      "per_pair": {
+        "128": 0.92,
+        "129": 0.84
+      },
+      "passes": false
+    },
+    {
+      "kappa": 0.75,
+      "witnesses": 77,
+      "queries": 100,
+      "share": 0.77,
+      "per_pair": {
+        "128": 0.9,
+        "129": 0.64
+      },
+      "passes": false
+    },
+    {
+      "kappa": 1.0,
+      "witnesses": 56,
+      "queries": 100,
+      "share": 0.56,
+      "per_pair": {
+        "128": 0.76,
+        "129": 0.36
+      },
+      "passes": false
+    },
+    {
+      "kappa": 1.5,
+      "witnesses": 20,
+      "queries": 100,
+      "share": 0.2,
+      "per_pair": {
+        "128": 0.4,
+        "129": 0.0
+      },
+      "passes": false
+    },
+    {
+      "kappa": 2.0,
+      "witnesses": 7,
+      "queries": 100,
+      "share": 0.07,
+      "per_pair": {
+        "128": 0.14,
+        "129": 0.0
+      },
+      "passes": false
+    }
+  ],
+  "kappa_star": null,
+  "config_sha256": "fb8db06986b0d6ba9c8180d8a93006af7a8f7c31cdc6482b2b0c68c87fbd0712",
+  "git": {
+    "commit": "8532d9c85a19149fe06a0e6d7dbab0cb8c7b08bd",
+    "dirty": false
+  },
+  "finished": "2026-11-04T02:32:16"
+}

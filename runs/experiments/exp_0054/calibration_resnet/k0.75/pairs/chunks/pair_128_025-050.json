@@ -1,0 +1,41 @@
+{
+  "pair_id": 128,
+  "kind": "null",
+  "condition": "N0",
+  "seed": 0,
+  "k_star": null,
+  "n_points": 50,
+  "data_seed": 9628,
+  "data_sha256": "validation",
+  "runtime": {
+    "dce_N": {
+      "wall_s_per_point": 6.5240086603164675,
+      "cpu_s_per_point": 48.06831951612,
+      "device": "cpu",
+      "phase1_wall_s": 85.50118637084961,
+      "phase2_cpu_s_per_point_with_witness": 64.4725529866,
+      "phase2_cpu_s_per_point_without_witness": 75.32828625186667
+    },
+    "dce_O": {
+      "wall_s_per_point": 5.6604341125488284,
+      "cpu_s_per_point": 40.01881340898,
+      "device": "cpu",
+      "phase1_wall_s": 74.43154382705688,
+      "phase2_cpu_s_per_point_with_witness": 53.11913558821429,
+      "phase2_cpu_s_per_point_without_witness": 64.47540288218181
+    }
+  },
+  "checkpoints": [
+    {
+      "name": "r8_f_old_s0",
+      "path": "runs/experiments/exp_0050/models/r8_f_old_s0.pt",
+      "sha256": "cd96b2568c8dfa51ccf307638d06d4a4eb1efb78d408a68802c99f5e36d5648c"
+    },
+    {
+      "name": "r8_f_new_p128_N0_s0",
+      "path": "runs/experiments/exp_0050/models/r8_f_new_p128_N0_s0.pt",
+      "sha256": "6743b1b35691ce371be329007de7c09042d80c4d9e7ea647625893fec15d33f2"
+    }
+  ],
+  "wall_s_chunk": 701.3
+}

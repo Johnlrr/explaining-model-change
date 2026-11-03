@@ -1,0 +1,69 @@
+{
+  "pair_id": 129,
+  "kind": "null",
+  "condition": "N0",
+  "seed": 1,
+  "k_star": null,
+  "data_seed": 9629,
+  "data_sha256": "validation",
+  "checkpoints": [
+    {
+      "name": "r8_f_old_s1",
+      "path": "runs/experiments/exp_0050/models/r8_f_old_s1.pt",
+      "sha256": "bcd1eb8588c4331d3e9ea4fd7ce1fc5e48efaab945a55fc08970d8b83340f0d8"
+    },
+    {
+      "name": "r8_f_new_p129_N0_s1",
+      "path": "runs/experiments/exp_0050/models/r8_f_new_p129_N0_s1.pt",
+      "sha256": "6a62dc6496f62b1530834cda4fd0593f9488334f5cc5cdceed9dd627b90d5d87"
+    }
+  ],
+  "n_points": 50,
+  "chunks": [
+    {
+      "lo": 0,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 6.3806228351593015,
+          "cpu_s_per_point": 47.37882603251999,
+          "device": "cpu",
+          "phase1_wall_s": 76.26340460777283,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 73.1752488802
+        },
+        "dce_O": {
+          "wall_s_per_point": 6.630959935188294,
+          "cpu_s_per_point": 47.54770961866,
+          "device": "cpu",
+          "phase1_wall_s": 73.18856644630432,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 73.68490107164
+        }
+      },
+      "wall_s_chunk": 726.2
+    },
+    {
+      "lo": 25,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 6.290644969940185,
+          "cpu_s_per_point": 45.74654345655999,
+          "device": "cpu",
+          "phase1_wall_s": 72.53685784339905,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 70.44956083828001
+        },
+        "dce_O": {
+          "wall_s_per_point": 6.163325037956238,
+          "cpu_s_per_point": 45.3347800158,
+          "device": "cpu",
+          "phase1_wall_s": 72.41570711135864,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 69.612100518
+        }
+      },
+      "wall_s_chunk": 713.1
+    }
+  ],
+  "wall_s_pair": 1439.3
+}

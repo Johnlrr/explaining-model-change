@@ -1558,6 +1558,14 @@ configs/experiments/exp_0054.yaml; smoke smoke_0033 (grid [2.0], target 1.0, 2�
 summary line was printed while checking it (split-E pair 128, κ = 2: 1 witness in 3 queries); these 3 queries are
 the first 3 of pair 128 in the test if κ* = 2.0. Checked: at κ = 2 query margins ≥ 2 and witness margins ±2.
 
+**Result D-054 (2026-11-04, exp_0054):** (a) CNN: κ* = 0.5 (0 of 200 validation null queries) → prediction met.
+(b) ResNet-8: null witness share on validation 0.88 / 0.77 / 0.56 / 0.20 / 0.07 at κ = 0.5 / 0.75 / 1.0 / 1.5 / 2.0
+(pair 128: 0.92 → 0.14; pair 129: 0.84 → 0 from κ = 1.5); **no κ of the grid passes → κ* = None, test not run**
+(rule applied as written). Post-hoc diagnostic on the already-read split-D X4 outputs (not split E): max|h| over the
+r-ball, nulls median 1.93 (p95 3.08), lowered-class offset queries median 6.1, 100% above the null p95 (CNN: 0.51
+vs 1.27, 66%). On ResNet-8 null and offset updates are well separated in margin change; the grid stopped below
+the κ that would separate them (2κ ≈ 4–6). Split E untouched.
+
 ---
 
 ## 12. Decision conflicts
