@@ -1,0 +1,27 @@
+{
+  "label": "D-054 \u03ba calibration, cnn, validation nulls",
+  "rule": "kappa_star = smallest kappa of the grid (ascending) with validation null witness share (N or O) <= target",
+  "target": 1.0,
+  "grid": [
+    2.0
+  ],
+  "levels": [
+    {
+      "kappa": 2.0,
+      "witnesses": 0,
+      "queries": 2,
+      "share": 0.0,
+      "per_pair": {
+        "110": 0.0
+      },
+      "passes": true
+    }
+  ],
+  "kappa_star": 2.0,
+  "config_sha256": "5604dafaff6069c898582be906f5beb310bb82fc31d1269e93d3bf399f0fe557",
+  "git": {
+    "commit": "5e2c3fbc9c194beaf07980bfd9eff3d93fc97c09",
+    "dirty": true
+  },
+  "finished": "2026-11-03T19:36:46"
+}

@@ -1532,6 +1532,34 @@ here (project rules file), the paper reports this as a limitation/finding.
 
 ---
 
+## D-054 — κ calibrated on validation nulls per architecture (2026-11-03, author approved; rules before any number)
+
+**Why.** X4 (D-053) gave null witness share 0.90 on ResNet-8 at κ = 0.5 because its null fine-tuning moves margins
+about four times more than the CNN's. The author approved (2026-11-03) an exception to the project rules file rule "do not
+change κ after seeing results", limited to this: κ = 0.5 stays for every CNN result and table; a calibration
+**rule** is added and tested on fresh data. Exploratory, after the X4 result; descriptive in the paper.
+
+**Rule.** κ* = smallest κ in the grid {0.5, 0.75, 1.0, 1.5, 2.0}, walked in ascending order, whose witness share
+(type N or O) on validation queries of the architecture's null pairs is ≤ 0.05; none → κ* = None, no test, reported.
+Validation queries: `valid_points` at that κ on the validation split, seed 5000 + pair_id (as every run). ResNet-8:
+nulls 128, 129, 50 queries each. CNN (consistency check): split-D nulls 110–117, 25 queries each. Everything else
+(r, solver, restarts, checkpoints) unchanged. κ* is read by code from calibration_<arch>.json (`dce.cli.kappa_cal`);
+it is never typed into a config.
+
+**Predictions.** (a) CNN: κ* = 0.5 (E4: no null witness at κ = 0.5). (b) ResNet-8: descriptive; whatever κ* is, it
+is reported. **Test** (ResNet-8 only, if κ* exists): the X4 pipeline unchanged (`x4_resnet run-chunked`, 100 queries
+per pair, all pairs 120–129, qualification flags of exp_0050) at κ = κ* on fresh split E (data_seed_base 9800,
+seeds 9920–9929, unused). Readouts as X4 (null witness share; Δ-CE, s_M, CF-diff on the lowered class of the
+qualified α = 0 offsets at thresholds from the split-E nulls; Grad-diff and Δ-CE Recovery). Reading fixed now:
+**"calibration works"** iff the split-E null witness share ≤ 0.05 **and** Δ-CE finds a witness for ≥ 0.5 of
+lowered-class queries in each of the 3 qualified offsets; **"no κ separates"** if the null share ≤ 0.05 but some
+offset falls below 0.5; **"calibration does not transfer"** if the split-E null share > 0.05. Config
+configs/experiments/exp_0054.yaml; smoke smoke_0033 (grid [2.0], target 1.0, 2–3 points; not interpreted). Disclosure: the smoke's
+summary line was printed while checking it (split-E pair 128, κ = 2: 1 witness in 3 queries); these 3 queries are
+the first 3 of pair 128 in the test if κ* = 2.0. Checked: at κ = 2 query margins ≥ 2 and witness margins ±2.
+
+---
+
 ## 12. Decision conflicts
 
 Conflicts between the spec and the protocol are resolved in favour of `docs/EVALUATION.md` (D-011, spec amendment v1.1) and the layout in AGENTS.md (D-001).

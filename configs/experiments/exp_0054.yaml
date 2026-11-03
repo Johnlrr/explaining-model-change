@@ -1,0 +1,24 @@
+# exp_0054 — D-054: κ calibrated on validation null updates per architecture (rule fixed before any number), then the
+# ResNet-8 X4 pipeline at κ* on fresh split-E data. Exploratory, after the X4 result (D-053); the paper's κ = 0.5 stays.
+experiment_id: exp_0054
+decision: D-054
+tier_config: configs/tiers/tier0.yaml
+threads: 8
+calibration:
+  rule: "kappa_star = smallest kappa of the grid (ascending) with validation null witness share (N or O) <= target"
+  target: 0.05
+  grid: [0.5, 0.75, 1.0, 1.5, 2.0]
+  cnn:
+    base_config: configs/experiments/exp_0049.yaml      # split-D CNN nulls 110–117 (unfiltered), exp_0049 checkpoints
+    null_pairs: [110, 111, 112, 113, 114, 115, 116, 117]
+    n_per_pair: 25                                       # 200 validation queries
+  resnet:
+    base_config: configs/experiments/exp_0050_run.yaml  # ResNet-8 nulls 128, 129, exp_0050 checkpoints
+    models_run: runs/experiments/exp_0050
+    null_pairs: [128, 129]
+    n_per_pair: 50                                       # 100 validation queries
+test:
+  base_config: configs/experiments/exp_0050_run.yaml
+  data_seed_base: 9800                                   # fresh split E (seeds 9920–9929; unused before)
+  n_points: 100
+  pair_ids: [120, 121, 122, 123, 124, 125, 126, 127, 128, 129]

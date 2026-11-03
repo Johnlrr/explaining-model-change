@@ -1,0 +1,45 @@
+{
+  "label": "D-052 X4 (descriptive)",
+  "nulls": [
+    {
+      "pair_id": 128,
+      "dd_validation": 0.0035,
+      "witness_share": 0.3333333333333333
+    }
+  ],
+  "offsets": [
+    {
+      "pair_id": 121,
+      "t": 0.6,
+      "seed": 0,
+      "graddiff_recovery": 0.6666666666666666,
+      "dce_recovery": 0.3333333333333333,
+      "dce_lowered": 1.0,
+      "s_M_lowered_fpr0": 0.0,
+      "s_M_lowered_fpr0.05": 0.0,
+      "cfdiff_lowered_fpr0": 1.0,
+      "cfdiff_lowered_fpr0.05": 1.0
+    }
+  ],
+  "rotations": [],
+  "tau": {
+    "s_M": {
+      "fpr0": 0.5561110973358154,
+      "fpr0.05": 0.5176071643829345
+    },
+    "cfdiff": {
+      "fpr0": 0.031945106528170314,
+      "fpr0.05": 0.031876659488503975
+    }
+  },
+  "null_witness_share_pooled": 0.3333333333333333,
+  "k_graddiff_below_02_offsets": "0 of 1",
+  "k_rotation_above_offset": "0 of 0",
+  "k_dce_ge_sM_plus_02_fpr0": "1 of 1",
+  "k_dce_ge_cfdiff_plus_02_fpr0": "0 of 1",
+  "kappa": 2.0,
+  "git": {
+    "commit": "5e2c3fbc9c194beaf07980bfd9eff3d93fc97c09",
+    "dirty": true
+  }
+}

@@ -1,0 +1,23 @@
+# smoke_0033 — D-054 pipeline at smoke scale (grid [2.0], target 1.0 so the test stage runs at κ = 2). Not interpreted.
+experiment_id: smoke_0033
+decision: D-054
+tier_config: configs/tiers/tier0.yaml
+threads: 8
+calibration:
+  rule: "kappa_star = smallest kappa of the grid (ascending) with validation null witness share (N or O) <= target"
+  target: 1.0
+  grid: [2.0]
+  cnn:
+    base_config: configs/experiments/exp_0049.yaml      # split-D CNN nulls 110–117 (unfiltered), exp_0049 checkpoints
+    null_pairs: [110]
+    n_per_pair: 2
+  resnet:
+    base_config: configs/experiments/exp_0050_run.yaml  # ResNet-8 nulls 128, 129, exp_0050 checkpoints
+    models_run: runs/experiments/exp_0050
+    null_pairs: [128]
+    n_per_pair: 2
+test:
+  base_config: configs/experiments/exp_0050_run.yaml
+  data_seed_base: 9800                                   # fresh split E (seeds 9920–9929; unused before)
+  n_points: 3
+  pair_ids: [121, 128]
