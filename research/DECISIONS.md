@@ -1461,6 +1461,13 @@ for the full 300-point batch so that it equals the Kaggle noise): all decisions 
 agrees on 28/40 queries, the rest differ by up to 0.10 with similar pair means. Not done yet: X4 (exp_0050; GPU
 training submitted 2026-11-03 after smoke_0030 passed: T4, cfg sha256 and bundle tree verified, 4 checkpoints match).
 
+**Result X4 (2026-11-03): NOT DONE, by the registered feasibility rule.** ResNet-8 trained on Kaggle T4 (0.16 GPU-h,
+12 checkpoints verified), qualification 7/8 change pairs (120 fails), search smoke smoke_0031 passed; the timing kernel
+(dinhbaobao/dce-exp0050-time, same executor as the search) projects 30.9 h at 200 and 15.5 h at 100 queries per pair
+(committed code, wall-hours); in CPU-hours, the registration's unit, the Δ-CE solver alone needs 91.3 / 45.6 h. Both
+exceed 12 h at 100 → X4 is left out of the paper and reported as not done (README of exp_0050). No ResNet-8 witness
+result exists. The rule is not relaxed (no more kernels, fewer pairs or fewer restarts), since it was registered.
+
 ---
 
 ## 12. Decision conflicts

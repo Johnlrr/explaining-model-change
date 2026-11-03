@@ -1,0 +1,51 @@
+{
+  "label": "D-052 X4 timing (go/no-go)",
+  "pairs": {
+    "120": {
+      "wall_s": 236.91073083877563,
+      "points": 5,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 34.40287919044495,
+          "cpu_s_per_point": 131.74677640899998,
+          "device": "cpu",
+          "phase1_wall_s": 82.36436176300049,
+          "phase2_cpu_s_per_point_with_witness": 64.08047497675,
+          "phase2_cpu_s_per_point_without_witness": 78.680984218
+        }
+      }
+    },
+    "128": {
+      "wall_s": 444.7528932094574,
+      "points": 5,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 36.42319207191467,
+          "cpu_s_per_point": 138.25995113660002,
+          "device": "cpu",
+          "phase1_wall_s": 77.66167068481445,
+          "phase2_cpu_s_per_point_with_witness": 68.36781586866665,
+          "phase2_cpu_s_per_point_without_witness": 89.82527192949999
+        },
+        "dce_O": {
+          "wall_s_per_point": 39.99309415817261,
+          "cpu_s_per_point": 156.0120983978,
+          "device": "cpu",
+          "phase1_wall_s": 77.9701898097992,
+          "phase2_cpu_s_per_point_with_witness": 56.778040081,
+          "phase2_cpu_s_per_point_without_witness": 104.12779651675001
+        }
+      }
+    }
+  },
+  "projected_wall_h": {
+    "200": 30.94212925699022,
+    "100": 15.47106462849511
+  },
+  "n_points": null,
+  "go": false,
+  "git": {
+    "commit": "",
+    "dirty": false
+  }
+}

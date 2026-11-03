@@ -22,13 +22,10 @@ D-052 (2026-11-02): ADVISOR REVIEW (Nhận_Xet_02_11.pdf, 10 items) → plan res
   Threshold (not offset-blind; half met), Imp-diff(adapt) 1.00, Seg-search×10 found 0.26–0.47 (NOT met); X2 (a)
   Grad-diff < 0.2 in 8/8, p = 0.0039 (CONFIRMED); X2 (b) Δ-CE ≥ s_M + 0.20 in 7/8 only → branch (iii): NO detection-
   sensitivity claim for witnesses (overrides M's branch (ii)); machine check: decisions 40/40, CF-diff ‖Δφ‖ 28/40.
-  X4: ResNet-8 trained on Kaggle T4 (exp_0050, 572 s, 12 checkpoints verified; commit 97060bb); qualification 7/8
-  change pairs (120 fails dt −0.012). IN FLIGHT on dinhbaobao (kaggle-cpu; inputs dataset dinhbaobao/dce-x4-inputs,
-  listing 192d8f3e; bundle tree 782d0711, commit 64116c9): dce-smoke0031-x4 (search smoke) and dce-exp0050-time
-  (go/no-go timing → timing.json). Local smoke (3 points) took ≈ 34 s/point offset, 62 s/point null → 200 points may
-  exceed the 12 h rule. Recover: `uv run python -m tools.kaggle kernel status|wait|fetch --account dinhbaobao
-  dinhbaobao/<slug>`; run dirs runs/smoke/smoke_0031, runs/experiments/exp_0050_kaggle_time. Go/no-go 06/11, stop 10/11.
-  NEXT: X4 → rewrite paper (plan §4) → send to advisor 14/11 → submit 18/11.
+  X4 (exp_0050): NOT DONE by the registered feasibility rule (timing on Kaggle CPU: 30.9 h at 200, 15.5 h at 100
+  queries per pair; 45.6 CPU-h for the Δ-CE solver alone at 100; limit 12 h). Trained (T4, 0.16 GPU-h), qualified
+  7/8, smoke_0031 passed; no search outputs. Paper: one sentence in Limitations (registered, not done, why).
+  NEXT: rewrite paper (plan §4) → send to advisor 14/11 → submit 18/11.
 D-048 (2026-10-26): external review (argument-review + conference-reviewer) checked against saved outputs. exp_0041
   (type N/O/N∪O on Threshold, new data): N 0.449, O 0.551, N∪O 1.000. exp_0042 (CF-diff thresholded at matched FPR, saved
   outputs): flags none below 2κ at FPR 0. paper/main.tex: W6 number/label fixes, DeepXplore → No-prox, Table 3 column K
@@ -163,7 +160,7 @@ Source: `docs/source/delta_ce_spec.md` §3, `research/proposals/delta_ce_proposa
 ## 9. In-flight remote jobs
 
 ```text
-dinhbaobao/dce-smoke0031-x4 and dinhbaobao/dce-exp0050-time (D-052 X4, kaggle-cpu), submitted 2026-11-03.
+None (X4 timing and smoke finished 2026-11-03; X4 not done).
 ```
 
 ### Resume rule

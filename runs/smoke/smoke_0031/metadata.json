@@ -1,0 +1,97 @@
+{
+  "run_id": "smoke_0031",
+  "status": "SUCCESS",
+  "executor": "kaggle",
+  "kernel": "dinhbaobao/dce-smoke0031-x4",
+  "git_commit": "64116c95f69c30851e11abde86b5121c6325e048",
+  "requested_hardware": null,
+  "internet": true,
+  "started_at": "2026-11-03T02:50:56.540959+00:00",
+  "finished_at": "2026-11-03T03:01:44.821978+00:00",
+  "git_dirty": true,
+  "submitted_code_sha256": "f99b16fd9a56dd29e13c78f0cdef56a1ecf741246a79ecc9a11b4d3f0b6ca705",
+  "source_dir": "/home/toska/code/research/Agent-auto-Research",
+  "source_path": "/home/toska/code/research/Agent-auto-Research/src/dce/remote/bundles/v110_tc_kaggle.py",
+  "source_sha256": "e800412407e3f21e4ffa64a241defd67a344cc40c1705d78d7d1a6bd8ec2f051",
+  "source_git_tracked": true,
+  "config": {
+    "id": "dinhbaobao/dce-smoke0031-x4",
+    "title": "dce smoke0031 x4",
+    "code_file": "src/dce/remote/bundles/v110_tc_kaggle.py",
+    "kernel_type": "script",
+    "language": "python",
+    "is_private": true,
+    "enable_gpu": false,
+    "enable_internet": true,
+    "machine_shape": null,
+    "expected_hardware_contains": null,
+    "dataset_sources": [
+      "dinhbaobao/dce-x4-inputs"
+    ],
+    "competition_sources": [],
+    "kernel_sources": [],
+    "model_sources": [],
+    "timeout_seconds": 3600,
+    "wait_timeout_seconds": 4200,
+    "poll_interval_seconds": 120,
+    "immutable_kernel": true,
+    "kernel_source_expectations": [],
+    "fetch_files": [
+      "result.json",
+      "artifact_manifest.json",
+      "metadata.json",
+      "pair_120.json",
+      "pair_120.npz",
+      "pair_128.json",
+      "pair_128.npz"
+    ],
+    "required_outputs": [
+      "result.json",
+      "artifact_manifest.json"
+    ],
+    "metrics_file": "result.json",
+    "json_checks": [
+      {
+        "path": "work.processed",
+        "op": "gte",
+        "value": 2
+      }
+    ],
+    "parameters": {
+      "module": "dce.cli.x4_resnet",
+      "experiment": "smoke_0031",
+      "argv": [
+        "run",
+        "--shard",
+        "0/1"
+      ],
+      "config": "configs/experiments/smoke_0031_x4.yaml",
+      "pairs": [
+        120,
+        128
+      ],
+      "threads": 4,
+      "pins": {
+        "torch": "2.14.1+cpu",
+        "numpy": "2.5.4",
+        "scipy": "1.18.1"
+      },
+      "cpu_capability": "avx512",
+      "inputs_sha256": "192d8f3e89d52bc509e481af0d434e30da462d8da68116a93af15ad299a5a759"
+    }
+  },
+  "error": null,
+  "kernel_version": 1,
+  "remote_status": "KernelWorkerStatus.COMPLETE",
+  "remote_failure_message": null,
+  "observed_hardware": "CPU: Intel(R) Xeon(R) CPU @ 2.20GHz",
+  "expected_hardware_contains": null,
+  "remote_artifacts": {
+    "provider": "kaggle_kernel",
+    "kernel": "dinhbaobao/dce-smoke0031-x4",
+    "kernel_version": 1,
+    "manifest": "artifact_manifest.json",
+    "manifest_sha256": "3d12c447eb20cb60de2fb5010e3efa36acd3435bf490a1aebfbafcc18b9c17d0"
+  },
+  "account": "dinhbaobao"
+}

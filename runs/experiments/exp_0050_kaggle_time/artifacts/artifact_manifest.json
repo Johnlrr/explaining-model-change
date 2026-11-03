@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "result.json",
+      "kind": "output",
+      "path": "result.json",
+      "sha256": "6361f782cfb5c06e7152dc3c3c30bea1bbab8de346b5d3a1a50c04c84800facf",
+      "bytes": 1145
+    },
+    {
+      "name": "timing.json",
+      "kind": "output",
+      "path": "timing.json",
+      "sha256": "0c6ab91fa5e44ef2046bb6c1c4101f794fbb982ed451008b4551a0151b9f671f",
+      "bytes": 1437
+    }
+  ]
+}

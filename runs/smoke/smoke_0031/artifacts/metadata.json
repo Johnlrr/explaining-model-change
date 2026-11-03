@@ -1,0 +1,26 @@
+{
+  "experiment": "smoke_0031",
+  "decision": "D-052 X4",
+  "shard": [
+    0,
+    1
+  ],
+  "git_runs": [
+    {
+      "git": {
+        "commit": "",
+        "dirty": false
+      },
+      "started": "2026-11-03T02:52:28",
+      "threads": 8
+    }
+  ],
+  "python": "3.13.18",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.55+-x86_64-with-glibc2.39",
+  "pairs": [
+    120,
+    128
+  ],
+  "finished": "2026-11-03T03:01:06"
+}
