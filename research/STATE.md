@@ -25,7 +25,8 @@ D-052 (2026-11-02): ADVISOR REVIEW (Nhận_Xet_02_11.pdf, 10 items) → plan res
   X4 (exp_0050): NOT DONE by the registered feasibility rule (timing on Kaggle CPU: 30.9 h at 200, 15.5 h at 100
   queries per pair; 45.6 CPU-h for the Δ-CE solver alone at 100; limit 12 h). Trained (T4, 0.16 GPU-h), qualified
   7/8, smoke_0031 passed; no search outputs. Paper: one sentence in Limitations (registered, not done, why).
-  NEXT: rewrite paper (plan §4) → send to advisor 14/11 → submit 18/11.
+  PAPER rewritten 2026-11-03 (cf7cae1; backup .work/main_before_d052_rewrite.tex; 6 pages, 0 overfull). NEXT: author reviews the
+  rewrite → number-check script (plan §4.4) → author names + repository link → send to advisor 14/11 → submit 18/11.
 D-048 (2026-10-26): external review (argument-review + conference-reviewer) checked against saved outputs. exp_0041
   (type N/O/N∪O on Threshold, new data): N 0.449, O 0.551, N∪O 1.000. exp_0042 (CF-diff thresholded at matched FPR, saved
   outputs): flags none below 2κ at FPR 0. paper/main.tex: W6 number/label fixes, DeepXplore → No-prox, Table 3 column K
