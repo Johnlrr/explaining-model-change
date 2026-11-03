@@ -200,6 +200,102 @@ def x4_pair(cfg, p, cache):
         sd.load_d_models = orig
 
 
+def _atomic_save(path: Path, arrays: dict | None = None, text: str | None = None) -> None:
+    tmp = path.with_name(path.name + ".tmp")
+    if arrays is not None:
+        with open(tmp, "wb") as f:
+            np.savez_compressed(f, **arrays)
+    else:
+        tmp.write_text(text)
+    tmp.replace(path)
+
+
+def x4_chunk(cfg, p, cache, lo: int, hi: int):
+    """Points [lo, hi) of the n_points run of pair p, equal to the same rows of an unchunked `x4_pair` run: the
+    valid points are the prefix of the same permutation, the phase-1 restart noise is drawn for the full batch and
+    cut to these rows, and the ball samples of s_M,r are drawn for every earlier point first (sequential rng)."""
+    import dce.cli.split_d as sd
+    from dce.solvers import search
+    n = cfg["n_points"]
+    o_valid, o_noise, o_scores = sd.valid_points, search._restart_noise, sd.margin_scores
+    state = {}
+
+    def valid(phi, y, m_old, m_new, n_req, seed, kappa):
+        if n_req != n:
+            raise SystemExit(f"valid_points called with n = {n_req}, expected {n}")
+        keep = o_valid(phi, y, m_old, m_new, n, seed, kappa)
+        state["z_all"], state["y_all"] = phi[keep], y[keep]
+        return keep[lo:hi]
+
+    def noise(z0, scfg, restart_seed):
+        if z0.shape[0] != hi - lo:
+            raise SystemExit(f"solver batch {z0.shape[0]} ≠ chunk {hi - lo}")
+        full = torch.zeros((n, z0.shape[1]), dtype=z0.dtype)
+        return o_noise(full, scfg, restart_seed)[:, lo:hi].to(z0.device)
+
+    def scores(f_old, f_new, z0, y, kappa, r, n_ball, seed):
+        if not np.allclose(z0, state["z_all"][lo:hi]):
+            raise SystemExit("margin_scores called on unexpected points")
+        res = o_scores(f_old, f_new, state["z_all"][:hi].astype(np.float32), state["y_all"][:hi], kappa, r, n_ball, seed)
+        return {k: v[lo:] for k, v in res.items()}
+
+    sd.valid_points, search._restart_noise, sd.margin_scores = valid, noise, scores
+    try:
+        return x4_pair(cfg, p, cache)
+    finally:
+        sd.valid_points, search._restart_noise, sd.margin_scores = o_valid, o_noise, o_scores
+
+
+def cmd_run_chunked(cfg, out: Path, chunk: int) -> int:
+    """`run` with resume inside a pair: every chunk of points is saved as soon as it is done
+    (pairs/chunks/pair_<id>_<lo>-<hi>.npz/.json, atomic), finished chunks are skipped on restart, and the pair file
+    pair_<id>.npz/.json (same format as `run`) is written once all chunks exist. Restart the same command after an
+    interruption; at most one chunk is lost."""
+    torch.set_num_threads(cfg.get("threads", 8))
+    (out / "pairs" / "chunks").mkdir(parents=True, exist_ok=True)
+    meta_path = out / "metadata_chunked.json"
+    meta = json.loads(meta_path.read_text()) if meta_path.exists() else {"experiment": cfg["experiment_id"],
+                                                                         "chunk": chunk, "git_runs": []}
+    if meta["chunk"] != chunk:
+        raise SystemExit(f"chunk size {chunk} differs from the earlier runs ({meta['chunk']})")
+    meta["git_runs"].append({"git": git_state(), "started": time.strftime("%Y-%m-%dT%H:%M:%S"),
+                             "threads": torch.get_num_threads()})
+    _atomic_save(meta_path, text=json.dumps(meta, indent=2))
+    n, cache = cfg["n_points"], {}
+    for pid in cfg["pair_ids"]:
+        npz, js = out / "pairs" / f"pair_{pid}.npz", out / "pairs" / f"pair_{pid}.json"
+        if npz.exists() and js.exists():
+            print(f"pair {pid}: done, skipped", flush=True)
+            continue
+        parts, rows = [], []
+        for lo in range(0, n, chunk):
+            hi = min(lo + chunk, n)
+            c_npz = out / "pairs" / "chunks" / f"pair_{pid}_{lo:03d}-{hi:03d}.npz"
+            c_js = c_npz.with_suffix(".json")
+            if not (c_npz.exists() and c_js.exists()):
+                t0 = time.time()
+                arrays, row = x4_chunk(cfg, BY_ID[pid], cache, lo, hi)
+                row["wall_s_chunk"] = round(time.time() - t0, 1)
+                _atomic_save(c_npz, arrays)
+                _atomic_save(c_js, text=json.dumps(row, indent=2, default=float))
+                print(f"pair {pid} points {lo}-{hi} done in {row['wall_s_chunk'] / 60:.1f} min", flush=True)
+            parts.append(dict(np.load(c_npz)))
+            rows.append(json.loads(c_js.read_text()))
+        arrays = {k: np.concatenate([a[k] for a in parts]) for k in parts[0]}
+        if len(arrays["point_ids"]) != n or len(set(arrays["point_ids"].tolist())) != n:
+            raise SystemExit(f"pair {pid}: merged chunks do not give {n} distinct points")
+        row = {k: v for k, v in rows[0].items() if k not in ("runtime", "n_points", "wall_s_chunk")}
+        row.update(n_points=n, chunks=[{"lo": lo, "runtime": r["runtime"], "wall_s_chunk": r["wall_s_chunk"]}
+                                       for lo, r in zip(range(0, n, chunk), rows, strict=True)],
+                   wall_s_pair=round(sum(r["wall_s_chunk"] for r in rows), 1))
+        _atomic_save(npz, arrays)
+        _atomic_save(js, text=json.dumps(row, indent=2, default=float))
+        print(f"pair {pid} merged ({n} points)", flush=True)
+    meta["finished"] = time.strftime("%Y-%m-%dT%H:%M:%S")
+    _atomic_save(meta_path, text=json.dumps(meta, indent=2))
+    return 0
+
+
 def cmd_time(cfg, out: Path) -> int:
     torch.set_num_threads(cfg.get("threads", 8))
     res = {}
@@ -272,13 +368,16 @@ def analyze(cfg) -> dict:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("stage", choices=("train-old", "train", "qualify", "time", "run", "analyze"))
+    ap.add_argument("stage", choices=("train-old", "train", "qualify", "time", "run", "run-chunked", "analyze"))
     ap.add_argument("--config", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--shard", default="0/1")
+    ap.add_argument("--chunk", type=int, default=20, help="run-chunked: points per saved chunk")
     args = ap.parse_args(argv)
     cfg = load_config(args.config)
     print(f"config sha256 {sha256(args.config)}", flush=True)
+    if args.stage == "run-chunked":
+        return cmd_run_chunked(cfg, args.out, args.chunk)
     stage = {"train-old": cmd_train_old, "train": cmd_train, "qualify": cmd_qualify, "time": cmd_time}
     if args.stage in stage:
         return stage[args.stage](cfg, args.out)

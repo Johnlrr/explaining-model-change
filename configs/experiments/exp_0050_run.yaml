@@ -1,0 +1,25 @@
+# exp_0050 search run (D-053): exp_0050.yaml with n_points 100, run locally with `x4_resnet run-chunked` as a disclosed
+# deviation (the registered 12 h feasibility rule had excluded X4 on Kaggle). exp_0050.yaml keeps the training hash.
+experiment_id: exp_0050
+decision: D-052
+tier_config: configs/tiers/tier0.yaml
+models_run: runs/experiments/exp_0050
+out_run: runs/experiments/exp_0050
+f_old_seeds: [0, 1]
+f_old_epochs: 30                 # the SmallCNN f_old recipe (exp_0002, v1.2 B1)
+pair_ids: [120, 121, 122, 123, 124, 125, 126, 127, 128, 129]
+adapt_label_noise: 0.05
+n_adapt: 10000
+recipe_grid: {epochs: 10, lr: 1.0e-3, batch_size: 256}    # exp_0025
+recipe_null: {epochs: 3, lr: 3.0e-4, batch_size: 256}     # exp_0002
+n_qualify: 5000
+n_g0_points: 2000
+data_seed_base: 9500
+n_samples: 5000
+n_points: 100                    # D-053: registered fallback size
+n_ball: 256
+ball_seed_base: 5200
+timing_pairs: [120, 128]
+timing_points: 5
+budget_h: 12
+threads: 8

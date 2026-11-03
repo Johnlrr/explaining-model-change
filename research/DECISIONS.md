@@ -1470,6 +1470,55 @@ result exists. The rule is not relaxed (no more kernels, fewer pairs or fewer re
 
 ---
 
+## D-053 — After D-052 (2026-11-03): re-checks of the failed predictions, post-hoc diagnostics, X4 run as a disclosed deviation
+
+Author's request (2026-11-03): re-check every failed prediction; if the experiment was run correctly, find what the
+failure shows; run X4 (stopped by the registered timing rule) on the local CPU with resume. Everything below is
+**after seeing the D-052 results**; diagnostics on saved outputs are post hoc and descriptive unless a prediction is
+stated here before its data are touched.
+
+**Classification.** OSF-registered: X2 (a) confirmed; X3 met; X2 (b) the strong wording branch not reached (pair 100);
+X4 stopped by the feasibility rule (cost, not a result). Logged in D-052 only: X1 IG-/SHAP-diff "low on Threshold"
+not met, Seg-search×10 found ≤ 0.2 not met; E3 rank order not met.
+
+**Re-checks (implementation).** IG: straight path from the training mean, margin of the query's class; completeness
+|Σ IG-diff − (h(z0) − h(z̄))| ≤ 0.10 at 64 steps, ≤ 0.022 at 256; Recovery identical at 64 and 256 steps (exp_0051,
+`dce.cli.x1_ref split-a`). SHAP: exact over 2⁵ coalitions, 128 background points. Seg-search×10: `b5_line` with
+K = 200 nearest training points (×10), same κ, r, validity as Δ-CE. X2 (b): `split_d.analyze` uses qualified pairs,
+τ_0 from X3 nulls, the registered branch rule. No implementation error found.
+
+**Diagnostics on saved outputs (post hoc).** (1) IG/SHAP on nulls: on the 8 split-A null pairs IG-diff names aspect
+as largest factor on 0.34–0.88 of queries (pooled 0.57), SHAP-diff 0.21–0.93 (0.71), Grad-diff 0.02–0.11; on
+Threshold IG 0.71–0.79, SHAP 0.72–0.75. Their aspect choice on offsets is therefore not evidence that they see the
+offset (a task-factor bias of attribution differences); the norm separates (‖IG-diff‖ 0.78–0.95 on Threshold vs
+0.15–0.59 on nulls). An earlier mechanism (path crosses the moved boundary; query-side reference makes IG blind)
+was tested on split A and **not supported** (query-side reference: 0.49–0.57, not < 0.2). The paper sentence
+"they integrate from a baseline" is withdrawn. (2) Seg-search×10 as a solver audit: on all 955 split-A queries where
+it finds a witness, Δ-CE also finds one (0 misses) and is nearer or equal on 953 (2 farther by ≤ 0.012); found-rate
+0.26–0.47 vs Δ-CE 0.45–0.87; on jointly found queries the share of the displacement on k* is higher for Δ-CE in 9/9
+pairs. (3) X2 (b) dose-response: witness rate on lowered-class queries vs max|h| over the 256 ball samples:
+[0, 0.8) 0.02, [0.8, 1.0) 0.49, [1.0, 1.2) 0.70, [1.2, 1.5) 0.95, ≥ 1.5 1.00 (1 286 queries, 9 offset pairs); pair
+100 has the smallest realised shift of the qualified pairs (dt 0.023), 12% of its lowered queries reach 2κ in the ball.
+
+**Prediction for new data (fixed now, before IG is computed on split D):** IG-diff (mean reference, 64 steps) on the
+8 unfiltered split-D null pairs 110–117 names aspect on ≥ 0.30 of the 2 400 queries pooled, while Grad-diff (saved)
+does so on ≤ 0.15; and on the 8 qualified split-D offsets the IG-diff aspect rate lies within the range of the null
+pairs' rates in at least 6 of 8 pairs. Descriptive (no test); computed by `dce.cli.x1_ref split-d` (to be extended
+to the nulls) into runs/experiments/exp_0051.
+
+**X4 as a disclosed deviation.** The registered feasibility rule (12 h at 100 queries per pair) excluded X4 on
+Kaggle; no ResNet-8 search output had been read (smoke_0031 outputs not inspected). At the author's request X4 now
+runs on the local CPU (AMD Ryzen 7 PRO 250, 16 threads; threads 8, 8 phase-2 workers as tier0.yaml), at **100
+queries per pair** (the registered fallback size; only the 12 h cap is lifted), all other design, qualification and
+readouts as registered, thresholds from the ResNet nulls on the same machine. Config
+configs/experiments/exp_0050_run.yaml = exp_0050.yaml with n_points 100 (exp_0050.yaml keeps the hash used for
+training). Runner `x4_resnet run-chunked` (chunks of 20 points, atomic files, restart skips finished chunks):
+equivalence check on smoke_0031 (2 pairs × 3 points, chunks 2 + 1) gives bit-identical Δ-CE, CF-diff, s_M and
+s_M,r and Grad-diff within 2.4·10⁻⁷ of the unchunked `run`. The hard stop 10 Nov 2026 stays. The paper states that
+X4 was run after the registered rule had excluded it, on another machine.
+
+---
+
 ## 12. Decision conflicts
 
 Conflicts between the spec and the protocol are resolved in favour of `docs/EVALUATION.md` (D-011, spec amendment v1.1) and the layout in AGENTS.md (D-001).
