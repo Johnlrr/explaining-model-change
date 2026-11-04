@@ -13,8 +13,7 @@
 ```text
 === SESSION HANDOFF 2026-11-04 (read this first) ===
 PLAN v2 (2026-11-04, X5 design APPROVED by author): research/proposals/review_0211_plan_v2.md. D-056 (X5 rules)
-committed a892bd6. BLOCKER: author registers X5 on OSF (.work/osf/osf_registration_D-056.md) BEFORE the VAE is trained
-or split F generated; code may be written meanwhile. Mixed-effects vs two-level bootstrap: author deciding.
+committed a892bd6. X5 REGISTERED https://osf.io/fr7jv (2026-11-04). Execution started: X5 code, S1/S2. Mixed-effects vs two-level bootstrap: author deciding.
 Publication: separate, properly named repo (NOT Agent-auto-Research), history-preserving export — plan v2 W5.
 NO JOB RUNNING. Working tree: paper/main.tex = commit fc97658 (6 pages, 0 overfull). Author said: do NOT edit the
 paper yet; next session starts from the review→draft gap list below. Deadlines: advisor 14/11, ESANN submit 18/11.

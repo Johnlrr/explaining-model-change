@@ -1593,7 +1593,8 @@ tells *whether*, not well *which factor*. Exploratory status (post-hoc grid exte
 
 Status: active. Plan: `research/proposals/review_0211_plan_v2.md` §2 (approved by the author 2026-11-04). **After seeing
 results** of the paper's experiments (spec frozen, D-016); written before the VAE is trained and before split F exists.
-To be registered on OSF by the author before any X5 data are generated (`.work/osf/osf_registration_D-056.md`).
+REGISTERED on OSF by the author: https://osf.io/fr7jv (2026-11-04, text `.work/osf/osf_registration_D-056.md`),
+before the VAE was trained and before split F existed.
 
 **Question.** Do the abstention (no witness on null updates) and the offset detection of the paper survive when the
 exact renderer is replaced by the decoder of a VAE learned from images? Lemma 1 holds in any search space, but a decoder
