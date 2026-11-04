@@ -29,14 +29,14 @@ CURRENT RESULTS (all in paper):
   2.0); D-055 disclosed post-hoc extension → κ*=2.5; split E nulls 0/200, offsets lowered-class witness
   0.78/0.975/1.00 (s_M ≤0.05, CF-diff ≤0.03 at FPR 0). Recovery still 0.36–0.40; Grad-diff 0.32–0.36 offsets.
 
-KNOWN DRAFT ERRORS (introduced 2026-11-04, not yet fixed — author asked to wait):
+KNOWN DRAFT ERRORS — (a)–(c) FIXED in ded8d97 (2026-11-04, 6 pages, 0 overfull); original list:
  (a) Table 3 ResNet split-E row says "conf." but D-055 is EXPLORATORY → should be "expl."; abstract "then detect all
      three offsets" should be marked exploratory.
  (b) Abstract uses κ undefined ("once κ is calibrated") → "once the margin is calibrated".
  (c) §4.4 Imp-diff sentence truncated: "…on adaptation data $k^\star$." → "…ranks $k^\star$ first on adaptation data."
 
 ADVISOR REVIEW 02/11: the item-by-item summary is not part of the public repository.
-NEXT (when author agrees): fix (a)–(c) → optional pair-level permutation (item 3) and r-sensitivity (item 7) →
+NEXT: (a)–(c) done → optional pair-level permutation (item 3) and r-sensitivity (item 7) →
 number-check script (plan §4.4) → author names + anonymised repo link → advisor 14/11 → submit 18/11.
 === END HANDOFF ===
 
