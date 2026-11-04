@@ -17,7 +17,7 @@ calibration: {pair: 100, n_points: 200}
 r_vae: 1.6407692432403564                  # FROZEN: exp_0056 r_calibration.json (validation, pair 100, 200/200 found, 2 × median 0.8204)
 data_seed_base: 10500                      # split F: 10500 + pair_id (fresh)
 n_samples: 5000
-n_points: 200
+n_points: 100                              # D-056 feasibility (smoke_0034): CPU-hours > 24 at 200 and 100; author: 100 on kaggle-cpu
 n_ball: 256
 ball_seed_base: 5200
 manifold: {n_val: 1000, q: 0.95, steps: 300, lr: 0.05, restarts: 8, seed: 12000}

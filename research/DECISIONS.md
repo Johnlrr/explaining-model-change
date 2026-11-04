@@ -1644,6 +1644,16 @@ the one gate fallback), N and the pairs are not changed after any X5 number.
 at 200 queries per pair: 100 queries; if still above: GPU (budget ≈ 9.8 h left). Not finished by **11/11/2026** →
 reported as not done. Laptop jobs ≤ 4 h (author's rule, D-052).
 
+**Feasibility applied (2026-11-04, before split F was generated; smoke_0034 on validation).** Timing of 10 queries of
+pairs 100 and 110: 16.6 s wall per query on the laptop (8 workers), ≈ 86 CPU-s per query (Δ-CE N 39–44, O 39–43,
+CF-diff ≈ 3). Projection in CPU-hours (the unit used for X4, D-052): 200 queries ≈ 76 h, 100 queries ≈ 38 h, both above
+24 h, so the registered chain reaches its last step ("runs on a GPU"). The dominant cost is phase 2 (per-point SLSQP
+in float64, ≈ 25 CPU-s per query), which a GPU does not speed up. **Author's decision (2026-11-04): n_points = 100
+(the registered fallback), run on kaggle-cpu kernels instead of a GPU.** This hardware substitution is the only
+deviation and is disclosed in the paper; across machines the found/not-found vectors were identical in X2/X3 (D-052
+smoke checks), so the hardware does not decide the outcome. Chunked runs were checked to equal unchunked rows exactly
+(smoke_0034).
+
 **Also under D-056 (saved outputs only, descriptive, not registered).** S1 (revised 2026-11-04 with the author, before
 any S1 number): the pair is the unit of inference. (a) Primary: per-pair estimate for every Table 3 row; exact
 one-sided sign test over pairs, and for differences an exact sign-flip permutation test on the pair means (all 2^n
