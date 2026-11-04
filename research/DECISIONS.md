@@ -1665,6 +1665,21 @@ next to (a). Two-level bootstrap dropped (under-covers with few clusters; adds n
 used (no frequentist implementation in statsmodels; with 300 points in every pair the pair-mean analysis gives the
 same fixed-effect inference). S2: forward/backward counts per query and method from the saved `runtime` fields.
 
+**Results S1/S2 (exp_0058, code e658587, result d47cbd4; descriptive; Research Lead reading 2026-11-04).** Recomputed
+values match every saved counterpart (27 checks). At the pair level, as the unit of inference:
+- *Survive:* no witness on nulls (split B 8/8, split D 8/8, sign p = 0.0039 each; Adult 5/5, p = 0.031); CF-diff flags
+  nulls (12/12 pairs > 0.90, p = 2.4·10⁻⁴; mean 0.961, t-CI [0.947, 0.976]); Grad-diff < 0.2 on split-D offsets (8/8,
+  p = 0.0039; t-CI [0.036, 0.076]; MixedLM intercept 0.056, SE 0.008); Grad-diff rises with rotation (24 pairs, MixedLM
+  α̂ slope 1.37, SE 0.14, p ≈ 10⁻²¹; Spearman 0.89, permutation p = 10⁻⁴).
+- *Cannot be confirmed at the pair level (n ≤ 4, min p ≥ 0.0625):* Δ-CE > Grad-diff on Threshold (3/3 pairs positive in
+  A, B and pooled, p = 0.125); the normal at z* closes the projection gap (H8, 4/4 pairs T_i > 0, p = 0.0625, t-CI
+  [−0.08, 0.31] includes 0); Grad-diff < 0.2 on the 4 grid offsets (p = 0.0625); H5b/H5c (2 matched pairs); the
+  equivalence rows (Tie, Proj.) are outside ±0.10 in every pair, consistent with "not confirmed".
+- *Consequence for the paper:* Table 3 must state, next to the point-level status, that the Threshold Δ-CE advantage
+  and H8 rest on point-level variation only (3–4 model pairs); the abstention, CF-diff false-positive, split-D offset
+  blindness and rotation claims hold with the pair as unit. S2: saved records hold time per query, not call counts;
+  the budget table reports wall/CPU seconds (supplement).
+
 ---
 
 ## 12. Decision conflicts
