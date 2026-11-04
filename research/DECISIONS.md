@@ -1589,6 +1589,66 @@ matched false positives. Not changed by κ: Grad-diff Recovery on offsets 0.32�
 0.05–0.06 (0/3 above offset); Δ-CE Recovery 0.36–0.40 on offsets, 0.15–0.27 on rotations, so on ResNet-8 the witness
 tells *whether*, not well *which factor*. Exploratory status (post-hoc grid extension) is stated in the paper.
 
+## D-056 — X5: Δ-CE in a learned VAE latent (advisor item 2), rules fixed before any number (2026-11-04, author-approved design)
+
+Status: active. Plan: `research/proposals/review_0211_plan_v2.md` §2 (approved by the author 2026-11-04). **After seeing
+results** of the paper's experiments (spec frozen, D-016); written before the VAE is trained and before split F exists.
+To be registered on OSF by the author before any X5 data are generated (`.work/osf/osf_registration_D-056.md`).
+
+**Question.** Do the abstention (no witness on null updates) and the offset detection of the paper survive when the
+exact renderer is replaced by the decoder of a VAE learned from images? Lemma 1 holds in any search space, but a decoder
+can produce off-manifold images on which the two CNNs may differ by more than 2κ.
+
+**Fixed elements (no tuning after results).**
+- VAE: `src/dce/models/vae.py` architecture adapted to 32×32×3 (Conv 3→32 and 32→64, kernel 4, stride 2, padding 1:
+  32 → 16 → 8; FC 64·8·8 → 256; latent 16; symmetric decoder, sigmoid output); BCE + KL, β = 1, 30 epochs, Adam 1e-3,
+  batch 256, seed 11000; trained on 50 000 clean rendered images (no pixel noise, no labels) from the clean training
+  distribution, data seed 11000 (not used before). Spec §5.2 values; only the image size differs.
+- Gate (validation only, `clean_splits(seed=1234)["val"]`, first 2 000 images): accuracy of each f_old seed 0–4 on
+  D(μ_enc(x)) against the clean label ≥ 0.90. If it fails: **one** retrain with β = 0.5 (same everything else). If that
+  fails too: X5 is reported as "did not pass its gate" and no search is run.
+- Models: the locked split-D checkpoints of exp_0049 (hash-checked): 8 qualified offsets (100, 101, 102, 104–108),
+  8 nulls (110–117). κ = 0.5.
+- Search space Z = R^16, D = VAE decoder. Solver: `constrained_search` with the exp_0049 settings (R, T, lr, λ0), no
+  box clamp, Reg = μ‖z‖² with μ = 0.01 (spec §6, Tier 1).
+- r_VAE: on the validation images above, pair 100's f_new, 200 valid points (same validity rule, point seed as split
+  D): ordinary counterfactual of f_new in Z with the same solver; r_VAE = 2 × median distance over found counterfactuals
+  (the spec's r rule). Computed once, committed, then locked before split F is generated.
+- Split F (new test data): per pair p, 5 000 points with data seed 10500 + p (not used before); x0 = render(φ0) without
+  pixel noise; z0 = μ_enc(x0); valid if m_o(z0) ≥ κ and m_n(z0) ≥ κ for the clean label; the first **200** valid points
+  under the split-D point-seed rule.
+- Methods per query: Δ-CE type N and O; CF-diff (B1-det, score ‖z_n − z_o‖ between the two latent counterfactuals, 0 if
+  either is missing); s_M = |h(z0)|; s_M,r = max |h| over z0 and 256 points uniform in the latent r_VAE-ball
+  (seed 5200 + p).
+- Factor read-out (inverse rendering): φ̂(x) = argmin over [0, 1]^5 of the MSE between render(φ) and x, Adam lr 0.05,
+  300 steps, 8 restarts (seed 12000), best kept; e(x) = its MSE. On-manifold threshold e_95 = 95% quantile of e on
+  D(μ_enc(x)) for the first 1 000 validation images.
+
+**Readouts and predictions.**
+1. *Primary (registered):* witness share (type N or O) on the 1 600 null queries, pooled and per pair.
+   Prediction: ≤ 0.05 pooled **and** in every pair (same criterion as X3).
+2. *Detection (descriptive):* lowered-class (class 1) queries of the 8 offsets flagged at τ_0 and τ_5% computed from
+   the X5 nulls (as X3), for Δ-CE N, CF-diff, s_M, s_M,r. Prediction: Δ-CE ≥ 0.5 at τ_0 in ≥ 5 of 8 pairs.
+3. *On-manifold (descriptive):* share of witnesses (nulls and offsets separately) with e(D(z*)) ≤ e_95.
+4. *Recovery (descriptive, secondary):* Recovery@r_VAE on offsets with factors read by φ̂ (k* = aspect); stated as a
+   learned/approximate read-out, weaker than the exact one.
+
+**Reading rules.** (i) Prediction 1 met → the paper says abstention also holds in a learned VAE latent (k/1 600).
+(ii) Not met → numbers reported; readout 3 decides the wording: if most null witnesses are off-manifold, the limitation
+reads "abstention needs a search space that does not leave the data manifold"; a filtered witness share (on-manifold
+only, threshold above) is reported as descriptive. Every readout is reported whatever its value. κ, r_VAE, β (beyond
+the one gate fallback), N and the pairs are not changed after any X5 number.
+
+**Feasibility.** Smoke (validation, 10 queries, 1 pair) times the search. If the projection exceeds 24 kaggle-cpu hours
+at 200 queries per pair: 100 queries; if still above: GPU (budget ≈ 9.8 h left). Not finished by **11/11/2026** →
+reported as not done. Laptop jobs ≤ 4 h (author's rule, D-052).
+
+**Also under D-056 (saved outputs only, descriptive, not registered).** S1: exact one-sided sign test over pairs for
+every Holm row of Table 3, pooling splits A and B where condition and method agree; two-level bootstrap (pairs, then
+points within pairs; 10⁴ resamples, seed 5601) for rows with ≥ 8 pairs (rotation grid 24, split-D offsets 8, nulls).
+S2: forward/backward counts per query and method from the saved `runtime` fields. Mixed-effects models: pending the
+author's choice (plan v2 §7.3).
+
 ---
 
 ## 12. Decision conflicts
