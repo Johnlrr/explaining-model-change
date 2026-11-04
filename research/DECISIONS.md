@@ -1579,6 +1579,16 @@ are not re-run (their outputs stay). Config configs/experiments/exp_0055.yaml (=
 [0.5, 0.75, 1.0, 1.5, 2.0, 2.5, 3.0], out runs/experiments/exp_0054, so finished levels are reused). The paper
 states that the grid was extended after κ ≤ 2 did not silence the ResNet nulls.
 
+**Result (2026-11-04, commit 9261024, clean).** Validation: κ = 2.5 → 0/100 null witnesses (pairs 128, 129), so
+κ* = 2.5 (κ = 3.0 not run: the walk stops at the first pass). Test on fresh split E (data_seed_base 9800, 100 queries
+per pair, pairs 120–129; test/results_x4_kstar.json): null witness share **0/200 = 0.00** (≤ 0.05); Δ-CE witness on
+lowered-class queries of the qualified offsets 121/122/123: **0.78 / 0.975 / 1.00** (all ≥ 0.5). Reading (fixed in
+D-054): **"calibration works"**. At the now meaningful null threshold τ_0, s_M flags 0.00/0.00/0.05 and CF-diff
+0.00/0.025/0.00 (at 5 %: s_M 0.10–0.25, CF-diff 0.075–0.17), so Δ-CE ≥ s_M + 0.2 and ≥ CF-diff + 0.2 in 3/3 at
+matched false positives. Not changed by κ: Grad-diff Recovery on offsets 0.32–0.35 (0/3 below 0.2), rotations
+0.05–0.06 (0/3 above offset); Δ-CE Recovery 0.36–0.40 on offsets, 0.15–0.27 on rotations, so on ResNet-8 the witness
+tells *whether*, not well *which factor*. Exploratory status (post-hoc grid extension) is stated in the paper.
+
 ---
 
 ## 12. Decision conflicts

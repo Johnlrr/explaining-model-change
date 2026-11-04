@@ -1,0 +1,15 @@
+{
+  "experiment": "exp_0050",
+  "chunk": 20,
+  "git_runs": [
+    {
+      "git": {
+        "commit": "9261024fb443dc5978d91c1548f7a5b4426362b9",
+        "dirty": false
+      },
+      "started": "2026-11-04T09:23:50",
+      "threads": 8
+    }
+  ],
+  "finished": "2026-11-04T14:12:23"
+}

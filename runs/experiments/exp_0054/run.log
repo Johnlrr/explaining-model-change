@@ -46,3 +46,108 @@ pair 129 merged (50 points)
 kappa_star None
 config sha256 fb8db06986b0d6ba9c8180d8a93006af7a8f7c31cdc6482b2b0c68c87fbd0712
 no κ of the grid passes on validation: the test is not run (D-054)
+=== D-055 2026-11-04T08:07:09+07:00
+config sha256 c8cefacccece034234bd06d884036876d29a4810280d30e67958b6bf220d610e
+pair 128: done, skipped
+pair 129: done, skipped
+{"kappa": 0.5, "witnesses": 88, "queries": 100, "share": 0.88, "per_pair": {"128": 0.92, "129": 0.84}, "passes": false}
+pair 128: done, skipped
+pair 129: done, skipped
+{"kappa": 0.75, "witnesses": 77, "queries": 100, "share": 0.77, "per_pair": {"128": 0.9, "129": 0.64}, "passes": false}
+pair 128: done, skipped
+pair 129: done, skipped
+{"kappa": 1.0, "witnesses": 56, "queries": 100, "share": 0.56, "per_pair": {"128": 0.76, "129": 0.36}, "passes": false}
+pair 128: done, skipped
+pair 129: done, skipped
+{"kappa": 1.5, "witnesses": 20, "queries": 100, "share": 0.2, "per_pair": {"128": 0.4, "129": 0.0}, "passes": false}
+pair 128: done, skipped
+pair 129: done, skipped
+{"kappa": 2.0, "witnesses": 7, "queries": 100, "share": 0.07, "per_pair": {"128": 0.14, "129": 0.0}, "passes": false}
+pair 128 points 0-25 done in 10.5 min
+pair 128 points 25-50 done in 10.4 min
+pair 128 merged (50 points)
+=== D-055 resume 2026-11-04T09:02:00+07:00
+config sha256 c8cefacccece034234bd06d884036876d29a4810280d30e67958b6bf220d610e
+pair 128: done, skipped
+pair 129: done, skipped
+{"kappa": 0.5, "witnesses": 88, "queries": 100, "share": 0.88, "per_pair": {"128": 0.92, "129": 0.84}, "passes": false}
+pair 128: done, skipped
+pair 129: done, skipped
+{"kappa": 0.75, "witnesses": 77, "queries": 100, "share": 0.77, "per_pair": {"128": 0.9, "129": 0.64}, "passes": false}
+pair 128: done, skipped
+pair 129: done, skipped
+{"kappa": 1.0, "witnesses": 56, "queries": 100, "share": 0.56, "per_pair": {"128": 0.76, "129": 0.36}, "passes": false}
+pair 128: done, skipped
+pair 129: done, skipped
+{"kappa": 1.5, "witnesses": 20, "queries": 100, "share": 0.2, "per_pair": {"128": 0.4, "129": 0.0}, "passes": false}
+pair 128: done, skipped
+pair 129: done, skipped
+{"kappa": 2.0, "witnesses": 7, "queries": 100, "share": 0.07, "per_pair": {"128": 0.14, "129": 0.0}, "passes": false}
+pair 128: done, skipped
+pair 129 points 0-25 done in 10.5 min
+pair 129 points 25-50 done in 11.2 min
+pair 129 merged (50 points)
+{"kappa": 2.5, "witnesses": 0, "queries": 100, "share": 0.0, "per_pair": {"128": 0.0, "129": 0.0}, "passes": true}
+kappa_star 2.5
+config sha256 c8cefacccece034234bd06d884036876d29a4810280d30e67958b6bf220d610e
+pair 120 points 0-20 done in 5.0 min
+pair 120 points 20-40 done in 5.0 min
+pair 120 points 40-60 done in 5.5 min
+pair 120 points 60-80 done in 5.7 min
+pair 120 points 80-100 done in 5.8 min
+pair 120 merged (100 points)
+pair 121 points 0-20 done in 5.0 min
+pair 121 points 20-40 done in 4.9 min
+pair 121 points 40-60 done in 4.8 min
+pair 121 points 60-80 done in 5.0 min
+pair 121 points 80-100 done in 5.2 min
+pair 121 merged (100 points)
+pair 122 points 0-20 done in 5.0 min
+pair 122 points 20-40 done in 4.8 min
+pair 122 points 40-60 done in 5.4 min
+pair 122 points 60-80 done in 5.6 min
+pair 122 points 80-100 done in 5.5 min
+pair 122 merged (100 points)
+pair 123 points 0-20 done in 4.9 min
+pair 123 points 20-40 done in 5.0 min
+pair 123 points 40-60 done in 5.0 min
+pair 123 points 60-80 done in 4.9 min
+pair 123 points 80-100 done in 4.9 min
+pair 123 merged (100 points)
+pair 124 points 0-20 done in 4.5 min
+pair 124 points 20-40 done in 4.5 min
+pair 124 points 40-60 done in 4.7 min
+pair 124 points 60-80 done in 4.5 min
+pair 124 points 80-100 done in 4.9 min
+pair 124 merged (100 points)
+pair 125 points 0-20 done in 4.7 min
+pair 125 points 20-40 done in 4.8 min
+pair 125 points 40-60 done in 4.6 min
+pair 125 points 60-80 done in 4.9 min
+pair 125 points 80-100 done in 5.3 min
+pair 125 merged (100 points)
+pair 126 points 0-20 done in 4.0 min
+pair 126 points 20-40 done in 4.1 min
+pair 126 points 40-60 done in 4.4 min
+pair 126 points 60-80 done in 4.7 min
+pair 126 points 80-100 done in 4.8 min
+pair 126 merged (100 points)
+pair 127 points 0-20 done in 4.3 min
+pair 127 points 20-40 done in 4.6 min
+pair 127 points 40-60 done in 4.8 min
+pair 127 points 60-80 done in 5.3 min
+pair 127 points 80-100 done in 5.0 min
+pair 127 merged (100 points)
+pair 128 points 0-20 done in 9.1 min
+pair 128 points 20-40 done in 9.2 min
+pair 128 points 40-60 done in 8.8 min
+pair 128 points 60-80 done in 9.5 min
+pair 128 points 80-100 done in 9.1 min
+pair 128 merged (100 points)
+pair 129 points 0-20 done in 9.2 min
+pair 129 points 20-40 done in 8.9 min
+pair 129 points 40-60 done in 9.3 min
+pair 129 points 60-80 done in 9.5 min
+pair 129 points 80-100 done in 9.5 min
+pair 129 merged (100 points)
+{"nulls": [{"pair_id": 128, "dd_validation": 0.0035, "witness_share": 0.0}, {"pair_id": 129, "dd_validation": 0.0, "witness_share": 0.0}], "null_witness_share_pooled": 0.0, "k_graddiff_below_02_offsets": "0 of 3", "k_rotation_above_offset": "0 of 3", "k_dce_ge_sM_plus_02_fpr0": "3 of 3", "k_dce_ge_cfdiff_plus_02_fpr0": "3 of 3"}

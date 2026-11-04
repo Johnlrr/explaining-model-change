@@ -34,8 +34,8 @@ D-052 (2026-11-02): ADVISOR REVIEW (Nhận_Xet_02_11.pdf, 10 items) → plan res
   Progress: runs/experiments/exp_0050/run_chunked.log, pairs/chunks/. Then `x4_resnet analyze --config
   configs/experiments/exp_0050_run.yaml --out runs/experiments/exp_0050`. Split-D IG: runs/experiments/exp_0051/split_d.log
   (`dce.cli.x1_ref split-d`, rerun from scratch if interrupted, ≈ 1 h). Hard stop for X4: 10/11.
-  D-054 DONE: CNN κ*=0.5; ResNet no κ≤2 passes (0.07 at 2.0). D-055 RUNNING (grid +{2.5,3.0}, disclosed): resume =
-  same command with --config configs/experiments/exp_0055.yaml and stages 'calibrate --arch resnet' 'test'.
+  D-054 DONE: CNN κ*=0.5; ResNet no κ≤2 passes (0.07 at 2.0). D-055 DONE (grid +{2.5,3.0}, disclosed): κ*=2.5;
+  split E: null witnesses 0/200, offsets lowered-class 0.78/0.975/1.00 → "calibration works"; Recovery still 0.36–0.40.
   (old) D-054 (commit 300924b): κ calibration on validation nulls (CNN check, then ResNet-8), then ResNet test at κ*
   on fresh split E. RESUME after any interruption (finished levels/pairs/chunks are skipped):
     O=runs/experiments/exp_0054; setsid nohup bash -c "for st in 'calibrate --arch cnn' 'calibrate --arch resnet' 'test';

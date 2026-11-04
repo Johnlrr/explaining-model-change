@@ -1,0 +1,69 @@
+{
+  "pair_id": 129,
+  "kind": "null",
+  "condition": "N0",
+  "seed": 1,
+  "k_star": null,
+  "data_seed": 9629,
+  "data_sha256": "validation",
+  "checkpoints": [
+    {
+      "name": "r8_f_old_s1",
+      "path": "runs/experiments/exp_0050/models/r8_f_old_s1.pt",
+      "sha256": "bcd1eb8588c4331d3e9ea4fd7ce1fc5e48efaab945a55fc08970d8b83340f0d8"
+    },
+    {
+      "name": "r8_f_new_p129_N0_s1",
+      "path": "runs/experiments/exp_0050/models/r8_f_new_p129_N0_s1.pt",
+      "sha256": "6a62dc6496f62b1530834cda4fd0593f9488334f5cc5cdceed9dd627b90d5d87"
+    }
+  ],
+  "n_points": 50,
+  "chunks": [
+    {
+      "lo": 0,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 5.598659763336181,
+          "cpu_s_per_point": 39.29721991742,
+          "device": "cpu",
+          "phase1_wall_s": 67.88518810272217,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 59.447893135
+        },
+        "dce_O": {
+          "wall_s_per_point": 5.57812991142273,
+          "cpu_s_per_point": 40.998856361819996,
+          "device": "cpu",
+          "phase1_wall_s": 66.64925813674927,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 62.83165064296
+        }
+      },
+      "wall_s_chunk": 632.8
+    },
+    {
+      "lo": 25,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 5.7364111328125,
+          "cpu_s_per_point": 41.28872494622,
+          "device": "cpu",
+          "phase1_wall_s": 66.98895025253296,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 63.31463208708
+        },
+        "dce_O": {
+          "wall_s_per_point": 5.942881622314453,
+          "cpu_s_per_point": 42.94164882084,
+          "device": "cpu",
+          "phase1_wall_s": 67.74859309196472,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 66.57021364427999
+        }
+      },
+      "wall_s_chunk": 671.0
+    }
+  ],
+  "wall_s_pair": 1303.8
+}

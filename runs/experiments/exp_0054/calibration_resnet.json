@@ -7,7 +7,9 @@
     0.75,
     1.0,
     1.5,
-    2.0
+    2.0,
+    2.5,
+    3.0
   ],
   "levels": [
     {
@@ -64,13 +66,24 @@
         "129": 0.0
       },
       "passes": false
+    },
+    {
+      "kappa": 2.5,
+      "witnesses": 0,
+      "queries": 100,
+      "share": 0.0,
+      "per_pair": {
+        "128": 0.0,
+        "129": 0.0
+      },
+      "passes": true
     }
   ],
-  "kappa_star": null,
-  "config_sha256": "fb8db06986b0d6ba9c8180d8a93006af7a8f7c31cdc6482b2b0c68c87fbd0712",
+  "kappa_star": 2.5,
+  "config_sha256": "c8cefacccece034234bd06d884036876d29a4810280d30e67958b6bf220d610e",
   "git": {
-    "commit": "8532d9c85a19149fe06a0e6d7dbab0cb8c7b08bd",
+    "commit": "9261024fb443dc5978d91c1548f7a5b4426362b9",
     "dirty": false
   },
-  "finished": "2026-11-04T02:32:16"
+  "finished": "2026-11-04T09:23:48"
 }
