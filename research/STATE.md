@@ -12,6 +12,8 @@
 
 ```text
 === SESSION HANDOFF 2026-11-04 (read this first) ===
+PLAN v2 (2026-11-04, AWAITING AUTHOR APPROVAL): research/proposals/review_0211_plan_v2.md — X5 Δ-CE in a learned
+VAE latent (item 2), S1–S3 pair-level stats/budget/r′ from saved outputs, supplement.tex, paper edits. Nothing run yet.
 NO JOB RUNNING. Working tree: paper/main.tex = commit fc97658 (6 pages, 0 overfull). Author said: do NOT edit the
 paper yet; next session starts from the review→draft gap list below. Deadlines: advisor 14/11, ESANN submit 18/11.
 GPU used ≈ 0.2 of 10 h. Untracked, leave alone: Nhận_Xet_02_11.pdf, argument-review/, conference-reviewer/,
