@@ -14,7 +14,7 @@ vae: {latent: 16, size: 32, beta: 1.0, fallback_beta: 0.5, epochs: 30, lr: 1.0e-
       n_images: 50000, data_seed: 11000}
 gate: {n_val: 2000, min_acc: 0.90, f_old_seeds: [0, 1, 2, 3, 4]}
 calibration: {pair: 100, n_points: 200}
-r_vae: null                                # FROZEN after calibrate-r (validation)
+r_vae: 1.6407692432403564                  # FROZEN: exp_0056 r_calibration.json (validation, pair 100, 200/200 found, 2 × median 0.8204)
 data_seed_base: 10500                      # split F: 10500 + pair_id (fresh)
 n_samples: 5000
 n_points: 200

@@ -1,0 +1,33 @@
+{
+  "label": "D-056 X5 r_VAE (validation)",
+  "pair": 100,
+  "n": 200,
+  "found_share": 1.0,
+  "median_distance": 0.8203846216201782,
+  "r_vae": 1.6407692432403564,
+  "latent_mu_std_mean_val": 0.3273499310016632,
+  "wall_s": 179.8,
+  "vae": {
+    "name": "vae32_beta1.0",
+    "kind": "checkpoint",
+    "path": "models/vae32_beta1.0.pt",
+    "sha256": "303ca0e2cdc703d95381c6d415a0da34b4d78edc9bf41ad8ba10b60b94550660"
+  },
+  "checkpoints": [
+    {
+      "name": "f_old_s2",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s2.pt",
+      "sha256": "b6f462719d1aa0e38a682b907674ff90ea524e35f9119a5aa29e28079acff330"
+    },
+    {
+      "name": "f_new_p100_a0.00_t0.53_s2",
+      "path": "runs/experiments/exp_0049/models/f_new_p100_a0.00_t0.53_s2.pt",
+      "sha256": "79e86077cba4b9717b0af2ae1efad0eb0ef014feaa2114f0bdda8ba0c9f5272f"
+    }
+  ],
+  "git": {
+    "commit": "78fd1f9a423ff5a90ac48f0209f657c655a981bc",
+    "dirty": false
+  }
+}

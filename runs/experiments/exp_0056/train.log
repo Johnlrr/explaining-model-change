@@ -1,0 +1,2 @@
+config sha256 517ae35df1be64621c9a288c2e3ab61134975992397e20178e227aa96cab6f4e
+{"beta": 1.0, "recon_mse_val": 0.00022815479314886034, "f_old_acc_on_recon": {"0": 0.9775, "1": 0.9815, "2": 0.9785, "3": 0.9845, "4": 0.974}, "gate_passed": true, "wall_s": 353.4}
