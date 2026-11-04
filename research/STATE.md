@@ -12,8 +12,10 @@
 
 ```text
 === SESSION HANDOFF 2026-11-04 (read this first) ===
-PLAN v2 (2026-11-04, AWAITING AUTHOR APPROVAL): research/proposals/review_0211_plan_v2.md — X5 Δ-CE in a learned
-VAE latent (item 2), S1–S3 pair-level stats/budget/r′ from saved outputs, supplement.tex, paper edits. Nothing run yet.
+PLAN v2 (2026-11-04, X5 design APPROVED by author): research/proposals/review_0211_plan_v2.md. D-056 (X5 rules)
+committed a892bd6. BLOCKER: author registers X5 on OSF (.work/osf/osf_registration_D-056.md) BEFORE the VAE is trained
+or split F generated; code may be written meanwhile. Mixed-effects vs two-level bootstrap: author deciding.
+Publication: separate, properly named repo (NOT Agent-auto-Research), history-preserving export — plan v2 W5.
 NO JOB RUNNING. Working tree: paper/main.tex = commit fc97658 (6 pages, 0 overfull). Author said: do NOT edit the
 paper yet; next session starts from the review→draft gap list below. Deadlines: advisor 14/11, ESANN submit 18/11.
 GPU used ≈ 0.2 of 10 h. Untracked, leave alone: Nhận_Xet_02_11.pdf, argument-review/, conference-reviewer/,
