@@ -1643,11 +1643,16 @@ the one gate fallback), N and the pairs are not changed after any X5 number.
 at 200 queries per pair: 100 queries; if still above: GPU (budget ≈ 9.8 h left). Not finished by **11/11/2026** →
 reported as not done. Laptop jobs ≤ 4 h (author's rule, D-052).
 
-**Also under D-056 (saved outputs only, descriptive, not registered).** S1: exact one-sided sign test over pairs for
-every Holm row of Table 3, pooling splits A and B where condition and method agree; two-level bootstrap (pairs, then
-points within pairs; 10⁴ resamples, seed 5601) for rows with ≥ 8 pairs (rotation grid 24, split-D offsets 8, nulls).
-S2: forward/backward counts per query and method from the saved `runtime` fields. Mixed-effects models: pending the
-author's choice (plan v2 §7.3).
+**Also under D-056 (saved outputs only, descriptive, not registered).** S1 (revised 2026-11-04 with the author, before
+any S1 number): the pair is the unit of inference. (a) Primary: per-pair estimate for every Table 3 row; exact
+one-sided sign test over pairs, and for differences an exact sign-flip permutation test on the pair means (all 2^n
+sign patterns), pooling splits A and B where condition and method agree; 95% CI from the t distribution on the pair
+means (n ≥ 4), none for n = 3 (stated). Rows with 3 pairs cannot reach p < 0.125 and are reported as not confirmable
+at pair level. (b) Sensitivity, rows with ≥ 8 pairs (rotation 24, split-D offsets 8, nulls 8–16): linear mixed model
+(statsmodels MixedLM, point-level outcome, random intercept per pair; for rotation Recovery ~ α̂ + (1 | pair)), reported
+next to (a). Two-level bootstrap dropped (under-covers with few clusters; adds nothing beyond (a)). Binomial GLMM not
+used (no frequentist implementation in statsmodels; with 300 points in every pair the pair-mean analysis gives the
+same fixed-effect inference). S2: forward/backward counts per query and method from the saved `runtime` fields.
 
 ---
 
