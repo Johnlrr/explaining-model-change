@@ -11,6 +11,35 @@
 ## 1. Project status
 
 ```text
+=== SESSION HANDOFF 2026-11-04 (read this first) ===
+NO JOB RUNNING. Working tree: paper/main.tex = commit fc97658 (6 pages, 0 overfull). Author said: do NOT edit the
+paper yet; next session starts from the review→draft gap list below. Deadlines: advisor 14/11, ESANN submit 18/11.
+GPU used ≈ 0.2 of 10 h. Untracked, leave alone: Nhận_Xet_02_11.pdf, argument-review/, conference-reviewer/,
+paper/slides/, research/figures/slides/.
+
+CURRENT RESULTS (all in paper):
+- Abstention: CNN nulls 0/2400 (split B) and 0/2400 unfiltered registered split D; Adult MLP 0/1500; CF-diff flags
+  97.7–100%; κ=0 → 83% null witnesses; witness rate vs max|h| in r-ball 0.02→1.00.
+- Offsets: Grad-diff <0.2 grid 4/4, split D 8/8 (sign p=0.004, registered, confirmed). Δ-CE>Grad-diff on Threshold.
+- Rotations: Grad-diff ρ=0.89; projection equivalence not conf.; normal at z* halves gap (confirmed, new).
+- REJECTED: Δ-CE>Grad-diff (pre-registered). X2(b) witness ≥ s_M+0.2 only 7/8 → no "whether" advantage claimed.
+- IG/SHAP-diff: name aspect on 57%/71% of nulls (split A), IG 42% on split D (prediction met) → task-factor bias.
+- Seg-search×10: found 0.26–0.47 (pred. ≤0.2 NOT met); solver audit 955/955, nearer/equal 953.
+- ResNet-8 (X4, run locally after cost rule excluded it): κ=0.5 nulls 0.90 witnesses; D-054 grid ≤2 failed (0.07 at
+  2.0); D-055 disclosed post-hoc extension → κ*=2.5; split E nulls 0/200, offsets lowered-class witness
+  0.78/0.975/1.00 (s_M ≤0.05, CF-diff ≤0.03 at FPR 0). Recovery still 0.36–0.40; Grad-diff 0.32–0.36 offsets.
+
+KNOWN DRAFT ERRORS (introduced 2026-11-04, not yet fixed — author asked to wait):
+ (a) Table 3 ResNet split-E row says "conf." but D-055 is EXPLORATORY → should be "expl."; abstract "then detect all
+     three offsets" should be marked exploratory.
+ (b) Abstract uses κ undefined ("once κ is calibrated") → "once the margin is calibrated".
+ (c) §4.4 Imp-diff sentence truncated: "…on adaptation data $k^\star$." → "…ranks $k^\star$ first on adaptation data."
+
+ADVISOR REVIEW 02/11: the item-by-item summary is not part of the public repository.
+NEXT (when author agrees): fix (a)–(c) → optional pair-level permutation (item 3) and r-sensitivity (item 7) →
+number-check script (plan §4.4) → author names + anonymised repo link → advisor 14/11 → submit 18/11.
+=== END HANDOFF ===
+
 D-052 (2026-11-02): ADVISOR REVIEW (Nhận_Xet_02_11.pdf, 10 items) → plan research/proposals/review_0211_plan.md, rules in
   D-052 before any number. DONE: M exp_0046 (margin control: null |h| up to 1.65, so s_M at FPR 0 detects 0–0.10 of
   fine-tuned offsets vs Δ-CE 1.0 in 6/7 → branch "witness more sensitive"); E1–E4 exp_0047 (rotation pair-level ρ 0.89,
