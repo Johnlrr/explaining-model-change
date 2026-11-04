@@ -1,0 +1,3092 @@
+{
+  "label": "D-056 S1/S2 (saved outputs only, descriptive, not registered)",
+  "s1": {
+    "unit": "pair",
+    "rows": [
+      {
+        "id": "abst_null_B",
+        "table3_row": "No witness on nulls | Null, B",
+        "quantity": "witness share (type N or O) per pair, exp_0019 results.json C2 found_rate_union",
+        "pairs": [
+          {
+            "pair_id": 9,
+            "value": 0.0,
+            "n_points": 300,
+            "condition": "N0"
+          },
+          {
+            "pair_id": 10,
+            "value": 0.0,
+            "n_points": 300,
+            "condition": "N0"
+          },
+          {
+            "pair_id": 11,
+            "value": 0.0,
+            "n_points": 300,
+            "condition": "N0"
+          },
+          {
+            "pair_id": 12,
+            "value": 0.0,
+            "n_points": 300,
+            "condition": "N0"
+          },
+          {
+            "pair_id": 13,
+            "value": 0.0,
+            "n_points": 300,
+            "condition": "N0"
+          },
+          {
+            "pair_id": 14,
+            "value": 0.0,
+            "n_points": 300,
+            "condition": "N1"
+          },
+          {
+            "pair_id": 15,
+            "value": 0.0,
+            "n_points": 300,
+            "condition": "N1"
+          },
+          {
+            "pair_id": 16,
+            "value": 0.0,
+            "n_points": 300,
+            "condition": "N1"
+          }
+        ],
+        "summary": {
+          "n": 8,
+          "min": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "sd": 0.0,
+          "t_ci95": {
+            "level": 0.95,
+            "df": 7,
+            "lo": 0.0,
+            "hi": 0.0,
+            "se": 0.0
+          }
+        },
+        "claim": {
+          "kind": "threshold",
+          "c": 0.05,
+          "side": "below",
+          "text": "witness share of the null queries <= 0.05 (the registered criterion), per pair"
+        },
+        "sign_test": {
+          "c": 0.05,
+          "side": "below",
+          "k": 8,
+          "n": 8,
+          "n_ties_dropped": 0,
+          "p_one_sided": 0.00390625,
+          "min_attainable_p": 0.00390625
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.003906 with 8 pairs",
+        "crosscheck": [
+          {
+            "name": "type-N found rate from arrays (N only; type O is not in the arrays) vs union",
+            "saved": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "recomputed": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "notes": "MixedLM outcome = type-N found indicator (type O arrays are not saved for split B); union rate in results.json is 0 in every pair.",
+        "mixedlm": {
+          "n_points": 2400,
+          "n_pairs": 8,
+          "formula": "y ~ 1 + (1 | pair)",
+          "reml": true,
+          "status": "not fitted: constant outcome",
+          "constant_value": 0.0
+        },
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "abst_adult",
+        "table3_row": "No witness on nulls | Adult",
+        "quantity": "witness share (type N or O) per pair, exp_0028 h6.json",
+        "pairs": [
+          {
+            "pair_id": 0,
+            "value": 0.0,
+            "pair": "B0"
+          },
+          {
+            "pair_id": 1,
+            "value": 0.0,
+            "pair": "B1"
+          },
+          {
+            "pair_id": 2,
+            "value": 0.0,
+            "pair": "B2"
+          },
+          {
+            "pair_id": 3,
+            "value": 0.0,
+            "pair": "B3"
+          },
+          {
+            "pair_id": 4,
+            "value": 0.0,
+            "pair": "B4"
+          }
+        ],
+        "summary": {
+          "n": 5,
+          "min": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "sd": 0.0,
+          "t_ci95": {
+            "level": 0.95,
+            "df": 4,
+            "lo": 0.0,
+            "hi": 0.0,
+            "se": 0.0
+          }
+        },
+        "claim": {
+          "kind": "threshold",
+          "c": 0.05,
+          "side": "below",
+          "text": "witness share of the null queries <= 0.05 (the registered criterion), per pair"
+        },
+        "sign_test": {
+          "c": 0.05,
+          "side": "below",
+          "k": 5,
+          "n": 5,
+          "n_ties_dropped": 0,
+          "p_one_sided": 0.03125,
+          "min_attainable_p": 0.03125
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.03125 with 5 pairs",
+        "crosscheck": [
+          {
+            "name": "union found rate from arrays vs h6.json",
+            "saved": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "recomputed": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "notes": "5 pairs (< 8): no MixedLM. pair_id here is the index of B0..B4.",
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "abst_null_D",
+        "table3_row": "No witness on unfiltered nulls | Null, D",
+        "quantity": "witness share (type N or O) per pair, exp_0049 results_d.json x3",
+        "pairs": [
+          {
+            "pair_id": 110,
+            "value": 0.0,
+            "n_points": 300,
+            "condition": "N0"
+          },
+          {
+            "pair_id": 111,
+            "value": 0.0,
+            "n_points": 300,
+            "condition": "N0"
+          },
+          {
+            "pair_id": 112,
+            "value": 0.0,
+            "n_points": 300,
+            "condition": "N0"
+          },
+          {
+            "pair_id": 113,
+            "value": 0.0,
+            "n_points": 300,
+            "condition": "N0"
+          },
+          {
+            "pair_id": 114,
+            "value": 0.0,
+            "n_points": 300,
+            "condition": "N0"
+          },
+          {
+            "pair_id": 115,
+            "value": 0.0,
+            "n_points": 300,
+            "condition": "N1"
+          },
+          {
+            "pair_id": 116,
+            "value": 0.0,
+            "n_points": 300,
+            "condition": "N1"
+          },
+          {
+            "pair_id": 117,
+            "value": 0.0,
+            "n_points": 300,
+            "condition": "N1"
+          }
+        ],
+        "summary": {
+          "n": 8,
+          "min": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "sd": 0.0,
+          "t_ci95": {
+            "level": 0.95,
+            "df": 7,
+            "lo": 0.0,
+            "hi": 0.0,
+            "se": 0.0
+          }
+        },
+        "claim": {
+          "kind": "threshold",
+          "c": 0.05,
+          "side": "below",
+          "text": "witness share of the null queries <= 0.05 (the registered criterion), per pair"
+        },
+        "sign_test": {
+          "c": 0.05,
+          "side": "below",
+          "k": 8,
+          "n": 8,
+          "n_ties_dropped": 0,
+          "p_one_sided": 0.00390625,
+          "min_attainable_p": 0.00390625
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.003906 with 8 pairs",
+        "crosscheck": [
+          {
+            "name": "union found rate from arrays vs results_d.json",
+            "saved": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "recomputed": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "mixedlm": {
+          "n_points": 2400,
+          "n_pairs": 8,
+          "formula": "y ~ 1 + (1 | pair)",
+          "reml": true,
+          "status": "not fitted: constant outcome",
+          "constant_value": 0.0
+        },
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "abst_resnet_D",
+        "table3_row": "No witness on nulls | ResNet-8, D | kappa = 0.5",
+        "quantity": "witness share (type N or O) per pair (100 queries per pair)",
+        "pairs": [
+          {
+            "pair_id": 128,
+            "value": 0.91,
+            "n_points": 100
+          },
+          {
+            "pair_id": 129,
+            "value": 0.89,
+            "n_points": 100
+          }
+        ],
+        "summary": {
+          "n": 2,
+          "min": 0.89,
+          "max": 0.91,
+          "mean": 0.9,
+          "sd": 0.014142135623730963,
+          "t_ci95": null
+        },
+        "claim": {
+          "kind": "threshold",
+          "c": 0.05,
+          "side": "below",
+          "text": "witness share of the null queries <= 0.05 (the registered criterion), per pair"
+        },
+        "sign_test": {
+          "c": 0.05,
+          "side": "below",
+          "k": 0,
+          "n": 2,
+          "n_ties_dropped": 0,
+          "p_one_sided": 1.0,
+          "min_attainable_p": 0.25
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.25 with 2 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck": [
+          {
+            "name": "union found rate from arrays vs results json",
+            "saved": [
+              0.91,
+              0.89
+            ],
+            "recomputed": [
+              0.91,
+              0.89
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "notes": "2 pairs (< 8): no MixedLM.",
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "abst_resnet_E",
+        "table3_row": "No witness on nulls | ResNet-8, E | kappa* = 2.5",
+        "quantity": "witness share (type N or O) per pair (100 queries per pair)",
+        "pairs": [
+          {
+            "pair_id": 128,
+            "value": 0.0,
+            "n_points": 100
+          },
+          {
+            "pair_id": 129,
+            "value": 0.0,
+            "n_points": 100
+          }
+        ],
+        "summary": {
+          "n": 2,
+          "min": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "sd": 0.0,
+          "t_ci95": null
+        },
+        "claim": {
+          "kind": "threshold",
+          "c": 0.05,
+          "side": "below",
+          "text": "witness share of the null queries <= 0.05 (the registered criterion), per pair"
+        },
+        "sign_test": {
+          "c": 0.05,
+          "side": "below",
+          "k": 2,
+          "n": 2,
+          "n_ties_dropped": 0,
+          "p_one_sided": 0.25,
+          "min_attainable_p": 0.25
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.25 with 2 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck": [
+          {
+            "name": "union found rate from arrays vs results json",
+            "saved": [
+              0.0,
+              0.0
+            ],
+            "recomputed": [
+              0.0,
+              0.0
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "notes": "2 pairs (< 8): no MixedLM.",
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "cfdiff_flags",
+        "table3_row": "CF-diff (no cut) flags |b| < 2 kappa | Logit offsets",
+        "quantity": "CF-diff found rate per pair (12 pairs: f_old seed 0-2 x b in {-0.9, -0.5, 0.5, 0.9})",
+        "pairs": [
+          {
+            "pair_id": 63,
+            "value": 0.95,
+            "b": -0.9,
+            "seed": 0
+          },
+          {
+            "pair_id": 64,
+            "value": 0.9966666666666667,
+            "b": -0.5,
+            "seed": 0
+          },
+          {
+            "pair_id": 65,
+            "value": 0.96,
+            "b": 0.5,
+            "seed": 0
+          },
+          {
+            "pair_id": 66,
+            "value": 0.9466666666666667,
+            "b": 0.9,
+            "seed": 0
+          },
+          {
+            "pair_id": 73,
+            "value": 0.94,
+            "b": -0.9,
+            "seed": 1
+          },
+          {
+            "pair_id": 74,
+            "value": 0.9833333333333333,
+            "b": -0.5,
+            "seed": 1
+          },
+          {
+            "pair_id": 75,
+            "value": 0.97,
+            "b": 0.5,
+            "seed": 1
+          },
+          {
+            "pair_id": 76,
+            "value": 0.9566666666666667,
+            "b": 0.9,
+            "seed": 1
+          },
+          {
+            "pair_id": 83,
+            "value": 0.9366666666666666,
+            "b": -0.9,
+            "seed": 2
+          },
+          {
+            "pair_id": 84,
+            "value": 0.9966666666666667,
+            "b": -0.5,
+            "seed": 2
+          },
+          {
+            "pair_id": 85,
+            "value": 0.9733333333333334,
+            "b": 0.5,
+            "seed": 2
+          },
+          {
+            "pair_id": 86,
+            "value": 0.9266666666666666,
+            "b": 0.9,
+            "seed": 2
+          }
+        ],
+        "summary": {
+          "n": 12,
+          "min": 0.9266666666666666,
+          "max": 0.9966666666666667,
+          "mean": 0.9613888888888887,
+          "sd": 0.023026481607463525,
+          "t_ci95": {
+            "level": 0.95,
+            "df": 11,
+            "lo": 0.9467585604696299,
+            "hi": 0.9760192173081476,
+            "se": 0.006647172677279517
+          }
+        },
+        "claim": {
+          "kind": "threshold",
+          "c": 0.9,
+          "side": "above",
+          "text": "CF-diff found rate > 0.90 per pair (H7c: every pair >= 0.90)"
+        },
+        "sign_test": {
+          "c": 0.9,
+          "side": "above",
+          "k": 12,
+          "n": 12,
+          "n_ties_dropped": 0,
+          "p_one_sided": 0.000244140625,
+          "min_attainable_p": 0.000244140625
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.0002441 with 12 pairs",
+        "crosscheck": [
+          {
+            "name": "per-pair found rate vs results_h7.json H7c.per_pair_found_b1_det (order of saved list)",
+            "saved": [
+              0.95,
+              0.9966666666666667,
+              0.96,
+              0.9466666666666667,
+              0.94,
+              0.9833333333333333,
+              0.97,
+              0.9566666666666667,
+              0.9366666666666666,
+              0.9966666666666667,
+              0.9733333333333334,
+              0.9266666666666666
+            ],
+            "recomputed": [
+              0.95,
+              0.9966666666666667,
+              0.96,
+              0.9466666666666667,
+              0.94,
+              0.9833333333333333,
+              0.97,
+              0.9566666666666667,
+              0.9366666666666666,
+              0.9966666666666667,
+              0.9733333333333334,
+              0.9266666666666666
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          },
+          {
+            "name": "pair mean vs H7c estimate",
+            "saved": 0.9613888888888888,
+            "recomputed": 0.9613888888888887,
+            "max_abs_diff": 1.1102230246251565e-16,
+            "match": true
+          }
+        ],
+        "mixedlm": {
+          "n_points": 3600,
+          "n_pairs": 12,
+          "formula": "y ~ 1 + (1 | pair)",
+          "reml": true,
+          "status": "fitted",
+          "converged": true,
+          "random_intercept_var": 0.0004076933385405293,
+          "residual_var": 0.03675678248360638,
+          "singular_random_effect": false,
+          "warnings": [
+            "The MLE may be on the boundary of the parameter space."
+          ],
+          "coef": {
+            "Intercept": {
+              "coef": 0.9613888888888859,
+              "se": 0.006647154446448099,
+              "z": 144.63164601246825,
+              "p_two_sided_h0_zero": 0.0
+            }
+          },
+          "wald_vs_claim": {
+            "c": 0.9,
+            "side": "above",
+            "z": 9.235363700882402,
+            "p_one_sided": 1.2870500754328811e-20
+          }
+        },
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "gd_lt02_grid",
+        "table3_row": "Grad-diff < 0.2 | Grid, alpha = 0",
+        "quantity": "Recovery of Grad-diff per pair (k* = aspect), pairs 24-27",
+        "pairs": [
+          {
+            "pair_id": 24,
+            "value": 0.02666666666666667,
+            "t": 0.56,
+            "seed": 0
+          },
+          {
+            "pair_id": 25,
+            "value": 0.12333333333333334,
+            "t": 0.56,
+            "seed": 1
+          },
+          {
+            "pair_id": 26,
+            "value": 0.07,
+            "t": 0.6,
+            "seed": 0
+          },
+          {
+            "pair_id": 27,
+            "value": 0.10333333333333333,
+            "t": 0.6,
+            "seed": 1
+          }
+        ],
+        "summary": {
+          "n": 4,
+          "min": 0.02666666666666667,
+          "max": 0.12333333333333334,
+          "mean": 0.08083333333333334,
+          "sd": 0.042284311073528945,
+          "t_ci95": {
+            "level": 0.95,
+            "df": 3,
+            "lo": 0.013549558559623753,
+            "hi": 0.14811710810704293,
+            "se": 0.021142155536764472
+          }
+        },
+        "claim": {
+          "kind": "threshold",
+          "c": 0.2,
+          "side": "below",
+          "text": "Grad-diff Recovery < 0.2 per pair"
+        },
+        "sign_test": {
+          "c": 0.2,
+          "side": "below",
+          "k": 4,
+          "n": 4,
+          "n_ties_dropped": 0,
+          "p_one_sided": 0.0625,
+          "min_attainable_p": 0.0625
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.0625 with 4 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck": [
+          {
+            "name": "pair mean vs results.json H5a.estimate",
+            "saved": 0.08083333333333334,
+            "recomputed": 0.08083333333333334,
+            "max_abs_diff": 0.0,
+            "match": true
+          },
+          {
+            "name": "per-pair vs exp_0047 e1b graddiff_lt_0.2_grid_alpha0",
+            "saved": [
+              0.02666666666666667,
+              0.12333333333333334,
+              0.07,
+              0.10333333333333333
+            ],
+            "recomputed": [
+              0.02666666666666667,
+              0.12333333333333334,
+              0.07,
+              0.10333333333333333
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "gd_lt02_D",
+        "table3_row": "Grad-diff < 0.2 | Offsets, D",
+        "quantity": "Recovery of Grad-diff per pair (k* = aspect), 8 qualified offset pairs (pair 103 not qualified)",
+        "pairs": [
+          {
+            "pair_id": 100,
+            "value": 0.05,
+            "t": 0.53,
+            "seed": 2
+          },
+          {
+            "pair_id": 101,
+            "value": 0.043333333333333335,
+            "t": 0.56,
+            "seed": 2
+          },
+          {
+            "pair_id": 102,
+            "value": 0.09333333333333334,
+            "t": 0.6,
+            "seed": 2
+          },
+          {
+            "pair_id": 104,
+            "value": 0.043333333333333335,
+            "t": 0.56,
+            "seed": 3
+          },
+          {
+            "pair_id": 105,
+            "value": 0.05333333333333334,
+            "t": 0.6,
+            "seed": 3
+          },
+          {
+            "pair_id": 106,
+            "value": 0.04,
+            "t": 0.53,
+            "seed": 4
+          },
+          {
+            "pair_id": 107,
+            "value": 0.03333333333333333,
+            "t": 0.56,
+            "seed": 4
+          },
+          {
+            "pair_id": 108,
+            "value": 0.09333333333333334,
+            "t": 0.6,
+            "seed": 4
+          }
+        ],
+        "summary": {
+          "n": 8,
+          "min": 0.03333333333333333,
+          "max": 0.09333333333333334,
+          "mean": 0.05625,
+          "sd": 0.023666834338775596,
+          "t_ci95": {
+            "level": 0.95,
+            "df": 7,
+            "lo": 0.03646403134403913,
+            "hi": 0.07603596865596088,
+            "se": 0.008367489525083432
+          }
+        },
+        "claim": {
+          "kind": "threshold",
+          "c": 0.2,
+          "side": "below",
+          "text": "Grad-diff Recovery < 0.2 per pair"
+        },
+        "sign_test": {
+          "c": 0.2,
+          "side": "below",
+          "k": 8,
+          "n": 8,
+          "n_ties_dropped": 0,
+          "p_one_sided": 0.00390625,
+          "min_attainable_p": 0.00390625
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.003906 with 8 pairs",
+        "crosscheck": [
+          {
+            "name": "per-pair vs results_d.json x2.graddiff_recovery",
+            "saved": [
+              0.05,
+              0.043333333333333335,
+              0.09333333333333334,
+              0.043333333333333335,
+              0.05333333333333334,
+              0.04,
+              0.03333333333333333,
+              0.09333333333333334
+            ],
+            "recomputed": [
+              0.05,
+              0.043333333333333335,
+              0.09333333333333334,
+              0.043333333333333335,
+              0.05333333333333334,
+              0.04,
+              0.03333333333333333,
+              0.09333333333333334
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          },
+          {
+            "name": "sign-test p vs the saved 0.0039 (exact 2^-8)",
+            "saved": 0.00390625,
+            "recomputed": 0.00390625,
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "mixedlm": {
+          "n_points": 2400,
+          "n_pairs": 8,
+          "formula": "y ~ 1 + (1 | pair)",
+          "reml": true,
+          "status": "fitted",
+          "converged": true,
+          "random_intercept_var": 0.00038420465878485216,
+          "residual_var": 0.052771741497152205,
+          "singular_random_effect": false,
+          "warnings": [
+            "The MLE may be on the boundary of the parameter space."
+          ],
+          "coef": {
+            "Intercept": {
+              "coef": 0.05625000000000018,
+              "se": 0.008367425408805262,
+              "z": 6.72249793118046,
+              "p_two_sided_h0_zero": 1.78635275306441e-11
+            }
+          },
+          "wald_vs_claim": {
+            "c": 0.2,
+            "side": "below",
+            "z": -17.179716935238876,
+            "p_one_sided": 1.8837250316246403e-66
+          }
+        },
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "gd_offset_free",
+        "table3_row": "Grad-diff offset-free | Grid",
+        "quantity": "Rec(Grad-diff; alpha 0.25, t 0.60) - Rec(Grad-diff; 0.25, 0.50), k* = colour, per f_old seed (2 matched pairs)",
+        "pairs": [
+          {
+            "pair_id": 42,
+            "value": -0.13333333333333341,
+            "seed": 0,
+            "pair_t060": 42,
+            "pair_t050": 36,
+            "rec_t060": 0.5466666666666666,
+            "rec_t050": 0.68
+          },
+          {
+            "pair_id": 43,
+            "value": -0.06333333333333335,
+            "seed": 1,
+            "pair_t060": 43,
+            "pair_t050": 37,
+            "rec_t060": 0.62,
+            "rec_t050": 0.6833333333333333
+          }
+        ],
+        "summary": {
+          "n": 2,
+          "min": -0.13333333333333341,
+          "max": -0.06333333333333335,
+          "mean": -0.09833333333333338,
+          "sd": 0.049497474683058366,
+          "t_ci95": null
+        },
+        "claim": {
+          "kind": "band",
+          "text": "|difference| <= 0.10 (equivalence); cells matched by f_old seed (a design choice, D-056 does not fix the matching)"
+        },
+        "within_band": {
+          "band": 0.1,
+          "k": 1,
+          "n": 2
+        },
+        "signflip": {
+          "side": "two-sided",
+          "mean": -0.09833333333333338,
+          "n": 2,
+          "n_patterns": 4,
+          "p": 0.5,
+          "min_attainable_p": 0.5
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.25 with 2 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck": [
+          {
+            "name": "mean of the 2 matched differences vs results.json H5c.estimate",
+            "saved": -0.09833333333333338,
+            "recomputed": -0.09833333333333338,
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "notes": "2 pairs per cell. No CI (n < 4).",
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "gd_rises_contrast",
+        "table3_row": "Grad-diff rises with alpha | Grid (registered contrast H5b)",
+        "quantity": "Rec(Grad-diff; alpha 0.5, t 0.5) - Rec(Grad-diff; alpha 0.1, t 0.5), k* = colour, per f_old seed (2 matched pairs)",
+        "pairs": [
+          {
+            "pair_id": 44,
+            "value": 0.6033333333333333,
+            "seed": 0,
+            "pair_alpha05": 44,
+            "pair_alpha01": 28,
+            "rec_alpha05": 0.9233333333333333,
+            "rec_alpha01": 0.32
+          },
+          {
+            "pair_id": 45,
+            "value": 0.5366666666666666,
+            "seed": 1,
+            "pair_alpha05": 45,
+            "pair_alpha01": 29,
+            "rec_alpha05": 0.9366666666666666,
+            "rec_alpha01": 0.4
+          }
+        ],
+        "summary": {
+          "n": 2,
+          "min": 0.5366666666666666,
+          "max": 0.6033333333333333,
+          "mean": 0.57,
+          "sd": 0.04714045207910316,
+          "t_ci95": null
+        },
+        "claim": {
+          "kind": "diff_pos",
+          "text": "difference > 0"
+        },
+        "sign_test": {
+          "c": 0.0,
+          "side": "above",
+          "k": 2,
+          "n": 2,
+          "n_ties_dropped": 0,
+          "p_one_sided": 0.25,
+          "min_attainable_p": 0.25
+        },
+        "signflip": {
+          "side": "greater",
+          "mean": 0.57,
+          "n": 2,
+          "n_patterns": 4,
+          "p": 0.25,
+          "min_attainable_p": 0.25
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.25 with 2 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck": [
+          {
+            "name": "mean of the 2 matched differences vs results.json H5b.estimate",
+            "saved": 0.57,
+            "recomputed": 0.57,
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "notes": "2 pairs per cell. No CI (n < 4).",
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "gd_rises_rotation",
+        "table3_row": "Grad-diff rises with alpha | Grid (rho = 0.89)",
+        "quantity": "Recovery of Grad-diff per pair (k* = colour) against measured alpha_hat, 24 pairs with alpha > 0",
+        "pairs": [
+          {
+            "pair_id": 28,
+            "value": 0.32,
+            "alpha": 0.1,
+            "t": 0.5,
+            "seed": 0,
+            "alpha_hat": 0.1121109638820603
+          },
+          {
+            "pair_id": 29,
+            "value": 0.4,
+            "alpha": 0.1,
+            "t": 0.5,
+            "seed": 1,
+            "alpha_hat": 0.09774779792461905
+          },
+          {
+            "pair_id": 30,
+            "value": 0.16333333333333333,
+            "alpha": 0.1,
+            "t": 0.53,
+            "seed": 0,
+            "alpha_hat": 0.06715261646880041
+          },
+          {
+            "pair_id": 31,
+            "value": 0.5366666666666666,
+            "alpha": 0.1,
+            "t": 0.53,
+            "seed": 1,
+            "alpha_hat": 0.12063307998423053
+          },
+          {
+            "pair_id": 32,
+            "value": 0.32,
+            "alpha": 0.1,
+            "t": 0.56,
+            "seed": 0,
+            "alpha_hat": 0.08499454750733017
+          },
+          {
+            "pair_id": 33,
+            "value": 0.28,
+            "alpha": 0.1,
+            "t": 0.56,
+            "seed": 1,
+            "alpha_hat": 0.09466201488578475
+          },
+          {
+            "pair_id": 34,
+            "value": 0.28,
+            "alpha": 0.1,
+            "t": 0.6,
+            "seed": 0,
+            "alpha_hat": 0.11847655750385822
+          },
+          {
+            "pair_id": 35,
+            "value": 0.28,
+            "alpha": 0.1,
+            "t": 0.6,
+            "seed": 1,
+            "alpha_hat": 0.09241854619232992
+          },
+          {
+            "pair_id": 36,
+            "value": 0.68,
+            "alpha": 0.25,
+            "t": 0.5,
+            "seed": 0,
+            "alpha_hat": 0.22137174812778093
+          },
+          {
+            "pair_id": 37,
+            "value": 0.6833333333333333,
+            "alpha": 0.25,
+            "t": 0.5,
+            "seed": 1,
+            "alpha_hat": 0.2185960504341025
+          },
+          {
+            "pair_id": 38,
+            "value": 0.78,
+            "alpha": 0.25,
+            "t": 0.53,
+            "seed": 0,
+            "alpha_hat": 0.260043253735282
+          },
+          {
+            "pair_id": 39,
+            "value": 0.6533333333333333,
+            "alpha": 0.25,
+            "t": 0.53,
+            "seed": 1,
+            "alpha_hat": 0.201678132895896
+          },
+          {
+            "pair_id": 40,
+            "value": 0.7033333333333334,
+            "alpha": 0.25,
+            "t": 0.56,
+            "seed": 0,
+            "alpha_hat": 0.23279629563747256
+          },
+          {
+            "pair_id": 41,
+            "value": 0.7366666666666667,
+            "alpha": 0.25,
+            "t": 0.56,
+            "seed": 1,
+            "alpha_hat": 0.2487521802570101
+          },
+          {
+            "pair_id": 42,
+            "value": 0.5466666666666666,
+            "alpha": 0.25,
+            "t": 0.6,
+            "seed": 0,
+            "alpha_hat": 0.2639738175729631
+          },
+          {
+            "pair_id": 43,
+            "value": 0.62,
+            "alpha": 0.25,
+            "t": 0.6,
+            "seed": 1,
+            "alpha_hat": 0.21053463145531995
+          },
+          {
+            "pair_id": 44,
+            "value": 0.9233333333333333,
+            "alpha": 0.5,
+            "t": 0.5,
+            "seed": 0,
+            "alpha_hat": 0.44388950748124306
+          },
+          {
+            "pair_id": 45,
+            "value": 0.9366666666666666,
+            "alpha": 0.5,
+            "t": 0.5,
+            "seed": 1,
+            "alpha_hat": 0.42836742750420276
+          },
+          {
+            "pair_id": 46,
+            "value": 0.91,
+            "alpha": 0.5,
+            "t": 0.53,
+            "seed": 0,
+            "alpha_hat": 0.4869777972097051
+          },
+          {
+            "pair_id": 47,
+            "value": 0.8933333333333333,
+            "alpha": 0.5,
+            "t": 0.53,
+            "seed": 1,
+            "alpha_hat": 0.4583831877652324
+          },
+          {
+            "pair_id": 48,
+            "value": 0.9033333333333333,
+            "alpha": 0.5,
+            "t": 0.56,
+            "seed": 0,
+            "alpha_hat": 0.4631812057947941
+          },
+          {
+            "pair_id": 49,
+            "value": 0.85,
+            "alpha": 0.5,
+            "t": 0.56,
+            "seed": 1,
+            "alpha_hat": 0.5119335742302141
+          },
+          {
+            "pair_id": 50,
+            "value": 0.85,
+            "alpha": 0.5,
+            "t": 0.6,
+            "seed": 0,
+            "alpha_hat": 0.5479238419164196
+          },
+          {
+            "pair_id": 51,
+            "value": 0.84,
+            "alpha": 0.5,
+            "t": 0.6,
+            "seed": 1,
+            "alpha_hat": 0.4924337854408678
+          }
+        ],
+        "summary": {
+          "n": 24,
+          "min": 0.16333333333333333,
+          "max": 0.9366666666666666,
+          "mean": 0.62875,
+          "sd": 0.24975507325849758,
+          "t_ci95": {
+            "level": 0.95,
+            "df": 23,
+            "lo": 0.5232876818663635,
+            "hi": 0.7342123181336365,
+            "se": 0.05098104084622926
+          }
+        },
+        "claim": {
+          "kind": "monotone",
+          "text": "Recovery increases with alpha_hat (Spearman rho > 0)"
+        },
+        "spearman": {
+          "rho": 0.8929045490942804,
+          "perm_p_one_sided": 9.999000099990002e-05,
+          "n_perm": 10000,
+          "perm_seed": 5201,
+          "strata": "f_old seed",
+          "note": "Monte Carlo permutation (the strata have 12! orderings each; exact enumeration is infeasible); same call as exp_0047 e1a"
+        },
+        "by_alpha": {
+          "0.1": {
+            "n": 8,
+            "min": 0.16333333333333333,
+            "max": 0.5366666666666666,
+            "mean": 0.3225
+          },
+          "0.25": {
+            "n": 8,
+            "min": 0.5466666666666666,
+            "max": 0.78,
+            "mean": 0.6754166666666667
+          },
+          "0.5": {
+            "n": 8,
+            "min": 0.84,
+            "max": 0.9366666666666666,
+            "mean": 0.8883333333333333
+          }
+        },
+        "pair_level_flag": "24 pairs; the Monte Carlo p has a floor of 1/(n_perm + 1)",
+        "crosscheck": [
+          {
+            "name": "Spearman rho vs exp_0047 e1a_rotation",
+            "saved": 0.8929045490942804,
+            "recomputed": 0.8929045490942804,
+            "max_abs_diff": 0.0,
+            "match": true
+          },
+          {
+            "name": "permutation p vs exp_0047",
+            "saved": 9.999000099990002e-05,
+            "recomputed": 9.999000099990002e-05,
+            "max_abs_diff": 0.0,
+            "match": true
+          },
+          {
+            "name": "per-pair Recovery (rank-based) vs exp_0047 graddiff_recovery",
+            "saved": [
+              0.32,
+              0.4,
+              0.16333333333333333,
+              0.5366666666666666,
+              0.32,
+              0.28,
+              0.28,
+              0.28,
+              0.68,
+              0.6833333333333333,
+              0.78,
+              0.6533333333333333,
+              0.7033333333333334,
+              0.7366666666666667,
+              0.5466666666666666,
+              0.62,
+              0.9233333333333333,
+              0.9366666666666666,
+              0.91,
+              0.8933333333333333,
+              0.9033333333333333,
+              0.85,
+              0.85,
+              0.84
+            ],
+            "recomputed": [
+              0.32,
+              0.4,
+              0.16333333333333333,
+              0.5366666666666666,
+              0.32,
+              0.28,
+              0.28,
+              0.28,
+              0.68,
+              0.6833333333333333,
+              0.78,
+              0.6533333333333333,
+              0.7033333333333334,
+              0.7366666666666667,
+              0.5466666666666666,
+              0.62,
+              0.9233333333333333,
+              0.9366666666666666,
+              0.91,
+              0.8933333333333333,
+              0.9033333333333333,
+              0.85,
+              0.85,
+              0.84
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          },
+          {
+            "name": "per-pair Recovery (recovery_indicator) vs rank-based",
+            "saved": [
+              0.32,
+              0.4,
+              0.16333333333333333,
+              0.5366666666666666,
+              0.32,
+              0.28,
+              0.28,
+              0.28,
+              0.68,
+              0.6833333333333333,
+              0.78,
+              0.6533333333333333,
+              0.7033333333333334,
+              0.7366666666666667,
+              0.5466666666666666,
+              0.62,
+              0.9233333333333333,
+              0.9366666666666666,
+              0.91,
+              0.8933333333333333,
+              0.9033333333333333,
+              0.85,
+              0.85,
+              0.84
+            ],
+            "recomputed": [
+              0.32,
+              0.4,
+              0.16333333333333333,
+              0.5366666666666666,
+              0.32,
+              0.28,
+              0.28,
+              0.28,
+              0.68,
+              0.6833333333333333,
+              0.78,
+              0.6533333333333333,
+              0.7033333333333334,
+              0.7366666666666667,
+              0.5466666666666666,
+              0.62,
+              0.9233333333333333,
+              0.9366666666666666,
+              0.91,
+              0.8933333333333333,
+              0.9033333333333333,
+              0.85,
+              0.85,
+              0.84
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "mixedlm": {
+          "n_points": 7200,
+          "n_pairs": 24,
+          "formula": "y ~ alpha_hat + (1 | pair)",
+          "reml": true,
+          "status": "fitted",
+          "converged": true,
+          "random_intercept_var": 0.011985908348490289,
+          "residual_var": 0.17422558440371466,
+          "singular_random_effect": false,
+          "warnings": [],
+          "coef": {
+            "Intercept": {
+              "coef": 0.2577150234000974,
+              "se": 0.04491376460679969,
+              "z": 5.737996484068512,
+              "p_two_sided_h0_zero": 9.58031044187216e-09
+            },
+            "alpha_hat": {
+              "coef": 1.374408810798292,
+              "se": 0.14316055683836348,
+              "z": 9.600471255152204,
+              "p_two_sided_h0_zero": 7.9579733643181745e-22
+            }
+          }
+        },
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "dce_gt_gd_threshold_B",
+        "table3_row": "Delta-CE > Grad-diff | Threshold, B",
+        "quantity": "Recovery(Delta-CE) - Recovery(Grad-diff) per pair, split B, pairs 6-8 (k* = aspect)",
+        "pairs": [
+          {
+            "pair_id": 6,
+            "value": 0.36
+          },
+          {
+            "pair_id": 7,
+            "value": 0.27
+          },
+          {
+            "pair_id": 8,
+            "value": 0.30666666666666664
+          }
+        ],
+        "summary": {
+          "n": 3,
+          "min": 0.27,
+          "max": 0.36,
+          "mean": 0.31222222222222223,
+          "sd": 0.04525647078759176,
+          "t_ci95": null
+        },
+        "claim": {
+          "kind": "diff_pos",
+          "text": "Delta-CE Recovery - Grad-diff Recovery > 0"
+        },
+        "sign_test": {
+          "c": 0.0,
+          "side": "above",
+          "k": 3,
+          "n": 3,
+          "n_ties_dropped": 0,
+          "p_one_sided": 0.125,
+          "min_attainable_p": 0.125
+        },
+        "signflip": {
+          "side": "greater",
+          "mean": 0.31222222222222223,
+          "n": 3,
+          "n_patterns": 8,
+          "p": 0.125,
+          "min_attainable_p": 0.125
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.125 with 3 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck": [
+          {
+            "name": "per-pair vs exp_0047 e1b",
+            "saved": [
+              0.36,
+              0.27,
+              0.30666666666666664
+            ],
+            "recomputed": [
+              0.36,
+              0.27,
+              0.30666666666666664
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "dce_gt_gd_threshold_A",
+        "table3_row": "Delta-CE > Grad-diff | Threshold, A (same claim, locked split)",
+        "quantity": "same quantity, split A",
+        "pairs": [
+          {
+            "pair_id": 6,
+            "value": 0.4
+          },
+          {
+            "pair_id": 7,
+            "value": 0.4066666666666666
+          },
+          {
+            "pair_id": 8,
+            "value": 0.38
+          }
+        ],
+        "summary": {
+          "n": 3,
+          "min": 0.38,
+          "max": 0.4066666666666666,
+          "mean": 0.3955555555555555,
+          "sd": 0.0138777733297742,
+          "t_ci95": null
+        },
+        "claim": {
+          "kind": "diff_pos",
+          "text": "Delta-CE Recovery - Grad-diff Recovery > 0"
+        },
+        "sign_test": {
+          "c": 0.0,
+          "side": "above",
+          "k": 3,
+          "n": 3,
+          "n_ties_dropped": 0,
+          "p_one_sided": 0.125,
+          "min_attainable_p": 0.125
+        },
+        "signflip": {
+          "side": "greater",
+          "mean": 0.3955555555555555,
+          "n": 3,
+          "n_patterns": 8,
+          "p": 0.125,
+          "min_attainable_p": 0.125
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.125 with 3 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck": [
+          {
+            "name": "per-pair vs exp_0047 e1b",
+            "saved": [
+              0.4,
+              0.4066666666666666,
+              0.38
+            ],
+            "recomputed": [
+              0.4,
+              0.4066666666666666,
+              0.38
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "dce_gt_gd_threshold_AB",
+        "table3_row": "Delta-CE > Grad-diff | Threshold, A+B pooled",
+        "quantity": "per-pair mean of the split-A and split-B differences (same models, two data sets)",
+        "pairs": [
+          {
+            "pair_id": 6,
+            "value": 0.38
+          },
+          {
+            "pair_id": 7,
+            "value": 0.3383333333333333
+          },
+          {
+            "pair_id": 8,
+            "value": 0.3433333333333333
+          }
+        ],
+        "summary": {
+          "n": 3,
+          "min": 0.3383333333333333,
+          "max": 0.38,
+          "mean": 0.35388888888888886,
+          "sd": 0.022750661366048086,
+          "t_ci95": null
+        },
+        "claim": {
+          "kind": "diff_pos",
+          "text": "Delta-CE Recovery - Grad-diff Recovery > 0"
+        },
+        "sign_test": {
+          "c": 0.0,
+          "side": "above",
+          "k": 3,
+          "n": 3,
+          "n_ties_dropped": 0,
+          "p_one_sided": 0.125,
+          "min_attainable_p": 0.125
+        },
+        "signflip": {
+          "side": "greater",
+          "mean": 0.35388888888888886,
+          "n": 3,
+          "n_patterns": 8,
+          "p": 0.125,
+          "min_attainable_p": 0.125
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.125 with 3 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "notes": "Pooling does not add pairs: A and B use the same 3 model pairs (same checkpoints, different test data).",
+        "crosscheck_all_match": null
+      },
+      {
+        "id": "dce_gt_gd_subgroup",
+        "table3_row": "Delta-CE > Grad-diff | Subgroup",
+        "quantity": "Recovery(Delta-CE) - Recovery(Grad-diff) per pair, split A, pairs 3-5 (k* = size)",
+        "pairs": [
+          {
+            "pair_id": 3,
+            "value": -0.08666666666666667
+          },
+          {
+            "pair_id": 4,
+            "value": -0.1233333333333333
+          },
+          {
+            "pair_id": 5,
+            "value": -0.06333333333333335
+          }
+        ],
+        "summary": {
+          "n": 3,
+          "min": -0.1233333333333333,
+          "max": -0.06333333333333335,
+          "mean": -0.0911111111111111,
+          "sd": 0.030245905752924858,
+          "t_ci95": null
+        },
+        "claim": {
+          "kind": "diff_pos",
+          "text": "Delta-CE Recovery - Grad-diff Recovery > 0"
+        },
+        "sign_test": {
+          "c": 0.0,
+          "side": "above",
+          "k": 0,
+          "n": 3,
+          "n_ties_dropped": 0,
+          "p_one_sided": 1.0,
+          "min_attainable_p": 0.125
+        },
+        "signflip": {
+          "side": "greater",
+          "mean": -0.0911111111111111,
+          "n": 3,
+          "n_patterns": 8,
+          "p": 1.0,
+          "min_attainable_p": 0.125
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.125 with 3 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck": [
+          {
+            "name": "per-pair vs exp_0047 e1b",
+            "saved": [
+              -0.08666666666666667,
+              -0.1233333333333333,
+              -0.06333333333333335
+            ],
+            "recomputed": [
+              -0.08666666666666667,
+              -0.1233333333333333,
+              -0.06333333333333335
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "notes": "Claimed side: positive; the saved row reads 0/3.",
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "tie_shortcut_A",
+        "table3_row": "Tie (|Delta| <= 0.1) | Shortcut, A",
+        "quantity": "Recovery(Delta-CE) - Recovery(Grad-diff) per pair, split A",
+        "pairs": [
+          {
+            "pair_id": 0,
+            "value": -0.5633333333333332
+          },
+          {
+            "pair_id": 1,
+            "value": -0.53
+          },
+          {
+            "pair_id": 2,
+            "value": -0.5066666666666666
+          }
+        ],
+        "summary": {
+          "n": 3,
+          "min": -0.5633333333333332,
+          "max": -0.5066666666666666,
+          "mean": -0.5333333333333333,
+          "sd": 0.02848001248439175,
+          "t_ci95": null
+        },
+        "claim": {
+          "kind": "band",
+          "text": "|Delta-CE - Grad-diff| <= 0.10 (tie)"
+        },
+        "within_band": {
+          "band": 0.1,
+          "k": 0,
+          "n": 3
+        },
+        "signflip": {
+          "side": "two-sided",
+          "mean": -0.5333333333333333,
+          "n": 3,
+          "n_patterns": 8,
+          "p": 0.25,
+          "min_attainable_p": 0.25
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.125 with 3 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck": [
+          {
+            "name": "per-pair vs exp_0047 e1b",
+            "saved": [
+              -0.5633333333333332,
+              -0.53,
+              -0.5066666666666666
+            ],
+            "recomputed": [
+              -0.5633333333333332,
+              -0.53,
+              -0.5066666666666666
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "tie_shortcut_B",
+        "table3_row": "Tie (|Delta| <= 0.1) | Shortcut, B",
+        "quantity": "same, split B",
+        "pairs": [
+          {
+            "pair_id": 0,
+            "value": -0.5933333333333334
+          },
+          {
+            "pair_id": 1,
+            "value": -0.5700000000000001
+          },
+          {
+            "pair_id": 2,
+            "value": -0.5466666666666666
+          }
+        ],
+        "summary": {
+          "n": 3,
+          "min": -0.5933333333333334,
+          "max": -0.5466666666666666,
+          "mean": -0.5700000000000001,
+          "sd": 0.023333333333333373,
+          "t_ci95": null
+        },
+        "claim": {
+          "kind": "band",
+          "text": "|Delta-CE - Grad-diff| <= 0.10 (tie)"
+        },
+        "within_band": {
+          "band": 0.1,
+          "k": 0,
+          "n": 3
+        },
+        "signflip": {
+          "side": "two-sided",
+          "mean": -0.5700000000000001,
+          "n": 3,
+          "n_patterns": 8,
+          "p": 0.25,
+          "min_attainable_p": 0.25
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.125 with 3 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck": [
+          {
+            "name": "per-pair vs exp_0047 e1b",
+            "saved": [
+              -0.5933333333333334,
+              -0.5700000000000001,
+              -0.5466666666666666
+            ],
+            "recomputed": [
+              -0.5933333333333334,
+              -0.5700000000000001,
+              -0.5466666666666666
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "tie_shortcut_AB",
+        "table3_row": "Tie (|Delta| <= 0.1) | Shortcut, A+B pooled",
+        "quantity": "per-pair mean of A and B",
+        "pairs": [
+          {
+            "pair_id": 0,
+            "value": -0.5783333333333334
+          },
+          {
+            "pair_id": 1,
+            "value": -0.55
+          },
+          {
+            "pair_id": 2,
+            "value": -0.5266666666666666
+          }
+        ],
+        "summary": {
+          "n": 3,
+          "min": -0.5783333333333334,
+          "max": -0.5266666666666666,
+          "mean": -0.5516666666666666,
+          "sd": 0.025873624493766744,
+          "t_ci95": null
+        },
+        "claim": {
+          "kind": "band",
+          "text": "|Delta-CE - Grad-diff| <= 0.10 (tie)"
+        },
+        "within_band": {
+          "band": 0.1,
+          "k": 0,
+          "n": 3
+        },
+        "signflip": {
+          "side": "two-sided",
+          "mean": -0.5516666666666666,
+          "n": 3,
+          "n_patterns": 8,
+          "p": 0.25,
+          "min_attainable_p": 0.25
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.125 with 3 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck_all_match": null
+      },
+      {
+        "id": "tie_threshold_A",
+        "table3_row": "Tie (|Delta| <= 0.1) | Threshold, A",
+        "quantity": "Recovery(Delta-CE) - Recovery(Grad-diff) per pair, split A",
+        "pairs": [
+          {
+            "pair_id": 6,
+            "value": 0.4
+          },
+          {
+            "pair_id": 7,
+            "value": 0.4066666666666666
+          },
+          {
+            "pair_id": 8,
+            "value": 0.38
+          }
+        ],
+        "summary": {
+          "n": 3,
+          "min": 0.38,
+          "max": 0.4066666666666666,
+          "mean": 0.3955555555555555,
+          "sd": 0.0138777733297742,
+          "t_ci95": null
+        },
+        "claim": {
+          "kind": "band",
+          "text": "|Delta-CE - Grad-diff| <= 0.10 (tie)"
+        },
+        "within_band": {
+          "band": 0.1,
+          "k": 0,
+          "n": 3
+        },
+        "signflip": {
+          "side": "two-sided",
+          "mean": 0.3955555555555555,
+          "n": 3,
+          "n_patterns": 8,
+          "p": 0.25,
+          "min_attainable_p": 0.25
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.125 with 3 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck": [
+          {
+            "name": "per-pair vs exp_0047 e1b",
+            "saved": [
+              0.4,
+              0.4066666666666666,
+              0.38
+            ],
+            "recomputed": [
+              0.4,
+              0.4066666666666666,
+              0.38
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "tie_threshold_B",
+        "table3_row": "Tie (|Delta| <= 0.1) | Threshold, B",
+        "quantity": "same, split B",
+        "pairs": [
+          {
+            "pair_id": 6,
+            "value": 0.36
+          },
+          {
+            "pair_id": 7,
+            "value": 0.27
+          },
+          {
+            "pair_id": 8,
+            "value": 0.30666666666666664
+          }
+        ],
+        "summary": {
+          "n": 3,
+          "min": 0.27,
+          "max": 0.36,
+          "mean": 0.31222222222222223,
+          "sd": 0.04525647078759176,
+          "t_ci95": null
+        },
+        "claim": {
+          "kind": "band",
+          "text": "|Delta-CE - Grad-diff| <= 0.10 (tie)"
+        },
+        "within_band": {
+          "band": 0.1,
+          "k": 0,
+          "n": 3
+        },
+        "signflip": {
+          "side": "two-sided",
+          "mean": 0.31222222222222223,
+          "n": 3,
+          "n_patterns": 8,
+          "p": 0.25,
+          "min_attainable_p": 0.25
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.125 with 3 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck": [
+          {
+            "name": "per-pair vs exp_0047 e1b",
+            "saved": [
+              0.36,
+              0.27,
+              0.30666666666666664
+            ],
+            "recomputed": [
+              0.36,
+              0.27,
+              0.30666666666666664
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "tie_threshold_AB",
+        "table3_row": "Tie (|Delta| <= 0.1) | Threshold, A+B pooled",
+        "quantity": "per-pair mean of A and B",
+        "pairs": [
+          {
+            "pair_id": 6,
+            "value": 0.38
+          },
+          {
+            "pair_id": 7,
+            "value": 0.3383333333333333
+          },
+          {
+            "pair_id": 8,
+            "value": 0.3433333333333333
+          }
+        ],
+        "summary": {
+          "n": 3,
+          "min": 0.3383333333333333,
+          "max": 0.38,
+          "mean": 0.35388888888888886,
+          "sd": 0.022750661366048086,
+          "t_ci95": null
+        },
+        "claim": {
+          "kind": "band",
+          "text": "|Delta-CE - Grad-diff| <= 0.10 (tie)"
+        },
+        "within_band": {
+          "band": 0.1,
+          "k": 0,
+          "n": 3
+        },
+        "signflip": {
+          "side": "two-sided",
+          "mean": 0.35388888888888886,
+          "n": 3,
+          "n_patterns": 8,
+          "p": 0.25,
+          "min_attainable_p": 0.25
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.125 with 3 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck_all_match": null
+      },
+      {
+        "id": "proj_shortcut_B",
+        "table3_row": "Proj. Delta-CE ~ Grad-diff | Shortcut, B",
+        "quantity": "projected Recovery(Delta-CE) - projected Recovery(Grad-diff) per pair, split B, pairs 0-2 (k* = colour)",
+        "pairs": [
+          {
+            "pair_id": 0,
+            "value": -0.32333333333333336,
+            "seed": 0
+          },
+          {
+            "pair_id": 1,
+            "value": -0.31666666666666665,
+            "seed": 1
+          },
+          {
+            "pair_id": 2,
+            "value": -0.2733333333333333,
+            "seed": 2
+          }
+        ],
+        "summary": {
+          "n": 3,
+          "min": -0.32333333333333336,
+          "max": -0.2733333333333333,
+          "mean": -0.30444444444444446,
+          "sd": 0.02714842605082361,
+          "t_ci95": null
+        },
+        "claim": {
+          "kind": "band",
+          "text": "|difference| <= 0.10 (equivalence)"
+        },
+        "within_band": {
+          "band": 0.1,
+          "k": 0,
+          "n": 3
+        },
+        "signflip": {
+          "side": "two-sided",
+          "mean": -0.30444444444444446,
+          "n": 3,
+          "n_patterns": 8,
+          "p": 0.25,
+          "min_attainable_p": 0.25
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.125 with 3 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck": [
+          {
+            "name": "per-pair vs exp_0019 results.json C3.seed_diffs_projected",
+            "saved": [
+              -0.32333333333333336,
+              -0.31666666666666665,
+              -0.2733333333333333
+            ],
+            "recomputed": [
+              -0.32333333333333336,
+              -0.31666666666666665,
+              -0.2733333333333333
+            ],
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "proj_grid",
+        "table3_row": "Proj. Delta-CE ~ Grad-diff | grid",
+        "quantity": "projected Recovery(Delta-CE) - projected Recovery(Grad-diff) per pair, grid pairs 36, 37, 44, 45 (k* = colour)",
+        "pairs": [
+          {
+            "pair_id": 36,
+            "value": -0.3066666666666667,
+            "alpha": 0.25,
+            "seed": 0
+          },
+          {
+            "pair_id": 37,
+            "value": -0.3566666666666667,
+            "alpha": 0.25,
+            "seed": 1
+          },
+          {
+            "pair_id": 44,
+            "value": -0.34666666666666657,
+            "alpha": 0.5,
+            "seed": 0
+          },
+          {
+            "pair_id": 45,
+            "value": -0.4,
+            "alpha": 0.5,
+            "seed": 1
+          }
+        ],
+        "summary": {
+          "n": 4,
+          "min": -0.4,
+          "max": -0.3066666666666667,
+          "mean": -0.3524999999999999,
+          "sd": 0.03833333333333333,
+          "t_ci95": {
+            "level": 0.95,
+            "df": 3,
+            "lo": -0.4134968875179377,
+            "hi": -0.2915031124820622,
+            "se": 0.019166666666666665
+          }
+        },
+        "claim": {
+          "kind": "band",
+          "text": "|difference| <= 0.10 (equivalence)"
+        },
+        "within_band": {
+          "band": 0.1,
+          "k": 0,
+          "n": 4
+        },
+        "signflip": {
+          "side": "two-sided",
+          "mean": -0.3524999999999999,
+          "n": 4,
+          "n_patterns": 16,
+          "p": 0.125,
+          "min_attainable_p": 0.125
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.0625 with 4 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck": [
+          {
+            "name": "pair mean vs results.json H5d.estimate",
+            "saved": -0.3524999999999999,
+            "recomputed": -0.3524999999999999,
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "crosscheck_all_match": true
+      },
+      {
+        "id": "normal_zstar",
+        "table3_row": "Normal at z* halves the gap or more | Grid, new",
+        "quantity": "T_i = |gap(z0,z0)| - 2 |gap(z*,z0)| per pair (T_i > 0: the gap narrows by at least a half), 4 pairs, support = queries with a witness",
+        "pairs": [
+          {
+            "pair_id": 36,
+            "value": 0.025252525252525304,
+            "support": 198,
+            "gap_z0_z0": -0.1262626262626263,
+            "gap_zs_z0": 0.0505050505050505,
+            "alpha": 0.25,
+            "seed": 0
+          },
+          {
+            "pair_id": 37,
+            "value": 0.010928961748634003,
+            "support": 183,
+            "gap_z0_z0": -0.15300546448087438,
+            "gap_zs_z0": 0.07103825136612019,
+            "alpha": 0.25,
+            "seed": 1
+          },
+          {
+            "pair_id": 44,
+            "value": 0.17105263157894735,
+            "support": 228,
+            "gap_z0_z0": -0.1885964912280702,
+            "gap_zs_z0": 0.00877192982456143,
+            "alpha": 0.5,
+            "seed": 0
+          },
+          {
+            "pair_id": 45,
+            "value": 0.26754385964912275,
+            "support": 228,
+            "gap_z0_z0": -0.29385964912280704,
+            "gap_zs_z0": -0.013157894736842146,
+            "alpha": 0.5,
+            "seed": 1
+          }
+        ],
+        "summary": {
+          "n": 4,
+          "min": 0.010928961748634003,
+          "max": 0.26754385964912275,
+          "mean": 0.11869449455730735,
+          "sd": 0.12280379973723188,
+          "t_ci95": {
+            "level": 0.95,
+            "df": 3,
+            "lo": -0.07671375481696963,
+            "hi": 0.3141027439315843,
+            "se": 0.06140189986861594
+          }
+        },
+        "claim": {
+          "kind": "threshold",
+          "c": 0.0,
+          "side": "above",
+          "text": "T_i > 0"
+        },
+        "sign_test": {
+          "c": 0.0,
+          "side": "above",
+          "k": 4,
+          "n": 4,
+          "n_ties_dropped": 0,
+          "p_one_sided": 0.0625,
+          "min_attainable_p": 0.0625
+        },
+        "pair_level_flag": "min attainable one-sided p = 0.0625 with 4 pairs; not confirmable at pair level (p < 0.05 unreachable)",
+        "crosscheck": [
+          {
+            "name": "mean over pairs of gap(z0,z0) vs results_h8.json H8.gap[z0,z0]",
+            "saved": -0.19043105777359448,
+            "recomputed": -0.19043105777359448,
+            "max_abs_diff": 0.0,
+            "match": true
+          },
+          {
+            "name": "mean over pairs of gap(z*,z0) vs results_h8.json H8.gap[z*,z0]",
+            "saved": 0.029289334239722492,
+            "recomputed": 0.029289334239722492,
+            "max_abs_diff": 0.0,
+            "match": true
+          },
+          {
+            "name": "registered T = |mean gap(z0,z0)| - 2 |mean gap(z*,z0)| from the pair means vs H8.T",
+            "saved": 0.1318523892941495,
+            "recomputed": 0.1318523892941495,
+            "max_abs_diff": 0.0,
+            "match": true
+          }
+        ],
+        "notes": "T_i is the pair-level analogue of the registered T (which uses the pooled gaps); the mean of the T_i differs from H8.T because |.| is taken per pair.",
+        "gap_zs_z0_summary": {
+          "n": 4,
+          "min": -0.013157894736842146,
+          "max": 0.07103825136612019,
+          "mean": 0.029289334239722492,
+          "sd": 0.03836582606783414,
+          "t_ci95": {
+            "level": 0.95,
+            "df": 3,
+            "lo": -0.031759256469645565,
+            "hi": 0.09033792494909054,
+            "se": 0.01918291303391707
+          }
+        },
+        "gap_z0_z0_summary": {
+          "n": 4,
+          "min": -0.29385964912280704,
+          "max": -0.1262626262626263,
+          "mean": -0.19043105777359448,
+          "sd": 0.07352800323410184,
+          "t_ci95": {
+            "level": 0.95,
+            "df": 3,
+            "lo": -0.30743051888722245,
+            "hi": -0.07343159665996651,
+            "se": 0.03676400161705092
+          }
+        },
+        "crosscheck_all_match": true
+      }
+    ],
+    "rules": "exact one-sided sign test over pairs; exact sign-flip permutation (2^n patterns) on pair means for differences; t CI for n >= 4; MixedLM (REML, random intercept per pair) for rows with >= 8 pairs; no bootstrap, no GLMM (D-056)"
+  },
+  "s2": {
+    "runs": {
+      "A exp_0017": {
+        "n_pairs": 17,
+        "n_points_per_pair": [
+          300
+        ],
+        "methods": {
+          "a1": {
+            "wall_s_per_point": {
+              "mean": 0.6557266983331419,
+              "min": 0.5895400134722392,
+              "max": 0.8353758827845256,
+              "n_pairs": 17
+            },
+            "cpu_s_per_point": {
+              "mean": 5.174586477411764,
+              "min": 4.656097845016666,
+              "max": 6.59271631309,
+              "n_pairs": 17
+            }
+          },
+          "a2": {
+            "wall_s_per_point": {
+              "mean": 0.61653215155882,
+              "min": 0.5484766467412313,
+              "max": 0.7239923262596131,
+              "n_pairs": 17
+            },
+            "cpu_s_per_point": {
+              "mean": 4.8640330682368615,
+              "min": 4.299766678766669,
+              "max": 5.723803976603327,
+              "n_pairs": 17
+            },
+            "phase1_wall_s": {
+              "mean": 97.74868374712327,
+              "min": 90.46972346305847,
+              "max": 123.82425379753113,
+              "n_pairs": 17
+            },
+            "phase2_cpu_s_per_point_with_witness": {
+              "mean": 2.2617368959155093,
+              "min": 1.8322458765420875,
+              "max": 2.663137859276666,
+              "n_pairs": 17
+            },
+            "phase2_cpu_s_per_point_without_witness": {
+              "mean": 2.8076542003520406,
+              "min": 1.6211406733333316,
+              "max": 4.093609345000004,
+              "n_pairs": 12
+            }
+          },
+          "a3_k0": {
+            "wall_s_per_point": {
+              "mean": 2.162576049589643,
+              "min": 1.203984986146291,
+              "max": 9.780886263052622,
+              "n_pairs": 17
+            },
+            "cpu_s_per_point": {
+              "mean": 13.223856550068236,
+              "min": 9.517521009520001,
+              "max": 17.422836345473332,
+              "n_pairs": 17
+            },
+            "phase1_wall_s": {
+              "mean": 197.17876731648164,
+              "min": 182.86096572875977,
+              "max": 228.05887079238892,
+              "n_pairs": 17
+            },
+            "phase2_cpu_s_per_point_with_witness": {
+              "mean": 5.780693457802322,
+              "min": 3.484912891833334,
+              "max": 8.143719991,
+              "n_pairs": 17
+            },
+            "phase2_cpu_s_per_point_without_witness": {
+              "mean": 13.617922556844924,
+              "min": 6.236936944615386,
+              "max": 19.275487068370367,
+              "n_pairs": 15
+            }
+          },
+          "a3_k1": {
+            "wall_s_per_point": {
+              "mean": 2.544575345983692,
+              "min": 1.4520555289586385,
+              "max": 3.411518090565999,
+              "n_pairs": 17
+            },
+            "cpu_s_per_point": {
+              "mean": 20.15752225048902,
+              "min": 11.456477239163334,
+              "max": 27.06900637934333,
+              "n_pairs": 17
+            },
+            "phase1_wall_s": {
+              "mean": 201.56142182911142,
+              "min": 168.12637400627136,
+              "max": 246.32271695137024,
+              "n_pairs": 17
+            },
+            "phase2_cpu_s_per_point_with_witness": {
+              "mean": 8.366745543098226,
+              "min": 6.142870378446512,
+              "max": 12.870992892369053,
+              "n_pairs": 9
+            },
+            "phase2_cpu_s_per_point_without_witness": {
+              "mean": 16.360468739406897,
+              "min": 7.39807773358427,
+              "max": 20.572385668959996,
+              "n_pairs": 17
+            }
+          },
+          "b1": {
+            "wall_s_per_point": {
+              "mean": 1.2666483671524944,
+              "min": 1.1331991346677144,
+              "max": 1.4718173511823018,
+              "n_pairs": 17
+            },
+            "cpu_s_per_point": {
+              "mean": 9.998531563565686,
+              "min": 8.998724339906673,
+              "max": 11.604539359806662,
+              "n_pairs": 17
+            }
+          },
+          "b1_det": {
+            "wall_s_per_point": {
+              "mean": 0.3505214397112529,
+              "min": 0.31032049655914307,
+              "max": 0.4399827806154887,
+              "n_pairs": 17
+            },
+            "cpu_s_per_point": {
+              "mean": 2.7567893724811765,
+              "min": 2.411792749553329,
+              "max": 3.4599866372333326,
+              "n_pairs": 17
+            }
+          },
+          "b3": {
+            "wall_s_per_point": {
+              "mean": 0.000665593381021537,
+              "min": 0.000599048137664795,
+              "max": 0.000754853884379069,
+              "n_pairs": 17
+            }
+          },
+          "b4": {
+            "wall_s_total": {
+              "mean": 24.402450799942017,
+              "min": 21.40657615661621,
+              "max": 27.882240295410156,
+              "n_pairs": 17
+            }
+          },
+          "b5": {
+            "wall_s_per_point": {
+              "mean": 0.43198263121586217,
+              "min": 0.40398062944412233,
+              "max": 0.48454562028249104,
+              "n_pairs": 17
+            }
+          },
+          "dce_N": {
+            "wall_s_per_point": {
+              "mean": 2.4152296072829,
+              "min": 1.275402873357137,
+              "max": 3.3102924386660257,
+              "n_pairs": 17
+            },
+            "cpu_s_per_point": {
+              "mean": 19.102779301116467,
+              "min": 10.019754847123332,
+              "max": 26.225087106909996,
+              "n_pairs": 17
+            },
+            "phase1_wall_s": {
+              "mean": 200.6243647407083,
+              "min": 170.92971563339233,
+              "max": 223.44262886047363,
+              "n_pairs": 17
+            },
+            "phase2_cpu_s_per_point_with_witness": {
+              "mean": 5.747162262651795,
+              "min": 4.066219489840276,
+              "max": 7.602858297904978,
+              "n_pairs": 9
+            },
+            "phase2_cpu_s_per_point_without_witness": {
+              "mean": 16.4145013434781,
+              "min": 6.990797753714284,
+              "max": 20.37303427736333,
+              "n_pairs": 17
+            }
+          },
+          "dce_O": {
+            "wall_s_per_point": {
+              "mean": 3.1962805303931234,
+              "min": 2.964866189956665,
+              "max": 3.659537795384725,
+              "n_pairs": 8
+            },
+            "cpu_s_per_point": {
+              "mean": 25.327553636246662,
+              "min": 23.60528726661667,
+              "max": 29.051296110983337,
+              "n_pairs": 8
+            },
+            "phase1_wall_s": {
+              "mean": 207.99707797169685,
+              "min": 189.0196340084076,
+              "max": 241.63770389556885,
+              "n_pairs": 8
+            },
+            "phase2_cpu_s_per_point_without_witness": {
+              "mean": 19.851810957301666,
+              "min": 18.565175064126667,
+              "max": 22.67604470464333,
+              "n_pairs": 8
+            }
+          }
+        }
+      },
+      "B exp_0019": {
+        "n_pairs": 14,
+        "n_points_per_pair": [
+          300
+        ],
+        "methods": {
+          "b1": {
+            "wall_s_per_point": {
+              "mean": 1.2530115227897962,
+              "min": 1.1596967991193134,
+              "max": 1.3013857666651407,
+              "n_pairs": 8
+            }
+          },
+          "b1_det": {
+            "wall_s_per_point": {
+              "mean": 0.34116222871674434,
+              "min": 0.3093597968419393,
+              "max": 0.37271998246510823,
+              "n_pairs": 6
+            }
+          },
+          "b3": {
+            "wall_s_per_point": {
+              "mean": 0.000674405230416192,
+              "min": 0.0006349873542785644,
+              "max": 0.0007488489151000977,
+              "n_pairs": 6
+            }
+          },
+          "dce_N": {
+            "wall_s_per_point": {
+              "mean": 4.0055242151305785,
+              "min": 1.2326476534207662,
+              "max": 23.54700788974762,
+              "n_pairs": 14
+            },
+            "cpu_s_per_point": {
+              "mean": 20.011067248052377,
+              "min": 9.773142192323332,
+              "max": 25.578674648676667,
+              "n_pairs": 14
+            },
+            "phase1_wall_s": {
+              "mean": 188.26872393063135,
+              "min": 165.3994038105011,
+              "max": 218.06797695159912,
+              "n_pairs": 14
+            },
+            "phase2_cpu_s_per_point_with_witness": {
+              "mean": 5.053679934858086,
+              "min": 3.694843799791666,
+              "max": 6.126258046850394,
+              "n_pairs": 6
+            },
+            "phase2_cpu_s_per_point_without_witness": {
+              "mean": 16.493712462160126,
+              "min": 6.0699827297021285,
+              "max": 19.878887798043333,
+              "n_pairs": 14
+            }
+          },
+          "dce_O": {
+            "wall_s_per_point": {
+              "mean": 3.0996033066511153,
+              "min": 2.928526354630788,
+              "max": 3.239196554025014,
+              "n_pairs": 8
+            },
+            "cpu_s_per_point": {
+              "mean": 24.5533481525625,
+              "min": 23.157286780773333,
+              "max": 25.60499632233333,
+              "n_pairs": 8
+            },
+            "phase1_wall_s": {
+              "mean": 193.88790023326874,
+              "min": 180.95483255386353,
+              "max": 212.01876950263977,
+              "n_pairs": 8
+            },
+            "phase2_cpu_s_per_point_without_witness": {
+              "mean": 19.426474660472913,
+              "min": 18.353653267649996,
+              "max": 20.008904317163335,
+              "n_pairs": 8
+            }
+          }
+        }
+      },
+      "grid exp_0026": {
+        "n_pairs": 32,
+        "n_points_per_pair": [
+          300
+        ],
+        "methods": {
+          "a2": {
+            "wall_s_per_point": {
+              "mean": 1.0940052347381908,
+              "min": 0.5575160344441732,
+              "max": 1.3998828919728596,
+              "n_pairs": 32
+            },
+            "cpu_s_per_point": {
+              "mean": 8.32787489755,
+              "min": 4.340620098726666,
+              "max": 10.49780069739,
+              "n_pairs": 32
+            },
+            "phase1_wall_s": {
+              "mean": 157.0122629776597,
+              "min": 84.04114747047424,
+              "max": 198.8508174419403,
+              "n_pairs": 32
+            },
+            "phase2_cpu_s_per_point_with_witness": {
+              "mean": 4.301470897794574,
+              "min": 1.9829947875821428,
+              "max": 6.0921738294899335,
+              "n_pairs": 32
+            },
+            "phase2_cpu_s_per_point_without_witness": {
+              "mean": 5.363546360154927,
+              "min": 1.7233447859999949,
+              "max": 9.911787122999996,
+              "n_pairs": 31
+            }
+          },
+          "b1_det": {
+            "wall_s_per_point": {
+              "mean": 0.641364422912399,
+              "min": 0.3007968370119731,
+              "max": 0.8525110896428426,
+              "n_pairs": 32
+            }
+          },
+          "b3": {
+            "wall_s_per_point": {
+              "mean": 0.002019628087679545,
+              "min": 0.000652159055074056,
+              "max": 0.013250814278920492,
+              "n_pairs": 32
+            }
+          },
+          "dce_N": {
+            "wall_s_per_point": {
+              "mean": 4.389199932292104,
+              "min": 2.0240579430262247,
+              "max": 23.16386509180069,
+              "n_pairs": 32
+            },
+            "cpu_s_per_point": {
+              "mean": 29.217123209665,
+              "min": 15.937978701676666,
+              "max": 47.05901586840667,
+              "n_pairs": 32
+            },
+            "phase1_wall_s": {
+              "mean": 318.2533236220479,
+              "min": 168.9288148880005,
+              "max": 401.9304053783417,
+              "n_pairs": 32
+            },
+            "phase2_cpu_s_per_point_with_witness": {
+              "mean": 13.294390942696728,
+              "min": 4.161508254038462,
+              "max": 26.095850130969694,
+              "n_pairs": 31
+            },
+            "phase2_cpu_s_per_point_without_witness": {
+              "mean": 26.70816219391721,
+              "min": 12.973151232185185,
+              "max": 44.06328145268944,
+              "n_pairs": 32
+            }
+          },
+          "dce_N_k0": {
+            "wall_s_per_point": {
+              "mean": 3.257748483220736,
+              "min": 1.6719898962974549,
+              "max": 4.771935063203176,
+              "n_pairs": 8
+            },
+            "cpu_s_per_point": {
+              "mean": 24.946715433399167,
+              "min": 13.083061170976668,
+              "max": 36.31088486307333,
+              "n_pairs": 8
+            },
+            "phase1_wall_s": {
+              "mean": 278.4688173830509,
+              "min": 164.03285765647888,
+              "max": 367.65782475471497,
+              "n_pairs": 8
+            },
+            "phase2_cpu_s_per_point_with_witness": {
+              "mean": 8.683362668970311,
+              "min": 3.566598233923075,
+              "max": 13.691660672728887,
+              "n_pairs": 8
+            },
+            "phase2_cpu_s_per_point_without_witness": {
+              "mean": 28.533628801287474,
+              "min": 13.962591583494845,
+              "max": 42.86107211889157,
+              "n_pairs": 8
+            }
+          },
+          "dce_N_k0.25": {
+            "wall_s_per_point": {
+              "mean": 3.7332008333007494,
+              "min": 1.9312254158655802,
+              "max": 5.840988501707713,
+              "n_pairs": 8
+            },
+            "cpu_s_per_point": {
+              "mean": 28.721819624342498,
+              "min": 15.309165916836664,
+              "max": 43.47276401679,
+              "n_pairs": 8
+            },
+            "phase1_wall_s": {
+              "mean": 281.43284073472023,
+              "min": 164.80759239196777,
+              "max": 378.03716683387756,
+              "n_pairs": 8
+            },
+            "phase2_cpu_s_per_point_with_witness": {
+              "mean": 10.507079512189119,
+              "min": 3.921152307369234,
+              "max": 25.34698704624794,
+              "n_pairs": 8
+            },
+            "phase2_cpu_s_per_point_without_witness": {
+              "mean": 31.517642367362807,
+              "min": 16.658769472012576,
+              "max": 42.94251355490345,
+              "n_pairs": 8
+            }
+          },
+          "dce_N_k1.0": {
+            "wall_s_per_point": {
+              "mean": 7.410880139867465,
+              "min": 2.709847887357076,
+              "max": 23.89000147819519,
+              "n_pairs": 8
+            },
+            "cpu_s_per_point": {
+              "mean": 39.700303254554164,
+              "min": 21.50907321750333,
+              "max": 55.533192325109994,
+              "n_pairs": 8
+            },
+            "phase1_wall_s": {
+              "mean": 279.07275795936584,
+              "min": 177.44627285003662,
+              "max": 363.3989236354828,
+              "n_pairs": 8
+            },
+            "phase2_cpu_s_per_point_without_witness": {
+              "mean": 32.58182592734864,
+              "min": 17.35499934301581,
+              "max": 46.938987677116664,
+              "n_pairs": 8
+            },
+            "phase2_cpu_s_per_point_with_witness": {
+              "mean": 13.934547107744686,
+              "min": 13.934547107744686,
+              "max": 13.934547107744686,
+              "n_pairs": 1
+            }
+          }
+        }
+      },
+      "H7 exp_0032": {
+        "n_pairs": 30,
+        "n_points_per_pair": [
+          300
+        ],
+        "methods": {
+          "b1_det": {
+            "wall_s_per_point": {
+              "mean": 0.693774791876475,
+              "min": 0.36752694924672447,
+              "max": 0.9412681174278259,
+              "n_pairs": 30
+            }
+          },
+          "dce_N": {
+            "wall_s_per_point": {
+              "mean": 5.037891417053012,
+              "min": 3.5572147885958354,
+              "max": 6.654242200056712,
+              "n_pairs": 30
+            },
+            "cpu_s_per_point": {
+              "mean": 37.16385634545466,
+              "min": 26.657352896096665,
+              "max": 51.60250702704,
+              "n_pairs": 30
+            },
+            "phase1_wall_s": {
+              "mean": 332.5696666955948,
+              "min": 283.23260021209717,
+              "max": 411.58653378486633,
+              "n_pairs": 30
+            },
+            "phase2_cpu_s_per_point_with_witness": {
+              "mean": 9.544219094141207,
+              "min": 7.468964731516132,
+              "max": 11.897316206391999,
+              "n_pairs": 18
+            },
+            "phase2_cpu_s_per_point_without_witness": {
+              "mean": 35.66709779462631,
+              "min": 27.307506717184967,
+              "max": 45.90733350758856,
+              "n_pairs": 30
+            }
+          }
+        }
+      },
+      "H8 exp_0033": {
+        "n_pairs": 24,
+        "n_points_per_pair": [
+          300
+        ],
+        "methods": {
+          "dce_N": {
+            "wall_s_per_point": {
+              "mean": 3.908885556923019,
+              "min": 1.7346325437227885,
+              "max": 6.7259780724843345,
+              "n_pairs": 24
+            },
+            "cpu_s_per_point": {
+              "mean": 30.456178286950834,
+              "min": 13.492045707826666,
+              "max": 52.75949985063333,
+              "n_pairs": 24
+            },
+            "phase1_wall_s": {
+              "mean": 332.4347967704137,
+              "min": 301.59258937835693,
+              "max": 371.42812037467957,
+              "n_pairs": 24
+            },
+            "phase2_cpu_s_per_point_with_witness": {
+              "mean": 14.419270567216103,
+              "min": 5.084480989930233,
+              "max": 37.60314896150001,
+              "n_pairs": 24
+            },
+            "phase2_cpu_s_per_point_without_witness": {
+              "mean": 28.000105790591718,
+              "min": 7.228210309152941,
+              "max": 43.76258463706081,
+              "n_pairs": 24
+            }
+          }
+        }
+      },
+      "D exp_0049": {
+        "n_pairs": 17,
+        "n_points_per_pair": [
+          300
+        ],
+        "methods": {
+          "dce_N": {
+            "wall_s_per_point": {
+              "mean": 10.277523090184905,
+              "min": 7.959308086236318,
+              "max": 11.780534301598866,
+              "n_pairs": 17
+            },
+            "cpu_s_per_point": {
+              "mean": 40.43971932678196,
+              "min": 31.462162305933337,
+              "max": 46.256964012290005,
+              "n_pairs": 17
+            },
+            "phase1_wall_s": {
+              "mean": 682.3760823642506,
+              "min": 655.3546857833862,
+              "max": 722.6212992668152,
+              "n_pairs": 17
+            },
+            "phase2_cpu_s_per_point_with_witness": {
+              "mean": 19.13393972493028,
+              "min": 8.926850938371432,
+              "max": 41.54340856900012,
+              "n_pairs": 9
+            },
+            "phase2_cpu_s_per_point_without_witness": {
+              "mean": 35.00985155106581,
+              "min": 32.265956820755555,
+              "max": 36.9070222924379,
+              "n_pairs": 17
+            }
+          },
+          "dce_O": {
+            "wall_s_per_point": {
+              "mean": 11.10662378023068,
+              "min": 10.666588635444642,
+              "max": 11.54516949415207,
+              "n_pairs": 8
+            },
+            "cpu_s_per_point": {
+              "mean": 43.730138725945416,
+              "min": 42.18084920683333,
+              "max": 45.345687528090004,
+              "n_pairs": 8
+            },
+            "phase1_wall_s": {
+              "mean": 677.8820446431637,
+              "min": 654.8352966308594,
+              "max": 700.1414480209351,
+              "n_pairs": 8
+            },
+            "phase2_cpu_s_per_point_without_witness": {
+              "mean": 34.78126874273292,
+              "min": 33.39720957767,
+              "max": 36.13933834544667,
+              "n_pairs": 8
+            }
+          }
+        }
+      },
+      "X1 exp_0048": {
+        "n_pairs": 17,
+        "methods": {
+          "ig": {
+            "wall_s_per_point_from_pair_total": {
+              "mean": 0.12490248006932875,
+              "min": 0.07374517679214478,
+              "max": 0.14847120126088462,
+              "n_pairs": 17
+            }
+          },
+          "shap": {
+            "wall_s_per_point_from_pair_total": {
+              "mean": 4.1159856737828715,
+              "min": 2.381188666820526,
+              "max": 4.732140957514445,
+              "n_pairs": 17
+            }
+          },
+          "b4a": {
+            "wall_s_per_point_from_pair_total": {
+              "mean": 0.17040844487208948,
+              "min": 0.09782254298528036,
+              "max": 0.19503670454025268,
+              "n_pairs": 17
+            }
+          },
+          "b5x": {
+            "wall_s_per_point_from_pair_total": {
+              "mean": 9.238728624449836,
+              "min": 5.384849414030711,
+              "max": 11.511047887007395,
+              "n_pairs": 9
+            }
+          }
+        },
+        "note": "runtime_s holds the total seconds per pair; divided by n_points here. Pairs ran on different machines (D-052)."
+      },
+      "ResNet exp_0050 / exp_0054": {
+        "note": "no runtime fields saved (chunked local run); not available"
+      }
+    },
+    "note": "time per query is wall_s_per_point (pair wall time / n points; the solver ran with parallel workers) and cpu_s_per_point (solver CPU seconds / n points). No forward/backward counts are saved in any pair json.",
+    "shared_parameters": {
+      "tier0_yaml": {
+        "kappa": 0.5,
+        "r": 0.5412657260894775,
+        "solver": {
+          "R": 5,
+          "T": 400,
+          "lr": 0.05,
+          "lam0": 1.0,
+          "mu": 0.0,
+          "sigma": 0.05,
+          "clamp": [
+            0.0,
+            1.0
+          ],
+          "lam_schedule": "halve_every",
+          "n_lam_steps": 8,
+          "polish": true,
+          "slsqp_maxiter": 100,
+          "slsqp_ftol": 1e-10,
+          "slsqp_tighten": 0.0001,
+          "n_workers": 8
+        },
+        "seeds": {
+          "init_base": 0,
+          "order_base": 100,
+          "noise_base": 200,
+          "adapt_data_base": 2000,
+          "adapt_order_base": 3000,
+          "adapt_noise_base": 4000,
+          "points_base": 5000,
+          "restart_base": 10000
+        }
+      },
+      "per_experiment_config_overrides": {
+        "exp_0017": {
+          "n_points": 300,
+          "tier_config": "configs/tiers/tier0.yaml"
+        },
+        "exp_0019": {
+          "n_points": 300,
+          "tier_config": "configs/tiers/tier0.yaml"
+        },
+        "exp_0026": {
+          "n_points": 300,
+          "tier_config": "configs/tiers/tier0.yaml"
+        },
+        "exp_0032": {
+          "n_points": 300,
+          "tier_config": "configs/tiers/tier0.yaml"
+        },
+        "exp_0033": {
+          "n_points": 300,
+          "tier_config": "configs/tiers/tier0.yaml"
+        },
+        "exp_0048": {
+          "tier_config": "configs/tiers/tier0.yaml",
+          "decision": "D-052"
+        },
+        "exp_0049": {
+          "n_points": 300,
+          "tier_config": "configs/tiers/tier0.yaml",
+          "decision": "D-052"
+        },
+        "exp_0050_run": {
+          "n_points": 100,
+          "tier_config": "configs/tiers/tier0.yaml",
+          "decision": "D-052"
+        },
+        "exp_0054": {
+          "tier_config": "configs/tiers/tier0.yaml",
+          "decision": "D-054"
+        }
+      },
+      "solver_note": "solver block: R restarts, T steps, lr, lam0, mu, sigma, lam_schedule/n_lam_steps, polish (SLSQP); kappa and r as in tier0.yaml unless listed per experiment"
+    }
+  },
+  "inputs": {
+    "runs/experiments/exp_0017": {
+      "n_files": 35,
+      "tree_sha256": "54f439b74de4c40e75f81f6ec0ac518cc0c72c80838dd88ac6069904c75eb22d"
+    },
+    "runs/experiments/exp_0019": {
+      "n_files": 29,
+      "tree_sha256": "45fde42aa4e2abbd8191f5288c456df6fff50d6a079e96ed6ef0c5fe5873bd23"
+    },
+    "runs/experiments/exp_0026": {
+      "n_files": 66,
+      "tree_sha256": "a0cc026ea71dee1116cce693f0046eee169887768e9a58843d0b83b623cc7ea2"
+    },
+    "runs/experiments/exp_0028": {
+      "n_files": 6,
+      "tree_sha256": "6aab545a8d5e41e0a7caab2067182fe89ed6f1f802e9f103252e5a66597b7eff"
+    },
+    "runs/experiments/exp_0032": {
+      "n_files": 61,
+      "tree_sha256": "b3b29771111e5a45e6430b23948269427464a9ba844e6cbc31e8db1680d65ec2"
+    },
+    "runs/experiments/exp_0033": {
+      "n_files": 50,
+      "tree_sha256": "e3bd4a69190ce891c214e02d983cb1f9bfccade2761c35a8219172571e37f1c3"
+    },
+    "runs/experiments/exp_0049": {
+      "n_files": 35,
+      "tree_sha256": "7b309f856add749e29bfcc0ca5e3894ec387a4a7c9ebcd3a3ab448dcf8ad51f6"
+    },
+    "runs/experiments/exp_0048": {
+      "n_files": 35,
+      "tree_sha256": "bcf68b208d0458542da0932109810874efa20c39ee4dc129464f1c1033ef1271"
+    },
+    "runs/experiments/exp_0050": {
+      "n_files": 21,
+      "tree_sha256": "6fae17fd28417f564961be4cfd879c85935915ec19d2125ee0b54eded6e0e003"
+    },
+    "runs/experiments/exp_0054/test": {
+      "n_files": 22,
+      "tree_sha256": "939a222a5ebbeb53597c170b5272725954facf80eb565ac99c3b4b8047447db3"
+    },
+    "runs/experiments/exp_0047": {
+      "n_files": 1,
+      "tree_sha256": "1306970922e39fde5f3fe2dda80ebd1ac825e4da2fdb4289d8ddfed358cb5f81"
+    }
+  },
+  "git": {
+    "commit": "e658587d1dc575918510dc6284e7885a936a52fe",
+    "dirty": false,
+    "dirty_files_src_configs_tests_pyproject": [],
+    "analysis_code_files_clean": true
+  }
+}
