@@ -42,7 +42,7 @@ D-052 (2026-11-02): ADVISOR REVIEW (Nhận_Xet_02_11.pdf, 10 items) → plan res
       do uv run python -m dce.cli.kappa_cal \$st --config configs/experiments/exp_0054.yaml --out $O || exit 1; done" \
       >> $O/run.log 2>&1 < /dev/null &
   Outputs: calibration_{cnn,resnet}.json, test/results_x4_kstar.json; readings fixed in D-054.
-  PAPER rewritten 2026-11-03 (cf7cae1; backup .work/main_before_d052_rewrite.tex; 6 pages, 0 overfull). NEXT: author reviews the
+  PAPER updated 2026-11-04 for D-055 (ResNet κ*=2.5 paragraph, Table 3 row, limitation (2)/(5) disclose grid extension; backup .work/main_before_d055.tex). Rewritten 2026-11-03 (cf7cae1; backup .work/main_before_d052_rewrite.tex; 6 pages, 0 overfull). NEXT: author reviews the
   rewrite → number-check script (plan §4.4) → author names + repository link → send to advisor 14/11 → submit 18/11.
 D-048 (2026-10-26): external review (argument-review + conference-reviewer) checked against saved outputs. exp_0041
   (type N/O/N∪O on Threshold, new data): N 0.449, O 0.551, N∪O 1.000. exp_0042 (CF-diff thresholded at matched FPR, saved
