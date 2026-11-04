@@ -1,0 +1,29 @@
+# smoke_0035 — Kaggle CPU smoke of X5 (D-056): pairs 110 and 100, 3 VALIDATION queries, same code path as exp_0057. Not interpreted.
+# exp_0057 — D-056 X5: Δ-CE in a learned VAE latent (registered https://osf.io/fr7jv, 2026-11-04).
+# Every value below is fixed in D-056 before the VAE was trained and before split F existed. r_vae is filled in once from
+# r_calibration.json (validation) and committed before the split-F run; nothing is changed after any X5 output.
+experiment_id: smoke_0035
+decision: D-056
+tier_config: configs/tiers/tier0.yaml      # κ = 0.5, solver R/T/lr/λ0/σ, seeds (points_base, restart_base), data_seed
+f_old_source: runs/experiments/exp_0002    # f_old seeds 0–4 (hash-checked)
+models_run: runs/experiments/exp_0049      # locked split-D f_new checkpoints (hash-checked)
+vae_run: runs/experiments/exp_0056         # VAE + gate + r calibration
+out_run: runs/smoke/smoke_0035
+pair_ids: [110, 111, 112, 113, 114, 115, 116, 117, 100, 101, 102, 104, 105, 106, 107, 108]   # 8 nulls, 8 qualified offsets
+mu: 0.01                                   # Reg = μ‖z‖² (spec §6, Tier 1); no box clamp in the latent
+vae: {latent: 16, size: 32, beta: 1.0, fallback_beta: 0.5, epochs: 30, lr: 1.0e-3, batch_size: 256, seed: 11000,
+      n_images: 50000, data_seed: 11000}
+gate: {n_val: 2000, min_acc: 0.90, f_old_seeds: [0, 1, 2, 3, 4]}
+calibration: {pair: 100, n_points: 200}
+r_vae: 1.6407692432403564                  # FROZEN: exp_0056 r_calibration.json (validation, pair 100, 200/200 found, 2 × median 0.8204)
+data_seed_base: 10500                      # split F: 10500 + pair_id (fresh)
+n_samples: 5000
+n_points: 3                                # smoke: same path, 3 validation queries
+n_ball: 256
+ball_seed_base: 5200
+manifold: {n_val: 1000, q: 0.95, steps: 300, lr: 0.05, restarts: 8, seed: 12000}
+timing_pairs: [100, 110]
+timing_points: 10
+budget_h: 24
+threads: 8
+data: val
