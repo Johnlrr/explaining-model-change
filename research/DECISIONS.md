@@ -1568,6 +1568,19 @@ the κ that would separate them (2κ ≈ 4–6). Split E untouched.
 
 ---
 
+## D-055 — κ grid extended to {2.5, 3.0} for ResNet-8 after the D-054 grid failed (2026-11-04, author's request)
+
+**Disclosed protocol change after seeing a failure.** D-054's grid {0.5–2.0} gave no κ with ResNet-8 null witness
+share ≤ 0.05 on validation (0.07 at κ = 2.0). The extension to {2.5, 3.0} is motivated by the D-054 post-hoc split-D
+diagnostic (offset max|h| median 6.1 vs null 1.93), i.e. by already-read test outputs; it is therefore exploratory.
+Everything else is unchanged from D-054: same rule (smallest κ, ascending, validation null share ≤ 0.05), same
+validation queries per κ, same three readings, same fresh split E (still untouched) for the test. Levels 0.5–2.0
+are not re-run (their outputs stay). Config configs/experiments/exp_0055.yaml (= exp_0054.yaml with grid
+[0.5, 0.75, 1.0, 1.5, 2.0, 2.5, 3.0], out runs/experiments/exp_0054, so finished levels are reused). The paper
+states that the grid was extended after κ ≤ 2 did not silence the ResNet nulls.
+
+---
+
 ## 12. Decision conflicts
 
 Conflicts between the spec and the protocol are resolved in favour of `docs/EVALUATION.md` (D-011, spec amendment v1.1) and the layout in AGENTS.md (D-001).
