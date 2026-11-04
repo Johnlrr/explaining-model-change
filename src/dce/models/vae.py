@@ -3,6 +3,7 @@
 Encoder: Conv(3→32, 4×4, s2, pad 1)–ReLU–Conv(32→64, 4×4, s2, pad 1)–ReLU–FC(64·7·7→256)–ReLU–(μ, logσ²).
 Decoder (symmetric): FC(16→256)–ReLU–FC(256→64·7·7)–ReLU–ConvT(64→32, s2)–ReLU–ConvT(32→3, s2)–sigmoid.
 Kernel size 4 / padding 1 is the reading for "Conv(·, s2)" that maps 28 → 14 → 7 exactly.
+`size=32` (D-056, X5) is the same network for 32×32 images: 32 → 16 → 8, FC 64·8·8 → 256. The default (28) is unchanged.
 """
 
 from __future__ import annotations
@@ -14,10 +15,11 @@ LATENT_DIM = 16
 
 
 class Encoder(nn.Module):
-    def __init__(self, latent: int = LATENT_DIM):
+    def __init__(self, latent: int = LATENT_DIM, size: int = 28):
         super().__init__()
+        s = size // 4
         self.conv = nn.Sequential(nn.Conv2d(3, 32, 4, 2, 1), nn.ReLU(), nn.Conv2d(32, 64, 4, 2, 1), nn.ReLU())
-        self.fc = nn.Sequential(nn.Linear(64 * 7 * 7, 256), nn.ReLU())
+        self.fc = nn.Sequential(nn.Linear(64 * s * s, 256), nn.ReLU())
         self.mu, self.logvar = nn.Linear(256, latent), nn.Linear(256, latent)
 
     def forward(self, x):
@@ -26,20 +28,21 @@ class Encoder(nn.Module):
 
 
 class Decoder(nn.Module):
-    def __init__(self, latent: int = LATENT_DIM):
+    def __init__(self, latent: int = LATENT_DIM, size: int = 28):
         super().__init__()
-        self.fc = nn.Sequential(nn.Linear(latent, 256), nn.ReLU(), nn.Linear(256, 64 * 7 * 7), nn.ReLU())
+        self.s = size // 4
+        self.fc = nn.Sequential(nn.Linear(latent, 256), nn.ReLU(), nn.Linear(256, 64 * self.s * self.s), nn.ReLU())
         self.deconv = nn.Sequential(nn.ConvTranspose2d(64, 32, 4, 2, 1), nn.ReLU(),
                                     nn.ConvTranspose2d(32, 3, 4, 2, 1), nn.Sigmoid())
 
     def forward(self, z):
-        return self.deconv(self.fc(z).view(-1, 64, 7, 7))
+        return self.deconv(self.fc(z).view(-1, 64, self.s, self.s))
 
 
 class VAE(nn.Module):
-    def __init__(self, latent: int = LATENT_DIM):
+    def __init__(self, latent: int = LATENT_DIM, size: int = 28):
         super().__init__()
-        self.encoder, self.decoder = Encoder(latent), Decoder(latent)
+        self.encoder, self.decoder = Encoder(latent, size), Decoder(latent, size)
 
     def forward(self, x):
         mu, logvar = self.encoder(x)
