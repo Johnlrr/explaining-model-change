@@ -1692,8 +1692,9 @@ values match every saved counterpart (27 checks). At the pair level, as the unit
 ## D-057 — X6: two independent local changes (advisor item 7; "where"), rules fixed before any data (2026-11-05, author-approved design)
 
 Status: active. Plan: `research/proposals/review_0211_plan_v3.md` §1 (approved 2026-11-05). **After seeing results** of
-all earlier experiments (spec frozen, D-016); written before any X6 model is trained and before split G exists. To be
-registered on OSF by the author before training (`.work/osf/osf_registration_D-057.md`). X7 (retraining from scratch)
+all earlier experiments (spec frozen, D-016); written before any X6 model is trained and before split G exists. REGISTERED
+on OSF by the author: https://osf.io/fp8uc (submitted 2026-11-05, text `.work/osf/osf_registration_D-057.md`),
+before any X6 model was trained and before split G existed. X7 (retraining from scratch)
 dropped by the author.
 
 **Question.** When an update makes two independent changes in different regions — a colour shortcut everywhere and a
