@@ -133,3 +133,25 @@ def tier0_pairs(n_seeds_drift: int = 3, n_seeds_n0: int = 5, n_seeds_n1: int = 3
 
 
 assert N_FACTORS == 5
+
+
+def ss_adaptation_set(seed: int, n: int = 10_000, t1_correlation: float = 0.99, size_threshold: float = 0.75,
+                      label_noise: float = 0.05, params: DriftParams | None = None) -> tuple[np.ndarray, np.ndarray]:
+    """D-057 X6 "Shortcut + Subgroup": the T1 set (ambiguous aspect band, colour tied to the noise-free label with
+    probability t1_correlation), then labels flipped where size > size_threshold (the T3 rule), then symmetric noise.
+    Same draw order as `adaptation_set("T1")` up to the subgroup flip."""
+    params = params or DriftParams()
+    rng = np.random.default_rng(seed)
+    phi = sample_factors(n, rng)
+    amb = rng.random(n) < params.t1_ambiguous_frac
+    phi[amb, 0] = rng.uniform(params.t1_ambiguous_low, params.t1_ambiguous_high, amb.sum())
+    y = task_label(phi)
+    corr = rng.random(n) < t1_correlation
+    high = rng.uniform(0.5, 1.0, n)
+    low = rng.uniform(0.0, 0.5, n)
+    phi[:, 2] = np.where(corr, np.where(y == 1, high, low), phi[:, 2])
+    y = np.where(phi[:, 1] > size_threshold, 1 - y, y)
+    if label_noise > 0:
+        flip = rng.random(n) < label_noise
+        y = np.where(flip, 1 - y, y)
+    return phi, y

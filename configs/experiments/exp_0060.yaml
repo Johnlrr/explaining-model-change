@@ -1,0 +1,22 @@
+# exp_0060 — D-057 X6: two independent local changes (Shortcut + Subgroup), split G. Every value fixed in D-057 before
+# any X6 model or split-G datum existed (OSF registration of D-057). Locked solver, κ, r (tier0.yaml).
+experiment_id: exp_0060
+decision: D-057
+tier_config: configs/tiers/tier0.yaml
+f_old_source: runs/experiments/exp_0002
+models_run: runs/experiments/exp_0060
+out_run: runs/experiments/exp_0060
+pair_ids: [130, 131, 132, 133, 134, 135, 136, 137]
+n_adapt: 10000
+adapt_label_noise: 0.05
+t1_correlation: 0.99          # exp_0003 value (Shortcut)
+size_threshold: 0.75          # T3 rule (Subgroup)
+recipe: {epochs: 10, lr: 1.0e-3, batch_size: 256}   # T3 recipe of exp_0003
+n_g0_points: 2000
+qualify: {min_delta: 0.15, max_other: 0.05}
+data_seed_base: 13000         # split G (fresh)
+n_samples: 5000
+n_points: 300
+b4_points: 2000
+locality: {near: 0.60, far: 0.45}
+threads: 8
