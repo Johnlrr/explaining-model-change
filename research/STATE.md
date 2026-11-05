@@ -19,7 +19,7 @@ committed a892bd6. X5 REGISTERED https://osf.io/fr7jv. DONE: exp_0056 VAE gate p
 X5 DONE (exp_0057): nulls 0/800 witnesses (registered prediction met); Δ-CE detects ≥0.5 in 6/8 offsets; CF-diff 0 at τ0.
   DONE 2026-11-05: paper W2 (f61cce8: X5 sentence + Table 3 row F, ‖ pair-level caveat on 3 rows, abstract/contributions
   centred on abstention, limitations; 6 pages, 0 overfull; backup .work/main_before_x5.tex); supplement complete (fa33117, 9 p).
-  RUNNING: W3 number check (subagent → exp_0059). NEXT: fix any mismatches → author names → send to advisor 14/11 →
+  W3 DONE: exp_0059 number check 795/795 OK after 2 fixes (3292518). NEXT: author names/affiliations → send to advisor 14/11 →
   repo export (W5, name chosen by author after writing) → submit 18/11. Mixed-effects vs two-level bootstrap: author deciding.
 Publication: separate, properly named repo (NOT Agent-auto-Research), history-preserving export — plan v2 W5.
 NO JOB RUNNING. Working tree: paper/main.tex = commit fc97658 (6 pages, 0 overfull). Author said: do NOT edit the
