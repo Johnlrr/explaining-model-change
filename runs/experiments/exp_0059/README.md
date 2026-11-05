@@ -29,3 +29,9 @@ Not machine-checkable from saved outputs: proofs and prose claims without a numb
 main.tex: ResNet split-E Grad-diff range 0.32–0.36 → 0.32–0.35; rotation sentence now names its cells (t = 0.5).
 supplement.tex: grid null cell t̂ = 0.526 and 0.464 (was "≈ 0.53"). Script updated accordingly. Re-run:
 **795 OK, 0 MISMATCH, 0 UNSOURCED** (rerun_2026-11-05/results_numcheck.json).
+
+## Re-run after the W6 rewrite and X6 (2026-11-05, code 9be5ede)
+
+Output in `rerun_2026-11-05b/` (the earlier outputs are unchanged). Script re-anchored to the rewritten main.tex (abstract, Table 1 with the Shift column and the "Both" row, Table 3 row "Witness localises", Section 4.1 X6 paragraph, merged OSF reference) and extended to the supplement Section X6 (design, results, Table S-X6), the split-G row and the split letters A-G of the protocol log; new sources exp_0060 (results_x6.json, qualification.json, pairs, config) and exp_0048 arrays for "none that Delta-CE misses" (Seg-found subset of DCE-found).
+Claims removed because the number left main.tex: CF-diff 98.3/99.7 on split D (the 97.7-100 range now spans the three groups of the sentence and is computed over all of them), VAE "CF-diff none at tau_0", CF-diff 0.03/0.18 at 5% (split D offsets), "below 0.2 in each of the 4 pairs", Grad-diff 5% on nulls, 955/953 Seg-search counts, ResNet "100 queries per pair" in Section 4, margin score <= 0.05 and CF-diff <= 0.03 on split E, "0.5 for the CNNs" limitation text. Re-anchored: "positive for each seed" now "in each of 3 pairs" (checked on seeds and on pair-level arrays).
+Result: **924 claims: OK 923, MISMATCH 1, UNSOURCED 0** (see `rerun_2026-11-05b/README.md`). The one MISMATCH: main Limitations (4) says "two disclosed exceptions"; the supplement paragraph "Disclosed exceptions" lists three items (D-041, D-055, D-053). Not interpreted here.
