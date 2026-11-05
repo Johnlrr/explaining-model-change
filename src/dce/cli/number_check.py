@@ -564,7 +564,7 @@ MAIN_SNIPPETS = [
     # Section 5 and 6
     r"A registered ResNet-8 replication", r"The follow-ups on splits D, F and G were registered before their data existed~\cite{osf}",
     r"osf.io/vfjtk, osf.io/fr7jv, osf.io/fp8uc", r"splits A--G in Table~\ref{tab:tests}",
-    r"with two disclosed exceptions",
+    r"with three disclosed exceptions",
 ]
 
 
@@ -1006,8 +1006,8 @@ def sec_x6_and_protocol() -> None:
     # main Limitations: "with two disclosed exceptions" against the enumerate of the supplement paragraph "Disclosed exceptions"
     blk = txt[txt.index(r"\paragraph{Disclosed exceptions.}"):]
     blk = blk[:blk.index(r"\end{enumerate}")]
-    L.exact("Main Limitations (4): 'two disclosed exceptions' vs the items listed under 'Disclosed exceptions' in the supplement", 2, blk.count(r"\item"),
-            "paper/supplement.tex \\paragraph{Disclosed exceptions.} (count of \\item)", note="the supplement lists D-041, D-055 and D-053; main.tex says 'two' (not interpreted here)")
+    L.exact("Main Limitations (4): 'three disclosed exceptions' vs the items listed under 'Disclosed exceptions' in the supplement", 3, blk.count(r"\item"),
+            "paper/supplement.tex \\paragraph{Disclosed exceptions.} (count of \\item)", note="the supplement lists D-041, D-055 and D-053; main.tex says 'three' (corrected 2026-11-05)")
 
 
 def main(argv=None) -> int:
