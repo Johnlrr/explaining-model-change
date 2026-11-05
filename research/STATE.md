@@ -27,7 +27,11 @@ X6 DONE (exp_0060, 9ac284c): qualification 8/8; L>0 in 8/8, pooled 0.50, p=0.003
   localises equally (0.51) — stated in paper and supplement. Paper fe0c259: X6 paragraph + Table 3 row, W6 rewrite, R1 shift
   column, Fig. 1 at 0.85 linewidth (was 0.38), names, repo link github.com/Johnlrr/explaining-model-change; 6 pages, 0 overfull.
   Supplement ce023f5 (10 p, X6 section, split G). Number check 924/924 OK (exp_0059/rerun_2026-11-05c).
-  NEXT: fix mismatches → repo export W5 (12–13/11) → advisor 14/11 → submit 18/11. NEXT: author names/affiliations → send to advisor 14/11 →
+  W5 PREPARED LOCALLY (2026-11-05, NOT pushed): /home/toska/code/research/explaining-model-change, branch main, history via
+  git filter-repo (project paths only; engine files, tools/, engine tests, configs/executors removed; emails kept),
+  COMMIT_MAP.tsv old→new, new README/pyproject/uv.lock, REPRODUCE follow-ups; clean clone: 137 tests pass, X6 reanalysis
+  identical. Later commits in this workspace must be ported (or re-export) before pushing.
+  NEXT: author reviews the export → push to github.com/Johnlrr/explaining-model-change (author's go) → advisor 14/11 → submit 18/11. NEXT: author names/affiliations → send to advisor 14/11 →
   repo export (W5, name chosen by author after writing) → submit 18/11. Mixed-effects vs two-level bootstrap: author deciding.
 Publication: separate, properly named repo (NOT Agent-auto-Research), history-preserving export — plan v2 W5.
 NO JOB RUNNING. Working tree: paper/main.tex = commit fc97658 (6 pages, 0 overfull). Author said: do NOT edit the
