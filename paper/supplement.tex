@@ -29,7 +29,7 @@
 \begin{document}
 \maketitle
 
-\noindent This document supplements the main paper. Notation is that of the main paper: $m_o,m_n$ are the margins of $f_{old},f_{new}$, $h=m_n-m_o$, $\kappa$ is the margin, $r$ the budget, $\F=\{z:m_n(z)\le-\kappa,\ m_o(z)\ge\kappa\}$ the set of type-N witnesses, and \DCE{} the nearest witness within $r$. The baselines are CF-diff, Grad-diff, Imp-diff, Seg-search, No-prox and CF-new. Test splits A--D are those of the main paper (Section~\ref{sec:log} lists them with E and F).
+\noindent This document supplements the main paper. Notation is that of the main paper: $m_o,m_n$ are the margins of $f_{old},f_{new}$, $h=m_n-m_o$, $\kappa$ is the margin, $r$ the budget, $\F=\{z:m_n(z)\le-\kappa,\ m_o(z)\ge\kappa\}$ the set of type-N witnesses, and \DCE{} the nearest witness within $r$. The baselines are CF-diff, Grad-diff, Imp-diff, Seg-search, No-prox and CF-new. Test splits A--D are those of the main paper (Section~\ref{sec:log} lists them with E, F and G).
 
 \section{Proofs}\label{sec:proofs}
 
@@ -441,6 +441,30 @@ Pair ($t$, seed) & $n$ & \DCE & $s_M$ $\tau_0$ & $s_M$ $\tau_{5\%}$ & $s_{M,r}$ 
 
 \emph{Scope.} One VAE ($\beta=1$, latent 16) on the same synthetic images; \emph{where} is read approximately; the margin score again tells \emph{whether} at 5\% in the pairs with larger shifts.
 
+\section{Two independent local changes (X6)}\label{sec:x6}
+
+\emph{Registration.} Registered at \url{https://osf.io/fp8uc} on 2026-11-05, before any X6 model was trained and before the test data (split G) existed (decision log D-057). The question is whether the nearest witness points to the change near the query when an update makes two independent changes in different regions.
+
+\emph{Design.} $f_{new}$ is $f_{old}$ fine-tuned on Shortcut data (70\% of samples with aspect in $[0.4,0.6]$, colour agreeing with the noise-free label with probability 0.99) whose labels are then flipped for size $>0.75$, with 5\% label noise; 10 epochs, Adam $10^{-3}$, batch 256. Pairs 130--137: $f_{old}$ seeds 0--4 and 0--2 with a second adaptation draw. Qualification (validation): $\Delta$Flip of colour and of size $\ge0.15$, of background and position $\le0.05$. Test: 300 valid queries per pair (data seed $13000+p$); $\kappa$, $r$ and the solver as in the main paper. Primary readout: among queries with a witness, $L$ = share whose largest $|\Delta\phi|$ is size for queries with size $\ge0.60$ (near the subgroup) minus the same share for size $\le0.45$ (far); prediction $L>0$ in every qualified pair and pooled $L\ge0.30$, exact sign test over pairs.
+
+\emph{Results.} All 8 pairs qualified ($\Delta$Flip colour 0.34--0.45, size 0.29--0.36, background/position $\le0.03$), so the test is confirmatory. \textbf{$L>0$ in 8 of 8 pairs, pooled $L=0.50$, sign test $p=0.0039$} (prediction met). Per pair: 0.59, 0.54, 0.53, 0.23, 0.52, 0.60, 0.50, 0.48; near the subgroup 0.46--0.75 of witnesses change size most, far from it 0.13--0.23; witnesses were found for 0.95--1.00 of queries. Controls (pooled $L$): Grad-diff 0.09, CF-diff 0.13, Imp-diff 0 by construction (one vector per pair), and CF-new 0.51: the counterfactual of $f_{new}$ alone localises as well, with the same top-1 shares and MRR as \DCE{} (Table~\ref{tab:x6}). Where $f_{old}$ keeps its decision at $f_{new}$'s counterfactual, the nearest witness is that counterfactual (for any margins, as in case A of Lemma~2); the witness adds the verified check that $f_{old}$ is unchanged, and it is silent on null updates, where CF-new returns a point for 0.996 of queries (main Table~2). Imp-diff ranks neither colour nor size first in 8 of 8 pairs (prediction met).
+
+\begin{table}[h]
+\centering\small
+\caption{X6, mean over the 8 pairs. Set-recovery: the two largest $|\Delta\phi|$ are colour and size.}\label{tab:x6}
+\begin{tabular}{lccccc}
+\toprule
+Method & set-recovery & MRR colour & MRR size & top-1 colour & top-1 size\\
+\midrule
+\DCE & 0.26 & 0.66 & 0.63 & 0.51 & 0.43\\
+CF-new & 0.24 & 0.66 & 0.63 & 0.51 & 0.43\\
+Grad-diff & 0.15 & 0.51 & 0.62 & 0.29 & 0.39\\
+CF-diff & 0.04 & 0.48 & 0.50 & 0.23 & 0.23\\
+Imp-diff & 0.00 & 0.42 & 0.33 & 0.00 & 0.00\\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Protocol log}\label{sec:log}
 
 Table~\ref{tab:splits} lists the test splits of the main paper and when each was formed relative to the results that motivated its tests. Times are local (UTC+7). The rules for each follow-up are in the decision log (\texttt{research/DECISIONS.md}) with dated commits; the OSF registrations are the external timestamps.
@@ -459,6 +483,7 @@ C & exp\_0041; \texttt{new\_test\_set}$(9100+\text{pair id})$, seeds 9106--9108,
 D & exp\_0049, exp\_0048 (IG/SHAP split-D rerun: exp\_0051); data seeds $9500+$pair id; 8 offset pairs, 8 nulls without admission filter & X2 (offsets), X3 (unfiltered nulls), X4 (ResNet-8), registered; D-052 & Registered 2026-11-02 20:18 at \url{https://osf.io/vfjtk} (project osf.io/fw39h) before the data were generated\\
 E & exp\_0054/0055; fresh split, seed base 9800, seeds 9920--9929, 100 queries per pair & ResNet-8 test at the calibrated $\kappa^\star$ (D-054, D-055); exploratory, not registered on OSF & Rule and test fixed 3 Nov (commit 300924b) before any number; grid extended on 4 Nov after the validation grid failed (D-055)\\
 F & exp\_0057; data seeds $10500+p$, 100 queries per pair & X5, learned VAE latent (D-056) & Registered 2026-11-04 at \url{https://osf.io/fr7jv}, before the VAE was trained and before split F existed (commit a892bd6)\\
+G & exp\_0060; data seeds $13000+p$, 300 queries per pair & X6, two independent local changes (D-057) & Registered 2026-11-05 at \url{https://osf.io/fp8uc}, before any X6 model was trained and before split G existed (commit 5b34205)\\
 \bottomrule
 \end{tabular}
 \end{table}
