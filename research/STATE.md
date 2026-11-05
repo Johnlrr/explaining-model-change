@@ -23,11 +23,11 @@ X5 DONE (exp_0057): nulls 0/800 witnesses (registered prediction met); Δ-CE det
   PLAN v3 (approved 2026-11-05): X6 multi-factor locality (D-057, OSF https://osf.io/fp8uc), W6 readability, R1 shift
   types; X7 dropped. Names set (Dinh Bao Bao, Tran Cong Minh, Le Hoai Bac) → paper is 7 pages until W6.
   Repo: github.com/Johnlrr/explaining-model-change (W5, 12–13/11).
-IN FLIGHT (started 2026-11-05 12:17): exp_0060 X6, 4 Kaggle CPU kernels boinhbo/dce-exp0060-k{1..4} (≈ 4.5 h each).
-  X6 models trained, qualification 8/8. Recover: `uv run python -m tools.kaggle kernel status boinhbo/dce-exp0060-k<i>
-  --account boinhbo`; fetch with `kernel fetch boinhbo/dce-exp0060-k<i> --destination runs/experiments/exp_0060_kaggle_k<i>/artifacts
-  --config configs/experiments/exp_0060_kaggle_k<i>.yaml --account boinhbo`; copy pair_* to runs/experiments/exp_0060/pairs;
-  `x6_multi analyze --config configs/experiments/exp_0060.yaml --out runs/experiments/exp_0060`. NEXT: author names/affiliations → send to advisor 14/11 →
+X6 DONE (exp_0060, 9ac284c): qualification 8/8; L>0 in 8/8, pooled 0.50, p=0.0039 (registered prediction met); CF-new
+  localises equally (0.51) — stated in paper and supplement. Paper fe0c259: X6 paragraph + Table 3 row, W6 rewrite, R1 shift
+  column, Fig. 1 at 0.85 linewidth (was 0.38), names, repo link github.com/Johnlrr/explaining-model-change; 6 pages, 0 overfull.
+  Supplement ce023f5 (10 p, X6 section, split G). RUNNING: number_check update (subagent → exp_0059/rerun_2026-11-05b).
+  NEXT: fix mismatches → repo export W5 (12–13/11) → advisor 14/11 → submit 18/11. NEXT: author names/affiliations → send to advisor 14/11 →
   repo export (W5, name chosen by author after writing) → submit 18/11. Mixed-effects vs two-level bootstrap: author deciding.
 Publication: separate, properly named repo (NOT Agent-auto-Research), history-preserving export — plan v2 W5.
 NO JOB RUNNING. Working tree: paper/main.tex = commit fc97658 (6 pages, 0 overfull). Author said: do NOT edit the
