@@ -26,7 +26,7 @@ X5 DONE (exp_0057): nulls 0/800 witnesses (registered prediction met); Δ-CE det
 X6 DONE (exp_0060, 9ac284c): qualification 8/8; L>0 in 8/8, pooled 0.50, p=0.0039 (registered prediction met); CF-new
   localises equally (0.51) — stated in paper and supplement. Paper fe0c259: X6 paragraph + Table 3 row, W6 rewrite, R1 shift
   column, Fig. 1 at 0.85 linewidth (was 0.38), names, repo link github.com/Johnlrr/explaining-model-change; 6 pages, 0 overfull.
-  Supplement ce023f5 (10 p, X6 section, split G). RUNNING: number_check update (subagent → exp_0059/rerun_2026-11-05b).
+  Supplement ce023f5 (10 p, X6 section, split G). Number check 924/924 OK (exp_0059/rerun_2026-11-05c).
   NEXT: fix mismatches → repo export W5 (12–13/11) → advisor 14/11 → submit 18/11. NEXT: author names/affiliations → send to advisor 14/11 →
   repo export (W5, name chosen by author after writing) → submit 18/11. Mixed-effects vs two-level bootstrap: author deciding.
 Publication: separate, properly named repo (NOT Agent-auto-Research), history-preserving export — plan v2 W5.
