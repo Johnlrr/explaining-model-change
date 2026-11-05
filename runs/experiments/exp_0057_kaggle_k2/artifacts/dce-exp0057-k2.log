@@ -1,0 +1,33 @@
+[{"stream_name":"stdout","time":75.561009024,"data":"config sha256 83c1709586dc5066b6161cd34d78029536f169ab1c89f8708374f3bd13672790\n"}
+,{"stream_name":"stdout","time":780.915965257,"data":"pair 112 points 0-20 done in 11.8 min\n"}
+,{"stream_name":"stdout","time":1488.749394801,"data":"pair 112 points 20-40 done in 11.8 min\n"}
+,{"stream_name":"stdout","time":2204.236762855,"data":"pair 112 points 40-60 done in 11.9 min\n"}
+,{"stream_name":"stdout","time":2918.92488776,"data":"pair 112 points 60-80 done in 11.9 min\n"}
+,{"stream_name":"stdout","time":3652.814139277,"data":"pair 112 points 80-100 done in 12.2 min\n"}
+,{"stream_name":"stdout","time":3652.820162535,"data":"pair 112 merged (100 points)\n"}
+,{"stream_name":"stdout","time":4359.35451007,"data":"pair 113 points 0-20 done in 11.8 min\n"}
+,{"stream_name":"stdout","time":5072.687685246,"data":"pair 113 points 20-40 done in 11.9 min\n"}
+,{"stream_name":"stdout","time":5785.061661152,"data":"pair 113 points 40-60 done in 11.9 min\n"}
+,{"stream_name":"stdout","time":6492.518999887,"data":"pair 113 points 60-80 done in 11.8 min\n"}
+,{"stream_name":"stdout","time":7219.982802044,"data":"pair 113 points 80-100 done in 12.1 min\n"}
+,{"stream_name":"stdout","time":7219.987030081,"data":"pair 113 merged (100 points)\n"}
+,{"stream_name":"stdout","time":7773.706138808,"data":"pair 102 points 0-20 done in 9.2 min\n"}
+,{"stream_name":"stdout","time":8368.612288794,"data":"pair 102 points 20-40 done in 9.9 min\n"}
+,{"stream_name":"stdout","time":8948.69043973,"data":"pair 102 points 40-60 done in 9.7 min\n"}
+,{"stream_name":"stdout","time":9548.453702885,"data":"pair 102 points 60-80 done in 10.0 min\n"}
+,{"stream_name":"stdout","time":10101.151694349,"data":"pair 102 points 80-100 done in 9.2 min\n"}
+,{"stream_name":"stdout","time":10101.157998371,"data":"pair 102 merged (100 points)\n"}
+,{"stream_name":"stdout","time":10721.919770645,"data":"pair 104 points 0-20 done in 10.3 min\n"}
+,{"stream_name":"stdout","time":11345.412429346,"data":"pair 104 points 20-40 done in 10.4 min\n"}
+,{"stream_name":"stdout","time":11971.767911685,"data":"pair 104 points 40-60 done in 10.4 min\n"}
+,{"stream_name":"stdout","time":12607.198688091,"data":"pair 104 points 60-80 done in 10.6 min\n"}
+,{"stream_name":"stdout","time":13241.342922929,"data":"pair 104 points 80-100 done in 10.6 min\n"}
+,{"stream_name":"stdout","time":13241.348916927,"data":"pair 104 merged (100 points)\n"}
+,{"stream_name":"stdout","time":13241.355468298,"data":"{\"rc\": 0, \"pairs_done\": [112, 113, 102, 104], \"pairs_partial\": [], \"wall_s\": 13239.9}\n"}
+,{"stream_name":"stderr","time":13245.032248348,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":13245.032283324,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":13245.479070727,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":13245.479103547,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":13246.602602702,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":13248.126927715,"data":"[NbConvertApp] Writing 702818 bytes to __results__.html\n"}
+]

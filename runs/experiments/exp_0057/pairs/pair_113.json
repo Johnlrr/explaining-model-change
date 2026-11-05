@@ -1,0 +1,156 @@
+{
+  "pair_id": 113,
+  "kind": "null",
+  "condition": "N0",
+  "seed": 3,
+  "k_star": null,
+  "n_points": 100,
+  "data_seed": 10613,
+  "data_sha256": "2084ad70859573f892dac8a8dcacfa5bf1eb7b5285e85bfa69c546fb68ec4d34",
+  "checkpoints": [
+    {
+      "name": "f_old_s3",
+      "kind": "checkpoint_reference",
+      "path": "runs/experiments/exp_0002/artifacts/models/f_old_s3.pt",
+      "sha256": "ed4494b8a5035258c1b6a65d6644585a0d455ea0633e016ec7889b04ce23e558"
+    },
+    {
+      "name": "f_new_p113_N0_s3",
+      "path": "runs/experiments/exp_0049/models/f_new_p113_N0_s3.pt",
+      "sha256": "f080f9a6784185cc12c6cf994b1c43af31940125c2adb21feb77d2d82bee2a9b"
+    }
+  ],
+  "chunks": [
+    {
+      "lo": 0,
+      "hi": 20,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 16.143532276153564,
+          "cpu_s_per_point": 62.17857654895001,
+          "device": "cpu",
+          "phase1_wall_s": 102.29059672355652,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 41.9615479944
+        },
+        "dce_O": {
+          "wall_s_per_point": 15.816521227359772,
+          "cpu_s_per_point": 61.2776529708,
+          "device": "cpu",
+          "phase1_wall_s": 100.74759030342102,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 41.30795552515
+        },
+        "b1_det": {
+          "wall_s_per_point": 2.673682701587677
+        }
+      },
+      "wall_s_chunk": 706.5
+    },
+    {
+      "lo": 20,
+      "hi": 40,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 15.830043494701385,
+          "cpu_s_per_point": 61.18051593284999,
+          "device": "cpu",
+          "phase1_wall_s": 99.20123767852783,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 41.57481430345
+        },
+        "dce_O": {
+          "wall_s_per_point": 15.841509187221527,
+          "cpu_s_per_point": 61.92463186765001,
+          "device": "cpu",
+          "phase1_wall_s": 100.9556040763855,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 41.9345866754
+        },
+        "b1_det": {
+          "wall_s_per_point": 3.2011011719703673
+        }
+      },
+      "wall_s_chunk": 713.3
+    },
+    {
+      "lo": 40,
+      "hi": 60,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 16.585026609897614,
+          "cpu_s_per_point": 64.81741032285001,
+          "device": "cpu",
+          "phase1_wall_s": 113.49387955665588,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 42.824651186900006
+        },
+        "dce_O": {
+          "wall_s_per_point": 15.536236357688903,
+          "cpu_s_per_point": 61.29532881645,
+          "device": "cpu",
+          "phase1_wall_s": 99.45213150978088,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 41.597439529350005
+        },
+        "b1_det": {
+          "wall_s_per_point": 2.7087981939315795
+        }
+      },
+      "wall_s_chunk": 712.4
+    },
+    {
+      "lo": 60,
+      "hi": 80,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 16.353285574913023,
+          "cpu_s_per_point": 63.64013717395001,
+          "device": "cpu",
+          "phase1_wall_s": 100.38140034675598,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 43.777313874200004
+        },
+        "dce_O": {
+          "wall_s_per_point": 15.695928049087524,
+          "cpu_s_per_point": 61.38026225379999,
+          "device": "cpu",
+          "phase1_wall_s": 100.8848934173584,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 41.411038972849994
+        },
+        "b1_det": {
+          "wall_s_per_point": 2.6324684262275695
+        }
+      },
+      "wall_s_chunk": 707.5
+    },
+    {
+      "lo": 80,
+      "hi": 100,
+      "runtime": {
+        "dce_N": {
+          "wall_s_per_point": 16.532999396324158,
+          "cpu_s_per_point": 63.49717167219999,
+          "device": "cpu",
+          "phase1_wall_s": 101.06623101234436,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 43.50777659175001
+        },
+        "dce_O": {
+          "wall_s_per_point": 16.387582540512085,
+          "cpu_s_per_point": 63.495962112200004,
+          "device": "cpu",
+          "phase1_wall_s": 103.61217093467712,
+          "phase2_cpu_s_per_point_with_witness": null,
+          "phase2_cpu_s_per_point_without_witness": 43.0014909042
+        },
+        "b1_det": {
+          "wall_s_per_point": 2.755946636199951
+        }
+      },
+      "wall_s_chunk": 727.5
+    }
+  ],
+  "wall_s_pair": 3567.2
+}

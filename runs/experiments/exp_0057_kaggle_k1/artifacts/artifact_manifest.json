@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "metadata.json",
+      "kind": "output",
+      "path": "metadata.json",
+      "sha256": "71d282520fc2043950e5666dfaf88315cdf2a9a51f61dfe23e89e81712524efc",
+      "bytes": 537
+    },
+    {
+      "name": "pair_100.json",
+      "kind": "output",
+      "path": "pair_100.json",
+      "sha256": "b0b2181895f496f328e3c223f16185145c21a1df3bb12581e63ffc2f9f0e1e6d",
+      "bytes": 4958
+    },
+    {
+      "name": "pair_100.npz",
+      "kind": "output",
+      "path": "pair_100.npz",
+      "sha256": "79486294f1356167ce98644e6e0bc3633e994e142aad621888e2df800acae93f",
+      "bytes": 35334
+    },
+    {
+      "name": "pair_101.json",
+      "kind": "output",
+      "path": "pair_101.json",
+      "sha256": "eeb750728f7be3da60e1e2a2fca41d6c5a36ee3bc8fb133729bf6510932af4a0",
+      "bytes": 4967
+    },
+    {
+      "name": "pair_101.npz",
+      "kind": "output",
+      "path": "pair_101.npz",
+      "sha256": "37f8aabc78d2b1f507ac8d5440dc590e940a80d7cd11207e603c1a463d0e889f",
+      "bytes": 35165
+    },
+    {
+      "name": "pair_110.json",
+      "kind": "output",
+      "path": "pair_110.json",
+      "sha256": "bd92b5af6135a0f8ccd9789e26a6bc3a73c89efb29699d551a96f86394f1f3be",
+      "bytes": 4822
+    },
+    {
+      "name": "pair_110.npz",
+      "kind": "output",
+      "path": "pair_110.npz",
+      "sha256": "426f4d55eeea1d9e00bd8ee827f12bbfcec31dbb65be4ca6a7de45ed37f3b3ab",
+      "bytes": 34440
+    },
+    {
+      "name": "pair_111.json",
+      "kind": "output",
+      "path": "pair_111.json",
+      "sha256": "30e6f43cf27f14de1672d093be362f9a6a7b6e275abeb6205b27474c793a9755",
+      "bytes": 4841
+    },
+    {
+      "name": "pair_111.npz",
+      "kind": "output",
+      "path": "pair_111.npz",
+      "sha256": "a8b207710c83fe4b54cfc74ac5c53635358d01c82e08c886c5e1341d468847cc",
+      "bytes": 34899
+    },
+    {
+      "name": "result.json",
+      "kind": "output",
+      "path": "result.json",
+      "sha256": "382b8846673703eb00106714b9e56df0aa72741de82c4db8e93c371ee7451a23",
+      "bytes": 1217
+    }
+  ]
+}

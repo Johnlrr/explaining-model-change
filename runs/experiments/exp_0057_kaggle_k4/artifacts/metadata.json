@@ -1,0 +1,28 @@
+{
+  "experiment": "exp_0057",
+  "decision": "D-056 X5",
+  "chunk": 20,
+  "vae": {
+    "name": "vae32_beta1.0",
+    "kind": "checkpoint",
+    "path": "models/vae32_beta1.0.pt",
+    "sha256": "303ca0e2cdc703d95381c6d415a0da34b4d78edc9bf41ad8ba10b60b94550660"
+  },
+  "git_runs": [
+    {
+      "git": {
+        "commit": "",
+        "dirty": false
+      },
+      "started": "2026-11-04T14:49:22",
+      "threads": 8,
+      "pairs": [
+        116,
+        117,
+        107,
+        108
+      ]
+    }
+  ],
+  "finished": "2026-11-04T17:26:32"
+}

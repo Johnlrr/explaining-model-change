@@ -16,10 +16,8 @@ PLAN v2 (2026-11-04, X5 design APPROVED by author): research/proposals/review_02
 committed a892bd6. X5 REGISTERED https://osf.io/fr7jv. DONE: exp_0056 VAE gate passed (β=1), r_VAE=1.6408 frozen; smoke_0034 (timing →
   author: 100 queries, kaggle-cpu), smoke_0035 (Kaggle) passed; S1/S2 done (exp_0058, d47cbd4; not yet interpreted in paper);
   supplement draft paper/supplement.tex (untracked, B/D/E placeholders).
-IN FLIGHT (started 2026-11-04 ~21:45): exp_0057 X5 search, 4 Kaggle CPU kernels boinhbo/dce-exp0057-k{1..4} (≈ 6 h each).
-  Recover: `uv run python -m tools.kaggle kernel status|wait|fetch` per config configs/experiments/exp_0057_kaggle_k{i}.yaml;
-  run dirs runs/experiments/exp_0057_kaggle_k{i}; then copy pair_*.{json,npz} into runs/experiments/exp_0057/pairs and
-  `x5_vae analyze --config configs/experiments/exp_0057.yaml --out runs/experiments/exp_0057`. Mixed-effects vs two-level bootstrap: author deciding.
+X5 DONE (exp_0057): nulls 0/800 witnesses (registered prediction met); Δ-CE detects ≥0.5 in 6/8 offsets; CF-diff 0 at τ0.
+  NEXT: supplement §E, paper edits (W2), number check (W3), then repo export (W5). Mixed-effects vs two-level bootstrap: author deciding.
 Publication: separate, properly named repo (NOT Agent-auto-Research), history-preserving export — plan v2 W5.
 NO JOB RUNNING. Working tree: paper/main.tex = commit fc97658 (6 pages, 0 overfull). Author said: do NOT edit the
 paper yet; next session starts from the review→draft gap list below. Deadlines: advisor 14/11, ESANN submit 18/11.

@@ -1654,6 +1654,15 @@ deviation and is disclosed in the paper; across machines the found/not-found vec
 smoke checks), so the hardware does not decide the outcome. Chunked runs were checked to equal unchunked rows exactly
 (smoke_0034).
 
+**Results X5 (exp_0057, 2026-11-05; Research Lead reading).** Primary prediction **met**: 0/800 null queries have a
+witness (0 in each of 8 pairs), while CF-diff attributes a change to 0.85–0.94 of them. Detection prediction met: Δ-CE
+witnesses on ≥ 0.5 of lowered-class queries in 6/8 offset pairs (0.12–0.98); at zero null false positives CF-diff
+flags none in 8/8 and s_M 0.00–0.58. 91% of offset witnesses are on-manifold by the registered renderer-fit
+criterion. Recovery with the renderer read-out: Δ-CE 0.02–0.46, CF-diff 0.55–0.82 (descriptive). Reading rule (i)
+applies: the paper states that abstention on null updates also holds when the search runs through a learned VAE
+decoder (0/800, registered), with 100 queries per pair on CPU as the disclosed deviation. Scope: one VAE (β = 1,
+latent 16) on the same synthetic images; the "where" read-out is approximate.
+
 **Also under D-056 (saved outputs only, descriptive, not registered).** S1 (revised 2026-11-04 with the author, before
 any S1 number): the pair is the unit of inference. (a) Primary: per-pair estimate for every Table 3 row; exact
 one-sided sign test over pairs, and for differences an exact sign-flip permutation test on the pair means (all 2^n
