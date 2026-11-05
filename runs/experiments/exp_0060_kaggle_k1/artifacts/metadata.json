@@ -1,0 +1,26 @@
+{
+  "experiment": "exp_0060",
+  "decision": "D-057",
+  "shard": [
+    0,
+    4
+  ],
+  "git_runs": [
+    {
+      "git": {
+        "commit": "",
+        "dirty": false
+      },
+      "started": "2026-11-05T05:17:03",
+      "threads": 8
+    }
+  ],
+  "python": "3.13.18",
+  "torch": "2.14.1+cpu",
+  "platform": "Linux-6.18.55+-x86_64-with-glibc2.39",
+  "pairs": [
+    130,
+    134
+  ],
+  "finished": "2026-11-05T06:41:55"
+}

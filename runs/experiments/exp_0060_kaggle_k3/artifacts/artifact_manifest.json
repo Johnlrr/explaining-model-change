@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "name": "metadata.json",
+      "kind": "output",
+      "path": "metadata.json",
+      "sha256": "5cbaae26798a93a3fc7897d4b3ddc4716e9594f207c6120812e7e95d52e619af",
+      "bytes": 419
+    },
+    {
+      "name": "pair_132.json",
+      "kind": "output",
+      "path": "pair_132.json",
+      "sha256": "238ab9fd29eb2492462dc46ac628681ea19c3f4f5c9c667d7c9eeb6c38ade43d",
+      "bytes": 1524
+    },
+    {
+      "name": "pair_132.npz",
+      "kind": "output",
+      "path": "pair_132.npz",
+      "sha256": "8bb780e891397e32b7374569b07acccbf8e860edd775372466518bfd45950ca9",
+      "bytes": 36684
+    },
+    {
+      "name": "pair_136.json",
+      "kind": "output",
+      "path": "pair_136.json",
+      "sha256": "604ae01e5d64984255e773a6baa23b17b0e89df70522afe34b3d94873a0ea3ab",
+      "bytes": 1523
+    },
+    {
+      "name": "pair_136.npz",
+      "kind": "output",
+      "path": "pair_136.npz",
+      "sha256": "ac58992587c5c4be789cc84b7135f52a670e6a43ea5f771ff031393cb1eef867",
+      "bytes": 36504
+    },
+    {
+      "name": "result.json",
+      "kind": "output",
+      "path": "result.json",
+      "sha256": "c6fc4a769b00f7431deb577b2fc66bd7ee597402572ba0200fb7f0a7f4690bc7",
+      "bytes": 1148
+    }
+  ]
+}

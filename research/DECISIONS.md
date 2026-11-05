@@ -1739,6 +1739,15 @@ is changed after any X6 number (qualification outcomes included).
 **Feasibility.** Smoke (validation, 3 queries, 2 pairs, Kaggle CPU). Search on kaggle-cpu kernels. Not finished by
 **10/11/2026** → reported in the supplement only, or as not done.
 
+**Results X6 (exp_0060, 2026-11-05; Research Lead reading).** Qualification 8/8 → confirmatory. Primary prediction
+**met**: L > 0 in 8/8 pairs (0.23–0.60), pooled L = 0.50, sign p = 0.0039. Near the subgroup 46–75% of witnesses change
+size most, far from it 13–23%. Controls: Grad-diff 0.09, CF-diff 0.13, Imp-diff 0 by construction; **CF-new 0.51**, with
+top-1 and MRR equal to Δ-CE's — the nearest witness here is mostly f_new's own counterfactual (Lemma 2, case A: f_old
+keeps its decision there). Reading: witnesses localise the two changes; the localisation comes from the nearest-change
+search, which CF-new shares, while the witness adds the verified check that f_old's decision is unchanged (and, unlike
+CF-new, stays silent on nulls: Table 2, CF-new 0.996 on nulls). The paper must say both. Imp-diff ranks neither factor
+first (8/8, prediction met). Set-recovery {colour, size}: Δ-CE 0.26, CF-new 0.24, Grad-diff 0.15, CF-diff 0.04, Imp-diff 0.
+
 ---
 
 ## 12. Decision conflicts
