@@ -1689,6 +1689,55 @@ values match every saved counterpart (27 checks). At the pair level, as the unit
   blindness and rotation claims hold with the pair as unit. S2: saved records hold time per query, not call counts;
   the budget table reports wall/CPU seconds (supplement).
 
+## D-057 — X6: two independent local changes (advisor item 7; "where"), rules fixed before any data (2026-11-05, author-approved design)
+
+Status: active. Plan: `research/proposals/review_0211_plan_v3.md` §1 (approved 2026-11-05). **After seeing results** of
+all earlier experiments (spec frozen, D-016); written before any X6 model is trained and before split G exists. To be
+registered on OSF by the author before training (`.work/osf/osf_registration_D-057.md`). X7 (retraining from scratch)
+dropped by the author.
+
+**Question.** When an update makes two independent changes in different regions — a colour shortcut everywhere and a
+label flip in the large-size subgroup — does the nearest witness point to the change that is *near the query*? This is
+a direct test of the "where" that the paper attributes to witnesses (so far "checks, not a score").
+
+**Fixed elements.**
+- Condition SS ("Shortcut + Subgroup"): the T1 adaptation set (70% of samples with aspect in [0.4, 0.6]; colour
+  correlated with the noise-free label with probability 0.99, the exp_0003 value), then labels flipped where
+  size > 0.75 (the T3 rule), then 5% symmetric label noise. 10 000 samples. Fine-tuning: 10 epochs, Adam lr 1e-3,
+  batch 256 (the T3 recipe of exp_0003; the stronger of the two). No knobs.
+- Pairs 130–137: f_old (exp_0002, hash-checked) seeds 0–4 (pairs 130–134) and seeds 0–2 again with a second
+  adaptation draw (pairs 135–137). All per-pair seeds are tier0.yaml bases + pair_id (adaptation data 2000 + p, order
+  3000 + p, noise 4000 + p, points 5000 + p, restarts 10000 + p).
+- Qualification (validation, `clean_splits(1234)["val"]`, the G0 flip rates of `dce.eval.g0`): ΔFlip_colour ≥ 0.15
+  **and** ΔFlip_size ≥ 0.15 **and** max |ΔFlip| over background and position ≤ 0.05. (The T3 clauses "other factors
+  ≤ 0.05" and "DD outside ≤ 0.05" are dropped: a two-factor change violates them by design.)
+- Split G (new test data): per pair p, 5 000 points with data seed 13000 + p (not used before); 300 valid queries
+  (both models correct with margin ≥ κ for the clean label), point seed 5000 + p.
+- κ = 0.5, r = 0.5413, solver as in the paper (tier0.yaml, box [0, 1]^5). Methods: Δ-CE type N, CF-diff (B1-det),
+  Grad-diff (B3), CF-new, Imp-diff (permutation importance difference on the split-G test data, as in Table 2).
+- Ground truth: changed factors K = {colour, size}; the size change is local (subgroup size > 0.75).
+
+**Readouts and predictions.**
+1. *Primary (registered; confirmatory if ≥ 6 pairs qualify):* locality of Δ-CE. Among queries with a type-N witness,
+   "near" = size ≥ 0.60 (within 0.15 of the subgroup boundary), "far" = size ≤ 0.45. Per pair,
+   L = share of witnesses whose largest |Δφ| component is size, near minus far.
+   Prediction: L > 0 in every qualified pair and pooled L ≥ 0.30. Test: exact one-sided sign test of L > 0 over the
+   qualified pairs, α = 0.05, single test. Fewer than 6 qualified pairs → descriptive k/n. A pair with no witness in
+   either group has undefined L and counts against the prediction.
+2. *Controls (descriptive):* L for Grad-diff and CF-diff (no prediction); Imp-diff has L = 0 by construction (one
+   vector per pair), reported as the global-method control.
+3. *Multi-factor recovery (descriptive):* set-recovery (top-2 of |Δφ| = {colour, size}; NOT_FOUND = 0) and MRR of
+   colour and of size, per method. Prediction: Imp-diff on test data ranks neither colour nor size first (as on
+   Shortcut and Subgroup, where it ranks aspect first); no prediction for the order of the other methods.
+
+**Reading rules.** Prediction 1 met → the paper states that witnesses localise: near the subgroup they point to size,
+far from it to the other change, which a global importance difference cannot do. Not met → numbers reported; the
+"where" sentence of the paper stays "checks, not a score". Every readout is reported whatever its value; nothing above
+is changed after any X6 number (qualification outcomes included).
+
+**Feasibility.** Smoke (validation, 3 queries, 2 pairs, Kaggle CPU). Search on kaggle-cpu kernels. Not finished by
+**10/11/2026** → reported in the supplement only, or as not done.
+
 ---
 
 ## 12. Decision conflicts
