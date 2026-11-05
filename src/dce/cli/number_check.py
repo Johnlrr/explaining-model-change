@@ -417,8 +417,8 @@ def sec_resnet() -> None:
     L.num("S4.4 Recovery stays 0.36 (low end, split E)", "0.36", min(p["dce_recovery"] for p in off), "exp_0054/test/results_x4_kstar.json:offsets.dce_recovery")
     L.num("S4.4 Recovery stays 0.40 (high end, split E)", "0.40", max(p["dce_recovery"] for p in off), "same")
     L.num("S4.4 Grad-diff 0.32 (low end, split E)", "0.32", min(p["graddiff_recovery"] for p in off), "exp_0054/test/results_x4_kstar.json:offsets.graddiff_recovery")
-    L.num("S4.4 Grad-diff 0.36 (high end, split E)", "0.36", max(p["graddiff_recovery"] for p in off), "same",
-          note="split D (exp_0050) gives 0.32-0.36; split E, the split of the surrounding sentence, gives 0.32-0.35")
+    L.num("S4.4 Grad-diff 0.35 (high end, split E)", "0.35", max(p["graddiff_recovery"] for p in off), "same",
+          note="split D (exp_0050) gives 0.32-0.36; the sentence reports split E")
     L.num("S4.4 [split D reading of the same figures] Grad-diff high end", "0.36", max(p["graddiff_recovery"] for p in x4["offsets"]), "exp_0050/results_x4.json:offsets.graddiff_recovery")
 
 
@@ -521,13 +521,13 @@ MAIN_SNIPPETS = [
     r"exceeded the margin score by 0.2 in 7 of 8 pairs",
     r"their Recovery is 0.081 (below 0.2 in each of the 4 pairs), and on the 8 registered offsets of split D 0.03--0.09 (8 of 8 below 0.2; sign test $p=0.004$)",
     r"(0.41 vs.\ 0.10 on split B; positive for each seed)", r"hence 0.47 in Table~\ref{tab:results}",
-    r"rises from 0.36 at $\alpha=0.1$ to 0.93 at $\alpha=0.5$ (Spearman $\rho=0.89$ over the 24 pairs, permutation $p=10^{-4}$",
+    r"rises from 0.36 at $\alpha=0.1$ to 0.93 at $\alpha=0.5$ ($t=0.5$) (Spearman $\rho=0.89$ over the 24 pairs, permutation $p=10^{-4}$",
     r"recover colour on Shortcut (0.93) like Grad-diff, and name aspect on Threshold (0.73--0.75 vs.\ 0.07)",
     r"IG- and SHAP-diff name aspect on 57\% and 71\% of queries (Grad-diff 5\%), and IG-diff on 42\% of the split-D nulls",
     r"ranks aspect first in all 9 change pairs", r"finds witnesses for 0.26--0.47 of queries (predicted $\le0.2$); on all 955 of them $\Delta$-CE finds one too, nearer or equal on 953",
     r"(split D, 100 queries per pair; run after its cost rule had excluded it)", r"moves its margins four times more and witnesses appear on 0.90 of null queries",
     r"gives $\kappa^\star=2.5$: on split E no null query has a witness (0/200), and witnesses exist for 0.78--1.00 of lowered-class offset queries (margin score $\le0.05$, CF-diff $\le0.03$ at zero false positives)",
-    r"Recovery stays 0.36--0.40; Grad-diff is not offset-blind there (0.32--0.36)", r"(0.5 for the CNNs; 2.5 for the ResNet-8, after an extended search)",
+    r"Recovery stays 0.36--0.40; Grad-diff is not offset-blind there (0.32--0.35)", r"(0.5 for the CNNs; 2.5 for the ResNet-8, after an extended search)",
     r"Table 2 caption: (95\% CIs within $\pm0.035$)".replace("Table 2 caption: ", ""),
 ]
 
@@ -656,8 +656,8 @@ def supp_C() -> None:
         L.num(f"S-C text: r'=0.5413-rounded-to-0.54 value {nm}", pr, e4["r"]["0.54"][cond], f"{src}:e4.r.0.54.{cond}")
     # kappa-null table
     gnull = {q["pair_id"]: q for q in J("exp_0026/results.json")["descriptive"]["pairs"]}
-    for pid in (20, 21):
-        L.num(f"S-C text: grid null cell pair {pid} realised threshold t_hat ~ 0.53", "0.53", gnull[pid]["t_hat"], f"exp_0026/results.json:descriptive.pairs[{pid}].t_hat")
+    for pid, pr in ((20, "0.526"), (21, "0.464")):
+        L.num(f"S-C text: grid null cell pair {pid} realised threshold t_hat", pr, gnull[pid]["t_hat"], f"exp_0026/results.json:descriptive.pairs[{pid}].t_hat")
     L.exact("S-C text: kappa grids (split A {0,0.5,1}; grid {0,0.25,0.5,1})", (["0", "0.5", "1.0"], ["0", "0.25", "0.5", "1.0"]),
             (sorted(e4["splitA"], key=float), sorted(e4["grid_alpha0_offsets"], key=float)), f"{src}:e4")
     n = e4["null"]
