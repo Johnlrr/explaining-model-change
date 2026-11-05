@@ -132,13 +132,13 @@ Gradient differences are blind to an offset, as Proposition 2(a) predicts: on th
 
 \subsection{Rotations}
 
-Gradient differences see a rotation, increasingly with its angle: Grad-diff Recovery rises from 0.36 at $\alpha=0.1$ to 0.93 at $\alpha=0.5$ (Spearman $\rho=0.89$ over the 24 pairs, permutation $p=10^{-4}$; Fig.~\ref{fig:map}). The projection equivalence of Proposition 2(b) holds only with $\hat w_o$ taken at the witness (Table~\ref{tab:tests}).
+Gradient differences see a rotation, increasingly with its angle: Grad-diff Recovery rises from 0.36 at $\alpha=0.1$ to 0.93 at $\alpha=0.5$ ($t=0.5$) (Spearman $\rho=0.89$ over the 24 pairs, permutation $p=10^{-4}$; Fig.~\ref{fig:map}). The projection equivalence of Proposition 2(b) holds only with $\hat w_o$ taken at the witness (Table~\ref{tab:tests}).
 
 \subsection{Other baselines and a second architecture}
 
 With predictions logged beforehand (split A), IG-diff and SHAP-diff recover colour on Shortcut (0.93) like Grad-diff, and name aspect on Threshold (0.73--0.75 vs.\ 0.07), against the predicted blindness. The nulls show that this is no signal: there IG- and SHAP-diff name aspect on 57\% and 71\% of queries (Grad-diff 5\%), and IG-diff on 42\% of the split-D nulls, as predicted. Imp-diff on test data ranks aspect first in all 9 change pairs (Table~\ref{tab:results}), and $k^\star$ on adaptation data. With ten times the segments Seg-search finds witnesses for 0.26--0.47 of queries (predicted $\le0.2$); on all 955 of them $\Delta$-CE finds one too, nearer or equal on 953.
 
-A registered ResNet-8 replication (split D, 100 queries per pair; run after its cost rule had excluded it) shows that $\kappa$ is model-specific: null fine-tuning moves its margins four times more and witnesses appear on 0.90 of null queries. Calibrating $\kappa$ on validation nulls (rule fixed in advance, 0.5 for the CNN; grid extended after $\kappa\le2$ failed) gives $\kappa^\star=2.5$: on split E no null query has a witness (0/200), and witnesses exist for 0.78--1.00 of lowered-class offset queries (margin score $\le0.05$, CF-diff $\le0.03$ at zero false positives). Recovery stays 0.36--0.40; Grad-diff is not offset-blind there (0.32--0.36).
+A registered ResNet-8 replication (split D, 100 queries per pair; run after its cost rule had excluded it) shows that $\kappa$ is model-specific: null fine-tuning moves its margins four times more and witnesses appear on 0.90 of null queries. Calibrating $\kappa$ on validation nulls (rule fixed in advance, 0.5 for the CNN; grid extended after $\kappa\le2$ failed) gives $\kappa^\star=2.5$: on split E no null query has a witness (0/200), and witnesses exist for 0.78--1.00 of lowered-class offset queries (margin score $\le0.05$, CF-diff $\le0.03$ at zero false positives). Recovery stays 0.36--0.40; Grad-diff is not offset-blind there (0.32--0.35).
 
 \section{Discussion and limitations}
 

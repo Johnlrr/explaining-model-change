@@ -259,7 +259,7 @@ Threshold & 0.33 & 0.45 & 0.47 \\
 
 \subsection{Sensitivity to the margin $\kappa$}
 
-Table~\ref{tab:kappa-null} gives the share of null-update queries that have a witness. At $\kappa=0$ the condition is only a sign change, and witnesses appear on most null queries; they disappear by $\kappa=1$ (split A) and the grid null cell is silent at $\kappa=1$. The grid null cell is the pair of grid pairs 20 and 21, whose realised threshold $\hat t\approx0.53$ means a small real offset. Table~\ref{tab:kappa-rec} gives Recovery and, in brackets, the found-rate by $\kappa$. The found-rate is non-increasing in $\kappa$ in every group (the pre-declared prediction was met). Cells marked n/a were not computed (the split-A analysis used $\kappa\in\{0,0.5,1\}$, the grid variants $\kappa\in\{0,0.25,0.5,1\}$).
+Table~\ref{tab:kappa-null} gives the share of null-update queries that have a witness. At $\kappa=0$ the condition is only a sign change, and witnesses appear on most null queries; they disappear by $\kappa=1$ (split A) and the grid null cell is silent at $\kappa=1$. The grid null cell is grid pairs 20 and 21 ($\alpha=0$, $t=0.5$); their realised thresholds $\hat t=0.526$ and $0.464$ mean small real offsets. Table~\ref{tab:kappa-rec} gives Recovery and, in brackets, the found-rate by $\kappa$. The found-rate is non-increasing in $\kappa$ in every group (the pre-declared prediction was met). Cells marked n/a were not computed (the split-A analysis used $\kappa\in\{0,0.5,1\}$, the grid variants $\kappa\in\{0,0.25,0.5,1\}$).
 
 \begin{table}[h]
 \caption{Share of null queries with a \DCE{} witness (types N or O pooled as saved) by $\kappa$.}\label{tab:kappa-null}

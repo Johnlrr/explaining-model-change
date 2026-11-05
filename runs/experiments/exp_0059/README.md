@@ -23,3 +23,9 @@ Claims checked: 795. **OK 793, MISMATCH 2, UNSOURCED 0.**
 Covered: abstract; Sections 3-5 text numbers; Tables 1-3 (every estimate, CI, p, pairs cell); the parameters of Sections 3 and D; supplement Section B (Table S1 parsed from the tex and compared row by row with exp_0058), Section C (all tables and text), Section E (fixed elements, results, Table X5). Sources: exp_0017, 0019, 0026, 0028, 0032, 0033, 0046-0051, 0054, 0056, 0057, 0058.
 
 Not machine-checkable from saved outputs: proofs and prose claims without a number; registered predictions are checked only where a run README records them.
+
+## Re-run after the two corrections (2026-11-05)
+
+main.tex: ResNet split-E Grad-diff range 0.32–0.36 → 0.32–0.35; rotation sentence now names its cells (t = 0.5).
+supplement.tex: grid null cell t̂ = 0.526 and 0.464 (was "≈ 0.53"). Script updated accordingly. Re-run:
+**795 OK, 0 MISMATCH, 0 UNSOURCED** (rerun_2026-11-05/results_numcheck.json).
