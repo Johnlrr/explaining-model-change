@@ -68,3 +68,17 @@ Full re-run: replace `analyze` by `run` (Tier 0 locked split: add `--final`), wi
 Protocol: `docs/source/` (specification and amendments v1.1–v1.10), `research/DECISIONS.md` (every decision, with
 its timing relative to the test data; audit in D-046), `research/HYPOTHESES.md`. Proofs: `research/theory/proofs.md`.
 Unit tests: `uv run pytest tests/unit`.
+
+## Follow-up experiments (after the advisor review of 2026-11-02)
+
+| Item | Decision | Run | Recompute from saved outputs |
+|---|---|---|---|
+| Margin-score control (M) | D-052 | exp_0046 | `reanalyze dce.cli.review_0211 exp_0046 m-analyze` |
+| E1–E4: pair-level rotation test, rank metrics, κ and r sensitivity | D-052 | exp_0047 | `reanalyze dce.cli.review_0211 exp_0047 e-analyze` |
+| X1: IG-/SHAP-diff, Imp-diff (adaptation), Seg-search ×10 | D-052 | exp_0048 | see `runs/experiments/exp_0048/README.md` |
+| X2/X3: offsets and unfiltered nulls, split D (registered) | D-052 | exp_0049 | `reanalyze dce.cli.split_d exp_0049` |
+| X4: ResNet-8 (split D); κ calibration and split E | D-053–D-055 | exp_0050, exp_0054 | see the run READMEs |
+| X5: search through a learned VAE decoder, split F (registered) | D-056 | exp_0056, exp_0057 | `reanalyze dce.cli.x5_vae exp_0057` |
+| X6: two independent local changes, split G (registered) | D-057 | exp_0060 | `reanalyze dce.cli.x6_multi exp_0060` |
+| S1/S2: pair-level statistics, compute budget | D-056 | exp_0058 | `uv run python -m dce.cli.pair_level run --out .work/repro/exp_0058` |
+| Number check (every number in paper and supplement vs saved outputs) | — | exp_0059 | `uv run python -m dce.cli.number_check --out .work/repro/exp_0059` |

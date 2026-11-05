@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "explaining-model-change"
+version = "1.0.0"
+description = "Benchmarking counterfactual explanations of model change with exact ground truth (ESANN 2027 submission)"
+requires-python = ">=3.10"
+dependencies = [
+    "PyYAML>=6",
+    "torch>=2.4",
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "scikit-image>=0.24",
+    "matplotlib>=3.10.9",
+    "statsmodels>=0.15.0",
+]
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["dce*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

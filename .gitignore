@@ -1,0 +1,41 @@
+.venv/
+.work/
+kaggle_test/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.tox/
+.nox/
+*.egg-info/
+build/
+dist/
+.coverage
+coverage.xml
+htmlcov/
+.ipynb_checkpoints/
+
+# Local credentials and environment files
+.env
+.env.*
+!.env.example
+kaggle.json
+**/kaggle.json
+credentials.json
+**/credentials.json
+access_token
+access_token.txt
+**/access_token
+**/access_token.txt
+.kaggle/
+**/.kaggle/
+*.pem
+*.key
+*.p12
+
+# Local OS/editor artifacts
+.DS_Store
+Thumbs.db
+
+# Unlike temporary staging, run records are durable research evidence.
