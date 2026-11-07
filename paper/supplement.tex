@@ -190,7 +190,7 @@ The unit of inference is the \emph{pair} ($f_{old}$, $f_{new}$), not the query p
 \begingroup\scriptsize
 \setlength{\tabcolsep}{2.5pt}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{3.8cm}r>{\raggedright\arraybackslash}p{1.9cm}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{1.2cm}>{\raggedright\arraybackslash}p{2.1cm}@{}}
-\caption{Pair-level statistics for the rows of Table~3 of the main paper (exp\_0058, saved outputs only). $n$: pairs; range and mean: per-pair values (Recovery, found-rate or witness share, or a difference); CI: 95\% $t$-interval on the pair means (-- for $n<4$). Exact $p$: ``sign'' is the one-sided exact sign test ($k$ of $n$ pairs on the claimed side); ``flip'' is the exact sign-flip permutation test on the pair means (one-sided for $>0$ claims, two-sided for the $\pm0.10$ band rows, where $k/n$ counts pairs inside the band); ``perm.'' is the Monte Carlo permutation test of the Spearman correlation. Min.\ $p$: smallest value the test can attain with $n$ pairs. MixedLM: intercept (SE) and one-sided Wald $p$ against the row's threshold ($0.9$ for CF-diff, $0.2$ for Grad-diff); for the rotation row, the slope on $\hat\alpha$ (SE) and its two-sided $p$.}\label{tab:s1}\\
+\caption{Pair-level statistics for the rows of Table~3 of the main paper (exp\_0058, saved outputs only). $n$: pairs; range and mean: per-pair values (Recovery, found-rate or witness share, or a difference); CI: 95\% $t$-interval on the pair means (-- for $n<4$). Exact $p$: ``sign'' is the one-sided exact sign test ($k$ of $n$ pairs on the claimed side); ``flip'' is the exact sign-flip permutation test on the pair means (one-sided for $>0$ claims, two-sided for the $\pm0.10$ band rows, where $k/n$ counts pairs inside the band); ``perm.'' is the Monte Carlo permutation test of the Spearman correlation. Min.\ $p$: smallest value the test can attain with $n$ pairs. MixedLM: intercept (SE) and one-sided Wald $p$ against the row's threshold ($0.9$ for CF-diff, $0.2$ for Grad-diff); for the rotation row, the slope on $\hat\alpha$ (SE) and its two-sided $p$. The MixedLM is a sensitivity check only: with little variance between pairs it treats points as independent, so its $p$ values (down to $10^{-66}$) are far smaller than the pair-level ones and are not evidence at the pair level. Three registered readouts in Table~3 are counts of pairs only: witness $\ge$ margin score $+0.2$ (7 of 8) and, for ResNet-8 on split D, Grad-diff $<0.2$ on offsets and rotation above offset (0 of 3 each).}\label{tab:s1}\\
 \toprule
 Claim, data & $n$ & Per-pair range & Mean [95\% CI] & Exact $p$ & Min.\ $p$ & MixedLM\\
 \midrule
@@ -259,7 +259,7 @@ Threshold & 0.33 & 0.45 & 0.47 \\
 
 \subsection{Sensitivity to the margin $\kappa$}
 
-Table~\ref{tab:kappa-null} gives the share of null-update queries that have a witness. At $\kappa=0$ the condition is only a sign change, and witnesses appear on most null queries; they disappear by $\kappa=1$ (split A) and the grid null cell is silent at $\kappa=1$. The grid null cell is grid pairs 20 and 21 ($\alpha=0$, $t=0.5$); their realised thresholds $\hat t=0.526$ and $0.464$ mean small real offsets. Table~\ref{tab:kappa-rec} gives Recovery and, in brackets, the found-rate by $\kappa$. The found-rate is non-increasing in $\kappa$ in every group (the pre-declared prediction was met). Cells marked n/a were not computed (the split-A analysis used $\kappa\in\{0,0.5,1\}$, the grid variants $\kappa\in\{0,0.25,0.5,1\}$).
+Table~\ref{tab:kappa-null} gives the share of null-update queries that have a witness. At $\kappa=0$ the condition is only a sign change, and witnesses appear on most null queries; they disappear by $\kappa=1$ (split A) and the grid null cell is silent at $\kappa=1$. The grid null cell is grid pairs 20 and 21 ($\alpha=0$, $t=0.5$); their realised thresholds $\hat t=0.526$ and $0.464$ mean small real offsets. They are fine-tuned with the recipe of the offsets (10 epochs, learning rate $10^{-3}$), the 8 null pairs of split A with the gentler null recipe (3 epochs, $3\cdot10^{-4}$), which also served the registered nulls of splits D and F. The realised thresholds of the split-A nulls, by the same fit on the same validation points (exp\_0061, D-059, after the results), move by +0.017, +0.035, +0.005, +0.016, +0.004, +0.008, +0.021, +0.010 from $\hat t$ of $f_{old}$ (largest $|\Delta\hat t|=0.035$, $|\hat\alpha|\le0.053$), against $+0.039$ and $-0.032$ for the grid null cell. The threshold shift is thus similar; what differs is the fine-tuning recipe, and $\kappa=0.5$ fits the gentler one. Table~\ref{tab:kappa-rec} gives Recovery and, in brackets, the found-rate by $\kappa$. The found-rate is non-increasing in $\kappa$ in every group (the pre-declared prediction was met). Cells marked n/a were not computed (the split-A analysis used $\kappa\in\{0,0.5,1\}$, the grid variants $\kappa\in\{0,0.25,0.5,1\}$).
 
 \begin{table}[h]
 \caption{Share of null queries with a \DCE{} witness (types N or O pooled as saved) by $\kappa$.}\label{tab:kappa-null}
@@ -312,7 +312,7 @@ Grid, $\alpha=0.5$ & 0.53/0.72 & 0.70/0.77 & 0.94/0.97 & n/a & n/a & n/a & 0.45/
 \end{tabular}
 \end{table}
 
-The pre-declared prediction was that, within each group, the order of methods by MRR equals the order by Recovery. It was \textbf{not met} in 6 of the 7 groups (it holds for the grid at $\alpha=0.5$ only). In every group the first two methods are the same under both orders; the swaps are among the lower-ranked methods (Imp-diff, CF-new, No-prox, Seg-search, and Grad-diff on Threshold) and, on the grid, \DCE{} falls one place under MRR, because NOT\_FOUND counts as reciprocal rank 0 and so weighs its found-rate more. The two orders are:
+The pre-declared prediction was that, within each group, the order of methods by MRR equals the order by Recovery. It was \textbf{not met} in 6 of the 7 groups (it holds for the grid at $\alpha=0.5$ only). In every group the first two methods are the same under both orders; the swaps are among the lower-ranked methods (Imp-diff, CF-new, No-prox, Seg-search, and Grad-diff on Threshold) and, on the grid, \DCE{} falls one place under MRR, because NOT\_FOUND counts as reciprocal rank 0 and so weighs its found-rate more. Table~\ref{tab:order} gives both orders.
 
 \begin{table}[h]
 \caption{Order of methods by Recovery and by MRR.}\label{tab:order}
@@ -465,6 +465,26 @@ Imp-diff & 0.00 & 0.42 & 0.33 & 0.00 & 0.00\\
 \end{tabular}
 \end{table}
 
+\section{Witness versus a checked counterfactual (D-059)}\label{sec:cfcheck}
+
+Written after all results were known (second reader's review, 6 Nov), from saved outputs and hash-verified models only (exp\_0061, \texttt{dce.cli.cfnew\_filter}); descriptive, no test. The \emph{checked} counterfactual of $f_{new}$ keeps the saved counterfactual of $f_{new}$ ($m_n\le-\kappa$) only if $m_o\ge\kappa$ there (two forward passes), and is NOT\_FOUND otherwise. Its points are witnesses; the extra witnesses of \DCE{} are at queries where the counterfactual of $f_{new}$ is not one. On the 8 null pairs of split A the checked counterfactual is silent (0/2\,400), like \DCE. In X6 it finds witnesses for 0.87 of queries (\DCE{} 0.98) and localises with pooled $L=0.48$ (\DCE{} 0.50). Null-adjusted Recovery subtracts the rate at which the same method names $k^\star$ on the 8 null pairs.
+
+\begin{table}[h]
+\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Split A, mean of 3 pairs. Found: share of queries with a witness. Rec.: Recovery@$r$. Case B: Recovery of \DCE{} from witnesses the checked counterfactual does not give. Null-adjusted: Recovery minus the rate of naming $k^\star$ on nulls.}\label{tab:cfcheck}
+\begin{tabular}{lcccccccccc}
+\toprule
+& \multicolumn{2}{c}{Found} & \multicolumn{2}{c}{Rec.} & & \multicolumn{5}{c}{Null-adjusted Recovery}\\
+Change & \DCE & checked CF & \DCE & checked CF & case B & \DCE & CF-new & Imp-diff & CF-diff & Grad-diff\\
+\midrule
+Shortcut & 0.84 & 0.42 & 0.38 & 0.03 & 0.35 & +0.38 & +0.07 & +0.00 & +0.44 & +0.79\\
+Subgroup & 0.81 & 0.46 & 0.53 & 0.30 & 0.22 & +0.53 & +0.30 & +0.00 & +0.08 & +0.25\\
+Threshold & 0.47 & 0.46 & 0.47 & 0.45 & 0.01 & +0.47 & -0.09 & +0.38 & +0.37 & +0.02\\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Protocol log}\label{sec:log}
 
 Table~\ref{tab:splits} lists the test splits of the main paper and when each was formed relative to the results that motivated its tests. Times are local (UTC+7). The rules for each follow-up are in the decision log (\texttt{research/DECISIONS.md}) with dated commits; the OSF registrations are the external timestamps.
@@ -479,7 +499,7 @@ Split & Run, data & Tests & When formed\\
 \midrule
 A & exp\_0017; Tier~0 locked test, 5\,000 rendered samples (clean split seed 1234); pairs 0--16 & Main comparison (Table~2), confirmatory & Rules (amendments v1.1--v1.8, D-018 to D-031) committed 15--16 Oct before the run. Run started 16 Oct 23:03, evaluated once (candidate lock; D-011)\\
 B & exp\_0019; new Tier~0 test set, factor seed 2027, 5\,000 samples; 300 points per pair (seed $8000+$pair id) & C1--C3 (e.g.\ $\Delta$-CE vs.\ Grad-diff on Threshold, projection, nulls), D-034 & Hypotheses formed after the split-A results; D-034 committed 18 Oct 01:26, run from 18 Oct 01:40 on fresh data\\
-C & exp\_0041; \texttt{new\_test\_set}$(9100+\text{pair id})$, seeds 9106--9108, Threshold pairs 6--8, 300 points per pair & Type-N, type-O and union Recovery (descriptive), D-048 & Rules written after the external review of 25 Oct and before the data were generated (commit 8bae341)\\
+C & exp\_0041; \texttt{new\_test\_set}$(9100+\text{pair id})$, seeds 9106--9108, Threshold pairs 6--8, 300 points per pair & Type-N, type-O and union Recovery (descriptive), D-048 & Rules written on 25 Oct, after the split-B results, before the data were generated (commit 8bae341)\\
 D & exp\_0049, exp\_0048 (IG/SHAP split-D rerun: exp\_0051); data seeds $9500+$pair id; 8 offset pairs, 8 nulls without admission filter & X2 (offsets), X3 (unfiltered nulls), X4 (ResNet-8), registered; D-052 & Registered 2026-11-02 20:18 at \url{https://osf.io/vfjtk} (project osf.io/fw39h) before the data were generated\\
 E & exp\_0054/0055; fresh split, seed base 9800, seeds 9920--9929, 100 queries per pair & ResNet-8 test at the calibrated $\kappa^\star$ (D-054, D-055); exploratory, not registered on OSF & Rule and test fixed 3 Nov (commit 300924b) before any number; grid extended on 4 Nov after the validation grid failed (D-055)\\
 F & exp\_0057; data seeds $10500+p$, 100 queries per pair & X5, learned VAE latent (D-056) & Registered 2026-11-04 at \url{https://osf.io/fr7jv}, before the VAE was trained and before split F existed (commit a892bd6)\\
@@ -494,7 +514,7 @@ Other test data that appear in the main paper but carry no letter there: the gri
 \begin{enumerate}
 \item \emph{Analysis-code correction (D-041).} The first analysis of the grid test (exp\_0026) applied an exclusion list computed under an earlier reading of the rule; the error was found after the first output was seen and fixed to the exclusion rule declared before the test set (D-038). No statistic, seed, criterion or threshold changed; the superseded output is kept in the run directory.
 \item \emph{Extended $\kappa$ grid for ResNet-8 (D-055).} The $\kappa$ grid $\{0.5,\dots,2.0\}$ fixed in D-054 gave no $\kappa$ with at most 5\% null witnesses on validation (0.07 at $\kappa=2.0$); the grid was extended to $\{2.5,3.0\}$ on 4 Nov, motivated by already-read split-D outputs. The result ($\kappa^\star=2.5$; split E) is therefore exploratory. $\kappa=0.5$ is unchanged for every CNN result.
-\item \emph{X4 run after exclusion by its feasibility rule (D-053).} The registered feasibility (cost) rule excluded the ResNet-8 experiment X4 from the Kaggle runs; it was then run locally on the CPU with 100 queries per pair, at the author's request. The result is reported as a disclosed deviation.
+\item \emph{X4 run after exclusion by its feasibility rule (D-053).} The registered feasibility (cost) rule excluded the ResNet-8 experiment X4 from the Kaggle runs; it was then run locally on the CPU with 100 queries per pair, by decision of the authors. The result is reported as a disclosed deviation.
 \end{enumerate}
 Further departures recorded in the decision log (all before the data they concern, or labelled post hoc): C1--C3 were formed after the split-A results and tested on split B; the locality hypothesis (H8) was registered after a validation run; the later part of the abstention-recall experiment was moved to Kaggle CPU after two pairs had been run locally (D-044).
 

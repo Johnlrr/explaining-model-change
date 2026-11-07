@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.18)  3 NOV 2026 17:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.18)  6 NOV 2026 15:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -219,20 +219,20 @@ File: l3backend-pdftex.def 2026-09-09 L3 backend support: PDF output (pdfTeX)
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
  (/home/toska/.TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
  (/home/toska/.TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
@@ -263,13 +263,13 @@ Package grfext Info: Graphics extension search list:
  (/home/toska/.TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-LaTeX Info: Redefining \microtypecontext on input line 8.
-Package microtype Info: Applying patch `item' on input line 8.
-Package microtype Info: Applying patch `toc' on input line 8.
-Package microtype Info: Applying patch `eqnum' on input line 8.
-Package microtype Info: Applying patch `footnote' on input line 8.
-Package microtype Info: Applying patch `verbatim' on input line 8.
-LaTeX Info: Redefining \microtypesetup on input line 8.
+LaTeX Info: Redefining \microtypecontext on input line 17.
+Package microtype Info: Applying patch `item' on input line 17.
+Package microtype Info: Applying patch `toc' on input line 17.
+Package microtype Info: Applying patch `eqnum' on input line 17.
+Package microtype Info: Applying patch `footnote' on input line 17.
+Package microtype Info: Applying patch `verbatim' on input line 17.
+LaTeX Info: Redefining \microtypesetup on input line 17.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -283,55 +283,55 @@ Package microtype Info: No adjustment of character kerning.
  (/home/toska/.TinyTeX/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
 )
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 12.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 21.
  (/home/toska/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 12.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 21.
  (/home/toska/.TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 12.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 21.
  (/home/toska/.TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 12.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 21.
  (/home/toska/.TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 12.
+(Font)              <9> on input line 21.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 12.
+(Font)              <6> on input line 21.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 12.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 12.
+(Font)              <5> on input line 21.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 21.
  (/home/toska/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/home/toska/.TinyTeX/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 12.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 21.
  (/home/toska/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/home/toska/.TinyTeX/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 19.
+(Font)              <10> on input line 28.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 19.
+(Font)              <7> on input line 28.
  [1
 
-{/home/toska/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
+{/home/toska/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 47.
- [2] [3] [4]
-<figures/map_names.pdf, id=39, 346.89601pt x 119.2455pt>
+(Font)              <8> on input line 67.
+ [2{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}] [3] [4]
+<figures/map_names.pdf, id=40, 346.89601pt x 119.2455pt>
 File: figures/map_names.pdf Graphic file (type pdf)
 <use figures/map_names.pdf>
-Package pdftex.def Info: figures/map_names.pdf  used on input line 127.
-(pdftex.def)             Requested size: 145.79124pt x 50.11551pt.
+Package pdftex.def Info: figures/map_names.pdf  used on input line 144.
+(pdftex.def)             Requested size: 295.05711pt x 101.4301pt.
  [5 <./figures/map_names.pdf>] [6] (./main.aux)
  ***********
 LaTeX2e <2026-06-01>
@@ -339,18 +339,18 @@ L3 programming layer <2026-09-09>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5895 strings out of 469040
- 93229 string characters out of 5457195
- 549993 words of memory out of 5000000
- 34720 multiletter control sequences out of 15000+600000
- 710437 words of font info for 186 fonts, out of 8000000 for 9000
+ 5890 strings out of 469040
+ 93196 string characters out of 5457195
+ 553689 words of memory out of 5000000
+ 34722 multiletter control sequences out of 15000+600000
+ 714458 words of font info for 183 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 59i,11n,67p,1276b,329s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (6 pages, 403897 bytes).
+ 59i,12n,67p,1394b,329s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (6 pages, 416454 bytes).
 PDF statistics:
- 203 PDF objects out of 1000 (max. 8388607)
- 107 compressed objects within 2 object streams
+ 208 PDF objects out of 1000 (max. 8388607)
+ 110 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 43014 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 45062 words of extra memory for PDF output out of 51595 (max. 10000000)
 

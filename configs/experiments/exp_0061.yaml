@@ -1,0 +1,12 @@
+# exp_0061 — D-059: filtered CF-new (CF-new kept only where f_old keeps its decision) and null-adjusted Recovery.
+# Descriptive, from saved outputs and hash-verified models; written after seeing the results (second reader's review).
+experiment_id: exp_0061
+decision: D-059
+kappa: 0.5
+split_a_run: runs/experiments/exp_0017
+x6_config: configs/experiments/exp_0060.yaml
+threads: 8
+# realised threshold of the 8 split-A nulls, same fit and validation points as the grid qualification (exp_0025)
+grid_run: runs/experiments/exp_0025
+grid_data_seed: 1234
+grid_n_qualify: 5000

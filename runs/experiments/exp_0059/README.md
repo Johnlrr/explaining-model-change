@@ -40,3 +40,10 @@ Result: **924 claims: OK 923, MISMATCH 1, UNSOURCED 0** (see `rerun_2026-11-05b/
 
 main.tex Limitations (4) now says three (D-041, D-055, D-053, as listed in the supplement). **924 OK, 0 MISMATCH,
 0 UNSOURCED** (rerun_2026-11-05c/results_numcheck.json).
+
+## Re-run after the D-058 wording fixes (2026-11-06)
+
+New checks: Table 3 rows (witness vs margin score 7/8, +0.17 to +0.97; ResNet-8 Grad-diff 0/3 twice), ResNet-8 Grad-diff
+aspect rate on nulls 0.20–0.30 (pairs 128/129, recomputed from npz), rotations 0.06–0.10; the split-G commit check
+resolves 5b34205 through research/COMMIT_REWRITE_2026-11-05.tsv. **935 OK, 0 MISMATCH, 0 UNSOURCED**
+(rerun_2026-11-06/results_numcheck.json).

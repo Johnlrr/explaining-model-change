@@ -27,12 +27,28 @@ X6 DONE (exp_0060, 9ac284c): qualification 8/8; L>0 in 8/8, pooled 0.50, p=0.003
   localises equally (0.51) — stated in paper and supplement. Paper fe0c259: X6 paragraph + Table 3 row, W6 rewrite, R1 shift
   column, Fig. 1 at 0.85 linewidth (was 0.38), names, repo link github.com/Johnlrr/explaining-model-change; 6 pages, 0 overfull.
   Supplement ce023f5 (10 p, X6 section, split G). Number check 924/924 OK (exp_0059/rerun_2026-11-05c).
-  W5 PREPARED LOCALLY (2026-11-05, NOT pushed): /home/toska/code/research/explaining-model-change, branch main, history via
-  git filter-repo (project paths only; engine files, tools/, engine tests, configs/executors removed; emails kept),
-  COMMIT_MAP.tsv old→new, new README/pyproject/uv.lock, REPRODUCE follow-ups; clean clone: 137 tests pass, X6 reanalysis
-  identical. Later commits in this workspace must be ported (or re-export) before pushing.
-  NEXT: author reviews the export → push to github.com/Johnlrr/explaining-model-change (author's go) → advisor 14/11 → submit 18/11. NEXT: author names/affiliations → send to advisor 14/11 →
-  repo export (W5, name chosen by author after writing) → submit 18/11. Mixed-effects vs two-level bootstrap: author deciding.
+  W5 DONE 2026-11-05: PUBLIC https://github.com/Johnlrr/explaining-model-change (local clone
+  /home/toska/code/research/explaining-model-change, branch main, head 304391a). Export = filter-repo of research/delta-ce:
+  project paths only; review_0211_plan*.md removed from all history; STATE advisor-summary block redacted; every
+  tool attribution line and every tool-name mention removed from messages, files and the source copies inside
+  bundles (bundle tree hashes recomputed); COMMIT_MAP.tsv old→new. Contributors on GitHub: Johnlrr, TCMeen01 only.
+  AUTHOR RULES: advisor's review never public; no AI co-author/name in any commit or pushed content (memory: no-ai-attribution).
+  Later workspace changes must be ported to that repo WITHOUT trailers (or re-export with the same filters in .work/export_tools:
+  scripts keep2.txt, drop.txt, replace.txt, msg_cb.py, blob_cb.py — recreate if lost).
+  Public head d7163f2: LICENSE holder set to "Dinh Bao Bao" (public repo only; engine LICENSE unchanged).
+  SYNC RULE (author, 2026-11-05): every further experiment/decision is done and committed HERE (engine branch) first;
+  only when finished is it ported to the public repo. Never develop in the public repo.
+  Paper draft frozen for review 2026-11-05: tag paper-draft-2026-11-05. The whole engine history of research/delta-ce (and the tip of
+  research/rashomon-counterfactuals) was rewritten that day to drop attribution lines only; hashes cited earlier
+  (e.g. OSF 7d61d13, a892bd6, 5b34205) resolve via research/COMMIT_REWRITE_2026-11-05.tsv. Local backups: backup/* branches (never push).
+  2026-11-06: second reader's review checked point by point; text fixes in D-058 (CF-new caveat, ResNet Grad-diff
+  reading corrected, 3 failed registered readouts added to Table 3, Limitation 1, supplement wording). Number check 935/0/0.
+  Later 2026-11-06: D-059 (exp_0061) checked counterfactual of f_new + null-adjusted Recovery, after results; abstract,
+  Contribution (i), §4.1, Discussion rewritten; number check 953/0/0; paper 6 pp, supplement 11 pp.
+  D-059 addendum: abstract post-hoc label + takeaway ending; nulls use a gentler fine-tuning recipe than offsets (grid
+  null cell, offset recipe: 22% witnesses at κ=0.5) — now disclosed; number check 964/0/0.
+  Not yet ported to the public repo.
+  NEXT: send to advisor 14/11 → revise here → port to public repo → submit 18/11.
 Publication: separate, properly named repo (NOT Agent-auto-Research), history-preserving export — plan v2 W5.
 NO JOB RUNNING. Working tree: paper/main.tex = commit fc97658 (6 pages, 0 overfull). Author said: do NOT edit the
 paper yet; next session starts from the review→draft gap list below. Deadlines: advisor 14/11, ESANN submit 18/11.

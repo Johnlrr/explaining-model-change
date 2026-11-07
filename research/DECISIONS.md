@@ -1773,3 +1773,92 @@ Do not delete decisions. Mark them superseded.
 - [x] Decisions D-001 to D-008 have status, context, decision, rationale.
 - [x] D-002 reversed by D-009; D-009 superseded by D-011 (amendment v1.1); D-004 confirmed by the human.
 - [x] Spec frozen 2026-10-15 (D-016).
+
+## D-058 — Wording and reporting fixes after a second reader's review of the 5 Nov draft (2026-11-06, after seeing all results)
+
+A second faculty reader reviewed the 5 Nov draft. Each point was checked against the tex and the saved outputs; no run, no
+parameter and no rule changed. Fixes (all text, made after the results were known):
+
+- Abstract and Contribution (i): the counterfactual of f_new localises as well as the witness in X6 (0.51 vs 0.50, same
+  top-1 and MRR); this is now said there, not only in the Discussion. Abstract: "On CNNs gradient differences are blind to
+  an offset and see a rotation".
+- §4.4 ResNet-8: the draft said "Grad-diff is not offset-blind there (0.32–0.35)". Wrong reading: on ResNet-8 the
+  Grad-diff argmax names aspect on 0.20–0.30 of null queries (recomputed from exp_0050 pairs 128/129), so 0.32–0.36 on
+  offsets is near the null level. The registered X4 readout "rotation above offset" (0 of 3; rotations 0.06–0.10), in the
+  4 Nov draft but lost in the 5 Nov cut, is restored. New text: Grad-diff sees neither change on ResNet-8.
+- Table 3: three registered readouts that failed are added as rows: witness ≥ margin score + 0.2 (X2 b, 7 of 8; per-pair
+  difference +0.17 to +0.97), ResNet-8 Grad-diff < 0.2 on offsets (0 of 3), ResNet-8 rotation above offset (0 of 3).
+- Limitation (1): Recovery through the VAE decoder is approximate and lower for Δ-CE than CF-diff (was "tested for
+  abstention and detection only", which contradicted the supplement).
+- "DiG-IN reduces to" → "corresponds to" No-prox on an exact manifold.
+- Supplement: "at the author's request" → "by decision of the authors"; split C row no longer names the 25 Oct review;
+  "The two orders are:" → reference to the table; MixedLM p values flagged as a sensitivity check only (they treat
+  points as independent); note that the three new Table 3 rows are counts of pairs only.
+- Points of the review not taken as stated: "The two orders are:" was not truncated (a float follows); in X6 the
+  set-recovery of CF-new (0.24) and Δ-CE (0.26) differ, only top-1 and MRR coincide.
+
+number_check extended (new rows, ResNet null aspect rate, rotation values; commit hashes printed in the paper resolved
+through research/COMMIT_REWRITE_2026-11-05.tsv): 935 OK, 0 MISMATCH, 0 UNSOURCED (exp_0059/rerun_2026-11-06).
+Paper 6 pages, supplement 10 pages.
+
+**D-058 addendum (2026-11-06, second pass of the same reader).** The reader confirmed the four main fixes and raised:
+cross-reference "Section 4.4" for IG/SHAP → 4.3 (fixed; the paper has 4.1–4.3); Proposition 2(b) "only if" → "iff"
+(the supplement proves both directions); Protocol no longer says splits A–G are in Table 3 (A is in Table 2, C in none)
+→ "splits A–G and their dates in the supplement"; Contribution (i) no longer implies attribution differences were run
+through the decoder; "Recovery stays" → "Δ-CE Recovery stays"; ResNet-8 pair counts (2 null, 3 offset, 4 rotation on
+split D) given in the text instead of Table 1 (no space). VAE parenthesis reworded to "run with 100 instead of 200
+queries per pair, on CPU" (keeps both deviations visible; the reader's shorter version would have dropped the query
+count). PDFs: A4 (595×842 pt), all 26 fonts embedded, figures included; paper 6 pages with references. Number check
+936 OK, 0 MISMATCH (exp_0059/rerun_2026-11-06b).
+
+**D-058, third pass (2026-11-06).** The reader asked why the Table 3 row "Grad-diff rot. > offset, ResNet-8" reads 0/3
+when split D has 4 rotation pairs. The registered X4 readout compares each rotation with the offset of the same seed and
+threshold (`x4_resnet.analyze`); rotation 124 (t = 0.53, seed 0) has no partner because offset 120 failed qualification,
+so 3 comparisons, 0 above. Text in §4.3 now says so. Paper 6 pages A4; number check 937/0/0 (exp_0059/rerun_2026-11-06c).
+
+## D-059 — Checked counterfactual of f_new and null-adjusted Recovery (2026-11-06, after seeing all results)
+
+Trigger: a third review (automated argument/conference review of the 6 Nov draft) argued that the witness's silence and
+"where" may be those of the counterfactual of f_new plus a check of f_old (W1/A2), and that Recovery with k* = aspect
+rewards methods that always name aspect (W2/A3). Both analyses use saved outputs and hash-verified models only
+(exp_0061, `dce.cli.cfnew_filter`); descriptive, no test, no change to any registered result. An approximate version
+(coincidence of the saved Δ-CE and CF-new points) was looked at before the exact one was computed; both agree.
+
+Results: see exp_0061/README.md. The check gives silence (checked CF-new 0/2 400 on nulls) and localises in X6
+(L 0.48); Δ-CE's search adds witnesses that carry its Recovery on Shortcut (0.38 vs 0.03) and part on Subgroup
+(0.53 vs 0.30), not on Threshold (0.47 vs 0.45). Null-adjusted: CF-new −0.09 on Threshold.
+
+Paper changes (text, after results): abstract rewritten (small CNNs, not ResNet-8; CF-diff at zero null false
+positives; checked-counterfactual sentence); Contribution (i); new §4.1 paragraph "Witness versus a checked
+counterfactual"; Discussion: silence comes from the check, the search is specific to Δ-CE; Prop. 2 positioned
+against Theorem 1 of Artelt et al.; ground truth = injected change, model change measured (α̂, t̂); "(split B)" on
+0.41 vs 0.10; split C N∪O Recovery 1.00 restored; "online supplement" (ESANN does not review supplementary material:
+author guidelines, "ESANN papers do not accept supplementary materials or appendices"). To fit six pages: two ResNet
+rows of Table 3 merged; logit-offset sentence, witness-rate sentence and some wording cut. Supplement: new section
+"Witness versus a checked counterfactual (D-059)" with table. Not taken: more seeds (needs new registration and
+training), restructuring Table 3 (space), t̂/α̂ of the 8 null pairs (open; optional).
+
+Number check 953 OK, 0 MISMATCH (exp_0059/rerun_2026-11-06d). Paper 6 pages A4, supplement 11 pages.
+
+**D-059 addendum (2026-11-06, the same reviewer's second pass).** Taken: abstract marks the checked-counterfactual
+result as post hoc, drops most numbers and ends on the takeaway ("silence comes from the margin check …; what Δ-CE
+adds is the search …"); §4.1 gives per-pair counts (3 of 3 on Shortcut and on Subgroup) and the null-adjusted leaders
+for all methods (Δ-CE on Subgroup and Threshold, Grad-diff on Shortcut) instead of only CF-new's −0.09; realised
+thresholds of the split-A nulls computed (exp_0061 `null_boundaries`): |Δt̂| ≤ 0.035, as large as the grid null
+cell's (0.032–0.039). **Finding not raised by any reviewer:** all registered/main nulls (splits A, D, F) are fine-tuned
+with the gentler null recipe (3 epochs, 3·10⁻⁴), the offsets and the grid with 10 epochs at 10⁻³; the grid null cell,
+fine-tuned like the offsets, has witnesses on 22% of queries at κ = 0.5. Now stated in §4.1 and in Limitation (2)
+(κ must be calibrated per model family *and fine-tuning recipe*); supplement §C explains it. Not taken: a null-adjusted
+row in Table 2 (no space; the numbers are in the text and in the supplement table) and moving the "K, when" column out
+of Table 3 (the table is width-scaled, so removing a column makes it taller). To fit six pages: Saerens et al. citation
+dropped (the label-shift example kept as text), uniqueness remark of the linear case moved to the supplement only,
+covariate-shift clause dropped from §4.1 (still in Table 1), wording tightened. Number check 964/0/0
+(exp_0059/rerun_2026-11-06e). Paper 6 pages A4, supplement 11 pages.
+
+**D-059, layout pass (2026-11-06).** Author asked whether margins can be changed to avoid cuts: no — ESANN author
+guidelines make the 12.2 × 19.3 cm printing area centred on A4 mandatory ("Complying with these margins … is
+mandatory"); esannV2.cls sets 12.2 × 19.2 cm, so ≤ 1 line is free. Space regained instead by shortening the Table 3
+caption, tighter float spacing (\textfloatsep 10pt, \floatsep 8pt; margins unchanged) and merging one-word last lines;
+this restored the Saerens et al. citation and the covariate-shift mention (now a pointer to Table 1). Reviewer's last
+point taken: abstract "On gently fine-tuned null updates of small CNNs"; §4.1 adds that at κ = 1 small grid offsets
+keep few witnesses (found-rate 0.04, supplement). Number check 966/0/0 (exp_0059/rerun_2026-11-06f).
