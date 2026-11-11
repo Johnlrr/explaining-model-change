@@ -69,7 +69,14 @@ X6 DONE (exp_0060, 9ac284c): qualification 8/8; L>0 in 8/8, pooled 0.50, p=0.003
   rewritten; added: Lemma-1 reading of the recipe caveat, cost sentence (2.4 s vs 0.6 s vs <1 ms, exp_0058 S2),
   "we did not test why the linear prediction fails on the ResNet-8", how to obtain calibration nulls. The review's two
   "typos" (Delta-CF, threshold f) do not exist in the source. Number check 970/0/0 (exp_0059/rerun_2026-11-11b,
-  4 new cost checks); tests 214 passed; 6 pages, 0 overfull; supplement 11 pp.
+  4 new cost checks); tests 214 passed; 6 pages, 0 overfull; supplement 11 pp. Ported to the public clone as 92c75be
+  (on top of a3a7e18; public tests 138 passed, number check 970/0/0). BOTH PUBLIC COMMITS STILL UNPUSHED.
+  2026-11-11 (later) FIGURE 1 RESTORED AS A SCHEMATIC (author: a paper needs a figure near the start): new
+  paper/figures/geometry.pdf from research/figures/fig_geometry.py (no data; null / offset / rotation in the linear
+  case, checked against Lemma 1 and Prop. 2), placed at the top of page 2. Space taken from wording only: Lemma 1
+  proof inlined, offset/rotation-to-benchmark sentence moved to Section 3, near/far thresholds and the per-recipe
+  detail left to the supplement, cost sentence shortened. No result removed. Number check 970/0/0
+  (exp_0059/rerun_2026-11-11c); tests 214 passed; 6 pages, 0 overfull.
 Publication: separate, properly named repo (NOT Agent-auto-Research), history-preserving export — plan v2 W5.
 NO JOB RUNNING. Working tree: paper/main.tex = commit fc97658 (6 pages, 0 overfull). Author said: do NOT edit the
 paper yet; next session starts from the review→draft gap list below. Deadlines: advisor 14/11, ESANN submit 18/11.

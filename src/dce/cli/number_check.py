@@ -433,7 +433,7 @@ def sec_resnet() -> None:
     x4e = J("exp_0054/test/results_x4_kstar.json")
     cal = J("exp_0054/calibration_resnet.json")
     cal0 = J("exp_0054/calibration_resnet_D054.json")
-    L.text("main", r"null fine-tuning moves margins four times more than on the CNNs, and witnesses appear on 0.90 of null queries", "S4.4 ResNet wording")
+    L.text("main", r"null fine-tuning moves margins four times more, and witnesses appear on 0.90 of null queries", "S4.4 ResNet wording")
     L.text("main", r"(rule fixed in advance; grid extended after $\kappa\le2$ failed), $\kappa^\star=2.5$, no new null query has a witness (0/200) and witnesses exist for 0.78--1.00 of lowered-class offset queries", "S4.4 calibration wording")
     L.num("S4.4 ResNet nulls: witnesses on 0.90 of null queries", "0.90", x4["null_witness_share_pooled"], "exp_0050/results_x4.json:null_witness_share_pooled")
     rd = (Path("runs/experiments/exp_0050/README.md")).read_text()
@@ -453,7 +453,7 @@ def sec_resnet() -> None:
     L.num("S4.4 ... high end", "1.00", max(p["dce_lowered"] for p in off), "same")
     L.num("S4.4 Recovery stays 0.36 (low end, split E)", "0.36", min(p["dce_recovery"] for p in off), "exp_0054/test/results_x4_kstar.json:offsets.dce_recovery")
     L.num("S4.4 Recovery stays 0.40 (high end, split E)", "0.40", max(p["dce_recovery"] for p in off), "same")
-    L.text("main", r"($\Delta$-CE Recovery 0.36--0.40). Grad-diff sees neither change: on 2 null, 3 offset and 4 rotation pairs it names aspect on 0.32--0.36 of offset queries, near its 0.20--0.30 on nulls, and its rotation Recovery, 0.06--0.10, is below the offset of equal seed and threshold in all 3 comparable pairs.", "S4.4 ResNet Grad-diff wording")
+    L.text("main", r"(Recovery 0.36--0.40). Grad-diff sees neither change: on 2 null, 3 offset and 4 rotation pairs it names aspect on 0.32--0.36 of offset queries, near 0.20--0.30 on nulls, and its rotation Recovery, 0.06--0.10, is below the matched offset in all 3 pairs.", "S4.4 ResNet Grad-diff wording")
     L.exact("S4.4 ResNet split D: 2 null, 3 offset and 4 rotation pairs", (2, 3, 4), (len(x4["nulls"]), len(x4["offsets"]), len(x4["rotations"])), "exp_0050/results_x4.json")
     _q = {q["pair_id"]: q.get("qualified", True) for q in J("exp_0050/qualification.json")["pairs"]}
     L.exact("S4.4 ResNet rotation vs offset: 3 comparable pairs (same seed and t), the fourth rotation's offset not qualified", (3, False),
@@ -581,7 +581,7 @@ MAIN_SNIPPETS = [
     r"ranks aspect first in all 9 change pairs", r"on adaptation data it ranks $k^\star$ first", r"Seg-search with ten times the segments",
     # Section 5 and 6
     r"On a registered ResNet-8", r"three follow-ups were registered before their data existed~\cite{osf}",
-    r"osf.io/vfjtk, osf.io/fr7jv, osf.io/fp8uc", r"lists every test set with its date",
+    r"osf.io/vfjtk, osf.io/fr7jv, osf.io/fp8uc", r"dates all test sets",
     r"with three disclosed exceptions",
 ]
 
@@ -592,7 +592,7 @@ def main_snippets() -> None:
     # S4.1 cost sentence (added 2026-11-11): wall seconds per query on the main test set (exp_0058 S2, run A exp_0017)
     rt = J("exp_0058/results_s.json")["s2"]["runs"]["A exp_0017"]["methods"]
     src = "exp_0058/results_s.json:s2.runs.A exp_0017.methods"
-    L.text("main", r"a $\Delta$-CE query takes 2.4\,s, against 0.6\,s for CF-new and under 1\,ms for Grad-diff", "S4.1 cost sentence")
+    L.text("main", r"The search costs 2.4\,s per query (CF-new: 0.6\,s; Grad-diff: under 1\,ms)", "S4.1 cost sentence")
     L.num("S4.1 Delta-CE (type N) wall s per query", "2.4", rt["dce_N"]["wall_s_per_point"]["mean"], src + ".dce_N.wall_s_per_point.mean")
     L.num("S4.1 CF-new wall s per query", "0.6", rt["a2"]["wall_s_per_point"]["mean"], src + ".a2.wall_s_per_point.mean")
     L.exact("S4.1 Grad-diff under 1 ms per query", True, rt["b3"]["wall_s_per_point"]["mean"] < 1e-3, src + ".b3.wall_s_per_point.mean")
@@ -896,10 +896,10 @@ def sec_x6_and_protocol() -> None:
     L.exact("X6 results: pair ids 130..137 as in the config", list(range(130, 138)), [p["pair_id"] for p in pr], sx + ":pairs.pair_id; configs/experiments/exp_0060.yaml:pair_ids")
     # ---- main.tex: abstract, Table 3 row, Section 4.1 paragraph
     L.text("main", r"with two independent changes, witnesses point to the one near the query", "Abstract X6 wording")
-    L.text("main", r"witnesses change size most for 46--75\% of queries near the large-object region (size $\ge0.60$) and 13--23\% far from it (size $\le0.45$); this difference $L$ is positive in all 8 pairs (pooled 0.50; Table~\ref{tab:tests})",
+    L.text("main", r"witnesses change size most for 46--75\% of queries near the large-object region and 13--23\% far from it; this difference $L$ is positive in all 8 pairs (pooled 0.50; Table~\ref{tab:tests})",
            "S4.1 X6 paragraph: near/far/8 of 8/pooled/p")
-    L.text("main", r"Grad-diff and CF-diff barely localise ($L=0.09$ and $0.13$), and Imp-diff, one vector per pair, cannot. CF-new localises as well as $\Delta$-CE (0.51)", "S4.1 X6 paragraph: controls")
-    L.text("main", r"With a colour shortcut everywhere and a label flip for large objects (registered)", "S4.1 X6 paragraph: design")
+    L.text("main", r"Grad-diff and CF-diff barely localise ($L=0.09$ and $0.13$), and Imp-diff, one vector per pair, cannot; CF-new localises equally well (0.51)", "S4.1 X6 paragraph: controls")
+    L.text("main", r"With a colour shortcut everywhere and a label flip for large objects, witnesses", "S4.1 X6 paragraph: design")
     near = [p["dce_N"]["share_size_near"] for p in pr]
     far = [p["dce_N"]["share_size_far"] for p in pr]
     nt = "main text says 'of queries'; the saved share is among queries with a witness (n_near, n_far count found queries)"

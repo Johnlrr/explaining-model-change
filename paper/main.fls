@@ -150,7 +150,12 @@ INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tf
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/lm/ec-lmbx10.tfm
+INPUT ./figures/geometry.pdf
+INPUT ./figures/geometry.pdf
+INPUT ./figures/geometry.pdf
+INPUT ./figures/geometry.pdf
 OUTPUT main.pdf
+INPUT ./figures/geometry.pdf
 INPUT /home/toska/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc
@@ -202,4 +207,3 @@ INPUT /home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy9.pfb
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb
-INPUT /home/toska/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
