@@ -259,7 +259,7 @@ def sec_abstain(A, B, G, D) -> None:
     c2 = J("exp_0019/results.json")["C2"]["pairs"]
     res17 = J("exp_0017/results.json")
     # abstract
-    L.text("main", r"also on unscreened nulls and through a learned decoder", "Contribution (iii) nulls wording")
+    L.text("main", r"also unscreened and through a learned decoder", "Contribution (iii) nulls wording")
     L.exact("Abstract: 0 of 2 400 unfiltered queries", (0, 2400), (round(d49["x3"]["witness_share_pooled"] * d49["x3"]["n_null_queries"]), d49["x3"]["n_null_queries"]),
             "exp_0049/results_d.json:x3")
     L.exact("Abstract: 0 of 800 when searching through a learned autoencoder (VAE decoder)", (0, 800), (x5["nulls"]["n_witnesses"], x5["nulls"]["n_queries"]), "exp_0057/results_x5.json:nulls")
