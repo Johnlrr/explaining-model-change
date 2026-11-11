@@ -47,8 +47,18 @@ X6 DONE (exp_0060, 9ac284c): qualification 8/8; L>0 in 8/8, pooled 0.50, p=0.003
   Contribution (i), §4.1, Discussion rewritten; number check 953/0/0; paper 6 pp, supplement 11 pp.
   D-059 addendum: abstract post-hoc label + takeaway ending; nulls use a gentler fine-tuning recipe than offsets (grid
   null cell, offset recipe: 22% witnesses at κ=0.5) — now disclosed; number check 964/0/0.
-  Not yet ported to the public repo.
+  Ported to the public repo 2026-11-07 (Johnlrr/explaining-model-change 5ca4c26; slides, review skills and the
+  advisor PDF not exported; public hash map built from COMMIT_MAP.tsv; tests 138 passed, number check 966/0/0).
   NEXT: send to advisor 14/11 → revise here → port to public repo → submit 18/11.
+  2026-11-10/11 READABILITY PASS (author-requested, no result changed): "sees" defined (abstention/whether/what-where);
+  found-rate, margin score, L, filtered CF-new, null-adjusted named; offset/rotation mapped to the benchmark; Prop. 2(b)
+  stated quantitatively, y and ||.||_2 made explicit; Table 2 with up/down arrows and consistent bolding; Table 3 with
+  check/cross, K and Fixed columns, notes (p Holm-adjusted, from D-051); "unscreened" nulls (was "unfiltered");
+  split C 1.00 corrected to Recovery of N∪O (DECISIONS E1); bbm blackboard 1 with bold fallback; OSF ref [20] names
+  the authors (ESANN 2027 single blind). Supplement: one sentence mapping the renamed terms. Gemini rewrite
+  (paper/gemini-rewrite.tex, since removed by the author) reviewed and NOT adopted: it added unsupported causal claims (ResNet gradient
+  shattering), dropped the K column and "rejected", and called split C a found-rate. Number check 966/0/0
+  (exp_0059/rerun_2026-11-11); bundles rebuilt; 6 pages, 0 overfull.
 Publication: separate, properly named repo (NOT Agent-auto-Research), history-preserving export — plan v2 W5.
 NO JOB RUNNING. Working tree: paper/main.tex = commit fc97658 (6 pages, 0 overfull). Author said: do NOT edit the
 paper yet; next session starts from the review→draft gap list below. Deadlines: advisor 14/11, ESANN submit 18/11.
