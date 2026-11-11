@@ -76,7 +76,15 @@ X6 DONE (exp_0060, 9ac284c): qualification 8/8; L>0 in 8/8, pooled 0.50, p=0.003
   case, checked against Lemma 1 and Prop. 2), placed at the top of page 2. Space taken from wording only: Lemma 1
   proof inlined, offset/rotation-to-benchmark sentence moved to Section 3, near/far thresholds and the per-recipe
   detail left to the supplement, cost sentence shortened. No result removed. Number check 970/0/0
-  (exp_0059/rerun_2026-11-11c); tests 214 passed; 6 pages, 0 overfull.
+  (exp_0059/rerun_2026-11-11c); tests 214 passed; 6 pages, 0 overfull. Ported to the public clone as acbf8aa;
+  Figure 1 fixes (12180eef, 290a19af: axis signs -w_o/-v, labels at arrows, CF-diff as the boundary gap) and wording
+  (79c0867b: 'Abstention comes', u* = z* - z0, 'digit-image task').
+  PUSHED 2026-11-11 (author's instruction): engine research/delta-ce at 79c0867b; public Johnlrr/explaining-model-change
+  main at 7b982d6. No attribution lines in either. Number check 970/0/0; 6 pages, 0 overfull.
+  AUTHOR NAMES (authors' decision 2026-11-11, advisor asked for "Bac Le"): given name first for all three:
+  "Bao B. Dinh, Minh C. Tran and Bac Le"; ref [20] "B. B. Dinh, M. C. Tran, B. Le". Public README and LICENSE
+  holder use "Bao B. Dinh". Earlier mentions of the family-first form below are history.
+  NEXT: send to advisor 14/11 -> any revision here first -> port -> submit ESANN 18/11.
 Publication: separate, properly named repo (NOT Agent-auto-Research), history-preserving export — plan v2 W5.
 NO JOB RUNNING. Working tree: paper/main.tex = commit fc97658 (6 pages, 0 overfull). Author said: do NOT edit the
 paper yet; next session starts from the review→draft gap list below. Deadlines: advisor 14/11, ESANN submit 18/11.

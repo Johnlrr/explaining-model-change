@@ -3,7 +3,7 @@
 Code, data generators, protocol, decision log and run evidence for the paper
 
 > **Benchmarking Counterfactual Explanations of Model Change with Exact Ground Truth**
-> Dinh Bao Bao, Tran Cong Minh and Le Hoai Bac — Faculty of Information Technology, University of Science,
+> Bao B. Dinh, Minh C. Tran and Bac Le — Faculty of Information Technology, University of Science,
 > Vietnam National University, Ho Chi Minh City. Submitted to ESANN 2027.
 
 The paper asks which kind of model change each family of explanations can see — counterfactual differencing,
