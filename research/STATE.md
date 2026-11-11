@@ -97,6 +97,8 @@ X6 DONE (exp_0060, 9ac284c): qualification 8/8; L>0 in 8/8, pooled 0.50, p=0.003
   (expected from Section 2)"; point-level-only confirmations shown as "(check)"; Holm families, sign tests and 90% CIs
   stated as rules in the note, the families listed in the supplement (grid m=4; C1/C3 m=2; H7c/H8 m=2, D-034, D-039,
   D-043); the ResNet-8 cost-rule deviation moved to the text. Number check 970/0/0 (exp_0059/rerun_2026-11-11f).
+  Abstract polish (4e610038) and four wording repairs (f95cc694). PUSHED 2026-11-11 (author's instruction):
+  engine and public repo at the hashes of this commit. Number check 970/0/0; 6 pages, 0 overfull, ~8 pt slack.
   NEXT: send to advisor 14/11 -> any revision here first -> port -> submit ESANN 18/11.
 Publication: separate, properly named repo (NOT Agent-auto-Research), history-preserving export — plan v2 W5.
 NO JOB RUNNING. Working tree: paper/main.tex = commit fc97658 (6 pages, 0 overfull). Author said: do NOT edit the
