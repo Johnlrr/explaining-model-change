@@ -1026,7 +1026,7 @@ def sec_x6_and_protocol() -> None:
         L.num(f"S4.1 {nm}: checked CF-new Recovery", f, sa[c]["recovery"]["a2_filtered"], src61 + f":split_a.summary.{c}.recovery.a2_filtered")
     L.text("main", r"Shortcut (0.38 vs.\ 0.03) and part on Subgroup (0.53 vs.\ 0.30), higher in 3 of 3 pairs each, but not on Threshold (0.47 vs.\ 0.45). Null-adjusted (minus the rate of naming $k^\star$ on nulls), $\Delta$-CE leads on Subgroup and Threshold, Grad-diff on Shortcut (0.79); unfiltered CF-new falls to $-0.09$ on Threshold.", "S4.1 checked-CF numbers")
     L.num("S4.1 null-adjusted CF-new Recovery on Threshold", "-0.09", sa["T4"]["null_adjusted"]["a2"], src61 + ":split_a.summary.T4.null_adjusted.a2")
-    L.text("main", r"the search adds witnesses a filtered ordinary counterfactual misses", "Abstract checked-CF sentence")
+    L.text("main", r"the search adds witnesses that a filtered ordinary counterfactual misses", "Abstract checked-CF sentence")
     L.exact("Abstract: the extra (case B) witnesses carry Shortcut Recovery (case-B share >= 0.9 of Delta-CE Recovery)", True,
             sa["T1"]["dce_recovery_case_b"] / sa["T1"]["recovery"]["dce_N"] >= 0.9, src61 + ":split_a.summary.T1.dce_recovery_case_b / recovery.dce_N")
     # D-059 additions (final round): per-pair advantage, null-adjusted leaders, null recipe and realised thresholds
