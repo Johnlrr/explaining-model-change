@@ -52,13 +52,12 @@ def panel(ax, title, n_new, b_old, b_new, z0, note=None, grad=True, u_offset=(-9
 
 def main():
     fig, axes = plt.subplots(1, 3, figsize=(4.8, 1.36))
-    panel(axes[0], "(a) null update: $|h|<2\\kappa$", (1, 0), 0.60, 0.555, (0.17, 0.47),
-          note=((0.84, 0.75), "no\nwitness", INK))
-    axes[0].annotate("", (0.555 + K, 0.53), (0.17, 0.53), arrowprops=dict(arrowstyle="-|>", color=NEW, lw=1.0, shrinkA=0, shrinkB=0))
-    axes[0].annotate("", (0.60 + K, 0.41), (0.17, 0.41), arrowprops=dict(arrowstyle="-|>", color=OLD, lw=1.0, shrinkA=0, shrinkB=0))
-    axes[0].text(0.34, 0.57, "$u_n$", fontsize=8.5, color=NEW, ha="center")
-    axes[0].text(0.36, 0.28, "$u_o$", fontsize=8.5, color=OLD, ha="center")
-    axes[0].text(0.26, 0.76, "CF-diff $\\neq 0$", fontsize=8.5, color=INK, ha="center")
+    # null update: boundaries 0.14 apart (< 2 kappa = 0.16), so m_o >= kappa (x <= 0.52) and m_n <= -kappa (x >= 0.54)
+    # never meet. For parallel boundaries, |u_n - u_o| equals the gap between the two solid lines.
+    panel(axes[0], "(a) null update: $|h|<2\\kappa$", (1, 0), 0.60, 0.46, (0.20, 0.47),
+          note=((0.81, 0.40), "no\nwitness", INK))
+    axes[0].annotate("", (0.46, 0.80), (0.60, 0.80), arrowprops=dict(arrowstyle="|-|,widthA=0.25,widthB=0.25", color=INK, lw=0.8, shrinkA=0, shrinkB=0))
+    axes[0].text(0.64, 0.78, "CF-diff\n$\\neq 0$", fontsize=8.5, color=INK, ha="left", va="center")
     panel(axes[1], "(b) offset: $\\theta=0$", (1, 0), 0.80, 0.45, (0.17, 0.5),
           note=((0.225, 0.24), "Grad-diff\n$=0$", GRD))
     th = np.deg2rad(52)
