@@ -434,7 +434,7 @@ def sec_resnet() -> None:
     cal = J("exp_0054/calibration_resnet.json")
     cal0 = J("exp_0054/calibration_resnet_D054.json")
     L.text("main", r"null fine-tuning moves margins four times more than on the CNNs, and witnesses appear on 0.90 of null queries", "S4.4 ResNet wording")
-    L.text("main", r"(rule fixed in advance; grid extended after $\kappa\le2$ failed), $\kappa^\star=2.5$, no new null query has a witness (0/200) and witnesses exist for 0.78--1.00 of lowered-class offset queries", "S4.4 calibration wording")
+    L.text("main", r"(rule fixed in advance; grid extended after $\kappa\le2$ failed), giving $\kappa^\star=2.5$, no new null query has a witness (0/200) and witnesses exist for 0.78--1.00 of lowered-class offset queries", "S4.4 calibration wording")
     L.num("S4.4 ResNet nulls: witnesses on 0.90 of null queries", "0.90", x4["null_witness_share_pooled"], "exp_0050/results_x4.json:null_witness_share_pooled")
     rd = (Path("runs/experiments/exp_0050/README.md")).read_text()
     m = re.search(r"max\|h\| over the r-ball\s*\nmedian ([\d.]+) \(CNN split-D nulls ([\d.]+)\)", rd)
@@ -577,8 +577,8 @@ MAIN_SNIPPETS = [
     # Section 4.2, 4.3
     r"hence $\Delta$-CE's found-rate of 0.47",
     r"rises from 0.36 at $\alpha=0.1$ to 0.93 at $\alpha=0.5$ ($t=0.5$; Spearman $\rho=0.89$ over the 24 rotation pairs",
-    r"recover colour on Shortcut (0.93) and, against the predicted blindness, name aspect on Threshold (0.73--0.75; Grad-diff 0.07)",
-    r"ranks aspect first in all 9 change pairs", r"$k^\star$ on adaptation data", r"Seg-search with $10\times$ the segments",
+    r"recover colour on Shortcut (0.93) and, against prediction, name aspect on Threshold (0.73--0.75; Grad-diff 0.07)",
+    r"ranks aspect first in all 9 change pairs", r"ranks $k^\star$ first on adaptation data", r"Seg-search with $10\times$ the segments",
     # Section 5 and 6
     r"On a registered ResNet-8", r"three follow-ups were registered before their data existed~\cite{osf}",
     r"osf.io/vfjtk, osf.io/fr7jv, osf.io/fp8uc", r"dates all test sets",
