@@ -344,7 +344,7 @@ def sec_offsets_rotations(A, B, G) -> None:
     d49 = J("exp_0049/results_d.json")["x2"]
     q = [p for p in d49["pairs"] if p["qualified"]]
     L.text("main", r"their Recovery is 0.081 on the grid's pure offsets and 0.03--0.09 on the 8 registered offsets", "S4.2 offsets wording")
-    L.text("main", r"On Threshold, $\Delta$-CE beats them on new data (0.41 vs.\ 0.10; main test set: 0.47 vs.\ 0.07) in 3 of 3 pairs, too few for a pair-level test", "S4.2 Threshold wording")
+    L.text("main", r"On Threshold, $\Delta$-CE beats them on new data (0.41 vs.\ 0.10; main test: 0.47 vs.\ 0.07) in 3 of 3 pairs, too few for a pair-level test", "S4.2 Threshold wording")
     L.num("S4.2 pure offsets of the grid: Grad-diff Recovery", "0.081", g5["H5a"]["estimate"], "exp_0026/results.json:H5.H5a.estimate")
     ext = J("exp_0058/results_s.json")["s1"]["rows"]
     row = {r["id"]: r for r in ext}
@@ -396,7 +396,7 @@ def sec_other_baselines(A) -> None:
 
     L.num("S4.4 IG-diff names aspect on % of split-A null queries", "57", aspect_rate(Xn, "ig"), "exp_0048/pairs null npz: ig__dphi, argmax==aspect, pooled", scale=100)
     L.num("S4.4 SHAP-diff names aspect on % of split-A null queries", "71", aspect_rate(Xn, "shap"), "exp_0048/pairs null npz: shap__dphi, pooled", scale=100)
-    L.text("main", r"but also on 57\% and 71\% of null queries (IG-diff on 42\% of the registered nulls, as predicted): no signal", "S4.4 nulls wording")
+    L.text("main", r"but also on 57\% and 71\% of null queries (IG-diff on 42\% of the registered nulls, as predicted), so this carries no signal", "S4.4 nulls wording")
     L.num("S4.4 IG-diff on % of split-D nulls", "42", ref_d["pairs"]["summary"]["null_ig_aspect_rate_pooled"], "exp_0051/x1_ref_split_d.json:pairs.summary.null_ig_aspect_rate_pooled", scale=100)
     # Imp-diff aspect first in all 9 change pairs
     e2 = J("exp_0047/results_e.json")["e2_baselines"]
@@ -420,7 +420,7 @@ def sec_other_baselines(A) -> None:
         got = b & ref["dce_N__found"]
         both += int(got.sum())
         near += int((got & (ref["dce_N_distance"] <= a["b5x_distance"] + 1e-9)).sum())
-    L.text("main", r"finds witnesses for 0.26--0.47 of queries (predicted $\le0.2$), none that $\Delta$-CE misses", "S4.4 Seg-search wording")
+    L.text("main", r"finds witnesses for 0.26--0.47 of queries (predicted $\le0.2$), none missed by $\Delta$-CE", "S4.4 Seg-search wording")
     L.exact("S4.4 'none that Delta-CE misses': queries where Seg-search x10 finds a witness and Delta-CE does not (Seg-found subset of DCE-found, exp_0048 b5x__found vs exp_0017 dce_N__found)", 0, tot - both,
             "exp_0048/pairs b5x__found & exp_0017/pairs dce_N__found, same z0 (asserted)", note="%d Seg-search x10 witnesses over %d queries; Delta-CE finds one on %d; nearer or equal on %d (numbers no longer printed in main.tex)" % (tot, sum(len(a["b5x__found"]) for _, a in X), both, near))
     rd = Path("runs/experiments/exp_0048/README.md").read_text()
@@ -433,7 +433,7 @@ def sec_resnet() -> None:
     x4e = J("exp_0054/test/results_x4_kstar.json")
     cal = J("exp_0054/calibration_resnet.json")
     cal0 = J("exp_0054/calibration_resnet_D054.json")
-    L.text("main", r"null fine-tuning moves margins four times more, and witnesses appear on 0.90 of null queries", "S4.4 ResNet wording")
+    L.text("main", r"null fine-tuning moves margins four times more than on the CNNs, and witnesses appear on 0.90 of null queries", "S4.4 ResNet wording")
     L.text("main", r"(rule fixed in advance; grid extended after $\kappa\le2$ failed), $\kappa^\star=2.5$, no new null query has a witness (0/200) and witnesses exist for 0.78--1.00 of lowered-class offset queries", "S4.4 calibration wording")
     L.num("S4.4 ResNet nulls: witnesses on 0.90 of null queries", "0.90", x4["null_witness_share_pooled"], "exp_0050/results_x4.json:null_witness_share_pooled")
     rd = (Path("runs/experiments/exp_0050/README.md")).read_text()
@@ -453,8 +453,8 @@ def sec_resnet() -> None:
     L.num("S4.4 ... high end", "1.00", max(p["dce_lowered"] for p in off), "same")
     L.num("S4.4 Recovery stays 0.36 (low end, split E)", "0.36", min(p["dce_recovery"] for p in off), "exp_0054/test/results_x4_kstar.json:offsets.dce_recovery")
     L.num("S4.4 Recovery stays 0.40 (high end, split E)", "0.40", max(p["dce_recovery"] for p in off), "same")
-    L.text("main", r"(Recovery 0.36--0.40). Grad-diff sees neither change: on 2 null, 3 offset and 4 rotation pairs it names aspect on 0.32--0.36 of offset queries, near 0.20--0.30 on nulls, and its rotation Recovery, 0.06--0.10, is below the matched offset in all 3 pairs.", "S4.4 ResNet Grad-diff wording")
-    L.exact("S4.4 ResNet split D: 2 null, 3 offset and 4 rotation pairs", (2, 3, 4), (len(x4["nulls"]), len(x4["offsets"]), len(x4["rotations"])), "exp_0050/results_x4.json")
+    L.text("main", r"($\Delta$-CE Recovery 0.36--0.40). Grad-diff sees neither change: it names aspect on 0.32--0.36 of offset queries, near its 0.20--0.30 on nulls, and its rotation Recovery, 0.06--0.10, is below that of the offset with equal seed and threshold in all 3 pairs.", "S4.4 ResNet Grad-diff wording")
+    L.exact("S4.4 ResNet split D: 2 null, 3 offset and 4 rotation pairs (no longer printed in the text; Table 3 gives 0/2 and 0/3)", (2, 3, 4), (len(x4["nulls"]), len(x4["offsets"]), len(x4["rotations"])), "exp_0050/results_x4.json")
     _q = {q["pair_id"]: q.get("qualified", True) for q in J("exp_0050/qualification.json")["pairs"]}
     L.exact("S4.4 ResNet rotation vs offset: 3 comparable pairs (same seed and t), the fourth rotation's offset not qualified", (3, False),
             (sum(any(o["seed"] == r["seed"] and o["t"] == r["t"] for o in x4["offsets"]) for r in x4["rotations"]), _q[120]), "exp_0050/results_x4.json; exp_0050/qualification.json")
@@ -575,9 +575,9 @@ MAIN_SNIPPETS = [
     r"witnesses exist for 0.17--1.00 of lowered-class queries on the 8 registered offsets, the margin score flags 0.00--0.54 and CF-diff none",
     r"The witness beat the margin score by 0.2 in 7 of 8 pairs, short of the registered 8/8,",
     # Section 4.2, 4.3
-    r"hence a found-rate of 0.47",
+    r"hence $\Delta$-CE's found-rate of 0.47",
     r"rises from 0.36 at $\alpha=0.1$ to 0.93 at $\alpha=0.5$ ($t=0.5$; Spearman $\rho=0.89$ over the 24 rotation pairs",
-    r"recover colour on Shortcut (0.93) and, against the predicted blindness, name aspect on Threshold (0.73--0.75 vs.\ 0.07)",
+    r"recover colour on Shortcut (0.93) and, against the predicted blindness, name aspect on Threshold (0.73--0.75; Grad-diff 0.07)",
     r"ranks aspect first in all 9 change pairs", r"$k^\star$ on adaptation data", r"Seg-search with $10\times$ the segments",
     # Section 5 and 6
     r"On a registered ResNet-8", r"three follow-ups were registered before their data existed~\cite{osf}",
