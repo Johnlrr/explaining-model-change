@@ -93,6 +93,10 @@ X6 DONE (exp_0060, 9ac284c): qualification 8/8; L>0 in 8/8, pooled 0.50, p=0.003
   times more than on the CNNs', 'Delta-CE Recovery', comparison partner of 0.07 named, offset/rotation sentence made
   whole, Discussion word order); Table 3 groups separated by midrules. ResNet pair counts dropped from the text
   (Table 3 carries them). Number check 970/0/0 (exp_0059/rerun_2026-11-11e); tests 214 passed; 6 pages.
+  TABLE 3 SYMBOL PASS: nine footnote symbols removed from the cells. d-rows grouped as "Consistency checks
+  (expected from Section 2)"; point-level-only confirmations shown as "(check)"; Holm families, sign tests and 90% CIs
+  stated as rules in the note, the families listed in the supplement (grid m=4; C1/C3 m=2; H7c/H8 m=2, D-034, D-039,
+  D-043); the ResNet-8 cost-rule deviation moved to the text. Number check 970/0/0 (exp_0059/rerun_2026-11-11f).
   NEXT: send to advisor 14/11 -> any revision here first -> port -> submit ESANN 18/11.
 Publication: separate, properly named repo (NOT Agent-auto-Research), history-preserving export — plan v2 W5.
 NO JOB RUNNING. Working tree: paper/main.tex = commit fc97658 (6 pages, 0 overfull). Author said: do NOT edit the

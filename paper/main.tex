@@ -119,29 +119,30 @@ Null $\downarrow$ & \textbf{0.000} & 0.994 & 1.0 & 1.0 & \textbf{0.000} & \textb
 \toprule
 Claim & Result & Data & Estimate & $p$ & Pairs\\
 \midrule
-\multicolumn{6}{@{}l}{\emph{Abstention, detection and localisation}}\\
-No witness on nulls$^d$ & $\checkmark$ post & Nulls; Adult MLP & 0/2\,400; 0/1\,500 & -- & 8/8; 5/5\\
-Same, unscreened; via decoder & $\checkmark$ OSF & Registered nulls & 0/2\,400; 0/800 & -- & 8/8; 8/8\\
-No witness on ResNet-8 nulls & $\times$ OSF; expl. & $\kappa=0.5^\P$; $\kappa^\star=2.5$ & 180/200; 0/200 & -- & 0/2; 2/2\\
-CF-diff flags $|b|<2\kappa$\,$^d$ & $\checkmark$ post & Logit offsets, uncut & 0.961 [0.955, 0.967] & $2{\cdot}10^{-4}\,^{\S}$ & --\\
+\multicolumn{6}{@{}l}{\emph{Consistency checks (expected from Section~2)}}\\
+No witness on nulls & $\checkmark$ post & Nulls; Adult MLP & 0/2\,400; 0/1\,500 & -- & 8/8; 5/5\\
+CF-diff flags $|b|<2\kappa$ & $\checkmark$ post & Logit offsets, uncut & 0.961 [0.955, 0.967] & $2{\cdot}10^{-4}$ & --\\
+$\Delta$-CE $>$ Grad-diff & ($\checkmark$) post & Threshold & $+0.31$ [0.27, 0.35] & $2{\cdot}10^{-4}$ & 3/3\\
+\midrule\multicolumn{6}{@{}l}{\emph{Abstention, detection and localisation}}\\
+No witness on nulls & $\checkmark$ OSF & Unscreened; decoder & 0/2\,400; 0/800 & -- & 8/8; 8/8\\
+No witness on nulls & $\times$ OSF; expl. & ResNet-8, $\kappa=0.5$; 2.5 & 180/200; 0/200 & -- & 0/2; 2/2\\
 Witness $\ge$ margin score $+0.2$ & $\times$ OSF & Registered offsets & $+0.17$ to $+0.97$ & -- & 7/8\\
-Witness localises ($L>0$) & $\checkmark$ OSF & Two changes & $L=0.50$ & $0.004^s$ & 8/8\\
+Witness localises ($L>0$) & $\checkmark$ OSF & Two changes & $L=0.50$ & 0.004 & 8/8\\
 \midrule\multicolumn{6}{@{}l}{\emph{Offsets}}\\
-Grad-diff Recovery $<0.2$ & $\checkmark$$^\|$ pre & Grid, $\alpha=0$ & 0.081 [0.066, 0.096] & $4{\cdot}10^{-4}\,^{\ddagger}$ & 4/4\\
-Grad-diff Recovery $<0.2$ & $\checkmark$ OSF & Registered offsets & 0.033--0.093 & $0.004^s$ & 8/8\\
-Grad-diff offset-invariant & $\times$ pre & Grid & $-0.098$ [$-0.143$, $-0.053$]$^\dagger$ & $0.94\,^{\ddagger}$ & --\\
-$\Delta$-CE $>$ Grad-diff\,$^d$ & $\checkmark$$^\|$ post & Threshold & $+0.31$ [0.27, 0.35] & $2{\cdot}10^{-4}\,^{*}$ & 3/3\\
+Grad-diff Recovery $<0.2$ & ($\checkmark$) pre & Grid, $\alpha=0$ & 0.081 [0.066, 0.096] & $4{\cdot}10^{-4}$ & 4/4\\
+Grad-diff Recovery $<0.2$ & $\checkmark$ OSF & Registered offsets & 0.033--0.093 & 0.004 & 8/8\\
+Grad-diff offset-invariant & $\times$ pre & Grid & $-0.098$ [$-0.143$, $-0.053$] & 0.94 & --\\
 \midrule\multicolumn{6}{@{}l}{\emph{Rotations}}\\
-Grad-diff rises with $\alpha$ & $\checkmark$ pre & Grid & $+0.57$ [0.53, 0.61] & $4{\cdot}10^{-4}\,^{\ddagger}$ & $\rho=0.89$\\
+Grad-diff rises with $\alpha$ & $\checkmark$ pre & Grid & $+0.57$ [0.53, 0.61] & $4{\cdot}10^{-4}$ & $\rho=0.89$\\
 Grad-diff $<0.2$; rot.\ $>$ offset & $\times$ OSF & ResNet-8 & 0.32--0.36; 0.06--0.10 & -- & 0/3; 0/3\\
-Proj.\ $\Delta$-CE $\approx$ Grad-diff & $\times$ post; pre & Shortcut; grid & $-0.30$; $-0.35$ ($\pm0.03$)$^\dagger$ & $1\,^{*}$; $1\,^{\ddagger}$ & --\\
-Normal at $z^\star$ halves the gap & $\checkmark$$^\|$ post & Grid & $-0.19\to+0.03$ [0.01, 0.05]$^\dagger$ & $6{\cdot}10^{-4}\,^{\S}$ & 4/4\\
+Projected $\Delta$-CE $\approx$ Grad-diff & $\times$ post; pre & Shortcut; grid & $-0.30$; $-0.35$ ($\pm0.03$) & 1; 1 & --\\
+Normal at $z^\star$ halves the gap & ($\checkmark$) post & Grid & $-0.19\to+0.03$ [0.01, 0.05] & $6{\cdot}10^{-4}$ & 4/4\\
 \midrule\multicolumn{6}{@{}l}{\emph{$\Delta$-CE versus gradient differences}}\\
 $\Delta$-CE $>$ Grad-diff (rejected) & $\times$ pre & Subgroup & $-0.09$ [$-0.13$, $-0.05$] & -- & 0/3\\
 $\Delta$-CE $\approx$ Grad-diff, CF-diff & $\times$ pre & Shortc., Thresh. & $|\Delta|=0.17$--$0.53$ & -- & --\\
 \bottomrule
 \end{tabular}}
-\par\vspace{1pt}{\scriptsize\raggedright Result: outcome and when the test was fixed: OSF = registered~\cite{osf} before its data existed; pre = before any result, or before the grid run; post = after earlier results, then tested on new data; expl.\ = exploratory. Estimate: null queries with a witness (count), a Recovery or found-rate, or a difference $\Delta$ of Recoveries ($\approx$, invariant: $|\Delta|\le0.1$); 95\% CIs ($^\dagger$90\%). $p$: Holm-adjusted within families $^{*}$, $^{\ddagger}$, $^{\S}$; $^s$exact sign test. Pairs: model pairs on the claimed side / all ($\rho$: rank correlation); $^\|$confirmed at point level only ($\le4$ pairs, pair-level $p\ge0.0625$). $^d$Follows from a lemma or the definition. $^\P$Run on a local CPU after its cost rule excluded it. Proj.: $\hat w_o$ projected out.\par}
+\par\vspace{1pt}{\scriptsize\raggedright ($\checkmark$): confirmed over points only ($\le4$ pairs). When the test was fixed: OSF, registered~\cite{osf} before its data existed; pre, before any result or, for the grid, before its run; post, after earlier results, then tested on new data; expl., exploratory. Estimate: witnesses on nulls, Recovery, found-rate or a Recovery difference $\Delta$ ($\approx$, invariant: $|\Delta|\le0.1$); 95\% CIs (90\% for band and halving tests). $p$: sign test over pairs (OSF rows) or Holm-adjusted bootstrap (families in the supplement). Pairs: on the claimed side / all; $\rho$: rank correlation over 24 pairs.\par}
 \end{table}
 
 \textbf{Detection.} With each score cut on the nulls to flag none, witnesses exist for 0.17--1.00 of lowered-class queries on the 8 registered offsets, the margin score flags 0.00--0.54 and CF-diff none. The witness beat the margin score by 0.2 in 7 of 8 pairs, short of the registered 8/8, so we claim no advantage for \emph{whether}.
@@ -159,7 +160,7 @@ Gradient differences see a rotation, increasingly with its angle: Recovery rises
 
 \textbf{Attribution differences and other baselines.} With predictions fixed beforehand, IG- and SHAP-diff recover colour on Shortcut (0.93) and, against the predicted blindness, name aspect on Threshold (0.73--0.75; Grad-diff 0.07), but also on 57\% and 71\% of null queries (IG-diff on 42\% of the registered nulls, as predicted), so this carries no signal. Imp-diff ranks aspect first in all 9 change pairs on test data, but $k^\star$ on adaptation data. Seg-search with $10\times$ the segments finds witnesses for 0.26--0.47 of queries (predicted $\le0.2$), none missed by $\Delta$-CE.
 
-\textbf{Second architecture.} On a registered ResNet-8, null fine-tuning moves margins four times more than on the CNNs, and witnesses appear on 0.90 of null queries: $\kappa$ is model-specific. With $\kappa$ calibrated on validation nulls (rule fixed in advance; grid extended after $\kappa\le2$ failed), $\kappa^\star=2.5$, no new null query has a witness (0/200) and witnesses exist for 0.78--1.00 of lowered-class offset queries ($\Delta$-CE Recovery 0.36--0.40). Grad-diff sees neither change: it names aspect on 0.32--0.36 of offset queries, near its 0.20--0.30 on nulls, and its rotation Recovery, 0.06--0.10, is below that of the offset with equal seed and threshold in all 3 pairs.
+\textbf{Second architecture.} On a registered ResNet-8 (run locally after its cost rule had excluded it), null fine-tuning moves margins four times more than on the CNNs, and witnesses appear on 0.90 of null queries: $\kappa$ is model-specific. With $\kappa$ calibrated on validation nulls (rule fixed in advance; grid extended after $\kappa\le2$ failed), $\kappa^\star=2.5$, no new null query has a witness (0/200) and witnesses exist for 0.78--1.00 of lowered-class offset queries ($\Delta$-CE Recovery 0.36--0.40). Grad-diff sees neither change: it names aspect on 0.32--0.36 of offset queries, near its 0.20--0.30 on nulls, and its rotation Recovery, 0.06--0.10, is below that of the offset with equal seed and threshold in all 3 pairs.
 
 \section{Discussion and limitations}
 

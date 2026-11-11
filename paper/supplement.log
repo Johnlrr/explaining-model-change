@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.18)  11 NOV 2026 21:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.18)  11 NOV 2026 21:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -449,6 +449,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 110.
 
+[2{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 128.
@@ -465,13 +466,16 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 128.
 
-[2{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}] [3{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
+[3{/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}] [4]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 231.
 (/home/toska/.TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [4]
+)
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <9> on input line 249.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 260.
@@ -488,17 +492,20 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[6] [7]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[8]
+[6] [7] [8]
 <figures/map_names.pdf, id=159, 346.89601pt x 119.2455pt>
 File: figures/map_names.pdf Graphic file (type pdf)
 <use figures/map_names.pdf>
 Package pdftex.def Info: figures/map_names.pdf  used on input line 470.
 (pdftex.def)             Requested size: 364.19667pt x 125.19872pt.
-[9 <./figures/map_names.pdf>] [10] [11] (./supplement.aux)
+[9]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[10 <./figures/map_names.pdf>] [11] (./supplement.aux)
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-09-09>
@@ -509,16 +516,16 @@ Package rerunfilecheck Info: File `supplement.out' has not changed.
 Here is how much of TeX's memory you used:
  10764 strings out of 469040
  163884 string characters out of 5457195
- 623343 words of memory out of 5000000
+ 621254 words of memory out of 5000000
  39670 multiletter control sequences out of 15000+600000
  697052 words of font info for 92 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 74i,13n,79p,1654b,616s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on supplement.pdf (11 pages, 500489 bytes).
+ 74i,13n,79p,2402b,620s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy9.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></home/toska/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on supplement.pdf (11 pages, 509851 bytes).
 PDF statistics:
- 383 PDF objects out of 1000 (max. 8388607)
- 270 compressed objects within 3 object streams
+ 388 PDF objects out of 1000 (max. 8388607)
+ 273 compressed objects within 3 object streams
  50 named destinations out of 1000 (max. 500000)
  142 words of extra memory for PDF output out of 10000 (max. 10000000)
 

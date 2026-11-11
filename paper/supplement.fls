@@ -165,6 +165,8 @@ INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.t
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/lm/ec-lmri10.tfm
+INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/lm/ec-lmr7.tfm
+INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/lm/ec-lmr5.tfm
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/lm/ec-lmr12.tfm
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/lm/ec-lmbx12.tfm
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/lm/ec-lmbx12.tfm
@@ -178,8 +180,6 @@ INPUT /home/toska/.TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 INPUT /home/toska/.TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 INPUT /home/toska/.TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/lm/ts1-lmr10.tfm
-INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/lm/ec-lmr7.tfm
-INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/lm/ec-lmr5.tfm
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/lm/rm-lmr12.tfm
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/lm/rm-lmr8.tfm
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/tfm/public/lm/rm-lmr6.tfm
@@ -242,4 +242,5 @@ INPUT /home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy9.pfb
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt8.pfb
+INPUT /home/toska/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb
 INPUT /home/toska/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
