@@ -2,7 +2,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{amsmath,amssymb,amsthm}
-\usepackage{booktabs,array,longtable}
+\usepackage{booktabs,array,longtable,graphicx}
 \usepackage[margin=2.5cm]{geometry}
 \usepackage[hidelinks]{hyperref}
 
@@ -29,7 +29,7 @@
 \begin{document}
 \maketitle
 
-\noindent This document supplements the main paper. Notation is that of the main paper: $m_o,m_n$ are the margins of $f_{old},f_{new}$, $h=m_n-m_o$, $\kappa$ is the margin, $r$ the budget, $\F=\{z:m_n(z)\le-\kappa,\ m_o(z)\ge\kappa\}$ the set of type-N witnesses, and \DCE{} the nearest witness within $r$. The baselines are CF-diff, Grad-diff, Imp-diff, Seg-search, No-prox and CF-new. Test splits A--D are those of the main paper (Section~\ref{sec:log} lists them with E, F and G). Three names differ from the main paper: its \emph{unscreened} nulls are the unfiltered nulls here (admitted without the admission filter), its \emph{filtered CF-new} is the checked counterfactual of Section~\ref{sec:cfcheck}, and in its Table~3 the rows ``$\Delta$-CE $\approx$ Grad-diff, CF-diff'' and ``Grad-diff unchanged by offset'' are the rows ``Tie'' and ``offset-free'' here.
+\noindent This document supplements the main paper. Notation is that of the main paper: $m_o,m_n$ are the margins of $f_{old},f_{new}$, $h=m_n-m_o$, $\kappa$ is the margin, $r$ the budget, $\F=\{z:m_n(z)\le-\kappa,\ m_o(z)\ge\kappa\}$ the set of type-N witnesses, and \DCE{} the nearest witness within $r$. The baselines are CF-diff, Grad-diff, Imp-diff, Seg-search, No-prox and CF-new. Test splits A--D are those of the main paper (Section~\ref{sec:log} lists them with E, F and G). The main paper names its test sets by role: its \emph{main test set} is split A; ``new data'' is split B (hypotheses formed after A), the grid test split, or the further Threshold set C; the registered follow-ups are splits D (unscreened nulls, offsets, ResNet-8), F (learned decoder) and G (two changes at once); the exploratory ResNet-8 test at $\kappa^\star$ is split E. Three more names differ: its \emph{unscreened} nulls are the unfiltered nulls here (admitted without the admission filter), its \emph{filtered CF-new} is the checked counterfactual of Section~\ref{sec:cfcheck}, and in its Table~3 the rows ``$\Delta$-CE $\approx$ Grad-diff, CF-diff'' and ``Grad-diff unchanged by offset'' are the rows ``Tie'' and ``offset-free'' here; its column ``Set'' merges the earlier codes (OSF = reg; pre = pre or grid; post = post or new), which the protocol log gives in full.
 
 \section{Proofs}\label{sec:proofs}
 
@@ -464,6 +464,12 @@ Imp-diff & 0.00 & 0.42 & 0.33 & 0.00 & 0.00\\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\linewidth]{figures/map_names.pdf}
+\caption{Grid pairs placed at the measured rotation $\hat\alpha$ and threshold $\hat t$ of each $f_{new}$: Recovery of Grad-diff and of $\Delta$-CE, and found-rate of $\Delta$-CE (colour scale 0--1). Hollow markers are the pairs of the grid null cell ($\alpha=0$, $t=0.5$), which has no ground-truth factor $k^\star$; marker shape is the seed of $f_{old}$. This figure was Figure~1 of earlier versions of the main paper.}\label{fig:map}
+\end{figure}
 
 \section{Witness versus a checked counterfactual (D-059)}\label{sec:cfcheck}
 

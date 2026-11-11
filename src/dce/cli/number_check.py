@@ -178,7 +178,7 @@ def table1(A) -> None:
     }
     for nm, row in T1_ROWS.items():
         L.text("main", row, f"Table 1 {nm} row")
-    L.text("main", r"$^a$$\alpha\in\{0,.1,.25,.5\}\times t\in\{.5,.53,.56,.6\}$, 2 seeds; 4 offsets tested. $^b$Split D, 8 qualified; $^c$split G; both registered.",
+    L.text("main", r"$^a$$\alpha\in\{0,.1,.25,.5\}\times t\in\{.5,.53,.56,.6\}$, 2 seeds; 4 offsets tested. $^b$8 qualified. $^{b,c}$Registered.",
            "Table 1 caption footnotes")
     # Both: split G, 8 pairs (X6)
     r6 = J("exp_0060/results_x6.json")
@@ -344,7 +344,7 @@ def sec_offsets_rotations(A, B, G) -> None:
     d49 = J("exp_0049/results_d.json")["x2"]
     q = [p for p in d49["pairs"] if p["qualified"]]
     L.text("main", r"their Recovery is 0.081 on the grid's pure offsets and 0.03--0.09 on the 8 registered offsets", "S4.2 offsets wording")
-    L.text("main", r"On Threshold, split B, $\Delta$-CE beats them (0.41 vs.\ 0.10; split A: 0.47 vs.\ 0.07) in 3 of 3 pairs, too few for a pair-level test", "S4.2 Threshold wording")
+    L.text("main", r"On Threshold, $\Delta$-CE beats them on new data (0.41 vs.\ 0.10; main test set: 0.47 vs.\ 0.07) in 3 of 3 pairs, too few for a pair-level test", "S4.2 Threshold wording")
     L.num("S4.2 pure offsets of the grid: Grad-diff Recovery", "0.081", g5["H5a"]["estimate"], "exp_0026/results.json:H5.H5a.estimate")
     ext = J("exp_0058/results_s.json")["s1"]["rows"]
     row = {r["id"]: r for r in ext}
@@ -396,7 +396,7 @@ def sec_other_baselines(A) -> None:
 
     L.num("S4.4 IG-diff names aspect on % of split-A null queries", "57", aspect_rate(Xn, "ig"), "exp_0048/pairs null npz: ig__dphi, argmax==aspect, pooled", scale=100)
     L.num("S4.4 SHAP-diff names aspect on % of split-A null queries", "71", aspect_rate(Xn, "shap"), "exp_0048/pairs null npz: shap__dphi, pooled", scale=100)
-    L.text("main", r"but also on 57\% and 71\% of null queries (IG-diff on 42\% of the registered nulls, as predicted): no signal", "S4.4 nulls wording")
+    L.text("main", r"but also on 57\% and 71\% of null queries (IG-diff on 42\% of the registered nulls, as predicted), so this is no signal of change", "S4.4 nulls wording")
     L.num("S4.4 IG-diff on % of split-D nulls", "42", ref_d["pairs"]["summary"]["null_ig_aspect_rate_pooled"], "exp_0051/x1_ref_split_d.json:pairs.summary.null_ig_aspect_rate_pooled", scale=100)
     # Imp-diff aspect first in all 9 change pairs
     e2 = J("exp_0047/results_e.json")["e2_baselines"]
@@ -433,7 +433,7 @@ def sec_resnet() -> None:
     x4e = J("exp_0054/test/results_x4_kstar.json")
     cal = J("exp_0054/calibration_resnet.json")
     cal0 = J("exp_0054/calibration_resnet_D054.json")
-    L.text("main", r"null fine-tuning moves margins four times more and witnesses appear on 0.90 of null queries", "S4.4 ResNet wording")
+    L.text("main", r"null fine-tuning moves margins four times more than on the CNNs, and witnesses appear on 0.90 of null queries", "S4.4 ResNet wording")
     L.text("main", r"(rule fixed in advance; grid extended after $\kappa\le2$ failed), $\kappa^\star=2.5$, no new null query has a witness (0/200) and witnesses exist for 0.78--1.00 of lowered-class offset queries", "S4.4 calibration wording")
     L.num("S4.4 ResNet nulls: witnesses on 0.90 of null queries", "0.90", x4["null_witness_share_pooled"], "exp_0050/results_x4.json:null_witness_share_pooled")
     rd = (Path("runs/experiments/exp_0050/README.md")).read_text()
@@ -453,7 +453,7 @@ def sec_resnet() -> None:
     L.num("S4.4 ... high end", "1.00", max(p["dce_lowered"] for p in off), "same")
     L.num("S4.4 Recovery stays 0.36 (low end, split E)", "0.36", min(p["dce_recovery"] for p in off), "exp_0054/test/results_x4_kstar.json:offsets.dce_recovery")
     L.num("S4.4 Recovery stays 0.40 (high end, split E)", "0.40", max(p["dce_recovery"] for p in off), "same")
-    L.text("main", r"($\Delta$-CE Recovery 0.36--0.40). Grad-diff sees neither change: on split D (2 null, 3 offset, 4 rotation pairs) it names aspect on 0.32--0.36 of offset queries, near its 0.20--0.30 on nulls, and its rotation Recovery, 0.06--0.10, is below the offset of equal seed and threshold in all 3 comparable pairs.", "S4.4 ResNet Grad-diff wording")
+    L.text("main", r"($\Delta$-CE Recovery 0.36--0.40). Grad-diff sees neither change: on 2 null, 3 offset and 4 rotation pairs it names aspect on 0.32--0.36 of offset queries, near its 0.20--0.30 on nulls, and its rotation Recovery, 0.06--0.10, is below the offset of equal seed and threshold in all 3 comparable pairs.", "S4.4 ResNet Grad-diff wording")
     L.exact("S4.4 ResNet split D: 2 null, 3 offset and 4 rotation pairs", (2, 3, 4), (len(x4["nulls"]), len(x4["offsets"]), len(x4["rotations"])), "exp_0050/results_x4.json")
     _q = {q["pair_id"]: q.get("qualified", True) for q in J("exp_0050/qualification.json")["pairs"]}
     L.exact("S4.4 ResNet rotation vs offset: 3 comparable pairs (same seed and t), the fourth rotation's offset not qualified", (3, False),
@@ -470,13 +470,13 @@ def sec_resnet() -> None:
     L.num("S4.4 ResNet Grad-diff names aspect on nulls, high end (split D)", "0.30", max(_nr), "same")
     L.exact("Table 3 row: ResNet Grad-diff < 0.2 on offsets in 0/3 (registered readout)", "0 of 3", x4["k_graddiff_below_02_offsets"], "exp_0050/results_x4.json:k_graddiff_below_02_offsets")
     L.exact("Table 3 row: ResNet Grad-diff rotation above offset in 0/3 (registered readout)", "0 of 3", x4["k_rotation_above_offset"], "exp_0050/results_x4.json:k_rotation_above_offset")
-    L.text("main", r"Grad-diff Rec.\ $<0.2$; rot.\ $>$ offset & ResNet-8, D & 0.32--0.36; 0.06--0.10 & -- & 0/3; 0/3 & $\times$ & R & reg", "Table 3 row ResNet Grad-diff offsets and rotation")
+    L.text("main", r"Grad-diff Rec.\ $<0.2$; rot.\ $>$ offset & ResNet-8 & 0.32--0.36; 0.06--0.10 & -- & 0/3; 0/3 & $\times$ & OSF", "Table 3 row ResNet Grad-diff offsets and rotation")
     _x2 = [q for q in J("exp_0049/results_d.json")["x2"]["pairs"] if q["qualified"]]
     _dd = [q["dce_lowered"] - q["s_M_lowered_fpr0"] for q in _x2]
     L.num("Table 3 row: witness minus margin score, low end", "0.17", min(_dd), "exp_0049/results_d.json:x2.pairs (qualified) dce_lowered - s_M_lowered_fpr0")
     L.num("Table 3 row: witness minus margin score, high end", "0.97", max(_dd), "same")
     L.exact("Table 3 row: witness >= margin score + 0.2 in 7 of 8 pairs", (7, 8), (sum(d >= 0.2 - 1e-9 for d in _dd), len(_dd)), "same")
-    L.text("main", r"Witness $\ge$ margin score $+0.2$ & Offsets, D & $+0.17$ to $+0.97$ & -- & 7/8 & $\times$ & R & reg", "Table 3 row witness vs margin score")
+    L.text("main", r"Witness $\ge$ margin score $+0.2$ & Registered offsets & $+0.17$ to $+0.97$ & -- & 7/8 & $\times$ & OSF", "Table 3 row witness vs margin score")
     L.num("S4.4 [split D reading of the same figures] Grad-diff high end", "0.36", max(p["graddiff_recovery"] for p in x4["offsets"]), "exp_0050/results_x4.json:offsets.graddiff_recovery")
 
 
@@ -547,7 +547,7 @@ def table3_stats() -> None:
     ties = [abs(v["diff"]) for v in c17["P_tie"].values()]
     L.num("Table 3 Tie: |Delta| low end", "0.17", min(ties), "exp_0017/results.json:P_tie.*.diff")
     L.num("Table 3 Tie: |Delta| high end", "0.53", max(ties), "same")
-    L.text("main", r"$\Delta$-CE $\approx$ Grad-diff, CF-diff & Shortc., Thresh. & $|\Delta|=0.17$--$0.53$ & -- & -- & $\times$ & R & pre\\", "Table 3 Tie row")
+    L.text("main", r"$\Delta$-CE $\approx$ Grad-diff, CF-diff & Shortcut, Threshold & $|\Delta|=0.17$--$0.53$ & -- & -- & $\times$ & pre\\", "Table 3 Tie row")
     L.exact("Table 3 caption: with <=4 pairs the exact pair-level p >= 0.0625", 0.0625, min(row[i]["sign_test"]["min_attainable_p"] for i in ("gd_lt02_grid", "normal_zstar")), "exp_0058/results_s.json min_attainable_p (4 pairs)")
 
 
@@ -555,33 +555,33 @@ def table3_stats() -> None:
 MAIN_SNIPPETS = [
     # Section 3 (the abstract wording and Table 1 rows are guarded where their numbers are checked)
     r"labels are $y=\mathbbm 1[\text{aspect}>0.5]$ with 5\% noise", r"fine-tuned on 10\,000 samples", r"$32\times32$ ellipses",
-    r"$N=300$ valid test points", r"the points and $r=0.54$, set once on validation", r"($\kappa=0.5$)",
+    r"$N=300$ valid test points", r"the test points and the budget $r=0.54$, set once on validation", r"($\kappa=0.5$)",
     # Table 3 rows
-    r"0/2\,400; 0/1\,500 & -- & 8/8; 5/5 & $\checkmark$", r"0/2\,400 & -- & 8/8 & $\checkmark$ & R & reg", r"0/800 & -- & 8/8 & $\checkmark$ & R & reg",
+    r"0/2\,400; 0/1\,500 & -- & 8/8; 5/5 & $\checkmark$", r"0/2\,400 & -- & 8/8 & $\checkmark$ & OSF", r"0/800 & -- & 8/8 & $\checkmark$ & OSF",
     r"180/200; 0/200 & -- & 0/2; 2/2 & $\times$; expl.",
-    r"0.961 [0.955, 0.967] & $2{\cdot}10^{-4}\,^{\S}$ & -- & $\checkmark$ & D & new",
-    r"Witness localises ($L>0$) & Both, G & $L=0.50$ & 0.004 (sign) & 8/8 & $\checkmark$ & R & reg",
-    r"0.081 [0.066, 0.096] & $4{\cdot}10^{-4}\,^{\ddagger}$ & 4/4 & $\checkmark$$^\|$ & R & grid",
-    r"0.033--0.093 & 0.004 (sign) & 8/8 & $\checkmark$ & R & reg",
-    r"$-0.098$ [$-0.143$, $-0.053$]$^\dagger$ & $0.94\,^{\ddagger}$ & -- & $\times$ & R & grid",
-    r"$+0.31$ [0.27, 0.35] & $2{\cdot}10^{-4}\,^{*}$ & 3/3 & $\checkmark$$^\|$ & D & post",
-    r"$+0.57$ [0.53, 0.61] & $4{\cdot}10^{-4}\,^{\ddagger}$ & $\rho=0.89$ & $\checkmark$ & R & grid",
+    r"0.961 [0.955, 0.967] & $2{\cdot}10^{-4}\,^{\S}$ & -- & $\checkmark$ & post",
+    r"Witness localises ($L>0$) & Two changes at once & $L=0.50$ & 0.004 (sign) & 8/8 & $\checkmark$ & OSF",
+    r"0.081 [0.066, 0.096] & $4{\cdot}10^{-4}\,^{\ddagger}$ & 4/4 & $\checkmark$$^\|$ & pre",
+    r"0.033--0.093 & 0.004 (sign) & 8/8 & $\checkmark$ & OSF",
+    r"$-0.098$ [$-0.143$, $-0.053$]$^\dagger$ & $0.94\,^{\ddagger}$ & -- & $\times$ & pre",
+    r"$+0.31$ [0.27, 0.35] & $2{\cdot}10^{-4}\,^{*}$ & 3/3 & $\checkmark$$^\|$ & post",
+    r"$+0.57$ [0.53, 0.61] & $4{\cdot}10^{-4}\,^{\ddagger}$ & $\rho=0.89$ & $\checkmark$ & pre",
     r"$-0.30$; $-0.35$ (CIs $\pm0.03$)$^\dagger$ & $1\,^{*}$; $1\,^{\ddagger}$ & -- & $\times$",
-    r"$-0.19\to+0.03$ [0.01, 0.05]$^\dagger$ & $6{\cdot}10^{-4}\,^{\S}$ & 4/4 & $\checkmark$$^\|$ & R & new",
-    r"$-0.09$ [$-0.13$, $-0.05$] & -- & 0/3 & $\times$ rejected & R & pre",
+    r"$-0.19\to+0.03$ [0.01, 0.05]$^\dagger$ & $6{\cdot}10^{-4}\,^{\S}$ & 4/4 & $\checkmark$$^\|$ & post",
+    r"$-0.09$ [$-0.13$, $-0.05$] & -- & 0/3 & $\times$ rejected & pre",
     r"CIs $\pm0.035$",
     # Section 4.1
     r"With $\kappa=0$, witnesses appear on 83\% of null queries",
     r"witnesses exist for 0.17--1.00 of lowered-class queries on the 8 registered offsets, the margin score flags 0.00--0.54 and CF-diff none",
     r"The witness beat the margin score by 0.2 in 7 of 8 pairs, short of the registered 8/8,",
     # Section 4.2, 4.3
-    r"hence $\Delta$-CE's found-rate 0.47",
-    r"rises from 0.36 at $\alpha=0.1$ to 0.93 at $\alpha=0.5$ ($t=0.5$; Spearman $\rho=0.89$ over 24 pairs",
+    r"hence the found-rate of 0.47 for $\Delta$-CE",
+    r"rises from 0.36 at $\alpha=0.1$ to 0.93 at $\alpha=0.5$ ($t=0.5$; Spearman $\rho=0.89$ over the 24 rotation pairs",
     r"recover colour on Shortcut (0.93) like Grad-diff and, against the predicted blindness, name aspect on Threshold (0.73--0.75 vs.\ 0.07)",
-    r"ranks aspect first in all 9 change pairs", r"and $k^\star$ on adaptation data", r"Seg-search with ten times the segments",
+    r"ranks aspect first in all 9 change pairs", r"on adaptation data it ranks $k^\star$ first", r"Seg-search with ten times the segments",
     # Section 5 and 6
-    r"On a registered ResNet-8", r"the follow-ups on D, F and G were registered before their data existed~\cite{osf}",
-    r"osf.io/vfjtk, osf.io/fr7jv, osf.io/fp8uc", r"all splits and dates in the supplement",
+    r"On a registered ResNet-8", r"three follow-ups were registered before their data existed~\cite{osf}",
+    r"osf.io/vfjtk, osf.io/fr7jv, osf.io/fp8uc", r"lists every test set with its date",
     r"with three disclosed exceptions",
 ]
 
@@ -589,6 +589,13 @@ MAIN_SNIPPETS = [
 def main_snippets() -> None:
     for i, sn in enumerate(MAIN_SNIPPETS, 1):
         L.text("main", sn, f"main.tex snippet {i}")
+    # S4.1 cost sentence (added 2026-11-11): wall seconds per query on the main test set (exp_0058 S2, run A exp_0017)
+    rt = J("exp_0058/results_s.json")["s2"]["runs"]["A exp_0017"]["methods"]
+    src = "exp_0058/results_s.json:s2.runs.A exp_0017.methods"
+    L.text("main", r"a $\Delta$-CE query takes 2.4\,s, against 0.6\,s for CF-new and under 1\,ms for Grad-diff", "S4.1 cost sentence")
+    L.num("S4.1 Delta-CE (type N) wall s per query", "2.4", rt["dce_N"]["wall_s_per_point"]["mean"], src + ".dce_N.wall_s_per_point.mean")
+    L.num("S4.1 CF-new wall s per query", "0.6", rt["a2"]["wall_s_per_point"]["mean"], src + ".a2.wall_s_per_point.mean")
+    L.exact("S4.1 Grad-diff under 1 ms per query", True, rt["b3"]["wall_s_per_point"]["mean"] < 1e-3, src + ".b3.wall_s_per_point.mean")
 
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -891,7 +898,7 @@ def sec_x6_and_protocol() -> None:
     L.text("main", r"with two independent changes, witnesses point to the one near the query", "Abstract X6 wording")
     L.text("main", r"witnesses change size most for 46--75\% of queries near the large-object region (size $\ge0.60$) and 13--23\% far from it (size $\le0.45$); this difference $L$ is positive in all 8 pairs (pooled 0.50; Table~\ref{tab:tests})",
            "S4.1 X6 paragraph: near/far/8 of 8/pooled/p")
-    L.text("main", r"Grad-diff, CF-diff barely localise (0.09, 0.13), Imp-diff cannot; CF-new localises too (0.51)", "S4.1 X6 paragraph: controls")
+    L.text("main", r"Grad-diff and CF-diff barely localise ($L=0.09$ and $0.13$), and Imp-diff, one vector per pair, cannot. CF-new localises as well as $\Delta$-CE (0.51)", "S4.1 X6 paragraph: controls")
     L.text("main", r"With a colour shortcut everywhere and a label flip for large objects (registered)", "S4.1 X6 paragraph: design")
     near = [p["dce_N"]["share_size_near"] for p in pr]
     far = [p["dce_N"]["share_size_far"] for p in pr]
@@ -1005,7 +1012,7 @@ def sec_x6_and_protocol() -> None:
     cf = J("exp_0061/results_cfnew_filter.json")
     sa, x6r = cf["split_a"]["summary"], cf["x6"]
     src61 = "exp_0061/results_cfnew_filter.json"
-    L.text("main", r"\textbf{Search versus filtering} (post hoc, saved outputs). The counterfactual of $f_{new}$ kept only where $m_o\ge\kappa$ (filtered CF-new) is a witness; it is silent on the nulls and localises ($L=0.48$), but finds witnesses for 0.42--0.46 of split-A queries, against 0.47--0.84", "S4.1 checked-CF paragraph")
+    L.text("main", r"\textbf{Search versus filtering} (post hoc, saved outputs). The counterfactual of $f_{new}$ kept only where $m_o\ge\kappa$ (filtered CF-new) is a witness; it is silent on the nulls and localises ($L=0.48$), but finds witnesses for only 0.42--0.46 of the main-test queries, against 0.47--0.84", "S4.1 checked-CF paragraph")
     L.exact("S4.1 checked CF-new silent on the 8 split-A nulls", 0.0, sa["Null"]["found_a2_filtered"], src61 + ":split_a.summary.Null.found_a2_filtered")
     L.num("S4.1 checked CF-new L in X6", "0.48", x6r["L_pooled"]["a2_filtered"], src61 + ":x6.L_pooled.a2_filtered")
     fr = [sa[c]["found_a2_filtered"] for c in ("T1", "T3", "T4")]
@@ -1017,7 +1024,7 @@ def sec_x6_and_protocol() -> None:
     for c, nm, d, f in (("T1", "Shortcut", "0.38", "0.03"), ("T3", "Subgroup", "0.53", "0.30"), ("T4", "Threshold", "0.47", "0.45")):
         L.num(f"S4.1 {nm}: Delta-CE Recovery", d, sa[c]["recovery"]["dce_N"], src61 + f":split_a.summary.{c}.recovery.dce_N")
         L.num(f"S4.1 {nm}: checked CF-new Recovery", f, sa[c]["recovery"]["a2_filtered"], src61 + f":split_a.summary.{c}.recovery.a2_filtered")
-    L.text("main", r"Shortcut (0.38 vs.\ 0.03) and part on Subgroup (0.53 vs.\ 0.30), higher in 3 of 3 pairs each, but not on Threshold (0.47 vs.\ 0.45). Null-adjusted (minus the rate of naming $k^\star$ on nulls), $\Delta$-CE leads on Subgroup and Threshold, Grad-diff on Shortcut (0.79); unfiltered CF-new has $-0.09$ on Threshold.", "S4.1 checked-CF numbers")
+    L.text("main", r"Shortcut (0.38 vs.\ 0.03) and part on Subgroup (0.53 vs.\ 0.30), higher in 3 of 3 pairs each, but not on Threshold (0.47 vs.\ 0.45). Null-adjusted (minus the rate of naming $k^\star$ on nulls), $\Delta$-CE leads on Subgroup and Threshold, Grad-diff on Shortcut (0.79); unfiltered CF-new falls to $-0.09$ on Threshold.", "S4.1 checked-CF numbers")
     L.num("S4.1 null-adjusted CF-new Recovery on Threshold", "-0.09", sa["T4"]["null_adjusted"]["a2"], src61 + ":split_a.summary.T4.null_adjusted.a2")
     L.text("main", r"the $\Delta$-CE search adds witnesses that such filtering misses", "Abstract checked-CF sentence")
     L.exact("Abstract: the extra (case B) witnesses carry Shortcut Recovery (case-B share >= 0.9 of Delta-CE Recovery)", True,
@@ -1034,7 +1041,7 @@ def sec_x6_and_protocol() -> None:
     L.num("S4.1 null-adjusted Delta-CE on Subgroup", "0.53", na["T3"]["dce_N"], src61)
     L.num("S4.1 null-adjusted Delta-CE on Threshold", "0.47", na["T4"]["dce_N"], src61)
     nb = cf["null_boundaries"]
-    L.text("main", r"the nulls are fine-tuned more gently than the offsets (fewer epochs, lower learning rate; supplement), though their threshold moves as far ($|\Delta\hat t|\le0.035$); the grid's null cell, fine-tuned like the offsets, has witnesses on 22\% of queries at $\kappa=0.5$ and none at $\kappa=1$, where small offsets keep few (0.04).", "S4.1 null recipe sentence")
+    L.text("main", r"the nulls are fine-tuned more gently than the offsets (fewer epochs, lower learning rate; supplement), though their threshold moves as far ($|\Delta\hat t|\le0.035$); the grid's null cell, fine-tuned like the offsets, has witnesses on 22\% of queries at $\kappa=0.5$ and none at $\kappa=1$, where small offsets keep few witnesses (0.04).", "S4.1 null recipe sentence")
     c49 = yaml.safe_load(open("configs/experiments/exp_0049.yaml"))
     L.exact("S4.1 null recipe (printed in the supplement): 3 epochs at 3e-4, offset recipe 10 at 1e-3 (registered split D config)", ((3, 3e-4), (10, 1e-3)),
             ((c49["recipe_null"]["epochs"], c49["recipe_null"]["lr"]), (c49["recipe_offset"]["epochs"], c49["recipe_offset"]["lr"])), "configs/experiments/exp_0049.yaml")
@@ -1044,7 +1051,7 @@ def sec_x6_and_protocol() -> None:
     L.text("main", r"On gently fine-tuned null updates $\Delta$-CE finds no witness", "Abstract: gently fine-tuned nulls")
     sp(r"Grid null cell (pairs 20, 21) & 0.71 & 0.51 & 0.22 & 0.00", "S4.1 grid null cell 22% at kappa 0.5 (supplement table, from exp_0047 kappa analysis)")
     e1 = J("exp_0041/results_e1.json")
-    L.text("main", r"type O the other (Recovery of N $\cup$ O: 1.00, split C)", "S4.2 split C union")
+    L.text("main", r"the two types together reach Recovery 1.00 on a further test set", "S4.2 split C union")
     _u = [k for k in e1["methods"] if "union" in k or "N_or_O" in k or k.endswith("NO")]
     L.num("S4.2 split C: Recovery of the nearer of N and O", "1.00", e1["methods"][_u[0]]["recovery"]["mean"], "exp_0041/results_e1.json:methods." + _u[0] + ".recovery.mean")
     L.text("main", r"With each score cut on the nulls to flag none", "Abstract CF-diff at zero false positives")

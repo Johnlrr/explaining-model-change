@@ -59,6 +59,17 @@ X6 DONE (exp_0060, 9ac284c): qualification 8/8; L>0 in 8/8, pooled 0.50, p=0.003
   (paper/gemini-rewrite.tex, since removed by the author) reviewed and NOT adopted: it added unsupported causal claims (ResNet gradient
   shattering), dropped the K column and "rejected", and called split C a found-rate. Number check 966/0/0
   (exp_0059/rerun_2026-11-11); bundles rebuilt; 6 pages, 0 overfull.
+  Ported to the public clone as a3a7e18 (filters of .work/export_tools applied, bundles re-rendered from public src;
+  public tests 138 passed, number check 966/0/0). NOT YET PUSHED: push needs the author (git push origin main in
+  /home/toska/code/research/explaining-model-change).
+  2026-11-11 DECOMPRESSION PASS (author-requested after an external review said the prose was too compressed; no result
+  changed): Fig. 1 moved from the main paper to the supplement (the trend is in the text and Table 3); main text no
+  longer uses split letters (main test set / new data / registered follow-ups; supplement maps them to A-G); Table 3
+  keeps all 17 rows, K column replaced by a "d" mark, Fixed column by Set = OSF / pre / post; telegraphic sentences
+  rewritten; added: Lemma-1 reading of the recipe caveat, cost sentence (2.4 s vs 0.6 s vs <1 ms, exp_0058 S2),
+  "we did not test why the linear prediction fails on the ResNet-8", how to obtain calibration nulls. The review's two
+  "typos" (Delta-CF, threshold f) do not exist in the source. Number check 970/0/0 (exp_0059/rerun_2026-11-11b,
+  4 new cost checks); tests 214 passed; 6 pages, 0 overfull; supplement 11 pp.
 Publication: separate, properly named repo (NOT Agent-auto-Research), history-preserving export — plan v2 W5.
 NO JOB RUNNING. Working tree: paper/main.tex = commit fc97658 (6 pages, 0 overfull). Author said: do NOT edit the
 paper yet; next session starts from the review→draft gap list below. Deadlines: advisor 14/11, ESANN submit 18/11.
