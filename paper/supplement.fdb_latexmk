@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1794379152.42256 "supplement.tex" "supplement.pdf" "supplement" 1794379152.86344 0
+["pdflatex"] 1794407673.06869 "supplement.tex" "supplement.pdf" "supplement" 1794407673.77106 0
   "/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/home/toska/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1202520719 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -137,9 +137,9 @@
   "/home/toska/.TinyTeX/texmf-var/web2c/pdftex/pdflatex.fmt" 1792324459 2263970 12a109f61fd60cdcb61ea954d822edd5 ""
   "/home/toska/.TinyTeX/texmf.cnf" 1792324415.8855 637 edd806fb06a89761a6034e1968af9017 ""
   "figures/map_names.pdf" 1792602849.44352 29435 10da8bc52b4878e9ce610d1437db5c68 ""
-  "supplement.aux" 1794379152.76742 10850 70acbd6596be3ac45bb2380556ce19cf "pdflatex"
-  "supplement.out" 1794379152.76742 2888 d5704aee4bbf89ae8cb8b2a9f1c7ca1a "pdflatex"
-  "supplement.tex" 1794379151.84935 47897 409bf913d842d4badcc065436b5dde54 ""
+  "supplement.aux" 1794407673.63481 10850 70acbd6596be3ac45bb2380556ce19cf "pdflatex"
+  "supplement.out" 1794407673.63481 2888 d5704aee4bbf89ae8cb8b2a9f1c7ca1a "pdflatex"
+  "supplement.tex" 1794407672.86612 47988 0ebd71e71ccf7ddc084cc0e134888935 ""
   (generated)
   "supplement.aux"
   "supplement.log"

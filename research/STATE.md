@@ -84,6 +84,11 @@ X6 DONE (exp_0060, 9ac284c): qualification 8/8; L>0 in 8/8, pooled 0.50, p=0.003
   AUTHOR NAMES (authors' decision 2026-11-11, advisor asked for "Bac Le"): given name first for all three:
   "Bao B. Dinh, Minh C. Tran and Bac Le"; ref [20] "B. B. Dinh, M. C. Tran, B. Le". Public README and LICENSE
   holder use "Bao B. Dinh". Earlier mentions of the family-first form below are history.
+  ABSTRACT + TABLE 3 PASS (author-requested): abstract 152 -> 128 words (what was done + results; decoder and
+  protocol details left to Contributions; scope 'small CNNs / not ResNet-8', 'gently fine-tuned', the rejected
+  hypothesis and the post hoc label kept). Table 3 rebuilt: Result column (outcome + when fixed) next to Claim,
+  'new data' folded into 'post', unscreened + decoder rows merged (16 rows), notes shortened; effective font
+  ~6.0 pt (was ~4.9 pt). Number check 970/0/0 (exp_0059/rerun_2026-11-11d); tests 214 passed; 6 pages.
   NEXT: send to advisor 14/11 -> any revision here first -> port -> submit ESANN 18/11.
 Publication: separate, properly named repo (NOT Agent-auto-Research), history-preserving export — plan v2 W5.
 NO JOB RUNNING. Working tree: paper/main.tex = commit fc97658 (6 pages, 0 overfull). Author said: do NOT edit the
